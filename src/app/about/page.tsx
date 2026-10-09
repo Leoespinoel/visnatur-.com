@@ -58,7 +58,7 @@ export default function AboutPage() {
             <p className="eyebrow">The mark</p>
             <h2 className="display text-3xl text-ink md:text-4xl">Most animals survive by knowing when to run.</h2>
             <p>
-              The honey badger survives because it simply refuses to care. It lives across Africa, no bigger than a house cat, and spends its life
+              The honey badger survives because it simply refuses to. It lives across Africa, no bigger than a house cat, and spends its life
               picking fights with animals far bigger than itself. The black mamba. Wild dogs. Even lions.
             </p>
             <p>

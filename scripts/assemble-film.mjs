@@ -26,7 +26,8 @@ const H = orientation === "portrait" ? 1920 : 1080;
 const FPS = 30;
 const srcDir = resolve(srcArg ?? join(root, "film-src", orientation === "portrait" ? "approved-portrait" : "approved"));
 // CUT=atelier assembles the "Made by hand" making-of (M1–M7) instead of the brand film.
-const CUT = process.env.CUT === "atelier" ? "atelier" : "brand";
+// CUT=brand keeps the twelve portraits after the action (the original two-part film).
+const CUT = process.env.CUT === "atelier" ? "atelier" : process.env.CUT === "brand" ? "brand" : "action";
 const out = resolve(
   outArg ?? join(root, "exports", CUT === "atelier" ? `vis-naturae-made-by-hand-${W}x${H}.mp4` : `vis-naturae-the-grind-then-the-calm-${W}x${H}.mp4`),
 );
@@ -63,7 +64,7 @@ const EDIT =
     ? ATELIER.map((clip) => ({ clip, ...(TRIM[clip] ?? { from: 1.0, to: 3.6 }) }))
     : [
         ...ACTION.map((clip) => ({ clip, ...(TRIM[clip] ?? { from: 1.5, to: 3.5 }) })),
-        ...PORTRAITS.map((clip) => ({ clip, ...(TRIM[clip] ?? { from: 0.8, to: 3.3 }) })),
+        ...(CUT === "brand" ? PORTRAITS.map((clip) => ({ clip, ...(TRIM[clip] ?? { from: 0.8, to: 3.3 }) })) : []),
       ];
 
 // ---- Inputs
@@ -131,13 +132,18 @@ const TITLE_IN = normalised.length; // input index of the title card
 const MUSIC_IN = TITLE_IN + 1;
 console.log(`${segments.length} segments, edit ${PICTURE_END.toFixed(1)} s with transitions → ${W}x${H} @ ${FPS} fps, ${TOTAL.toFixed(1)} s total`);
 
-// Soundtrack: MUSIC=/path/to/track (defaults to the first file in film-src/music/), MUSIC_START=offset seconds.
+// Soundtrack: off by default. MUSIC_START=offset seconds into the track.
 const musicDir = join(root, "film-src/music");
+// Leo removed the song: films carry only the clips' own sound unless MUSIC=/path/to/track is given
+// (MUSIC=default uses the first file in film-src/music/).
 const music =
-  process.env.MUSIC === "none" || (CUT === "atelier" && !process.env.MUSIC)
+  !process.env.MUSIC || process.env.MUSIC === "none"
     ? undefined
-    : process.env.MUSIC ??
-  (existsSync(musicDir) ? readdirSync(musicDir).filter((f) => /\.(mp3|m4a|wav|aac|flac)$/i.test(f)).sort().map((f) => join(musicDir, f))[0] : undefined);
+    : process.env.MUSIC === "default"
+      ? existsSync(musicDir)
+        ? readdirSync(musicDir).filter((f) => /\.(mp3|m4a|wav|aac|flac)$/i.test(f)).sort().map((f) => join(musicDir, f))[0]
+        : undefined
+      : process.env.MUSIC;
 const musicStart = Number(process.env.MUSIC_START ?? 0);
 if (music) console.log(`soundtrack: ${music} (from ${musicStart}s)`);
 
