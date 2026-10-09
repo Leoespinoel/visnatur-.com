@@ -21,17 +21,21 @@ export function SiteMusic() {
   useEffect(() => {
     const audio = ref.current;
     if (!audio) return;
-    const events = ["pointerdown", "keydown", "touchstart"] as const;
-    const start = () => {
-      if (userPaused.current || audio.ended) return;
-      void audio.play().catch(() => undefined);
-    };
-    const onInteract = () => {
-      events.forEach((e) => window.removeEventListener(e, onInteract));
-      start();
-    };
-    audio.play().catch(() => events.forEach((e) => window.addEventListener(e, onInteract, { passive: true })));
-    return () => events.forEach((e) => window.removeEventListener(e, onInteract));
+    // Safari (especially iOS) only allows sound from certain gestures: click, touchend, pointerup,
+    // keydown. A touchstart does not count. So keep listening on every interaction and stop only
+    // once the song is actually playing.
+    const events = ["pointerdown", "pointerup", "click", "touchend", "keydown"] as const;
+    const stopListening = () => events.forEach((e) => window.removeEventListener(e, onInteract, true));
+    function onInteract(e: Event) {
+      // The music button handles its own clicks.
+      if (e.target instanceof Element && e.target.closest("[data-site-music]")) return;
+      if (!audio || userPaused.current || audio.ended) return stopListening();
+      if (!audio.paused) return stopListening();
+      audio.play().then(stopListening, () => undefined);
+    }
+    events.forEach((e) => window.addEventListener(e, onInteract, { capture: true, passive: true }));
+    audio.play().then(stopListening, () => undefined);
+    return stopListening;
   }, []);
 
   const toggle = () => {
@@ -66,7 +70,7 @@ export function SiteMusic() {
             e.stopPropagation();
             toggle();
           }}
-          onPointerDown={(e) => e.stopPropagation()}
+          data-site-music=""
           aria-pressed={playing}
           aria-label={playing ? "Turn music off" : "Turn music on"}
           className="fixed bottom-6 left-6 z-50 flex h-[30px] w-[30px] items-center justify-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur transition-colors hover:bg-white hover:text-black"
