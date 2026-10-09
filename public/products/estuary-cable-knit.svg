@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-label="Estuary Cable Knit placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f6f6"/><stop offset="1" stop-color="#e4e4e4"/></linearGradient>
+    <filter id="g" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="n"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="table" tableValues="0 0.06"/></feComponentTransfer>
+  </filter>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#bg)"/>
+  <rect width="1200" height="1500" filter="url(#g)"/>
+  <g transform="translate(159.99999999999994 230) scale(2.2)">
+    <path d="M150 110 Q200 92 250 110 L330 145 L352 335 L292 345 L272 235 V395 H128 V235 L108 345 L48 335 L70 145 Z" fill="#e4dbca" stroke="#3d3d3d" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M165 108 q35 30 70 0" fill="none" stroke="#3d3d3d" stroke-width="2"/>
+    <path d="M128 370 H272" stroke="#3d3d3d" stroke-width="1.5"/>
+    <g stroke="#3d3d3d" stroke-width="1" opacity="0.5">
+      <path d="M135 372 V395 M145 372 V395 M155 372 V395 M165 372 V395 M175 372 V395 M185 372 V395 M195 372 V395 M205 372 V395 M215 372 V395 M225 372 V395 M235 372 V395 M245 372 V395 M255 372 V395 M265 372 V395"/>
+      <path d="M170 140 q10 30 0 60 q-10 30 0 60 q10 30 0 60 M200 140 q-10 30 0 60 q10 30 0 60 q-10 30 0 60 M230 140 q10 30 0 60 q-10 30 0 60 q10 30 0 60"/>
+    </g></g>
+  <text x="72" y="1404" font-family="'Cormorant Garamond', 'Times New Roman', Georgia, serif" font-size="56" fill="#0a0a0a" opacity="0.85">Estuary Cable Knit</text>
+         <text x="72" y="1448" font-family="Inter, Helvetica, Arial, sans-serif" font-size="18" letter-spacing="4" fill="#0a0a0a" opacity="0.55">OAT · SKETCH · PHOTOGRAPHY TO FOLLOW</text>
+</svg>

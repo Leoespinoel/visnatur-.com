@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  /** The partners & press page is a static file in public/; serve it at a clean URL. */
+  async rewrites() {
+    return { afterFiles: [{ source: "/pitch", destination: "/pitch.html" }] };
+  },
   turbopack: {
     rules: {
       "*.css": {

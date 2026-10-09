@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# video exports from /dev/higgs
+/exports
+
+# screen recordings / reference footage
+*.mov
+
+# generated/shot clips before assembly (large)
+/film-src
+
+# reference photos and working files (kept locally, not part of the site)
+/Caps/
+/Swim shorts/
+/linen shirts/
+/green and white cap.html

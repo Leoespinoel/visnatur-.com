@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" role="img" aria-label="Vis Naturæ Cap 01 — ecru crown, red visor, front view">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8f8f8"/><stop offset="1" stop-color="#e6e6e6"/></linearGradient>
+    <radialGradient id="crown" cx="0.42" cy="0.28" r="0.9"><stop offset="0" stop-color="#f6f2e9"/><stop offset="0.6" stop-color="#ebe4d6"/><stop offset="1" stop-color="#d9d0bd"/></radialGradient>
+    <linearGradient id="visor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d81c3a"/><stop offset="0.55" stop-color="#c8102e"/><stop offset="1" stop-color="#9c0a22"/></linearGradient>
+    <linearGradient id="underbrim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a0819"/><stop offset="1" stop-color="#5a0512"/></linearGradient>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.06"/></feComponentTransfer>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+    <clipPath id="crownClip"><path d="M452 735 C452 520 590 372 800 372 C1010 372 1148 520 1148 735 Q800 800 452 735 Z"/></clipPath>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+  <rect width="1600" height="1200" filter="url(#grain)"/>
+
+  <!-- ground shadow -->
+  <ellipse cx="800" cy="900" rx="420" ry="34" fill="#000" opacity="0.14" filter="url(#soft)"/>
+
+  <!-- under-brim (visible lip beneath the visor) -->
+  <path d="M452 735 C392 772 392 862 560 896 Q800 932 1040 896 C1208 862 1208 772 1148 735 Q800 800 452 735 Z" fill="url(#underbrim)" transform="translate(0 10)"/>
+
+  <!-- visor -->
+  <path d="M452 735 C392 772 392 862 560 896 Q800 932 1040 896 C1208 862 1208 772 1148 735 Q800 800 452 735 Z" fill="url(#visor)" stroke="#6e0717" stroke-width="2"/>
+  <!-- visor stitch rows -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="7 5">
+    <path d="M470 752 C420 784 420 852 572 882 Q800 916 1028 882 C1180 852 1180 784 1130 752"/>
+    <path d="M490 768 C448 794 448 844 586 870 Q800 902 1014 870 C1152 844 1152 794 1110 768"/>
+    <path d="M510 784 C476 804 476 836 600 858 Q800 888 1000 858 C1124 836 1124 804 1090 784"/>
+  </g>
+
+  <!-- crown -->
+  <path d="M452 735 C452 520 590 372 800 372 C1010 372 1148 520 1148 735 Q800 800 452 735 Z" fill="url(#crown)" stroke="#3d3d3d" stroke-width="2.5"/>
+  <!-- panel seams: centre front + two front/side seams, drawn as double stitch -->
+  <g clip-path="url(#crownClip)" fill="none" stroke-linecap="round">
+    <path d="M800 372 V790" stroke="#b9ae98" stroke-width="3"/>
+    <path d="M800 372 V790" stroke="#fbf8f1" stroke-width="1" stroke-dasharray="3 4"/>
+    <path d="M800 372 C660 380 566 520 566 745" stroke="#b9ae98" stroke-width="3"/>
+    <path d="M800 372 C660 380 566 520 566 745" stroke="#fbf8f1" stroke-width="1" stroke-dasharray="3 4"/>
+    <path d="M800 372 C940 380 1034 520 1034 745" stroke="#b9ae98" stroke-width="3"/>
+    <path d="M800 372 C940 380 1034 520 1034 745" stroke="#fbf8f1" stroke-width="1" stroke-dasharray="3 4"/>
+    <!-- sweatband line where crown meets visor -->
+    <path d="M452 735 Q800 800 1148 735" stroke="#b9ae98" stroke-width="3"/>
+    <path d="M452 722 Q800 786 1148 722" stroke="#fbf8f1" stroke-width="1" stroke-dasharray="3 4"/>
+  </g>
+  <!-- eyelets -->
+  <g fill="#cfc5af" stroke="#9d9178" stroke-width="2">
+    <ellipse cx="660" cy="520" rx="7" ry="10"/>
+    <ellipse cx="940" cy="520" rx="7" ry="10"/>
+  </g>
+  <!-- top button, matching ecru -->
+  <ellipse cx="800" cy="370" rx="22" ry="12" fill="#ebe4d6" stroke="#3d3d3d" stroke-width="2.5"/>
+
+  <!-- embroidered wordmark: flat-stitch, black letters, red Æ -->
+  <g font-family="'Cormorant Garamond', 'Times New Roman', Georgia, serif" font-size="56" font-weight="500" letter-spacing="9" text-anchor="middle">
+    <text x="801" y="622" fill="#000" opacity="0.18">VIS NATUR<tspan letter-spacing="0">Æ</tspan></text>
+    <text x="800" y="620" fill="#0a0a0a">VIS NATUR<tspan letter-spacing="0" fill="#c8102e">Æ</tspan></text>
+  </g>
+
+  <!-- caption -->
+  <text x="72" y="1104" font-family="'Cormorant Garamond', 'Times New Roman', Georgia, serif" font-size="56" fill="#0a0a0a" opacity="0.85">Cap 01</text>
+  <text x="72" y="1148" font-family="Inter, Helvetica, Arial, sans-serif" font-size="18" letter-spacing="4" fill="#0a0a0a" opacity="0.55">ECRU CROWN · SIGNAL RED VISOR · EMBROIDERED WORDMARK · FRONT VIEW · SKETCH</text>
+  <g transform="translate(1300 1086)">
+    <rect x="0" y="0" width="40" height="40" fill="#ebe4d6" stroke="#3d3d3d" stroke-width="1.5"/>
+    <rect x="52" y="0" width="40" height="40" fill="#c8102e"/>
+    <rect x="104" y="0" width="40" height="40" fill="#0a0a0a"/>
+    <text x="0" y="62" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" letter-spacing="2" fill="#0a0a0a" opacity="0.55">ECRU · 186 C · INK</text>
+  </g>
+</svg>

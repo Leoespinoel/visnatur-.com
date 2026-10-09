@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2000" viewBox="0 0 1600 2000" role="img" aria-label="Workshop">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ededed"/><stop offset="1" stop-color="#d6d6d6"/></linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c8102e"/><stop offset="1" stop-color="#8f0b21"/></linearGradient>
+    <filter id="g" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="n"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="table" tableValues="0 0.06"/></feComponentTransfer>
+  </filter>
+  </defs>
+  <rect width="1600" height="2000" fill="url(#sky)"/>
+  
+  <rect y="1160" width="1600" height="840" fill="url(#sea)"/>
+  <path d="M0 1166 Q 400 1156 800 1166 T 1600 1166 V 1172 H0 Z" fill="#ffffff" opacity="0.25"/>
+  <path d="M0 1560 Q 320 1320 720 1600 T 1600 1440 V 2000 H0 Z" fill="#0a0a0a"/>
+  <path d="M0 1800 Q 480 1640 960 1840 T 1600 1720 V 2000 H0 Z" fill="#0a0a0a"/>
+  <rect width="1600" height="2000" filter="url(#g)"/>
+</svg>

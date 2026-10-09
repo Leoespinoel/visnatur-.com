@@ -1,26 +1,402 @@
 @import "tailwindcss";
 
+/* ---------- Brand tokens: red, black, white ---------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --paper: #ffffff;
+  --paper-2: #f2f2f2;
+  --surface: #f7f7f7;
+  --ink: #0a0a0a;
+  --ink-2: #3d3d3d;
+  --muted: #7a7a7a;
+  --line: #dcdcdc;
+  --red: #c8102e;
+  --red-2: #a30d25;
+  --charcoal: #1c1c1c;
+  --grey: #bdbdbd;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: var(--paper);
+  --foreground: var(--ink);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --paper: #0a0a0a;
+    --paper-2: #161616;
+    --surface: #121212;
+    --ink: #f5f5f5;
+    --ink-2: #c9c9c9;
+    --muted: #8a8a8a;
+    --line: #2a2a2a;
+    --red: #e3243f;
+    --red-2: #ff4d64;
+    --charcoal: #e6e6e6;
+    --grey: #5a5a5a;
+    --background: var(--paper);
+    --foreground: var(--ink);
   }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0a0a0a;
+  --paper-2: #161616;
+  --surface: #121212;
+  --ink: #f5f5f5;
+  --ink-2: #c9c9c9;
+  --muted: #8a8a8a;
+  --line: #2a2a2a;
+  --red: #e3243f;
+  --red-2: #ff4d64;
+  --charcoal: #e6e6e6;
+  --grey: #5a5a5a;
+  --background: var(--paper);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-red: var(--red);
+  --color-red-2: var(--red-2);
+  --color-charcoal: var(--charcoal);
+  --color-grey: var(--grey);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), "Times New Roman", serif;
+
+  --tracking-label: 0.18em;
+}
+
+/* ---------- Base ---------- */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--paper);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* ---------- Utilities ---------- */
+@utility container-x {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 3rem;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@utility display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+
+@utility headline {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 3rem;
+  padding-inline: 1.5rem;
+  font-size: 0.6875rem;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid var(--ink);
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    opacity 200ms ease;
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+@utility btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  &:hover:not(:disabled) {
+    background: var(--red);
+    border-color: var(--red);
+  }
+}
+
+@utility btn-outline {
+  background: transparent;
+  color: var(--ink);
+  &:hover:not(:disabled) {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+@utility btn-light {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+  &:hover:not(:disabled) {
+    background: transparent;
+    color: var(--paper);
+  }
+}
+
+@utility link-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 250ms ease;
+  }
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@utility image-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+/* Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Native details chevron */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ---------- Intro: red wipe ---------- */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #ffffff;
+  overflow: hidden;
+  cursor: pointer;
+  animation: intro-fade 350ms ease 5300ms forwards;
+}
+
+.intro-panel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background: #c8102e;
+  color: #ffffff;
+  transform: translateX(-101%);
+  animation:
+    intro-wipe-in 520ms cubic-bezier(0.77, 0, 0.18, 1) 0ms forwards,
+    intro-wipe-out 600ms cubic-bezier(0.77, 0, 0.18, 1) 5000ms forwards;
+}
+
+/* The badger, white on the red panel, rises in just ahead of the letters. */
+.intro-badger {
+  display: block;
+  height: clamp(3.25rem, 11vw, 7rem);
+  aspect-ratio: 852 / 300;
+  margin-bottom: 0.5rem;
+  background: #ffffff;
+  -webkit-mask: url(/brand/badger-mark-ink.png) center / contain no-repeat;
+  mask: url(/brand/badger-mark-ink.png) center / contain no-repeat;
+  opacity: 0;
+  transform: translateY(0.4em);
+  animation: intro-letter 700ms cubic-bezier(0.2, 0.7, 0.2, 1) 450ms forwards;
+}
+
+.intro-word {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  font-size: clamp(2rem, 8.5vw, 5.5rem);
+  padding-left: 0.22em; /* balance the trailing letter-spacing */
+}
+
+.intro-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.25em);
+  animation: intro-letter 480ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: calc(450ms + var(--i, 0) * 70ms);
+}
+
+.intro-space {
+  width: 0.5em;
+}
+
+.intro-ae {
+  margin-left: -0.08em;
+  letter-spacing: 0;
+  font-size: 1.18em;
+  color: #0a0a0a;
+}
+
+.intro-tag {
+  padding: 0 1.5rem;
+  text-align: center;
+  max-width: 100%;
+}
+
+.intro-tag,
+.intro-skip {
+  color: rgb(255 255 255 / 0.75);
+  opacity: 0;
+  animation: intro-letter 500ms ease 3300ms forwards;
+}
+
+.intro-skip {
+  animation-delay: 1200ms;
+}
+
+.intro-skip {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  padding: 0.5rem;
+  color: rgb(255 255 255 / 0.6);
+}
+
+/* Skip: jump straight to the exit */
+.intro[data-skip] {
+  animation: intro-fade 300ms ease 250ms forwards;
+}
+.intro[data-skip] .intro-panel {
+  transform: translateX(0);
+  animation: intro-wipe-out 450ms cubic-bezier(0.77, 0, 0.18, 1) 0ms forwards;
+}
+.intro[data-skip] .intro-badger,
+.intro[data-skip] .intro-letter,
+.intro[data-skip] .intro-tag,
+.intro[data-skip] .intro-skip {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes intro-wipe-in {
+  from {
+    transform: translateX(-101%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes intro-wipe-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(101%);
+  }
+}
+@keyframes intro-fade {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes intro-letter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
 }

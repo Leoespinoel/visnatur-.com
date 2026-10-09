@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1200" viewBox="0 0 2400 1200" role="img" aria-label="Conservation">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f4f4"/><stop offset="1" stop-color="#e0e0e0"/></linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2a2a"/><stop offset="1" stop-color="#0a0a0a"/></linearGradient>
+    <filter id="g" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="n"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="table" tableValues="0 0.06"/></feComponentTransfer>
+  </filter>
+  </defs>
+  <rect width="2400" height="1200" fill="url(#sky)"/>
+  <circle cx="1728" cy="504" r="84.00000000000001" fill="#c8102e" opacity="0.9"/>
+  <rect y="696" width="2400" height="504" fill="url(#sea)"/>
+  <path d="M0 702 Q 600 692 1200 702 T 2400 702 V 708 H0 Z" fill="#ffffff" opacity="0.25"/>
+  <path d="M0 936 Q 480 792 1080 960 T 2400 864 V 1200 H0 Z" fill="#c8102e"/>
+  <path d="M0 1080 Q 720 983.9999999999999 1440 1104 T 2400 1032 V 1200 H0 Z" fill="#990f25"/>
+  <rect width="2400" height="1200" filter="url(#g)"/>
+</svg>
