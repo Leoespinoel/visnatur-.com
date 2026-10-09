@@ -18,7 +18,7 @@ export default function AboutPage() {
       <section className="container-x grid gap-10 pb-16 md:grid-cols-12 md:pb-24">
         <div className="md:col-span-5">
           <div className="image-frame aspect-[4/5]">
-            <Image src="/images/about.svg" alt="" fill unoptimized priority sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
+            <Image src="/images/summit.jpg" alt="A man on a summit above a sea of cloud" fill unoptimized priority sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
           </div>
         </div>
         <div className="space-y-6 text-base leading-relaxed text-ink-2 md:col-span-6 md:col-start-7 md:pt-10 md:text-lg">
@@ -29,7 +29,7 @@ export default function AboutPage() {
           </p>
           <p>
             The pieces are the ones we wanted and could not find. Swim shorts in a clean cut made from reclaimed fishing nets. A piqué polo heavy
-            enough to hold its collar. Linen that is allowed to crease. A field jacket you will re-wax rather than replace.
+            enough to hold its collar. Linen that is allowed to crease. A quarter zip for the drive home.
           </p>
           <p>
             And because the brand takes its name from the natural world, it pays rent. {pledgePercentLabel()} of every sale price goes to
@@ -59,7 +59,7 @@ export default function AboutPage() {
             <h2 className="display text-3xl text-ink md:text-4xl">Most animals survive by knowing when to run.</h2>
             <p>
               The honey badger survives because it simply refuses to. It lives across Africa, no bigger than a house cat, and spends its life
-              picking fights with animals far bigger than itself. The black mamba. Wild dogs. Even lions.
+              picking fights with animals far bigger than itself. The black mamba. Lions. Even elephants.
             </p>
             <p>
               Its skin is so thick and loose that teeth and claws struggle to find a hold. It digs through hard ground in minutes and raids
