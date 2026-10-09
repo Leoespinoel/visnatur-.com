@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const TRACK = "/audio/where-you-really-come-from.m4a"; // Tobiahs, VV-Ace – Where You Really Come From
+const TRACK = "/audio/where-you-really-come-from.mp4"; // .mp4, not .m4a: Hostinger serves .m4a as text/plain // Tobiahs, VV-Ace – Where You Really Come From
 
 /**
  * Site soundtrack. Starts when the site opens and plays once, start to finish. It lives in the root
