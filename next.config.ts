@@ -7,14 +7,6 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return { afterFiles: [{ source: "/pitch", destination: "/pitch.html" }] };
   },
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
 };
 
 export default nextConfig;
