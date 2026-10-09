@@ -2,7 +2,7 @@ import { drops, site } from "@/data/site";
 import { editionTotal, isOneOfOne, products, type Product } from "@/data/products";
 import { leadTimeLabel } from "@/lib/format";
 
-/** Pure edition logic shared by server and client code. Stripe reads live in inventory.ts. */
+/** Pure edition logic shared by server and client code. Shopify reads live in inventory.ts. */
 
 export type Drop = (typeof drops)[number];
 

@@ -29,7 +29,7 @@ export const site = {
   reservationMinutes: 30,
   /**
    * Pieces sold outside the site (in person, by email). Add the slug here and
-   * redeploy and it disappears from the shop like a Stripe sale would.
+   * redeploy and it disappears from the shop like an online sale would.
    */
   soldOffline: [] as string[],
 } as const;
@@ -143,7 +143,7 @@ export const nav = {
   },
 };
 
-/** EU + EEA + CH + UK: where Stripe Checkout will accept a shipping address. */
+/** EU + EEA + CH + UK: where we ship. Set the same countries in Shopify under Settings → Shipping and delivery. */
 export const shippingCountries = [
   "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU",
   "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES",

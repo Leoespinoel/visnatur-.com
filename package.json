@@ -7,14 +7,14 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "placeholders": "node scripts/generate-placeholders.mts"
+    "placeholders": "node --import ./scripts/ts-resolve.mjs scripts/generate-placeholders.mts",
+    "shopify:sync": "node --env-file-if-exists=.env.local --import ./scripts/ts-resolve.mjs scripts/shopify-sync.mts"
   },
   "dependencies": {
     "next": "16.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "server-only": "^0.0.1",
-    "stripe": "^23.0.0"
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

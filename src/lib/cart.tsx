@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo, useSyncExternalStore, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore, type ReactNode } from "react";
 import { getProduct, type Product } from "@/data/products";
 import { site } from "@/data/site";
 import { pledgeCents } from "@/lib/pledge";
@@ -32,6 +32,16 @@ type CartContextValue = {
 };
 
 const STORAGE_KEY = "vis-naturae-cart-v3";
+const CHECKOUT_KEY = "vis-naturae-checkout";
+
+/** The Shopify cart a checkout was started from. Shopify doesn't redirect back, so we ask about it later. */
+export function rememberCheckout(cartId: string) {
+  try {
+    window.localStorage.setItem(CHECKOUT_KEY, cartId);
+  } catch {
+    // Storage unavailable: the bag just isn't emptied automatically.
+  }
+}
 
 /* ---------- Tiny external store (persisted to localStorage) ---------- */
 
@@ -91,6 +101,34 @@ export function CartProvider({ children }: { children: ReactNode }) {
     () => true,
     () => false,
   );
+
+  // Empty the bag once the checkout it went to has become an order.
+  useEffect(() => {
+    if (!hydrated) return;
+    let cartId: string | null = null;
+    try {
+      cartId = window.localStorage.getItem(CHECKOUT_KEY);
+    } catch {
+      return;
+    }
+    if (!cartId) return;
+    let cancelled = false;
+    fetch(`/api/checkout/status?cart=${encodeURIComponent(cartId)}`)
+      .then((r) => (r.ok ? (r.json() as Promise<{ ordered: boolean }>) : null))
+      .then((res) => {
+        if (cancelled || !res?.ordered) return;
+        set({ lines: [] });
+        try {
+          window.localStorage.removeItem(CHECKOUT_KEY);
+        } catch {
+          // ignore
+        }
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [hydrated]);
 
   const add = useCallback((line: CartLine) => {
     const { lines } = load();

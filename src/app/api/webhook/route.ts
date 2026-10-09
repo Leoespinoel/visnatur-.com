@@ -1,86 +1,71 @@
 import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
-import type Stripe from "stripe";
-import { getProduct, editionTotal } from "@/data/products";
-import { getStripe } from "@/lib/stripe";
-import { INVENTORY_TAG, unitsFromSession } from "@/lib/inventory";
+import { editionTotal, getProduct } from "@/data/products";
+import { INVENTORY_TAG } from "@/lib/inventory";
+import { admin, paidUnits, verifyWebhook } from "@/lib/shopify";
 
 /**
- * Stripe webhook. Locally: `stripe listen --forward-to localhost:3000/api/webhook`
- * and put the printed whsec_... into STRIPE_WEBHOOK_SECRET.
- * Subscribe to: checkout.session.completed, checkout.session.expired
+ * Shopify webhook. `npm run shopify:sync` subscribes it to orders/paid, orders/cancelled
+ * and refunds/create; Shopify signs each call with the app's client secret.
  */
 export async function POST(req: Request) {
-  const stripe = getStripe();
-  const secret = process.env.STRIPE_WEBHOOK_SECRET;
-  if (!stripe || !secret) return NextResponse.json({ error: "Webhook not configured" }, { status: 503 });
-
-  const signature = req.headers.get("stripe-signature");
-  if (!signature) return NextResponse.json({ error: "Missing signature" }, { status: 400 });
-
-  let event: Stripe.Event;
-  try {
-    const payload = await req.text();
-    event = stripe.webhooks.constructEvent(payload, signature, secret);
-  } catch (err) {
-    console.error("Webhook signature verification failed", err);
-    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  const raw = await req.text();
+  if (!verifyWebhook(raw, req.headers.get("x-shopify-hmac-sha256"))) {
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
 
-  switch (event.type) {
-    case "checkout.session.completed": {
-      const session = event.data.object;
-      const units = unitsFromSession(session);
-
-      // Guard against overselling: two sessions holding the last unit of an edition (or a
-      // one-of-one) can both complete inside the same reservation window. Count every unit
-      // paid for up to and including this session and compare with the edition size.
-      const soldSoFar: Record<string, number> = {};
-      const earlier = stripe.checkout.sessions.list({ status: "complete", limit: 100 });
-      for await (const other of earlier) {
-        if (other.created > session.created) continue;
-        for (const u of unitsFromSession(other)) soldSoFar[u.slug] = (soldSoFar[u.slug] ?? 0) + 1;
-      }
-      const oversold = units
-        .map((u) => u.slug)
-        .filter((slug, i, all) => all.indexOf(slug) === i)
-        .filter((slug) => {
-          const p = getProduct(slug);
-          return p && (soldSoFar[slug] ?? 0) > editionTotal(p);
-        });
-
-      // Unit numbers are assigned in order of payment: the nth paid unit of a design is "n of 12".
-      const numbers = units.map((u) => `${u.slug}:${u.size} = ${soldSoFar[u.slug] ?? "?"} of ${getProduct(u.slug) ? editionTotal(getProduct(u.slug)!) : "?"}`);
-
-      // This is where a production build would create the order record, email the customer,
-      // and notify the atelier. For now the order is logged so it shows up in the server output.
-      console.log("Order paid", {
-        id: session.id,
-        email: session.customer_details?.email,
-        total: session.amount_total,
-        units: numbers,
-        pledgeCents: session.metadata?.pledge_cents,
-        inseam: session.custom_fields?.find((f) => f.key === "inseam")?.text?.value ?? null,
-      });
-      if (oversold.length) {
-        console.error("OVERSOLD: more units paid for than the edition holds. Refund the later order and contact the customer", {
-          session: session.id,
-          oversold,
-        });
-      }
-
-      // Update the counts on the site immediately.
-      revalidateTag(INVENTORY_TAG, { expire: 0 });
-      break;
+  const topic = req.headers.get("x-shopify-topic");
+  if (topic === "orders/paid") {
+    try {
+      await numberOrder(JSON.parse(raw) as { admin_graphql_api_id?: string; name?: string });
+    } catch (err) {
+      // Never fail the webhook over bookkeeping; Shopify would retry and re-tag.
+      console.error("Numbering failed", err);
     }
-    case "checkout.session.expired": {
-      // A reservation lapsed: the units are free again.
-      revalidateTag(INVENTORY_TAG, { expire: 0 });
-      break;
-    }
-    default:
-      break;
   }
 
+  // Paid, cancelled or refunded: the counts on the site change either way.
+  revalidateTag(INVENTORY_TAG, { expire: 0 });
   return NextResponse.json({ received: true });
+}
+
+/**
+ * Unit numbers are assigned in order of payment: the nth paid unit of a design is "n of 12".
+ * Tags the order with each number ("tidal-swim-short 3/12") so the atelier sees it in Shopify,
+ * and flags an oversell (two buyers paying for the last unit at once).
+ */
+async function numberOrder(order: { admin_graphql_api_id?: string; name?: string }) {
+  if (!order.admin_graphql_api_id) return;
+  const all = await paidUnits();
+  const position: Record<string, number> = {};
+  const tags: string[] = [];
+  const oversold: string[] = [];
+
+  for (const unit of all) {
+    position[unit.slug] = (position[unit.slug] ?? 0) + 1;
+    if (unit.orderId !== order.admin_graphql_api_id) continue;
+    const product = getProduct(unit.slug);
+    const total = product ? editionTotal(product) : 0;
+    tags.push(`${unit.slug} ${position[unit.slug]}/${total || "?"}`);
+    if (total && position[unit.slug] > total) oversold.push(unit.slug);
+  }
+  if (oversold.length) tags.push("OVERSOLD");
+  if (!tags.length) return;
+
+  await admin(
+    /* GraphQL */ `
+      mutation Tag($id: ID!, $tags: [String!]!) {
+        tagsAdd(id: $id, tags: $tags) { userErrors { message } }
+      }
+    `,
+    { id: order.admin_graphql_api_id, tags },
+  );
+
+  console.log("Order numbered", { order: order.name, tags });
+  if (oversold.length) {
+    console.error("OVERSOLD: more units paid for than the edition holds. Refund the later order and contact the customer", {
+      order: order.name,
+      oversold,
+    });
+  }
 }

@@ -8,7 +8,7 @@ import { formatPrice, leadTimeLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { site } from "@/data/site";
 import { editionLabel, editionKindLabel, isOneOfOne, productImages } from "@/data/products";
-import { lineKey } from "@/lib/cart";
+import { lineKey, rememberCheckout } from "@/lib/cart";
 import { CloseIcon, LeafIcon } from "./Icons";
 
 export function CartDrawer() {
@@ -27,6 +27,15 @@ export function CartDrawer() {
     };
   }, [cart.isOpen, cart.close, cart]);
 
+  // Back button from Shopify's checkout restores this page from cache with the button still busy.
+  useEffect(() => {
+    const onShow = (e: PageTransitionEvent) => {
+      if (e.persisted) setBusy(false);
+    };
+    window.addEventListener("pageshow", onShow);
+    return () => window.removeEventListener("pageshow", onShow);
+  }, []);
+
   async function checkout() {
     setBusy(true);
     setError(null);
@@ -36,12 +45,14 @@ export function CartDrawer() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items: cart.lines.map(({ slug, size }) => ({ slug, size })) }),
       });
-      const data = (await res.json()) as { url?: string; error?: string; soldOut?: string[] };
+      const data = (await res.json()) as { url?: string; cartId?: string; error?: string; soldOut?: string[] };
       if (!res.ok || !data.url) {
         // A piece that sold while it sat in the bag is removed so the rest can proceed.
         if (data.soldOut?.length) cart.removeMany(data.soldOut);
         throw new Error(data.error ?? "Checkout failed. Please try again.");
       }
+      // Shopify's checkout doesn't come back here, so remember it and empty the bag once it becomes an order.
+      if (data.cartId) rememberCheckout(data.cartId);
       window.location.assign(data.url);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Checkout failed. Please try again.");
@@ -123,7 +134,6 @@ export function CartDrawer() {
                   {cart.lines.some((l) => !isOneOfOne(l.product))
                     ? `Edition pieces are made together once orders close and ship ${leadTimeLabel()} later.`
                     : `One-of-one pieces already exist and ship within ${site.oneOfOneDispatchDays} working days.`}{" "}
-                  Your numbers are held for {site.reservationMinutes} minutes once you reach checkout.
                 </p>
               </div>
               <dl className="space-y-1.5 text-sm">
@@ -150,7 +160,7 @@ export function CartDrawer() {
                 {busy ? "Redirecting to checkout…" : "Checkout"}
               </button>
               <p className="text-center text-[11px] text-muted">
-                Secure payment by Stripe · {pledgePercentLabel()} pledged on every order
+                Secure checkout by Shopify · {pledgePercentLabel()} pledged on every order
               </p>
             </div>
           </>
