@@ -67,7 +67,7 @@ if (DRY) {
   const sample = productInput(products[0]);
   console.log(`Dry run: ${products.length} products would be synced. First one:\n`);
   console.log(JSON.stringify(sample, null, 2));
-  console.log(`\nWebhook: ${siteUrl || "<NEXT_PUBLIC_SITE_URL>"}/api/webhook for ORDERS_PAID, ORDERS_CANCELLED, REFUNDS_CREATE`);
+  console.log(`\nWebhook: ${siteUrl || "<NEXT_PUBLIC_SITE_URL>"}/api/webhook for ORDERS_PAID, ORDERS_UPDATED, ORDERS_CANCELLED, REFUNDS_CREATE`);
   process.exit(0);
 }
 
@@ -151,7 +151,7 @@ for (const p of products) {
 /* ---------- Webhook ---------- */
 
 const uri = `${siteUrl}/api/webhook`;
-const topics = ["ORDERS_PAID", "ORDERS_CANCELLED", "REFUNDS_CREATE"];
+const topics = ["ORDERS_PAID", "ORDERS_UPDATED", "ORDERS_CANCELLED", "REFUNDS_CREATE"];
 const subs = await gql<{ webhookSubscriptions: { nodes: { id: string; topic: string; uri: string }[] } }>(
   `{ webhookSubscriptions(first: 50) { nodes { id topic uri } } }`,
 );

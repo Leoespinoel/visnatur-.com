@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { editionTotal, getProduct } from "@/data/products";
 import { INVENTORY_TAG } from "@/lib/inventory";
-import { admin, paidUnits, verifyWebhook } from "@/lib/shopify";
+import { admin, paidUnits, recordOrder, verifyWebhook, type OrderPayload } from "@/lib/shopify";
 
 /**
- * Shopify webhook. `npm run shopify:sync` subscribes it to orders/paid, orders/cancelled
- * and refunds/create; Shopify signs each call with the app's client secret.
+ * Shopify webhook. `npm run shopify:sync` subscribes it to orders/paid, orders/updated,
+ * orders/cancelled and refunds/create; Shopify signs each call with the app's client secret.
  */
 export async function POST(req: Request) {
   const raw = await req.text();
@@ -14,19 +14,50 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
 
-  const topic = req.headers.get("x-shopify-topic");
-  if (topic === "orders/paid") {
+  const topic = req.headers.get("x-shopify-topic") ?? "";
+  let touched: string[] = [];
+  if (topic.startsWith("orders/")) {
+    const order = JSON.parse(raw) as OrderPayload;
     try {
-      await numberOrder(JSON.parse(raw) as { admin_graphql_api_id?: string; name?: string });
+      // Keep the product's sales ledger in step with the order (paid, edited, refunded, cancelled).
+      touched = await recordOrder(order);
     } catch (err) {
-      // Never fail the webhook over bookkeeping; Shopify would retry and re-tag.
-      console.error("Numbering failed", err);
+      // Fail so Shopify retries: the ledger is what keeps counts right after 60 days.
+      console.error("Ledger update failed", err);
+      return NextResponse.json({ error: "Ledger update failed" }, { status: 500 });
+    }
+    if (topic === "orders/paid") {
+      try {
+        await numberOrder(order);
+      } catch (err) {
+        // Tags are a convenience; don't make Shopify retry the whole webhook over them.
+        console.error("Numbering failed", err);
+      }
     }
   }
 
   // Paid, cancelled or refunded: the counts on the site change either way.
   revalidateTag(INVENTORY_TAG, { expire: 0 });
+
+  // The first visit after a refresh still gets the old page while the new one renders.
+  // Make that first visit ours, so shoppers only ever see the new count.
+  const origin = new URL(req.url).origin;
+  after(() => warm(origin, touched));
   return NextResponse.json({ received: true });
+}
+
+async function warm(origin: string, slugs: string[]) {
+  const paths = new Set(["/", "/shop", "/archive"]);
+  for (const slug of slugs) {
+    const p = getProduct(slug);
+    if (!p) continue;
+    paths.add(`/product/${slug}`);
+    paths.add(`/shop/${p.category}`);
+  }
+  for (const path of paths) {
+    // Twice: the first request triggers the re-render, the second confirms it is in place.
+    for (let i = 0; i < 2; i++) await fetch(origin + path, { cache: "no-store" }).catch(() => undefined);
+  }
 }
 
 /**
