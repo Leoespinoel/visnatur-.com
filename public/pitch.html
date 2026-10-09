@@ -157,7 +157,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .mark .ae { color: var(--red); font-size: 1.2em; letter-spacing: 0; }
 .closing .mark { font-size: clamp(2rem, 7vw, 6rem); }
 .cover .sub { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-family: var(--font-serif); max-width: 34ch; line-height: 1.25; }
-.badger { max-width: 20rem; width: 100%; }
 
 /* Lists, rows, cards */
 .rows { border-top: 1px solid var(--line); }
@@ -214,6 +213,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (min-width: 40rem) { .flats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 64rem) { .flats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .flat { background: var(--bg-2); border: 1px solid var(--line); }
+@media (min-width: 64rem) { .flats.six { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 .flat .img { aspect-ratio: 4 / 5; overflow: hidden; position: relative; }
 .flat .img img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease; }
 .flat:hover .img img { transform: scale(1.03); }
@@ -238,8 +238,37 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* Brand world */
 .big-ae { font-family: var(--font-serif); font-weight: 500; color: var(--red); font-size: clamp(9rem, 24vw, 20rem); line-height: 0.8; display: block; }
+.inuse { margin-top: 1.75rem; display: grid; gap: 0.75rem; }
+.inuse-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.seg { display: flex; gap: 0.375rem; }
+.seg .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.inuse-tile { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem; min-height: 8rem; border: 1px solid var(--line); transition: background 250ms ease, color 250ms ease; }
+.inuse-tile .wordmark.lg { font-size: clamp(1.125rem, 2.2vw, 1.5rem); }
+.inuse-tile .badger { position: relative; display: block; width: clamp(6rem, 14vw, 9rem); aspect-ratio: 852 / 300; flex: 0 0 auto; }
+.badger-base, .badger-ink { position: absolute; inset: 0; }
+/* White stripes underneath, the coloured body on top: same mark on any ground, any colour, no box. */
+.badger-base { background: #ffffff; -webkit-mask: url(brand/badger-mark.png) center / contain no-repeat; mask: url(brand/badger-mark.png) center / contain no-repeat; }
+.badger-ink { background: var(--badger, #c8102e); transition: background 250ms ease; -webkit-mask: url(brand/badger-mark-ink.png) center / contain no-repeat; mask: url(brand/badger-mark-ink.png) center / contain no-repeat; }
+.inuse[data-on="paper"] .inuse-tile { background: #ffffff; color: #0a0a0a; }
+.inuse[data-on="paper"] .inuse-tile .ae { color: #c8102e; }
+.inuse[data-on="ink"] .inuse-tile { background: #0a0a0a; color: #f5f5f5; }
+.inuse[data-on="ink"] .inuse-tile .ae { color: #e3243f; }
+.inuse[data-on="red"] .inuse-tile { background: #c8102e; color: #ffffff; }
+.inuse[data-on="red"] .inuse-tile .ae { color: #ffffff; }
+/* Badger the same colour as the ground: flip to the contrast colour and let the ground show through the stripes. */
+.inuse[data-on="red"][data-badger="#C8102E"] .badger-ink, .inuse[data-on="ink"][data-badger="#0A0A0A"] .badger-ink { background: #ffffff; }
+.inuse[data-on="paper"][data-badger="#FFFFFF"] .badger-ink { background: #0a0a0a; }
+.inuse[data-on="red"][data-badger="#C8102E"] .badger-base, .inuse[data-on="ink"][data-badger="#0A0A0A"] .badger-base, .inuse[data-on="paper"][data-badger="#FFFFFF"] .badger-base { background: transparent; }
+@media (max-width: 30rem) { .inuse-tile { flex-direction: column; align-items: flex-start; } }
+.palette { margin-top: 1.75rem; display: grid; gap: 0.75rem; }
 .swatches { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.swatch { width: 2.5rem; height: 2.5rem; border: 1px solid var(--line); }
+.swatch { width: 2.5rem; height: 2.5rem; border: 1px solid var(--line); background: var(--c); transition: transform 150ms ease, outline-color 150ms ease; outline: 2px solid transparent; outline-offset: 3px; }
+.swatch:hover { transform: translateY(-2px); }
+.swatch[aria-pressed="true"] { outline-color: var(--fg); }
+.swatch-info { display: flex; align-items: center; gap: 0.75rem 1rem; flex-wrap: wrap; font-size: 0.9375rem; }
+.swatch-info .serif { font-size: 1.375rem; line-height: 1; }
+.swatch-info code { font-family: var(--font-sans); font-size: 0.8125rem; letter-spacing: 0.06em; color: var(--muted); }
+.swatch-info .small { flex-basis: 100%; color: var(--fg-2); }
 
 /* Status, roadmap, risks */
 .status li { display: flex; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--line); font-size: 0.9375rem; }
@@ -337,15 +366,43 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           </ul>
         </div>
       </div>
-      <a class="next" href="#c03"><span class="eyebrow">Next</span><span>What is the brand, then?</span></a>
+      <a class="next" href="#c03"><span class="eyebrow">Next</span><span>So who is asking?</span></a>
     </div>
   </section>
 
-  <!-- 03 The brand -->
-  <section class="slide" id="c03" data-title="The brand" data-short="The brand">
+  <!-- 03 Founder -->
+  <section class="slide plate" id="c03" data-title="The founder" data-short="Founder">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">03</span> · The brand</p>
+        <p class="eyebrow"><span class="num">03</span> · The founder</p>
+        <h2 class="headline h">What I bring <em>to the</em> table.</h2>
+      </div>
+      <div class="grid">
+        <div class="c4"><div class="portrait"><span class="caption">Portrait to follow</span></div></div>
+        <div class="off6">
+          <p class="serif" style="font-size:2.5rem;line-height:1">Léo Espitalier Noël.</p>
+          <div class="body lede" style="margin-top:1.25rem">
+            <p>I grew up in Mauritius, studied finance in the Netherlands, served in the military and spent years living and working in Europe, including at Mr Marvis, a sustainable B Corp start-up in Amsterdam. I started Vis Naturæ because I want caring about nature to be seen as the highest status there is, and I am making it at home, where I know the makers and the people who run the island's largest companies. If you want a seat at this table, keep reading and write to me.</p>
+          </div>
+          <ul class="rows" style="margin-top:1.5rem">
+            <li><b>Finance.</b><span>Trained in the Netherlands. I built the model and I keep the 10% on track.</span></li>
+            <li><b>Fashion.</b><span>Mr Marvis, Amsterdam: how a sustainable B Corp brand is built, from the inside.</span></li>
+            <li><b>Production.</b><span>Factory conversations in Mauritius are already underway through people I know.</span></li>
+            <li><b>Reach.</b><span>Military service and years in Europe. A brand has to travel beyond its first market.</span></li>
+            <li><b>Already carried.</b><span>The taste lens, the range, the model, the site, the films and the maker relationship in Mauritius.</span></li>
+            <li><b>One seat, one voice.</b><span>The same as every other founder at this table.</span></li>
+          </ul>
+        </div>
+      </div>
+      <a class="next" href="#c04"><span class="eyebrow">Next</span><span>What is the brand, then?</span></a>
+    </div>
+  </section>
+
+  <!-- 04 The brand -->
+  <section class="slide" id="c04" data-title="The brand" data-short="The brand">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow"><span class="num">04</span> · The brand</p>
         <h2 class="headline h">Style first. <em>Never</em> the other way round.</h2>
       </div>
       <div class="grid">
@@ -361,16 +418,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           </ul>
         </div>
       </div>
-      <a class="next" href="#c04"><span class="eyebrow">Next</span><span>So what's the hard part?</span></a>
+      <a class="next" href="#c05"><span class="eyebrow">Next</span><span>So what's the hard part?</span></a>
     </div>
   </section>
 
-  <!-- 04 The challenge -->
-  <section class="slide" id="c04" data-title="The real challenge" data-short="The challenge">
+  <!-- 05 The challenge -->
+  <section class="slide" id="c05" data-title="The real challenge" data-short="The challenge">
     <div class="wrap">
       <div class="head">
         <p class="q">So what's the hard part?</p>
-        <p class="eyebrow"><span class="num">04</span> · The real challenge</p>
+        <p class="eyebrow"><span class="num">05</span> · The real challenge</p>
         <h2 class="headline h">Two things that <em>usually</em> cancel out.</h2>
       </div>
       <div class="grid">
@@ -389,15 +446,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           </ul>
         </div>
       </div>
-      <a class="next" href="#c05"><span class="eyebrow">Next</span><span>Why does this need to exist?</span></a>
+      <a class="next" href="#c06"><span class="eyebrow">Next</span><span>Why does this need to exist?</span></a>
     </div>
   </section>
 
-  <!-- 05 The problem -->
-  <section class="slide plate" id="c05" data-title="The problem" data-short="The problem">
+  <!-- 06 The problem -->
+  <section class="slide plate" id="c06" data-title="The problem" data-short="The problem">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">05</span> · The problem</p>
+        <p class="eyebrow"><span class="num">06</span> · The problem</p>
         <h2 class="headline h">The industry makes far <em>more</em> than it sells.</h2>
       </div>
       <div class="grid">
@@ -409,15 +466,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <p>The pieces are the ones we wanted and could not find. Swim shorts in a clean cut. A piqué polo heavy enough to hold its collar. Linen that is allowed to crease. A field jacket you will re-wax rather than replace.</p>
         </div>
       </div>
-      <a class="next" href="#c06"><span class="eyebrow">Next</span><span>How does it work?</span></a>
+      <a class="next" href="#c07"><span class="eyebrow">Next</span><span>How does it work?</span></a>
     </div>
   </section>
 
-  <!-- 06 The model -->
-  <section class="slide" id="c06" data-title="The model" data-short="The model">
+  <!-- 07 The model -->
+  <section class="slide" id="c07" data-title="The model" data-short="The model">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">06</span> · The model</p>
+        <p class="eyebrow"><span class="num">07</span> · The model</p>
         <h2 class="headline h big"><span style="display:block">Once.</span><span style="display:block;color:var(--red)">Twelve.</span><span style="display:block;color:var(--muted)">Gone.</span></h2>
       </div>
       <ol class="steps" aria-label="Life of an edition">
@@ -433,15 +490,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <li><b>Stripe Checkout is the only stock record.</b><span>A checkout holds a number for thirty minutes, then releases it.</span></li>
         <li><b>Prices are the same all year.</b><span>No sale is ever run, which is what makes a numbered edition honest.</span></li>
       </ul>
-      <a class="next" href="#c07"><span class="eyebrow">Next</span><span>Why twelve?</span></a>
+      <a class="next" href="#c08"><span class="eyebrow">Next</span><span>Why twelve?</span></a>
     </div>
   </section>
 
-  <!-- 07 Why twelve -->
-  <section class="slide red" id="c07" data-title="Why twelve" data-short="Why twelve">
+  <!-- 08 Why twelve -->
+  <section class="slide red" id="c08" data-title="Why twelve" data-short="Why twelve">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">07</span> · Why twelve</p>
+        <p class="eyebrow"><span class="num">08</span> · Why twelve</p>
         <h2 class="headline h">One of one was the romantic answer. Twelve is the <em>honest</em> one.</h2>
       </div>
       <div class="grid">
@@ -450,64 +507,62 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <p>Twelve amortises the pattern and the sampling across one small batch, keeps the piece rare, and keeps the price where a great product should sit. Outerwear stays one of one, where the price can carry it.</p>
         </div>
         <div class="c12 stats" role="list" aria-label="Edition economics, targets">
-          <div class="stat" role="listitem"><p class="v num">€174</p><p class="k">Average price across the range</p><p class="sub">From a €75 cap to a €550 field jacket</p></div>
-          <div class="stat" role="listitem"><p class="v num">€12,670</p><p class="k">Drop I, if every number sells</p><p class="sub">8 designs · €1,267 pledged</p></div>
-          <div class="stat" role="listitem"><p class="v num">€18,570</p><p class="k">Drop II, if every number sells</p><p class="sub">10 designs · €1,857 pledged</p></div>
+          <div class="stat" role="listitem"><p class="v num">€154</p><p class="k">Average price per colourway</p><p class="sub">From a €75 cap to a €185 quarter zip</p></div>
+          <div class="stat" role="listitem"><p class="v num">27</p><p class="k">Colourways in Drop I</p><p class="sub">Five designs, each colour its own edition</p></div>
+          <div class="stat" role="listitem"><p class="v num">€54,360</p><p class="k">Drop I, if every number sells</p><p class="sub">€5,436 pledged</p></div>
           <div class="stat" role="listitem"><p class="v num">10%</p><p class="k">Of every sale price to conservation</p><p class="sub">Before shipping and tax</p></div>
         </div>
       </div>
       <p class="caption">Targets, not results. Maker quotes pending: one piece, twelve pieces, and the pattern per design. Margins follow once those land.</p>
-      <a class="next" href="#c08"><span class="eyebrow">Next</span><span>What are we selling?</span></a>
+      <a class="next" href="#c09"><span class="eyebrow">Next</span><span>What are we selling?</span></a>
     </div>
   </section>
 
-  <!-- 08 The range -->
-  <section class="slide" id="c08" data-title="The range" data-short="The range">
+  <!-- 09 The range -->
+  <section class="slide" id="c09" data-title="The range" data-short="The range">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">08</span> · The range</p>
-        <h2 class="headline h">Eighteen designs. Four families. <em>Two</em> drops.</h2>
+        <p class="eyebrow"><span class="num">09</span> · The range</p>
+        <h2 class="headline h">Five designs. <em>Twenty-seven</em> colours.</h2>
       </div>
-      <p class="eyebrow">Drop I · eight designs · technical flats, photography follows the first samples</p>
-      <div class="flats">
-        <figure class="flat"><div class="img"><img src="products/tidal-swim-short.svg" alt="Tidal Swim Short, technical flat" width="1200" height="1500" loading="lazy"><span class="tag">Signature</span></div><figcaption class="cap"><span>Tidal Swim Short</span><span class="price num">€165 · 12</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/atoll-print-swim-short.svg" alt="Atoll Print Swim Short, technical flat" width="1200" height="1500" loading="lazy"></div><figcaption class="cap"><span>Atoll Print Swim Short</span><span class="price num">€185 · 12</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/meridian-pique-polo.svg" alt="Meridian Piqué Polo, technical flat" width="1200" height="1500" loading="lazy"><span class="tag">Signature</span></div><figcaption class="cap"><span>Meridian Piqué Polo</span><span class="price num">€125 · 12</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/canopy-tee.svg" alt="Canopy Tee, technical flat" width="1200" height="1500" loading="lazy"></div><figcaption class="cap"><span>Canopy Tee</span><span class="price num">€85 · 12</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/riviera-camp-shirt.svg" alt="Riviera Camp Shirt, technical flat" width="1200" height="1500" loading="lazy"></div><figcaption class="cap"><span>Riviera Camp Shirt</span><span class="price num">€165 · 12</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/cove-linen-short.svg" alt="Cove Linen Short, technical flat" width="1200" height="1500" loading="lazy"></div><figcaption class="cap"><span>Cove Linen Short</span><span class="price num">€135 · 12</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/headland-field-jacket.svg" alt="Headland Field Jacket, technical flat" width="1200" height="1500" loading="lazy"><span class="tag">One of one</span></div><figcaption class="cap"><span>Headland Field Jacket</span><span class="price num">€550 · 1</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/marram-cap.svg" alt="Marram Cap, technical flat" width="1200" height="1500" loading="lazy"></div><figcaption class="cap"><span>Marram Cap</span><span class="price num">€75 · 24</span></figcaption></figure>
+      <p class="eyebrow">Drop I · each colourway is its own numbered edition · price · edition size</p>
+      <div class="flats six">
+        <figure class="flat"><div class="img"><img src="products/tidal-swim-short-navy.jpg" alt="Tidal Swim Short" width="1200" height="1500" loading="lazy"><span class="tag">7 colours</span></div><figcaption class="cap"><span>Tidal Swim Short</span><span class="price num">€165 · 12</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/shore-swim-short-pine-ecru.jpg" alt="Shore Swim Short" width="1200" height="1500" loading="lazy"><span class="tag">3 colours</span></div><figcaption class="cap"><span>Shore Swim Short</span><span class="price num">€175 · 12</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/riviera-linen-shirt-oat.jpg" alt="Riviera Linen Shirt" width="1200" height="1500" loading="lazy"><span class="tag">6 colours</span></div><figcaption class="cap"><span>Riviera Linen Shirt</span><span class="price num">€165 · 12</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/harbour-quarter-zip-navy.jpg" alt="Harbour Quarter Zip" width="1200" height="1500" loading="lazy"><span class="tag">6 colours</span></div><figcaption class="cap"><span>Harbour Quarter Zip</span><span class="price num">€185 · 12</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/marram-cap-ecru-pine.jpg" alt="Marram Cap" width="1200" height="1500" loading="lazy"><span class="tag">5 colours</span></div><figcaption class="cap"><span>Marram Cap</span><span class="price num">€75 · 24</span></figcaption></figure>
+      </div>
+      <div class="strip" aria-label="More colourways">
+        <figure><div class="ph"><img src="products/tidal-swim-short-saffron.jpg" alt="Tidal Swim Short Saffron" width="1200" height="1500" loading="lazy"></div><figcaption>saffron</figcaption></figure>
+        <figure><div class="ph"><img src="products/tidal-swim-short-lagoon.jpg" alt="Tidal Swim Short Lagoon" width="1200" height="1500" loading="lazy"></div><figcaption>lagoon</figcaption></figure>
+        <figure><div class="ph"><img src="products/tidal-swim-short-hibiscus.jpg" alt="Tidal Swim Short Hibiscus" width="1200" height="1500" loading="lazy"></div><figcaption>hibiscus</figcaption></figure>
+        <figure><div class="ph"><img src="products/shore-swim-short-red-ecru.jpg" alt="Shore Swim Short Red Ecru" width="1200" height="1500" loading="lazy"></div><figcaption>red / ecru</figcaption></figure>
+        <figure><div class="ph"><img src="products/riviera-linen-shirt-sky.jpg" alt="Riviera Linen Shirt Sky" width="1200" height="1500" loading="lazy"></div><figcaption>sky</figcaption></figure>
+        <figure><div class="ph"><img src="products/riviera-linen-shirt-clementine.jpg" alt="Riviera Linen Shirt Clementine" width="1200" height="1500" loading="lazy"></div><figcaption>clementine</figcaption></figure>
+        <figure><div class="ph"><img src="products/harbour-quarter-zip-forest.jpg" alt="Harbour Quarter Zip Forest" width="1200" height="1500" loading="lazy"></div><figcaption>forest</figcaption></figure>
+        <figure><div class="ph"><img src="products/harbour-quarter-zip-mustard.jpg" alt="Harbour Quarter Zip Mustard" width="1200" height="1500" loading="lazy"></div><figcaption>mustard</figcaption></figure>
+        <figure><div class="ph"><img src="products/marram-cap-red.jpg" alt="Marram Cap Red" width="1200" height="1500" loading="lazy"></div><figcaption>red</figcaption></figure>
+        <figure><div class="ph"><img src="products/marram-cap-mustard-navy.jpg" alt="Marram Cap Mustard Navy" width="1200" height="1500" loading="lazy"></div><figcaption>navy</figcaption></figure>
       </div>
       <div class="grid">
-        <div class="c6">
-          <p class="eyebrow" style="margin-bottom:0.75rem">Drop II · ten designs</p>
-          <ul class="list">
-            <li><span><span class="name">Lagoon Long Swim Short</span><span class="ed">12</span></span><span class="price num">€175</span></li>
-            <li><span><span class="name">Current Rashguard</span><span class="ed">12</span></span><span class="price num">€120</span></li>
-            <li><span><span class="name">Harbour Rugby Shirt</span><span class="ed">12</span></span><span class="price num">€160</span></li>
-            <li><span><span class="name">Dune Knit Polo</span><span class="ed">12</span></span><span class="price num">€190</span></li>
-            <li><span><span class="name">Terrace Oxford Shirt</span><span class="ed">12</span></span><span class="price num">€150</span></li>
-            <li><span><span class="name">Delta Pleated Trouser</span><span class="ed">12</span></span><span class="price num">€210</span></li>
-            <li><span><span class="name">Estuary Cable Knit</span><span class="ed">One of one</span></span><span class="price num">€420</span></li>
-            <li><span><span class="name">Groundswell Overshirt</span><span class="ed">One of one</span></span><span class="price num">€450</span></li>
-            <li><span><span class="name">Tidepool Beach Towel</span><span class="ed">24</span></span><span class="price num">€95</span></li>
-            <li><span><span class="name">Drift Tote</span><span class="ed">24</span></span><span class="price num">€140</span></li>
-          </ul>
+        <div class="c6 body">
+          <p>Swim shorts in solids and colour-block, a linen shirt and a quarter zip with the badger small on the chest, and a six-panel cap with the name in script. Every colour is released once, in twelve (caps twenty-four), then retired.</p>
         </div>
-        <div class="off8 body" style="align-self:end">
-          <p>Launch is Drop I. The other ten designs are already specified, priced and built into the site, and open in Drop II. Prices run from €75 to €550 and never change. Free shipping across Europe over €150, otherwise €15 flat. We ship to the EU, EEA, Switzerland and the UK.</p>
+        <div class="off8 body">
+          <p>Prices run from €75 to €185 and never change. Free shipping across Europe over €150, otherwise €15 flat. We ship to the EU, EEA, Switzerland and the UK.</p>
+          <p class="caption" style="margin-top:0.75rem">Product renders. Photography follows the first samples.</p>
         </div>
       </div>
-      <a class="next" href="#c09"><span class="eyebrow">Next</span><span>Where is it made?</span></a>
+      <a class="next" href="#c10"><span class="eyebrow">Next</span><span>Where is it made?</span></a>
     </div>
   </section>
 
-  <!-- 09 Mauritius -->
-  <section class="slide plate" id="c09" data-title="Made in Mauritius" data-short="Mauritius">
+  <!-- 10 Mauritius -->
+  <section class="slide plate" id="c10" data-title="Made in Mauritius" data-short="Mauritius">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">09</span> · Where</p>
+        <p class="eyebrow"><span class="num">10</span> · Where</p>
         <h2 class="headline h">Made in Mauritius. <em>By</em> hand.</h2>
       </div>
       <div class="grid">
@@ -526,16 +581,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <p>The making is the content. We show the process, not only the polished result.</p>
         </div>
       </div>
-      <a class="next" href="#c10"><span class="eyebrow">Next</span><span>What does a buyer actually get?</span></a>
+      <a class="next" href="#c11"><span class="eyebrow">Next</span><span>What does a buyer actually get?</span></a>
     </div>
   </section>
 
-  <!-- 10 Over-deliver -->
-  <section class="slide" id="c10" data-title="The product rule" data-short="Over-deliver">
+  <!-- 11 Over-deliver -->
+  <section class="slide" id="c11" data-title="The product rule" data-short="Over-deliver">
     <div class="wrap">
       <div class="head">
         <p class="q">Ronnie Fieg, Kith. The motto we adopted.</p>
-        <p class="eyebrow"><span class="num">10</span> · The product rule</p>
+        <p class="eyebrow"><span class="num">11</span> · The product rule</p>
         <h2 class="headline h">Give people <em>more</em> than what they pay for.</h2>
       </div>
       <div class="grid">
@@ -566,15 +621,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           </div>
         </div>
       </div>
-      <a class="next" href="#c11"><span class="eyebrow">Next</span><span>How does it sell?</span></a>
+      <a class="next" href="#c12"><span class="eyebrow">Next</span><span>How does it sell?</span></a>
     </div>
   </section>
 
-  <!-- 11 Built to sell out -->
-  <section class="slide" id="c11" data-title="Built to sell out" data-short="Sell out">
+  <!-- 12 Built to sell out -->
+  <section class="slide" id="c12" data-title="Built to sell out" data-short="Sell out">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">11</span> · Growth</p>
+        <p class="eyebrow"><span class="num">12</span> · Growth</p>
         <h2 class="headline h">Built to sell out, <em>on</em> purpose.</h2>
       </div>
       <div class="grid">
@@ -593,15 +648,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           </ul>
         </div>
       </div>
-      <a class="next" href="#c12"><span class="eyebrow">Next</span><span>And without ads?</span></a>
+      <a class="next" href="#c13"><span class="eyebrow">Next</span><span>And without ads?</span></a>
     </div>
   </section>
 
-  <!-- 12 No paid ads -->
-  <section class="slide plate" id="c12" data-title="How it grows" data-short="No ads">
+  <!-- 13 No paid ads -->
+  <section class="slide plate" id="c13" data-title="How it grows" data-short="No ads">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">12</span> · How it grows</p>
+        <p class="eyebrow"><span class="num">13</span> · How it grows</p>
         <h2 class="headline h">No paid ads. <em>Curiosity</em> instead.</h2>
       </div>
       <div class="grid">
@@ -619,15 +674,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           </ul>
         </div>
       </div>
-      <a class="next" href="#c13"><span class="eyebrow">Next</span><span>What are we filming?</span></a>
+      <a class="next" href="#c14"><span class="eyebrow">Next</span><span>What are we filming?</span></a>
     </div>
   </section>
 
-  <!-- 13 We film the build -->
-  <section class="slide" id="c13" data-title="We film the build" data-short="The films">
+  <!-- 14 We film the build -->
+  <section class="slide" id="c14" data-title="We film the build" data-short="The films">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">13</span> · Documenting the process</p>
+        <p class="eyebrow"><span class="num">14</span> · Documenting the process</p>
         <h2 class="headline h">We film <em>the</em> build.</h2>
       </div>
       <figure>
@@ -651,15 +706,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <figure><div class="ph"><img src="community/p6.jpg" alt="Wakeboarder on a dock" width="800" height="1000" loading="lazy"></div><figcaption>Wakeboard</figcaption></figure>
       </div>
       <p class="caption">AI-generated previsualisation of the campaign direction. Not customers. Shown to indicate direction only.</p>
-      <a class="next" href="#c14"><span class="eyebrow">Next</span><span>Where does the money go?</span></a>
+      <a class="next" href="#c15"><span class="eyebrow">Next</span><span>Where does the money go?</span></a>
     </div>
   </section>
 
-  <!-- 14 The pledge -->
-  <section class="slide red" id="c14" data-title="The pledge" data-short="The pledge">
+  <!-- 15 The pledge -->
+  <section class="slide red" id="c15" data-title="The pledge" data-short="The pledge">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">14</span> · The pledge</p>
+        <p class="eyebrow"><span class="num">15</span> · The pledge</p>
         <h2 class="headline h">Ten percent of the price. <em>Not</em> the profit.</h2>
       </div>
       <div class="grid">
@@ -673,15 +728,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <p class="body small" style="margin-top:0.75rem">Counted from the first order. Updates as pieces are made and paid for. Transfers are published every season.</p>
         </div>
       </div>
-      <a class="next" href="#c15"><span class="eyebrow">Next</span><span>How exactly?</span></a>
+      <a class="next" href="#c16"><span class="eyebrow">Next</span><span>How exactly?</span></a>
     </div>
   </section>
 
-  <!-- 15 The mechanism -->
-  <section class="slide" id="c15" data-title="The mechanism" data-short="Mechanism">
+  <!-- 16 The mechanism -->
+  <section class="slide" id="c16" data-title="The mechanism" data-short="Mechanism">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">15</span> · The mechanism</p>
+        <p class="eyebrow"><span class="num">16</span> · The mechanism</p>
         <h2 class="headline h">From a checkout <em>to a</em> coastline.</h2>
       </div>
       <p class="body lede">Transparency is the product feature. If we cannot show it, we do not claim it.</p>
@@ -697,16 +752,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <div class="card"><h3>Forest</h3><p>Native forest restoration and endemic species recovery in Mauritius.</p><p class="eyebrow">Partnership in progress</p></div>
         <div class="card"><h3>Rivers &amp; wetlands</h3><p>Freshwater habitat and migratory species, in Europe and beyond.</p><p class="eyebrow">Partnership in progress</p></div>
       </div>
-      <a class="next" href="#c16"><span class="eyebrow">Next</span><span>Doesn't that eat the margin?</span></a>
+      <a class="next" href="#c17"><span class="eyebrow">Next</span><span>Doesn't that eat the margin?</span></a>
     </div>
   </section>
 
-  <!-- 16 Pays for itself -->
-  <section class="slide plate" id="c16" data-title="The ten percent pays for itself" data-short="Pays for itself">
+  <!-- 17 Pays for itself -->
+  <section class="slide plate" id="c17" data-title="The ten percent pays for itself" data-short="Pays for itself">
     <div class="wrap">
       <div class="head">
         <p class="q">Doesn't that eat the margin?</p>
-        <p class="eyebrow"><span class="num">16</span> · The ten percent</p>
+        <p class="eyebrow"><span class="num">17</span> · The ten percent</p>
         <h2 class="headline h">No. It <em>pays for</em> itself.</h2>
       </div>
       <div class="grid">
@@ -722,15 +777,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           </ul>
         </div>
       </div>
-      <a class="next" href="#c17"><span class="eyebrow">Next</span><span>What does it look like?</span></a>
+      <a class="next" href="#c18"><span class="eyebrow">Next</span><span>What does it look like?</span></a>
     </div>
   </section>
 
-  <!-- 17 Brand world -->
-  <section class="slide" id="c17" data-title="Brand world" data-short="Brand world">
+  <!-- 18 Brand world -->
+  <section class="slide" id="c18" data-title="Brand world" data-short="Brand world">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">17</span> · Brand world</p>
+        <p class="eyebrow"><span class="num">18</span> · Brand world</p>
         <h2 class="headline h">Red, black, white. <em>And</em> one letter.</h2>
       </div>
       <div class="grid">
@@ -740,29 +795,52 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
             <p>The wordmark is set in Cormorant Garamond, tracked wide, with the last letter in red. Where only a letter fits, the Æ stands alone. The site opens with a five-second red wipe carrying the name.</p>
             <p>The mark is a red badger lying on its back, eyes closed, paws folded on its belly. The power of nature, at rest. It takes over from the wordmark in the header as the page scrolls. A vector version and trademark clearance (EUIPO, class 25) are pending.</p>
           </div>
-          <img class="badger" style="margin-top:1.5rem" src="brand/badger-mark.png" alt="The Vis Naturæ mark: a red badger lying on its back, eyes closed, paws on its belly" width="852" height="300" loading="lazy">
-          <div class="swatches" style="margin-top:1.5rem" aria-label="Palette">
-            <span class="swatch" style="background:#c8102e" title="Red"></span>
-            <span class="swatch" style="background:#0a0a0a" title="Ink"></span>
-            <span class="swatch" style="background:#ffffff" title="Paper"></span>
-            <span class="swatch" style="background:#1f3a4d" title="Reef Navy"></span>
-            <span class="swatch" style="background:#23402f" title="Pine"></span>
-            <span class="swatch" style="background:#d8cbb3" title="Oat"></span>
-            <span class="swatch" style="background:#f4f1ea" title="Bone"></span>
-            <span class="swatch" style="background:#5d6b4e" title="Olive"></span>
+
+          <div class="inuse" id="inuse" data-on="paper" data-badger="#C8102E">
+            <div class="inuse-bar">
+              <p class="eyebrow">In use · pick a ground</p>
+              <div class="seg" role="group" aria-label="Background">
+                <button type="button" class="chip" data-bg="paper" aria-pressed="true">Paper</button>
+                <button type="button" class="chip" data-bg="ink" aria-pressed="false">Ink</button>
+                <button type="button" class="chip" data-bg="red" aria-pressed="false">Red</button>
+              </div>
+            </div>
+            <div class="inuse-tile">
+              <span class="wordmark lg">VIS NATUR<span class="ae">Æ</span></span>
+              <span class="badger" role="img" aria-label="The Vis Naturæ mark: a badger lying on its back, eyes closed, paws on its belly"><span class="badger-base"></span><span class="badger-ink"></span></span>
+            </div>
           </div>
-          <p class="caption" style="margin-top:0.5rem">Brand red, ink, paper. Then the product colours: Reef Navy, Pine, Oat, Bone, Olive.</p>
+
+          <div class="palette">
+            <p class="eyebrow">Palette · tap a colour to paint the badger</p>
+            <div class="swatches" role="group" aria-label="Palette">
+              <button type="button" class="swatch" style="--c:#c8102e" aria-pressed="true" data-name="Brand red" data-hex="#C8102E" data-use="The Æ, the mark, the intro wipe, the pledge figure on every product page."></button>
+              <button type="button" class="swatch" style="--c:#0a0a0a" aria-pressed="false" data-name="Ink" data-hex="#0A0A0A" data-use="The wordmark and all type. The film title cards."></button>
+              <button type="button" class="swatch" style="--c:#ffffff" aria-pressed="false" data-name="Paper" data-hex="#FFFFFF" data-use="The ground of the site, the packaging, the labels."></button>
+              <button type="button" class="swatch" style="--c:#1f3a4d" aria-pressed="false" data-name="Reef Navy" data-hex="#1F3A4D" data-use="Tidal Swim Short, Harbour Rugby Shirt, Tidepool Beach Towel."></button>
+              <button type="button" class="swatch" style="--c:#23402f" aria-pressed="false" data-name="Pine" data-hex="#23402F" data-use="Meridian Piqué Polo, Groundswell Overshirt."></button>
+              <button type="button" class="swatch" style="--c:#d8cbb3" aria-pressed="false" data-name="Oat" data-hex="#D8CBB3" data-use="Dune Knit Polo, Estuary Cable Knit, Delta Pleated Trouser, Cove Linen Short, Marram Cap."></button>
+              <button type="button" class="swatch" style="--c:#f4f1ea" aria-pressed="false" data-name="Bone" data-hex="#F4F1EA" data-use="Canopy Tee, Riviera Camp Shirt, Terrace Oxford Shirt."></button>
+              <button type="button" class="swatch" style="--c:#5d6b4e" aria-pressed="false" data-name="Olive" data-hex="#5D6B4E" data-use="Headland Field Jacket."></button>
+            </div>
+            <p class="swatch-info">
+              <span class="serif" id="swName">Brand red</span>
+              <code class="num" id="swHex">#C8102E</code>
+              <button class="copy" type="button" id="swCopy" data-copy="#C8102E">Copy</button>
+              <span class="small" id="swUse">The Æ, the mark, the intro wipe, the pledge figure on every product page.</span>
+            </p>
+          </div>
         </div>
       </div>
-      <a class="next" href="#c18"><span class="eyebrow">Next</span><span>What exists already?</span></a>
+      <a class="next" href="#c19"><span class="eyebrow">Next</span><span>What exists already?</span></a>
     </div>
   </section>
 
-  <!-- 18 Where we are -->
-  <section class="slide" id="c18" data-title="Where we are" data-short="Traction">
+  <!-- 19 Where we are -->
+  <section class="slide" id="c19" data-title="Where we are" data-short="Traction">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">18</span> · Where we are</p>
+        <p class="eyebrow"><span class="num">19</span> · Where we are</p>
         <h2 class="headline h">Built. <em>Not yet</em> launched.</h2>
       </div>
       <div class="pair">
@@ -770,7 +848,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <h3>Done</h3>
           <ul class="status">
             <li class="done"><span class="mk">Æ</span><span>Site built on Next.js with Stripe Checkout. Editions, order windows, numbering and the archive work end to end.</span></li>
-            <li class="done"><span class="mk">Æ</span><span>Eighteen designs specified, priced and written up across two drops.</span></li>
+            <li class="done"><span class="mk">Æ</span><span>Five designs in twenty-seven colourways, rendered, priced and live on the site.</span></li>
             <li class="done"><span class="mk">Æ</span><span>Every sale records its unit number so it can be sewn in.</span></li>
             <li class="done"><span class="mk">Æ</span><span>Three films scripted. Two in production, cut one approved clip at a time.</span></li>
             <li class="done"><span class="mk">Æ</span><span>The mark, the palette, the pledge mechanics, shipping, returns, remake and repair policies.</span></li>
@@ -780,22 +858,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <h3>Open</h3>
           <ul class="status">
             <li><span class="mk">–</span><span>Maker quotes from Mauritius: one piece, twelve pieces, pattern per design.</span></li>
-            <li><span class="mk">–</span><span>First samples, then real photography. Everything shown here is a flat or a previsualisation.</span></li>
+            <li><span class="mk">–</span><span>First samples, then real photography. Everything shown here is a render or a previsualisation.</span></li>
             <li><span class="mk">–</span><span>Conservation partners named and agreements signed.</span></li>
             <li><span class="mk">–</span><span>Legal entity, terms reviewed, trademark clearance for the Æ mark.</span></li>
             <li><span class="mk">–</span><span>Vector version of the logo, order emails and a mailing-list provider.</span></li>
           </ul>
         </div>
       </div>
-      <a class="next" href="#c19"><span class="eyebrow">Next</span><span>And then?</span></a>
+      <a class="next" href="#c20"><span class="eyebrow">Next</span><span>And then?</span></a>
     </div>
   </section>
 
-  <!-- 19 Roadmap -->
-  <section class="slide plate" id="c19" data-title="Roadmap" data-short="Roadmap">
+  <!-- 20 Roadmap -->
+  <section class="slide plate" id="c20" data-title="Roadmap" data-short="Roadmap">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">19</span> · Roadmap</p>
+        <p class="eyebrow"><span class="num">20</span> · Roadmap</p>
         <h2 class="headline h">From Drop I <em>to a</em> calendar.</h2>
       </div>
       <ol class="road">
@@ -805,15 +883,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <li><p class="yr">2028</p><p class="lbl">Scale, slowly</p><ul><li>A year of drops planned by week</li><li>Episodes from each partner's place</li><li>Edition size reviewed against demand, never above what stays rare</li></ul></li>
       </ol>
       <p class="caption">Intent, not commitment. Dates move with the maker and the partners.</p>
-      <a class="next" href="#c20"><span class="eyebrow">Next</span><span>What could go wrong?</span></a>
+      <a class="next" href="#c21"><span class="eyebrow">Next</span><span>What could go wrong?</span></a>
     </div>
   </section>
 
-  <!-- 20 Risks -->
-  <section class="slide" id="c20" data-title="Risks" data-short="Risks">
+  <!-- 21 Risks -->
+  <section class="slide" id="c21" data-title="Risks" data-short="Risks">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">20</span> · Risks</p>
+        <p class="eyebrow"><span class="num">21</span> · Risks</p>
         <h2 class="headline h">Six things, <em>said</em> out loud.</h2>
       </div>
       <p class="body lede">Better said now than discovered six months in.</p>
@@ -825,50 +903,26 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <li class="risk"><p class="k">Risk 05</p><h3>The pledge loses trust.</h3><p>If we cannot show exactly where the money went, we become the problem this page describes.</p></li>
         <li class="risk"><p class="k">Risk 06</p><h3>One founder, too many hats.</h3><p>Design, maker, site, films and the pledge all run through one person. Attention splits and the calendar slips.</p></li>
       </ul>
-      <a class="next" href="#c21"><span class="eyebrow">Next</span><span>What do we do about them?</span></a>
+      <a class="next" href="#c22"><span class="eyebrow">Next</span><span>What do we do about them?</span></a>
     </div>
   </section>
 
-  <!-- 21 Mitigation -->
-  <section class="slide" id="c21" data-title="Mitigation" data-short="Answers">
+  <!-- 22 Mitigation -->
+  <section class="slide" id="c22" data-title="Mitigation" data-short="Answers">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow"><span class="num">21</span> · Mitigation</p>
+        <p class="eyebrow"><span class="num">22</span> · Mitigation</p>
         <h2 class="headline h">One answer <em>for</em> each.</h2>
       </div>
       <ul class="risks">
         <li class="risk"><p class="k">Answers 01</p><h3>Quote before launch, price after.</h3><p>Nothing opens until the three quotes are in. If twelve does not work, the edition size or the price moves, and the page says so.</p></li>
-        <li class="risk"><p class="k">Answers 02</p><h3>Pre-orders, and a smaller first run.</h3><p>Eight designs in Drop I, not eighteen. The window shows demand before anything is cut, and an under-sold edition costs one pattern, not stock.</p></li>
+        <li class="risk"><p class="k">Answers 02</p><h3>Pre-orders, and a smaller first run.</h3><p>Five designs in Drop I, each colour its own small edition. The window shows demand before anything is cut, and an under-sold edition costs one pattern, not stock.</p></li>
         <li class="risk"><p class="k">Answers 03</p><h3>One piece at a time, no shortcuts.</h3><p>Refit every block per fabric. Release nothing until the sample holds up. The hidden details are the test: if the inside is not worth finding, it is not ready.</p></li>
         <li class="risk"><p class="k">Answers 04</p><h3>Price the distance in.</h3><p>The €20 shipping gap sits inside the margin target. Duties are stated on every page. Sizing guidance and the remake policy are written to make the second crossing rare.</p></li>
         <li class="risk"><p class="k">Answers 05</p><h3>Proof built in.</h3><p>Ten percent set aside at checkout, held in its own account, named partners before the first transfer, published every season.</p></li>
         <li class="risk"><p class="k">Answers 06</p><h3>A seat beside the founder.</h3><p>This page exists to fill it. Product or operations, with real time and a real say. Until then, the calendar is sized to one person and says so.</p></li>
       </ul>
-      <a class="next" href="#c22"><span class="eyebrow">Next</span><span>So who is asking?</span></a>
-    </div>
-  </section>
-
-  <!-- 22 Founder -->
-  <section class="slide plate" id="c22" data-title="The founder" data-short="Founder">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow"><span class="num">22</span> · The founder</p>
-        <h2 class="headline h">What I bring <em>to the</em> table.</h2>
-      </div>
-      <div class="grid">
-        <div class="c4"><div class="portrait"><span class="caption">Portrait to follow</span></div></div>
-        <div class="off6">
-          <p class="serif" style="font-size:2.5rem;line-height:1">Leo.</p>
-          <div class="placeholder" style="margin-top:1.25rem">
-            <b>Placeholder for Leo to write</b>
-            Three sentences in the first person. Where you are from and what you did before. Why this brand, and why Mauritius. What you want the person reading this to do next.
-          </div>
-          <ul class="rows" style="margin-top:1.5rem">
-            <li><b>Already carried.</b><span>The taste lens, the range, the model, the site, the films and the maker relationship in Mauritius.</span></li>
-          </ul>
-        </div>
-      </div>
-      <a class="next" href="#c23"><span class="eyebrow">Next</span><span>And who else sits here?</span></a>
+      <a class="next" href="#c23"><span class="eyebrow">Next</span><span>And who sits beside the founder?</span></a>
     </div>
   </section>
 
@@ -934,11 +988,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
               <div class="row"><dt>Made in</dt><dd>Mauritius, in small workshops visited in person</dd></div>
               <div class="row"><dt>Model</dt><dd>Numbered editions of 12 (accessories 24), one three-week order window, then retired. Outerwear and heavy knit one of one.</dd></div>
               <div class="row"><dt>Pledge</dt><dd>10% of every sale price to conservation, before shipping and tax, reported every season</dd></div>
-              <div class="row"><dt>Prices</dt><dd class="num">€75 to €550. Average about €174. No sales, ever.</dd></div>
+              <div class="row"><dt>Prices</dt><dd class="num">€75 to €185. Average about €154. No sales, ever.</dd></div>
               <div class="row"><dt>Lead time</dt><dd>3 to 4 weeks from the close of the window, then 4 to 7 working days express</dd></div>
               <div class="row"><dt>Ships to</dt><dd>EU, EEA, Switzerland and the UK, in euro</dd></div>
-              <div class="row"><dt>Drops</dt><dd>Drop I, 8 to 29 October 2026 (8 designs). Drop II, 1 to 22 December 2026 (10 designs). Dates are placeholders until the maker confirms.</dd></div>
-              <div class="row"><dt>Imagery</dt><dd>Product images are technical flats. Film stills and campaign images are AI-generated previsualisation. Real photography follows the first samples.</dd></div>
+              <div class="row"><dt>Drops</dt><dd>Drop I, 8 to 29 October 2026: five designs in 27 colourways. Dates are placeholders until the maker confirms.</dd></div>
+              <div class="row"><dt>Imagery</dt><dd>Product images are renders. Film stills and campaign images are AI-generated previsualisation. Real photography follows the first samples.</dd></div>
               <div class="row"><dt>Contact</dt><dd>hello@visnaturae.com · instagram.com/visnaturae</dd></div>
             </dl>
           </div>
@@ -1063,6 +1117,37 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       if (!done) requestAnimationFrame(frame); else jobs.forEach(function (j) { j.n.nodeValue = j.t; });
     }
     requestAnimationFrame(frame);
+  }
+
+  // Brand world: ground switch for the mark, and the palette picker.
+  var inuse = document.getElementById("inuse");
+  if (inuse) {
+    inuse.querySelectorAll("[data-bg]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        inuse.setAttribute("data-on", b.getAttribute("data-bg"));
+        inuse.querySelectorAll("[data-bg]").forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      });
+    });
+  }
+  var swatches = document.querySelectorAll(".swatch[data-hex]");
+  if (swatches.length) {
+    var swName = document.getElementById("swName"), swHex = document.getElementById("swHex"), swUse = document.getElementById("swUse"), swCopy = document.getElementById("swCopy");
+    swatches.forEach(function (sw) {
+      sw.setAttribute("aria-label", sw.getAttribute("data-name") + " " + sw.getAttribute("data-hex"));
+      sw.addEventListener("click", function () {
+        swatches.forEach(function (o) { o.setAttribute("aria-pressed", o === sw ? "true" : "false"); });
+        swName.textContent = sw.getAttribute("data-name");
+        swHex.textContent = sw.getAttribute("data-hex");
+        swUse.textContent = sw.getAttribute("data-use");
+        swCopy.setAttribute("data-copy", sw.getAttribute("data-hex"));
+        swCopy.textContent = "Copy";
+        var inuseBox = document.getElementById("inuse");
+        if (inuseBox) {
+          inuseBox.style.setProperty("--badger", sw.getAttribute("data-hex"));
+          inuseBox.setAttribute("data-badger", sw.getAttribute("data-hex"));
+        }
+      });
+    });
   }
 
   // Films load only on request.
