@@ -92,14 +92,14 @@ export default function ConservationPage() {
         </p>
       </section>
 
-      {/* Why */}
-      <section className="container-x pb-16 md:pb-24">
-        <div className="grid gap-10 md:grid-cols-12">
+      {/* Why: red like the homepage newsletter, flush against the trust row */}
+      <section className="-mb-24 bg-red text-paper">
+        <div className="container-x grid gap-10 py-20 md:grid-cols-12 md:py-28">
           <div className="md:col-span-4">
-            <p className="eyebrow mb-4">Why</p>
+            <p className="eyebrow mb-4 text-paper/70">Why</p>
             <h2 className="display text-4xl md:text-5xl">Force of nature.</h2>
           </div>
-          <div className="space-y-5 text-sm leading-relaxed text-ink-2 md:col-span-6 md:col-start-6 md:text-base">
+          <div className="space-y-5 text-sm leading-relaxed text-paper/90 md:col-span-6 md:col-start-6 md:text-base">
             <p>
               Clothing made for the sea and the sun borrows everything from the places it is made and worn in. Ours is made on an island in the Indian Ocean. A swim short that never sees
               clean water is a strange object. We would rather make fewer pieces, make them properly, and put a fixed share of each one back into the
@@ -109,7 +109,7 @@ export default function ConservationPage() {
               Making to order is the other half of the same idea. There is no overstock to discount, no end-of-season landfill, and no pressure to
               sell what nobody asked for.
             </p>
-            <Link href="/made-to-order" className="btn btn-outline">
+            <Link href="/made-to-order" className="btn btn-light">
               How made to order works
             </Link>
           </div>
