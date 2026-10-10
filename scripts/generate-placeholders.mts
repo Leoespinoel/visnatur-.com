@@ -14,9 +14,10 @@ import { products, type Garment, type Product } from "../src/data/products.ts";
 import { categories } from "../src/data/site.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+// Writes outside public/ so it can never overwrite the real product renders and stills the site uses.
 const out = {
-  products: join(root, "public", "products"),
-  images: join(root, "public", "images"),
+  products: join(root, "placeholders", "products"),
+  images: join(root, "placeholders", "images"),
 };
 mkdirSync(out.products, { recursive: true });
 mkdirSync(out.images, { recursive: true });

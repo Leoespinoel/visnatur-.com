@@ -55,3 +55,6 @@ next-env.d.ts
 /Swim shorts/
 /linen shirts/
 /green and white cap.html
+
+# generated SVG placeholders (scripts/generate-placeholders.mts)
+/placeholders

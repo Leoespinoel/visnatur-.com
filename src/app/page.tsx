@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { categories, site } from "@/data/site";
-import { featuredProducts, productImages } from "@/data/products";
+import { featuredProducts, productImages, products } from "@/data/products";
+import { favouriteSlugs } from "@/data/favourites";
+import { Favourites } from "@/components/Favourites";
 import { getInventory } from "@/lib/inventory";
 import { listableProducts } from "@/lib/editions";
 import { editionWord, formatPrice, leadTimeLabel } from "@/lib/format";
@@ -15,26 +17,34 @@ import { CommunityCard } from "@/components/CommunityCard";
 import { communityPosts } from "@/data/community";
 import { atelierFilm } from "@/data/film";
 
+/** Lifestyle still shown beside the spotlight packshot, by category. */
+const scenes: Record<string, string> = {
+  swim: "/images/beach-surfer.jpg",
+  "polos-knitwear": "/images/forest.jpg",
+  "shirts-trousers": "/images/bay.jpg",
+  "outerwear-accessories": "/images/golf-green.jpg",
+};
+
 /** Three ways we work, shown as the "services" row. */
 const services = [
   {
     title: "Made to order",
     text: `Nothing is cut until you claim a number. Each edition is made as one batch in Mauritius, ${leadTimeLabel()} after orders close.`,
-    image: "/images/journal-1.svg",
+    image: "/images/boxed-shirt.jpg",
     href: "/made-to-order",
     link: "Discover",
   },
   {
     title: "The pledge",
     text: `${pledgePercentLabel()} of the price of every piece, not the profit, goes to organisations protecting oceans, forests and rivers.`,
-    image: "/images/conservation.svg",
+    image: "/images/sea-cliff.jpg",
     href: "/conservation",
     link: "Where it goes",
   },
   {
     title: "The archive",
     text: "Every design we have ever released, with the number of pieces that exist. Once a design closes, it stays closed.",
-    image: "/images/journal-3.svg",
+    image: "/images/numbered-label.jpg",
     href: "/archive",
     link: "Browse",
   },
@@ -44,7 +54,10 @@ export default async function HomePage() {
   const inventory = await getInventory();
   const featured = listableProducts(inventory, featuredProducts(12)).slice(0, 8);
   const spotlight = featured.find((p) => p.badge === "Signature") ?? featured[0];
-  const spotlightCategory = spotlight ? categories.find((c) => c.slug === spotlight.category) : undefined;
+  const favourites = listableProducts(
+    inventory,
+    favouriteSlugs.map((slug) => products.find((p) => p.slug === slug)).filter((p): p is (typeof products)[number] => Boolean(p)),
+  );
 
   return (
     <>
@@ -59,10 +72,13 @@ export default async function HomePage() {
         <ProductCarousel title="The new collection" products={featured} priorityCount={4} inventory={inventory} link={{ label: "All available pieces", href: "/shop" }} />
       </section>
 
+      {/* 1b. Our favourites: hand-picked grid */}
+      <Favourites products={favourites} inventory={inventory} />
+
       {/* 2. Statement: image left, three-line headline right */}
       <section className="grid md:grid-cols-2">
         <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[640px]">
-          <Image src="/images/hero.svg" alt="" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+          <Image src="/images/bay.jpg" alt="A man in a linen shirt on a beach at golden hour" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
         </div>
         <div className="flex flex-col items-center justify-center px-6 py-16 text-center md:px-12 md:py-24">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-ink">Nothing is made until you ask for it.</p>
@@ -99,15 +115,15 @@ export default async function HomePage() {
       {/* 4. Editorial: big image left, two small images and a story right */}
       <section className="container-x grid gap-6 py-12 md:grid-cols-2 md:gap-8 md:py-16">
         <div className="image-frame aspect-[4/5]">
-          <Image src="/images/about.svg" alt="" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+          <Image src="/images/cutting-table.jpg" alt="Linen laid out on the cutting table" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
         </div>
         <div className="flex flex-col justify-between gap-10 md:pl-8">
           <div className="grid grid-cols-2 gap-2">
             <div className="image-frame aspect-square">
-              <Image src="/images/journal-2.svg" alt="" fill unoptimized sizes="25vw" className="object-cover" />
+              <Image src="/images/collar-stitch.jpg" alt="A collar being stitched" fill unoptimized sizes="25vw" className="object-cover" />
             </div>
             <div className="image-frame aspect-square">
-              <Image src="/images/journal-1.svg" alt="" fill unoptimized sizes="25vw" className="object-cover" />
+              <Image src="/images/screen-print.jpg" alt="Screen-printing swim fabric" fill unoptimized sizes="25vw" className="object-cover" />
             </div>
           </div>
           <div>
@@ -136,7 +152,7 @@ export default async function HomePage() {
             </div>
           </Link>
           <div className="relative aspect-[4/5] md:aspect-auto">
-            <Image src={spotlightCategory?.image ?? "/images/hero.svg"} alt="" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            <Image src={scenes[spotlight.category] ?? "/images/beach-surfer.jpg"} alt="" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
         </section>
       )}

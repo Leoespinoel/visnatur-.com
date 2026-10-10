@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { editionLabel, editionKindLabel, isOneOfOne, type Product } from "@/data/products";
+import { editionLabel, editionKindLabel, isOneOfOne, siblingsOf, type Product } from "@/data/products";
 import { useCart } from "@/lib/cart";
 import { formatPrice, leadTimeLabel } from "@/lib/format";
 import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
@@ -48,6 +49,27 @@ export function ProductDetails({ product, availability, inventory }: { product: 
           </dd>
         </div>
       </dl>
+
+      {/* Other colourways: each is its own numbered edition */}
+      {siblingsOf(product).length > 1 && (
+        <div>
+          <p className="eyebrow mb-3">Also in · each colour is its own edition</p>
+          <ul className="flex flex-wrap gap-2">
+            {siblingsOf(product).map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={`/product/${c.slug}`}
+                  title={c.colour.name}
+                  aria-label={c.colour.name}
+                  aria-current={c.slug === product.slug ? "page" : undefined}
+                  className={`block h-7 w-7 rounded-full border transition-transform hover:scale-110 ${c.slug === product.slug ? "border-ink ring-1 ring-ink ring-offset-2 ring-offset-paper" : "border-line"}`}
+                  style={{ backgroundColor: c.colour.hex }}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {availability.state === "sold" ? (
         <div className="space-y-3">

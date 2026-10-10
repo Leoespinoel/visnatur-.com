@@ -41,8 +41,8 @@ export default async function ProductPage({ params }: Props) {
   const availability = availabilityOf(product, inventory);
   const done = isArchived(availability);
   const related = listableProducts(inventory, productsInCategory(product.category))
-    .filter((p) => p.slug !== product.slug)
-    .slice(0, 4);
+    .filter((p) => p.family !== product.family)
+    .slice(0, 8);
 
   const eyebrow =
     availability.state === "sold"

@@ -10,7 +10,19 @@ import { isArchived, remainingLabel, type Availability } from "@/lib/editions";
  * garment centred, a small label on the tile, then an uppercase name, the price and the colour dot.
  * Hovering swaps the front view for the detail view.
  */
-export function ProductCard({ product, priority = false, availability }: { product: Product; priority?: boolean; availability?: Availability }) {
+export function ProductCard({
+  product,
+  priority = false,
+  availability,
+  siblings,
+}: {
+  product: Product;
+  priority?: boolean;
+  availability?: Availability;
+  /** Other colourways of the same pattern (including `product`), shown as dots under the tile. */
+  siblings?: Product[];
+}) {
+  const colours = siblings && siblings.length > 1 ? siblings : null;
   const [front, detail] = productImages(product);
   const done = availability ? isArchived(availability) : false;
   const corner = !availability || availability.state === "upcoming" ? editionKindLabel(product) : remainingLabel(product, availability);
@@ -51,14 +63,34 @@ export function ProductCard({ product, priority = false, availability }: { produ
             <span className="text-[10px] uppercase tracking-[0.12em] text-muted">{editionLabel(product)}</span>
           </div>
           <div className="flex items-center justify-between gap-3 pt-0.5">
-            <span className="flex items-center gap-1.5 text-[11px] text-muted" title={product.colour.name}>
-              <span className="h-3 w-3 shrink-0 rounded-full border border-line" style={{ backgroundColor: product.colour.hex }} />
-              <span className="hidden sm:inline">{product.colour.name}</span>
-            </span>
+            {colours ? (
+              <span className="text-[11px] text-muted">{colours.length} colours</span>
+            ) : (
+              <span className="flex items-center gap-1.5 text-[11px] text-muted" title={product.colour.name}>
+                <span className="h-3 w-3 shrink-0 rounded-full border border-line" style={{ backgroundColor: product.colour.hex }} />
+                <span className="hidden sm:inline">{product.colour.name}</span>
+              </span>
+            )}
             <span className={`whitespace-nowrap text-[10px] ${foot ? "text-muted" : "text-red"}`}>{foot ?? `${formatPrice(pledgeCents(product.price))} to conservation`}</span>
           </div>
         </div>
       </Link>
+      {colours && (
+        <ul className="mt-2 flex flex-wrap gap-1.5 px-0.5" aria-label={`${product.name} colours`}>
+          {colours.map((c) => (
+            <li key={c.slug}>
+              <Link
+                href={`/product/${c.slug}`}
+                title={c.colour.name}
+                aria-label={`${c.name} in ${c.colour.name}`}
+                aria-current={c.slug === product.slug ? "true" : undefined}
+                className={`block h-3.5 w-3.5 rounded-full border transition-transform hover:scale-125 ${c.slug === product.slug ? "border-ink ring-1 ring-ink ring-offset-1 ring-offset-paper" : "border-line"}`}
+                style={{ backgroundColor: c.colour.hex }}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
     </article>
   );
 }

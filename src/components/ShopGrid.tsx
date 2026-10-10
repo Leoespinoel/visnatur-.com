@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import type { Product } from "@/data/products";
+import { groupByFamily, type Product } from "@/data/products";
 import { categories, type CategorySlug } from "@/data/site";
 import { availabilityOf, currentDrop, windowLabel, type Inventory } from "@/lib/editions";
 import { ProductCard } from "./ProductCard";
@@ -54,6 +54,8 @@ export function ShopGrid({ products, inventory, fixedCategory }: { products: Pro
     return list;
   }, [products, sizes, newOnly, sort]);
 
+  const groups = useMemo(() => groupByFamily(visible), [visible]);
+
   const toggle = <T,>(list: T[], v: T) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
   const activeCount = sizes.length + (newOnly ? 1 : 0);
 
@@ -71,7 +73,7 @@ export function ShopGrid({ products, inventory, fixedCategory }: { products: Pro
         ))}
         <div className="ml-auto flex items-center gap-4">
           <p className="text-xs text-muted">
-            {visible.length} design{visible.length === 1 ? "" : "s"}
+            {groups.length} design{groups.length === 1 ? "" : "s"} · {visible.length} colourway{visible.length === 1 ? "" : "s"}
             {drop ? <span className="hidden md:inline"> · {windowLabel(drop, inventory.now)}</span> : null}
           </p>
           <button
@@ -142,8 +144,8 @@ export function ShopGrid({ products, inventory, fixedCategory }: { products: Pro
         <p className="py-20 text-center text-sm text-muted">Nothing matches those filters yet.</p>
       ) : (
         <div className="grid grid-cols-2 gap-x-1.5 gap-y-8 md:gap-x-2 md:gap-y-12 lg:grid-cols-4">
-          {visible.map((p, i) => (
-            <ProductCard key={p.slug} product={p} priority={i < 4} availability={availabilityOf(p, inventory)} />
+          {groups.map((group, i) => (
+            <ProductCard key={group[0].slug} product={group[0]} siblings={group} priority={i < 4} availability={availabilityOf(group[0], inventory)} />
           ))}
         </div>
       )}

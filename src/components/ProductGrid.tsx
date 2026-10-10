@@ -1,4 +1,4 @@
-import type { Product } from "@/data/products";
+import { groupByFamily, type Product } from "@/data/products";
 import { availabilityOf, type Inventory } from "@/lib/editions";
 import { ProductCard } from "./ProductCard";
 
@@ -18,8 +18,8 @@ export function ProductGrid({
   const cols = columns === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4";
   return (
     <div className={`grid grid-cols-2 gap-x-1.5 gap-y-8 md:gap-x-2 md:gap-y-12 ${cols}`}>
-      {products.map((p, i) => (
-        <ProductCard key={p.slug} product={p} priority={i < priorityCount} availability={inventory ? availabilityOf(p, inventory) : undefined} />
+      {groupByFamily(products).map((group, i) => (
+        <ProductCard key={group[0].slug} product={group[0]} siblings={group} priority={i < priorityCount} availability={inventory ? availabilityOf(group[0], inventory) : undefined} />
       ))}
     </div>
   );
