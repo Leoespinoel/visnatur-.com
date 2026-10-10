@@ -48,7 +48,7 @@ export function Newsletter({ compact = false }: { compact?: boolean }) {
 
   /* Full-bleed red block: eyebrow + "FOLLOW the JOURNEY" on the left, underline fields on the right. */
   return (
-    <section className="-mb-24 bg-red text-paper">
+    <section className="bg-red text-paper">
       <div className="container-x grid gap-14 py-20 md:grid-cols-[5fr_7fr] md:items-center md:gap-10 md:py-28">
         <div className="md:pl-[8%]">
           <p className={`${mono} flex items-center gap-3`}>

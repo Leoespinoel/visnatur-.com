@@ -6,7 +6,7 @@ import { TrustBar } from "./TrustBar";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-line">
+    <footer>
       <TrustBar />
       <div className="theme-dark">
         <div className="container-x grid gap-12 py-16 md:grid-cols-12">

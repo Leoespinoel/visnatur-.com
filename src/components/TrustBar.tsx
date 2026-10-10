@@ -12,8 +12,8 @@ export function TrustBar() {
     { icon: LockIcon, title: "Secure payment" },
   ];
   return (
-    <div className="border-y border-line bg-paper">
-      <ul className="container-x grid grid-cols-2 gap-x-4 gap-y-8 py-10 md:grid-cols-4">
+    <div className="bg-paper">
+      <ul className="container-x grid grid-cols-2 gap-x-4 gap-y-8 py-20 md:grid-cols-4">
         {items.map(({ icon: Icon, title }) => (
           <li key={title} className="flex flex-col items-center gap-3 text-center">
             <Icon width={26} height={26} className="text-ink" />

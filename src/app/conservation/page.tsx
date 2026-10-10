@@ -93,7 +93,7 @@ export default function ConservationPage() {
       </section>
 
       {/* Why: red like the homepage newsletter, flush against the trust row */}
-      <section className="-mb-24 bg-red text-paper">
+      <section className="bg-red text-paper">
         <div className="container-x grid gap-10 py-20 md:grid-cols-12 md:py-28">
           <div className="md:col-span-4">
             <p className="eyebrow mb-4 text-paper/70">Why</p>
