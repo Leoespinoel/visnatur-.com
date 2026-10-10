@@ -73,6 +73,12 @@ export const SHOTS = {
     prompt:
       "A man stands on a rocky mountain summit in Mauritius at sunrise above a sea of cloud, wearing the navy linen shirt with sleeves rolled and cream trousers, hands in pockets, looking out. Three-quarter view, the cloud layer glowing behind him.",
   },
+  about: {
+    out: "images/about.jpg", aspect: T, size: [1200, 1500],
+    wear: ["riviera-linen-shirt-sage"],
+    prompt:
+      "A man in his early forties walks barefoot along a black basalt shoreline in the south of Mauritius in late afternoon, waves breaking white against the rocks behind him, wearing the sage green linen shirt with sleeves rolled and cream linen trousers rolled at the ankle, shoes in one hand, looking down at the path. Full length, warm low sun from the side.",
+  },
   "caps-scene": {
     out: "images/caps-scene.jpg", aspect: T, size: [1200, 1500],
     wear: ["marram-cap-ecru-pine", "harbour-quarter-zip-navy"],

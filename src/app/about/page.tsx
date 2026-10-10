@@ -18,7 +18,7 @@ export default function AboutPage() {
       <section className="container-x grid gap-10 pb-16 md:grid-cols-12 md:pb-24">
         <div className="md:col-span-5">
           <div className="image-frame aspect-[4/5]">
-            <Image src="/images/summit.jpg?v=2" alt="A man in a navy linen shirt on a summit above a sea of cloud" fill unoptimized priority sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
+            <Image src="/images/about.jpg" alt="A man in a sage linen shirt walking barefoot over basalt rocks on the Mauritius coast" fill unoptimized priority sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
           </div>
         </div>
         <div className="space-y-6 text-base leading-relaxed text-ink-2 md:col-span-6 md:col-start-7 md:pt-10 md:text-lg">
