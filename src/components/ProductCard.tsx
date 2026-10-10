@@ -8,7 +8,7 @@ import { isArchived, remainingLabel, type Availability } from "@/lib/editions";
 /**
  * Product tile in the style of a classic resort e-commerce grid: a flat studio tile with the
  * garment centred, a small label on the tile, then an uppercase name, the price and the colour dot.
- * Hovering swaps the front view for the detail view.
+ * Hovering swaps the front view for the on-model shot, or the detail view when there is none.
  */
 export function ProductCard({
   product,
@@ -23,7 +23,7 @@ export function ProductCard({
   siblings?: Product[];
 }) {
   const colours = siblings && siblings.length > 1 ? siblings : null;
-  const [front, detail] = productImages(product);
+  const [front, hover] = productImages(product);
   const done = availability ? isArchived(availability) : false;
   const corner = !availability || availability.state === "upcoming" ? editionKindLabel(product) : remainingLabel(product, availability);
   const urgent = done || (availability !== undefined && availability.remaining <= 3 && !isOneOfOne(product));
@@ -43,7 +43,7 @@ export function ProductCard({
             className={`object-cover transition-opacity duration-500 group-hover:opacity-0 ${done ? "grayscale" : ""}`}
           />
           <Image
-            src={detail}
+            src={hover}
             alt=""
             fill
             unoptimized

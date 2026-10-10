@@ -87,7 +87,7 @@ export const categories = [
     short: "Caps",
     description: "Six-panel caps with the name embroidered in script.",
     image: "/products/marram-cap-ecru-pine.jpg",
-    scene: "/products/marram-cap-ecru-pine.jpg",
+    scene: "/images/caps-scene.jpg",
   },
 ] as const;
 

@@ -27,7 +27,7 @@ export default function ConservationPage() {
 
       <section className="container-x">
         <div className="image-frame aspect-[16/9] md:aspect-[21/9]">
-          <Image src="/images/sea-cliff-wide.jpg" alt="Sea cliff above the Indian Ocean at golden hour" fill unoptimized priority sizes="100vw" className="object-cover" />
+          <Image src="/images/sea-cliff-wide.jpg" alt="A man in a black knitted gilet on a sea cliff above the Indian Ocean at golden hour" fill unoptimized priority sizes="100vw" className="object-cover" />
         </div>
       </section>
 

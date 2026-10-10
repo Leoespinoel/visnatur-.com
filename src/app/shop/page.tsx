@@ -36,7 +36,7 @@ export default async function ShopLandingPage() {
       {/* 1. Split hero: one big image, the drop's picks beside it */}
       <section className="grid gap-1.5 md:grid-cols-2 md:gap-2">
         <Link href="/shop/all" className="group relative block aspect-[4/5] overflow-hidden bg-paper-2 md:aspect-auto md:min-h-[760px]">
-          <Image src="/community/p12.jpg" alt="A man in a knitted shirt and pleated trousers on a sea cliff" fill unoptimized preload sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.02]" />
+          <Image src="/community/p12.jpg" alt="A climber in a clementine linen shirt at the foot of a sea cliff" fill unoptimized preload sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.02]" />
         </Link>
         <div className="px-4 py-8 md:px-8 md:py-10 xl:px-12">
           <div className="mb-6 flex items-end justify-between gap-4">
@@ -72,7 +72,7 @@ export default async function ShopLandingPage() {
       <div className="pt-1.5 md:pt-2">
         <CampaignBlock
           image="/images/campaign-atelier.jpg"
-          alt="Linen being stitched on a sewing machine"
+          alt="A seamstress stitching red linen in the Port Louis workshop"
           title="Made in Mauritius"
           text="Nothing is cut until you claim a number. When orders close, the whole edition is made as one batch, by hand."
           primary={{ label: "Shop all", href: "/shop/all" }}

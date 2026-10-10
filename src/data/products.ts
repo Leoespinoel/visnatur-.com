@@ -1,3 +1,4 @@
+import { onModel } from "./on-model";
 import { site, type CategorySlug, type DropNumber } from "./site";
 
 export type Garment =
@@ -946,8 +947,10 @@ export function editionKindLabel(p: Product): string {
   return isOneOfOne(p) ? "One of one" : `Edition of ${editionTotal(p)}`;
 }
 
+/** Packshot, then the on-model shot when one has been approved, then the detail crop. */
 export function productImages(p: Product): string[] {
-  return [`/products/${p.slug}.jpg`, `/products/${p.slug}-detail.jpg`];
+  const model = onModel.has(p.slug) ? [`/products/${p.slug}-model.jpg`] : [];
+  return [`/products/${p.slug}.jpg`, ...model, `/products/${p.slug}-detail.jpg`];
 }
 
 /** Every colourway of the same pattern, in catalogue order, including `p` itself. */

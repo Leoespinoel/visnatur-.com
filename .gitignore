@@ -58,3 +58,6 @@ next-env.d.ts
 
 # generated SVG placeholders (scripts/generate-placeholders.mts)
 /placeholders
+
+# Higgsfield still takes, cutouts and packshot backups
+/stills-src/
