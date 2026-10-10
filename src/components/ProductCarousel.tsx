@@ -17,12 +17,15 @@ export function ProductCarousel({
   inventory,
   link,
   priorityCount = 0,
+  variant = "default",
 }: {
   title: string;
   products: Product[];
   inventory?: Inventory;
   link?: { label: string; href: string };
   priorityCount?: number;
+  /** `kith`: no headline, five across, arrows at the sides and a centred "Shop all" button under the row. */
+  variant?: "default" | "kith";
 }) {
   const track = useRef<HTMLDivElement>(null);
   const page = (dir: -1 | 1) => {
@@ -30,6 +33,40 @@ export function ProductCarousel({
     if (!el) return;
     el.scrollBy({ left: dir * el.clientWidth, behavior: "smooth" });
   };
+
+  if (variant === "kith") {
+    const arrow = "absolute top-[38%] z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-paper/90 text-ink shadow-sm transition-colors hover:bg-ink hover:text-paper md:flex";
+    return (
+      <div role="region" aria-label={title}>
+        <div className="relative">
+          <div ref={track} className="no-scrollbar flex snap-x snap-mandatory gap-1.5 overflow-x-auto md:gap-2">
+            {products.map((p, i) => (
+              <div key={p.slug} className="w-[calc((100%-0.375rem)/2)] shrink-0 snap-start md:w-[calc((100%-2rem)/5)]">
+                <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} availability={inventory ? availabilityOf(p, inventory) : undefined} />
+              </div>
+            ))}
+          </div>
+          {products.length > 5 && (
+            <>
+              <button type="button" onClick={() => page(-1)} aria-label="Previous" className={`${arrow} left-3`}>
+                <ChevronIcon className="rotate-90" width={16} height={16} />
+              </button>
+              <button type="button" onClick={() => page(1)} aria-label="Next" className={`${arrow} right-3`}>
+                <ChevronIcon className="-rotate-90" width={16} height={16} />
+              </button>
+            </>
+          )}
+        </div>
+        {link && (
+          <div className="mt-8 text-center">
+            <Link href={link.href} className="btn btn-outline min-w-[180px]">
+              {link.label}
+            </Link>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div>

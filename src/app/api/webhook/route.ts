@@ -47,7 +47,7 @@ export async function POST(req: Request) {
 }
 
 async function warm(origin: string, slugs: string[]) {
-  const paths = new Set(["/", "/shop", "/archive"]);
+  const paths = new Set(["/", "/shop", "/shop/all", "/archive"]);
   for (const slug of slugs) {
     const p = getProduct(slug);
     if (!p) continue;

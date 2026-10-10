@@ -197,6 +197,17 @@ button {
   }
 }
 
+/* Outlined white button for text over photography (campaign blocks, image tiles). */
+@utility btn-ghost {
+  background: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+  &:hover:not(:disabled) {
+    background: #ffffff;
+    color: var(--ink);
+  }
+}
+
 @utility link-underline {
   position: relative;
   &::after {

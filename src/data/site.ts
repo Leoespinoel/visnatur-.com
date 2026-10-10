@@ -62,6 +62,8 @@ export const categories = [
     short: "Swim",
     description: "Swim shorts in solid colours and colour-block, cut for long days by the water.",
     image: "/products/tidal-swim-short-navy.jpg",
+    /** Lifestyle image for category tiles on the shop landing. */
+    scene: "/images/beach-surfer.jpg",
   },
   {
     slug: "polos-knitwear",
@@ -69,6 +71,7 @@ export const categories = [
     short: "Quarter Zips",
     description: "Heavyweight quarter zips in brushed loopback cotton, for the drive home.",
     image: "/products/harbour-quarter-zip-forest.jpg",
+    scene: "/images/golf-green.jpg",
   },
   {
     slug: "shirts-trousers",
@@ -76,6 +79,7 @@ export const categories = [
     short: "Shirts",
     description: "Linen shirts that are allowed to crease, in six colours.",
     image: "/products/riviera-linen-shirt-sky.jpg",
+    scene: "/images/summit.jpg",
   },
   {
     slug: "outerwear-accessories",
@@ -83,6 +87,7 @@ export const categories = [
     short: "Caps",
     description: "Six-panel caps with the name embroidered in script.",
     image: "/products/marram-cap-ecru-pine.jpg",
+    scene: "/products/marram-cap-ecru-pine.jpg",
   },
 ] as const;
 
@@ -114,14 +119,14 @@ export const nav = {
     { label: "About", href: "/about" },
   ],
   shop: [
-    { label: "Available pieces", href: "/shop" },
-    { label: "New in", href: "/shop?filter=new" },
+    { label: "All pieces", href: "/shop/all" },
+    { label: "New in", href: "/shop/all?filter=new" },
     { label: "Archive", href: "/archive" },
     ...categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })),
   ],
   footer: {
     shop: [
-      { label: "Available pieces", href: "/shop" },
+      { label: "All pieces", href: "/shop/all" },
       ...categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })),
       { label: "Archive", href: "/archive" },
     ],

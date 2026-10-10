@@ -11,6 +11,18 @@ import { Wordmark } from "./Wordmark";
 import { AnnouncementBar } from "./AnnouncementBar";
 import { BagIcon, CloseIcon, MenuIcon } from "./Icons";
 
+/** Mega menu columns and collection tiles, as on kith.com. */
+const megaColumns = [
+  { title: "Shop", href: "/shop", links: nav.shop.slice(0, 3) },
+  { title: "Categories", href: "/shop/all", links: categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })) },
+  { title: "Vis Naturæ", href: "/about", links: nav.primary.filter((i) => !i.mega) },
+];
+const megaTiles = [
+  { label: "Drop I", href: "/shop", image: "/community/p12.jpg" },
+  { label: "Swim", href: "/shop/swim", image: "/community/p6.jpg" },
+  { label: "Made in Mauritius", href: "/made-to-order", image: "/images/cutting-table.jpg" },
+];
+
 const subscribeNever = () => () => {};
 let todayCache = "";
 const getToday = () => {
@@ -162,33 +174,31 @@ export function Header() {
         onMouseEnter={() => setShopOpen(true)}
         onMouseLeave={() => setShopOpen(false)}
       >
+        {/* Kith-style: columns of links on the left, collection tiles on the right */}
         <div className="container-x grid grid-cols-12 gap-8 py-10">
-          <div className="col-span-3">
-            <p className="eyebrow mb-5">Shop</p>
-            <ul className="space-y-3">
-              {nav.shop.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="font-serif text-2xl link-underline">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="col-span-9 grid grid-cols-4 gap-4">
-            {categories.map((c) => (
-              <Link key={c.slug} href={`/shop/${c.slug}`} className="group">
+          {megaColumns.map((col) => (
+            <div key={col.title} className="col-span-2">
+              <Link href={col.href} className="text-[12px] font-semibold uppercase tracking-[0.1em] link-underline">
+                {col.title}
+              </Link>
+              <ul className="mt-4 space-y-2.5">
+                {col.links.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="text-[13px] text-ink-2 transition-colors hover:text-ink">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <div className="col-span-6 grid grid-cols-3 gap-2">
+            {megaTiles.map((t) => (
+              <Link key={t.href} href={t.href} className="group">
                 <div className="image-frame aspect-[4/5]">
-                  <Image
-                    src={c.image}
-                    alt={c.name}
-                    fill
-                    unoptimized
-                    sizes="240px"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  />
+                  <Image src={t.image} alt="" fill unoptimized sizes="240px" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
                 </div>
-                <p className="eyebrow !text-ink mt-3">{c.name}</p>
+                <p className="mt-2.5 text-[12px] font-medium">{t.label}</p>
               </Link>
             ))}
           </div>

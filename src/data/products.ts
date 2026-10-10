@@ -608,3 +608,11 @@ export function groupByFamily(list: Product[]): Product[][] {
   }
   return [...groups.values()];
 }
+
+/** Colourways interleaved across families (one of each design in turn), so a carousel opens on the whole range. */
+export function interleaveFamilies(list: Product[]): Product[] {
+  const groups = groupByFamily(list);
+  const out: Product[] = [];
+  for (let i = 0; out.length < list.length; i++) for (const g of groups) if (g[i]) out.push(g[i]);
+  return out;
+}

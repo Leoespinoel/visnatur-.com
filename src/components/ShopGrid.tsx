@@ -63,7 +63,7 @@ export function ShopGrid({ products, inventory, fixedCategory }: { products: Pro
     <div>
       {/* Family chips, count and the filter button */}
       <div className="flex flex-wrap items-center gap-2 pb-4">
-        <Chip href="/shop" active={!fixedCategory}>
+        <Chip href="/shop/all" active={!fixedCategory}>
           All pieces
         </Chip>
         {categories.map((c) => (
