@@ -47,16 +47,16 @@ export default function AboutPage() {
       </section>
 
       {/* The mark: why the logo is a honey badger, asleep on its back. */}
-      <section id="the-mark" className="border-t border-line">
+      <section id="the-mark" className="bg-black text-white">
         <div className="container-x grid gap-10 py-16 md:grid-cols-12 md:items-center md:py-24">
           <div className="md:col-span-6">
-            <div className="flex aspect-[4/3] items-center justify-center bg-surface px-8 md:px-12">
+            <div className="flex aspect-[4/3] items-center justify-center px-8 md:px-12">
               <Image src="/brand/badger-mark.png" alt="The Vis Naturæ honey badger, asleep on its back" width={852} height={300} unoptimized className="h-auto w-full max-w-[520px]" />
             </div>
           </div>
-          <div className="space-y-6 text-base leading-relaxed text-ink-2 md:col-span-5 md:col-start-8 md:text-lg">
-            <p className="eyebrow">The mark</p>
-            <h2 className="display text-3xl text-ink md:text-4xl">Most animals survive by knowing when to run.</h2>
+          <div className="space-y-6 text-base leading-relaxed text-white/80 md:col-span-5 md:col-start-8 md:text-lg">
+            <p className="eyebrow !text-white/70">The mark</p>
+            <h2 className="display text-3xl text-white md:text-4xl">Most animals survive by knowing when to run.</h2>
             <p>
               The honey badger survives because it simply refuses to. It lives across Africa, no bigger than a house cat, and spends its life
               picking fights with animals far bigger than itself. The black mamba. Lions. Even elephants.
@@ -74,7 +74,7 @@ export default function AboutPage() {
               Ours is caught in that sleep. On its back, paws folded, one fight behind it and the next not yet begun. Go all in, then rest
               like you mean it.
             </p>
-            <p className="font-serif text-2xl text-ink">Proof that fear is sometimes the most overrated instinct in nature.</p>
+            <p className="font-serif text-2xl text-white">Proof that fear is sometimes the most overrated instinct in nature.</p>
           </div>
         </div>
       </section>
