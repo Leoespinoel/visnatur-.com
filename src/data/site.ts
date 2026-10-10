@@ -67,9 +67,9 @@ export const categories = [
   },
   {
     slug: "polos-knitwear",
-    name: "Quarter Zips",
-    short: "Quarter Zips",
-    description: "Heavyweight quarter zips in brushed loopback cotton, for the drive home.",
+    name: "Knitwear",
+    short: "Knitwear",
+    description: "Cardigans, crew necks, vests, quarter zips and rugby shirts, knitted and sewn for the drive home.",
     image: "/products/harbour-quarter-zip-forest.jpg",
     scene: "/images/golf-green.jpg",
   },

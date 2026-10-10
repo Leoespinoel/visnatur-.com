@@ -60,9 +60,9 @@ export const campaigns: Campaign[] = [
     row: { kind: "category", category: "shirts-trousers" },
   },
   {
-    key: "quarter-zips",
-    title: "Quarter Zips",
-    text: "Heavyweight quarter zips in brushed loopback cotton, for the back nine and the drive home.",
+    key: "knitwear",
+    title: "Knitwear",
+    text: "Cardigans, stripe crews, rugby shirts and quarter zips, for the back nine and the drive home.",
     image: "/images/campaign-golf.jpg",
     alt: "A golfer in a knitted shirt on a green at sunset",
     primary: { label: "Shop now", href: "/shop/polos-knitwear" },

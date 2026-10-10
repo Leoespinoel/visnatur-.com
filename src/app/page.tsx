@@ -1,5 +1,5 @@
 import { site } from "@/data/site";
-import { featuredProducts, productsInCategory } from "@/data/products";
+import { featuredProducts, interleaveFamilies, productsInCategory } from "@/data/products";
 import { campaigns, type Campaign } from "@/data/campaigns";
 import { getInventory } from "@/lib/inventory";
 import { listableProducts, type Inventory } from "@/lib/editions";
@@ -19,7 +19,7 @@ import { atelierFilm } from "@/data/film";
 function CampaignRow({ campaign, inventory }: { campaign: Campaign; inventory: Inventory }) {
   const { row } = campaign;
   if (row.kind === "lookbook") return <LookbookRow images={row.images} />;
-  const items = row.kind === "featured" ? listableProducts(inventory, featuredProducts(12)).slice(0, 10) : listableProducts(inventory, productsInCategory(row.category));
+  const items = row.kind === "featured" ? listableProducts(inventory, featuredProducts(12)).slice(0, 10) : interleaveFamilies(listableProducts(inventory, productsInCategory(row.category)));
   if (items.length === 0) return null;
   return (
     <div className="container-x py-10 md:py-12">

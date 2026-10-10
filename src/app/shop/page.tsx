@@ -14,7 +14,7 @@ import { ArrowIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Shop",
-  description: "Every Vis Naturæ design is released once, in a numbered edition made to order in Mauritius. Swim, quarter zips, linen shirts and caps.",
+  description: "Every Vis Naturæ design is released once, in a numbered edition made to order in Mauritius. Swim, knitwear, rugby shirts, linen shirts and caps.",
 };
 
 /** Shop landing, modelled on Kith's "Shop Mens": split hero with picks, category tiles, campaigns. */
