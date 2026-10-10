@@ -8,33 +8,35 @@ export function Footer() {
   return (
     <footer className="mt-24 border-t border-line">
       <TrustBar />
-      <div className="container-x grid gap-12 py-16 md:grid-cols-12">
-        <div className="md:col-span-4">
-          <Wordmark size="sm" />
-          <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-2">{site.tagline} {site.description.split(". ").slice(1).join(". ")}</p>
+      <div className="theme-dark">
+        <div className="container-x grid gap-12 py-16 md:grid-cols-12">
+          <div className="md:col-span-4">
+            <Wordmark size="sm" />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-2">{site.tagline} {site.description.split(". ").slice(1).join(". ")}</p>
+          </div>
+          <FooterCol title="Shop" links={nav.footer.shop} />
+          <FooterCol title="Brand" links={nav.footer.brand} />
+          <FooterCol title="Help" links={nav.footer.help} />
+          <div className="md:col-span-2 md:col-start-11">
+            <Newsletter compact />
+          </div>
         </div>
-        <FooterCol title="Shop" links={nav.footer.shop} />
-        <FooterCol title="Brand" links={nav.footer.brand} />
-        <FooterCol title="Help" links={nav.footer.help} />
-        <div className="md:col-span-2 md:col-start-11">
-          <Newsletter compact />
-        </div>
-      </div>
-      <div className="border-t border-line">
-        <div className="container-x flex flex-col gap-3 py-5 text-[11px] text-muted md:flex-row md:items-center md:justify-between">
-          <p>
-            © {site.foundedYear} {site.name}. Made to order in Mauritius.
-          </p>
-          <p className="flex flex-wrap gap-x-5 gap-y-1">
-            <span>EUR · Ships across Europe</span>
-            <span>Visa · Mastercard · Amex · Apple Pay · Google Pay</span>
-            <Link href="/legal/terms" className="link-underline">
-              Terms
-            </Link>
-            <Link href="/legal/privacy" className="link-underline">
-              Privacy
-            </Link>
-          </p>
+        <div className="border-t border-line">
+          <div className="container-x flex flex-col gap-3 py-5 text-[11px] text-muted md:flex-row md:items-center md:justify-between">
+            <p>
+              © {site.foundedYear} {site.name}. Made to order in Mauritius.
+            </p>
+            <p className="flex flex-wrap gap-x-5 gap-y-1">
+              <span>EUR · Ships across Europe</span>
+              <span>Visa · Mastercard · Amex · Apple Pay · Google Pay</span>
+              <Link href="/legal/terms" className="link-underline">
+                Terms
+              </Link>
+              <Link href="/legal/privacy" className="link-underline">
+                Privacy
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
