@@ -75,7 +75,7 @@ export default function MadeToOrderPage() {
 
       <section className="container-x grid gap-10 pb-16 md:grid-cols-2 md:items-center md:pb-24">
         <div className="image-frame aspect-[4/5]">
-          <Image src="/images/cutting-table.jpg" alt="Sky blue linen being cut on the workshop table" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+          <Image src="/images/cutting-table.jpg?v=2" alt="Sky blue linen being cut on the workshop table" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
         </div>
         <div className="md:pl-8 lg:pl-16">
           <p className="eyebrow mb-4">Why we work this way</p>

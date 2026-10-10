@@ -18,9 +18,9 @@ const megaColumns = [
   { title: "Vis Naturæ", href: "/about", links: nav.primary.filter((i) => !i.mega) },
 ];
 const megaTiles = [
-  { label: "Drop I", href: "/shop", image: "/community/p12.jpg" },
-  { label: "Swim", href: "/shop/swim", image: "/community/p6.jpg" },
-  { label: "Made in Mauritius", href: "/made-to-order", image: "/images/cutting-table.jpg" },
+  { label: "Drop I", href: "/shop", image: "/community/p12.jpg?v=2" },
+  { label: "Swim", href: "/shop/swim", image: "/community/p6.jpg?v=2" },
+  { label: "Made in Mauritius", href: "/made-to-order", image: "/images/cutting-table.jpg?v=2" },
 ];
 
 const subscribeNever = () => () => {};

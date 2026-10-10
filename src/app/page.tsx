@@ -50,7 +50,7 @@ export default async function HomePage() {
       {/* Half-width pair, like Kith's "Apparel | Accessories" */}
       <section className="grid gap-1.5 pt-1.5 md:grid-cols-2 md:gap-2 md:pt-2">
         <LabelTile href="/shop/outerwear-accessories" image="/images/caps-scene.jpg" label="Caps" cta="Shop now" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
-        <LabelTile href="/archive" image="/images/numbered-label.jpg" label="The archive" cta="Browse" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
+        <LabelTile href="/archive" image="/images/numbered-label.jpg?v=2" label="The archive" cta="Browse" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
       </section>
 
       {/* The making-of, as a campaign */}

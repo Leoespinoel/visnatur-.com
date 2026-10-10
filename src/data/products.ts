@@ -947,10 +947,12 @@ export function editionKindLabel(p: Product): string {
   return isOneOfOne(p) ? "One of one" : `Edition of ${editionTotal(p)}`;
 }
 
-/** Packshot, then the on-model shot when one has been approved, then the detail crop. */
+/** Packshot, then the on-model shot when one has been approved, then the detail crop.
+ * `?v=2` busts browser caches (Hostinger serves public files with a one-year max-age): the packshots
+ * were replaced in place by the white-background versions. Bump it whenever they change again. */
 export function productImages(p: Product): string[] {
   const model = onModel.has(p.slug) ? [`/products/${p.slug}-model.jpg`] : [];
-  return [`/products/${p.slug}.jpg`, ...model, `/products/${p.slug}-detail.jpg`];
+  return [`/products/${p.slug}.jpg?v=2`, ...model, `/products/${p.slug}-detail.jpg?v=2`];
 }
 
 /** Every colourway of the same pattern, in catalogue order, including `p` itself. */
