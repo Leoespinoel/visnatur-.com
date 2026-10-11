@@ -1,53 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const TRACK = "/audio/where-you-really-come-from.mp4"; // .mp4, not .m4a: Hostinger serves .m4a as text/plain // Tobiahs, VV-Ace – Where You Really Come From
 
 /**
- * Site soundtrack. Starts when the site opens and plays once, start to finish. It lives in the root
- * layout, so it keeps playing while visitors move between pages.
- *
- * Browsers block sound until the visitor has interacted with the page, so it tries to start at once
- * and otherwise starts on the first click, tap or key press (skipping the intro counts). A small
- * button bottom-left turns it off and on; it disappears when the song has finished.
+ * Site soundtrack. Silent until the visitor clicks the small button bottom-left, then plays once,
+ * start to finish; the same button pauses and resumes it. It lives in the root layout, so it keeps
+ * playing while visitors move between pages. The button disappears when the song has finished.
  */
 export function SiteMusic() {
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [ended, setEnded] = useState(false);
-  const userPaused = useRef(false);
-
-  useEffect(() => {
-    const audio = ref.current;
-    if (!audio) return;
-    // Safari (especially iOS) only allows sound from certain gestures: click, touchend, pointerup,
-    // keydown. A touchstart does not count. So keep listening on every interaction and stop only
-    // once the song is actually playing.
-    const events = ["pointerdown", "pointerup", "click", "touchend", "keydown"] as const;
-    const stopListening = () => events.forEach((e) => window.removeEventListener(e, onInteract, true));
-    function onInteract(e: Event) {
-      // The music button handles its own clicks.
-      if (e.target instanceof Element && e.target.closest("[data-site-music]")) return;
-      if (!audio || userPaused.current || audio.ended) return stopListening();
-      if (!audio.paused) return stopListening();
-      audio.play().then(stopListening, () => undefined);
-    }
-    events.forEach((e) => window.addEventListener(e, onInteract, { capture: true, passive: true }));
-    audio.play().then(stopListening, () => undefined);
-    return stopListening;
-  }, []);
 
   const toggle = () => {
     const audio = ref.current;
     if (!audio) return;
-    if (audio.paused) {
-      userPaused.current = false;
-      void audio.play().catch(() => undefined);
-    } else {
-      userPaused.current = true;
-      audio.pause();
-    }
+    if (audio.paused) void audio.play().catch(() => undefined);
+    else audio.pause();
   };
 
   return (
@@ -55,7 +26,7 @@ export function SiteMusic() {
       <audio
         ref={ref}
         src={TRACK}
-        preload="auto"
+        preload="none"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onEnded={() => {

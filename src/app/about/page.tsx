@@ -51,11 +51,11 @@ export default function AboutPage() {
         <div className="container-x grid gap-10 py-16 md:grid-cols-12 md:items-center md:py-24">
           <div className="md:col-span-6">
             <div className="flex aspect-[4/3] items-center justify-center px-8 md:px-12">
-              <Image src="/brand/badger-mark.png" alt="The Vis Naturæ honey badger, asleep on its back" width={852} height={300} unoptimized className="h-auto w-full max-w-[520px]" />
+              <Image src="/brand/badger-mark.png" alt="The Vis Naturæ badger, inspired by the African honey badger, asleep on its back" width={852} height={300} unoptimized className="h-auto w-full max-w-[520px]" />
             </div>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-white/80 md:col-span-5 md:col-start-8 md:text-lg">
-            <p className="eyebrow !text-white/70">The mark</p>
+            <p className="eyebrow !text-white/70">The Vis Naturæ badger · inspired by the African honey badger</p>
             <h2 className="display text-3xl text-white md:text-4xl">Most animals survive by knowing when to run.</h2>
             <p>
               The honey badger survives because it simply refuses to. It lives across Africa, no bigger than a house cat, and spends its life
@@ -71,7 +71,7 @@ export default function AboutPage() {
               anything standing in its way.
             </p>
             <p>
-              Ours is caught in that sleep. On its back, paws folded, one fight behind it and the next not yet begun. Go all in, then rest
+              The Vis Naturæ badger is caught in that sleep. On its back, paws folded, one fight behind it and the next not yet begun. Go all in, then rest
               like you mean it.
             </p>
             <p className="font-serif text-2xl text-white">Proof that fear is sometimes the most overrated instinct in nature.</p>

@@ -39,7 +39,7 @@ export const SHOTS = {
     out: "images/campaign-linen.jpg", aspect: C, size: [2560, 1440],
     wear: ["riviera-linen-shirt-sky", "riviera-linen-shirt-clementine"],
     prompt:
-      "A long lunch table with a white cloth set on the sand under a sea almond tree at the edge of a calm lagoon in Mauritius, midday shade and bright water behind. One man stands pouring white wine in the sky blue linen shirt, sleeves rolled, with cream linen trousers; another sits back laughing in the clementine linen shirt, top buttons open. Grilled fish, bread, lemons and glasses on the table. Wide shot.",
+      "A candid moment late in a long lunch at a wooden table with a creased white cloth on the sand under a sea almond tree at the edge of a lagoon in Mauritius, dappled shade, the water behind slightly overexposed. Two clearly different men who do not look alike: one in his late forties, stocky, short greying hair and a few days of stubble, leans over to top up a glass in the sky blue linen shirt, sleeves rolled unevenly, with cream linen trousers; the other in his early thirties, lean, close-cropped dark hair, clean shaven, sits sideways on his chair in the clementine linen shirt, top buttons open, mid-sentence and turned away from the camera. The table is half finished: picked-over grilled fish, torn bread, squeezed lemon halves, crumpled napkins, a few wine glasses at different levels. Caught off-guard, slightly off-centre framing, like a frame from a reportage roll rather than a staged advert. Muted, natural colour, nothing oversaturated, no glossy retouching. Wide shot.",
   },
   "campaign-golf": {
     out: "images/campaign-golf.jpg", aspect: C, size: [2560, 1440],
@@ -127,7 +127,7 @@ export const SHOTS = {
     "an athletic swimmer-build man in his late twenties with sun-bleached brown hair, bare-chested and barefoot, wearing the swim shorts"),
   ...onModel("shore-swim-short", ["pine-ecru", "navy-saffron", "red-ecru"],
     "a lean Black man around thirty with close-cropped hair, bare-chested and barefoot, wearing the swim shorts"),
-  ...onModel("riviera-linen-shirt", ["oat", "sky", "navy", "sage", "red", "clementine"],
+  ...onModel("riviera-linen-shirt", ["oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink"],
     "a man in his mid thirties with sandy hair, wearing the linen shirt with sleeves rolled once and the top button open, cream linen trousers and tan suede loafers"),
   ...onModel("harbour-quarter-zip", ["navy", "forest", "red", "mustard", "sky", "orange"],
     "an East Asian man in his early thirties with neat black hair, wearing the half-zip knit zipped halfway with cream chinos and white sneakers"),
@@ -147,7 +147,13 @@ export const SHOTS = {
     "a man in his late twenties with short red-brown hair and freckles, wearing the rugby shirt untucked with stone chinos and white sneakers"),
   ...onModel("lido-stripe-swim-short", ["saffron", "red", "sky", "pink", "red-black", "green", "orange", "navy-saffron"],
     "a Latin American man around thirty with dark wavy hair, bare-chested and barefoot, wearing the striped swim shorts"),
+  ...onModel("esplanade-linen-trouser", ["oat", "ecru", "navy", "black"],
+    "a man in his early forties with olive skin, short dark hair greying at the temples and a neat beard, wearing the tailored trousers with a white linen shirt tucked in, a brown leather belt and tan suede loafers"),
+  ...onModel("veranda-linen-trouser", ["oat", "navy", "white", "black"],
+    "a Black man in his mid twenties with short twists, wearing the drawstring linen trousers with a plain white t-shirt tucked in at the front so the drawcord waist shows, and brown leather sandals"),
 };
+// The oat take is this design's model reference and pulls the ecru towards beige.
+SHOTS["esplanade-linen-trouser-ecru"].prompt += " The trousers are a very pale off-white ecru, almost as light as the shirt, not beige.";
 
 function community(rows) {
   return Object.fromEntries(

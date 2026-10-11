@@ -75,10 +75,10 @@ export const categories = [
   },
   {
     slug: "shirts-trousers",
-    name: "Linen Shirts",
-    short: "Shirts",
-    description: "Linen shirts that are allowed to crease, in six colours.",
-    image: "/products/riviera-linen-shirt-sky.jpg?v=2",
+    name: "Linen",
+    short: "Linen",
+    description: "Linen shirts and trousers that are allowed to crease.",
+    image: "/products/riviera-linen-shirt-sky.jpg?v=3",
     scene: "/images/summit.jpg?v=2",
   },
   {

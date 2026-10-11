@@ -14,7 +14,7 @@ import { ArrowIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Shop",
-  description: "Every Vis Naturæ design is released once, in a numbered edition made to order in Mauritius. Swim, knitwear, rugby shirts, linen shirts and caps.",
+  description: "Every Vis Naturæ design is released once, in a numbered edition made to order in Mauritius. Swim, knitwear, rugby shirts, linen shirts, linen trousers and caps.",
 };
 
 /** Shop landing, modelled on Kith's "Shop Mens": split hero with picks, category tiles, campaigns. */
@@ -88,7 +88,7 @@ export default async function ShopLandingPage() {
       {/* 4. Half-width pair */}
       <section className="grid gap-1.5 md:grid-cols-2 md:gap-2">
         <LabelTile href="/shop/swim" image="/community/p6.jpg?v=2" label="Swim" cta="Shop now" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
-        <LabelTile href="/shop/shirts-trousers" image="/community/p5.jpg?v=2" label="Linen Shirts" cta="Shop now" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
+        <LabelTile href="/shop/shirts-trousers" image="/community/p5.jpg?v=2" label="Linen" cta="Shop now" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
       </section>
 
       {/* 5. What comes next */}
