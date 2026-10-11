@@ -77,9 +77,17 @@ export const categories = [
     slug: "shirts-trousers",
     name: "Linen",
     short: "Linen",
-    description: "Linen shirts and trousers that are allowed to crease.",
+    description: "Linen shirts that are allowed to crease.",
     image: "/products/riviera-linen-shirt-sky.jpg?v=3",
     scene: "/images/summit.jpg?v=2",
+  },
+  {
+    slug: "trousers",
+    name: "Trousers",
+    short: "Trousers",
+    description: "Chinos and linen trousers, cut clean and sized by the waist.",
+    image: "/products/quayside-chino-stone.jpg?v=3",
+    scene: "/products/quayside-chino-stone-model.jpg?v=3",
   },
   {
     slug: "outerwear-accessories",

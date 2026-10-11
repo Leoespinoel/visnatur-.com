@@ -8,19 +8,19 @@ import { useShuffle } from "@/lib/use-shuffle";
 const TEXT = "VIS NATURÆ";
 export const INTRO_DONE_EVENT = "vn:intro-done";
 const SKIP_GRACE_MS = 300;
-const SHUFFLE_START_MS = 450;
-const FALLBACK_END_MS = 6000;
+const SHUFFLE_START_MS = 350;
+const FALLBACK_END_MS = 4000;
 
 /* The shuffle decelerates: each letter takes longer to lock than the one before,
    and the Æ gets an extra beat on its own. Times are ms after the shuffle starts. */
-const LAST_SETTLE_MS = 2650;
+const LAST_SETTLE_MS = 1500;
 const settleAt = (k: number, n: number) => {
   if (k === n - 1) return LAST_SETTLE_MS;
   const t = k / (n - 1);
-  return 250 + 1700 * Math.pow(t, 1.7);
+  return 150 + 950 * Math.pow(t, 1.7);
 };
-/* Frames start quick (45 ms) and ease out to a slow flicker (170 ms) by the end. */
-const tick = (elapsed: number) => 45 + 125 * Math.min(1, Math.pow(elapsed / LAST_SETTLE_MS, 1.5));
+/* Frames start quick (45 ms) and ease out to a slower flicker (140 ms) by the end. */
+const tick = (elapsed: number) => 45 + 95 * Math.min(1, Math.pow(elapsed / LAST_SETTLE_MS, 1.5));
 
 /**
  * Red wipe intro. The panels are server-rendered and driven by CSS keyframes

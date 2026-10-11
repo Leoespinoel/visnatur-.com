@@ -62,7 +62,7 @@ export default async function ShopLandingPage() {
       </section>
 
       {/* 2. Category tiles with the label on the picture */}
-      <section className="grid grid-cols-2 gap-1.5 pt-1.5 md:grid-cols-4 md:gap-2 md:pt-2">
+      <section className="grid grid-cols-2 gap-1.5 pt-1.5 md:grid-cols-5 md:gap-2 md:pt-2 [&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:col-span-1">
         {categories.map((c) => (
           <LabelTile key={c.slug} href={`/shop/${c.slug}`} image={c.scene} label={c.name} />
         ))}
