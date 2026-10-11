@@ -53,7 +53,7 @@ export const campaigns: Campaign[] = [
     key: "linen",
     title: "Linen",
     text: "Linen shirts and trousers that are allowed to crease.",
-    image: "/images/campaign-linen.jpg?v=8",
+    image: "/images/campaign-linen.jpg?v=9",
     alt: "Lunch on the sand under a sea almond tree by the lagoon, wine poured in sky and clementine linen shirts",
     primary: { label: "Shop now", href: "/shop/shirts-trousers" },
     secondary: { label: "A closer look", href: "/made-to-order" },
