@@ -129,7 +129,7 @@ export const SHOTS = {
     "a lean Black man around thirty with close-cropped hair, bare-chested and barefoot, wearing the swim shorts"),
   ...onModel("riviera-linen-shirt", ["oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink"],
     "a man in his mid thirties with sandy hair, wearing the linen shirt with sleeves rolled once and the top button open, cream linen trousers and tan suede loafers"),
-  ...onModel("harbour-quarter-zip", ["navy", "forest", "red", "mustard", "sky", "orange"],
+  ...onModel("harbour-quarter-zip", ["navy", "forest", "red", "mustard", "sky", "orange", "black"],
     "an East Asian man in his early thirties with neat black hair, wearing the half-zip knit zipped halfway with cream chinos and white sneakers"),
   ...onModel("regatta-cardigan", ["ecru-navy"],
     "a man in his mid forties with salt-and-pepper hair and a short beard, wearing the knitted cardigan buttoned over a white t-shirt, cream trousers and brown loafers"),
@@ -149,11 +149,20 @@ export const SHOTS = {
     "a Latin American man around thirty with dark wavy hair, bare-chested and barefoot, wearing the striped swim shorts"),
   ...onModel("esplanade-linen-trouser", ["oat", "ecru", "navy", "black"],
     "a man in his early forties with olive skin, short dark hair greying at the temples and a neat beard, wearing the tailored trousers with a white linen shirt tucked in, a brown leather belt and tan suede loafers"),
-  ...onModel("veranda-linen-trouser", ["oat", "navy", "white", "black"],
+  ...onModel("veranda-linen-trouser", ["oat", "navy", "white", "black", "red", "green"],
     "a Black man in his mid twenties with short twists, wearing the drawstring linen trousers with a plain white t-shirt tucked in at the front so the drawcord waist shows, and brown leather sandals"),
+  ...onModel("quayside-chino", ["stone", "navy", "white", "forest", "tobacco", "charcoal", "black"],
+    "a North African man in his early forties with close-cropped greying hair and a trimmed salt-and-pepper beard, wearing the chinos with the knitwear from the reference images on top, a brown leather belt and brown suede loafers"),
 };
 // The oat take is this design's model reference and pulls the ecru towards beige.
 SHOTS["esplanade-linen-trouser-ecru"].prompt += " The trousers are a very pale off-white ecru, almost as light as the shirt, not beige.";
+
+// Chinos are shot with one of the knits on top, so the knit is worn too (refs: chino, then knit).
+for (const [c, knit] of [["stone", "harbour-quarter-zip-navy"], ["navy", "mooring-stripe-crew-red-ecru"], ["white", "regatta-cardigan-ecru-navy"], ["forest", "clubhouse-knit-jacket-sand"], ["tobacco", "mooring-stripe-crew-navy-ecru"], ["charcoal", "pavilion-cable-vest-navy"], ["black", "harbour-quarter-zip-mustard"]]) {
+  SHOTS[`quayside-chino-${c}`].wear.push(knit);
+}
+SHOTS["quayside-chino-charcoal"].prompt += " The cable knit vest is worn over a white oxford shirt.";
+SHOTS["quayside-chino-white"].prompt += " The cardigan is buttoned over a white t-shirt.";
 
 function community(rows) {
   return Object.fromEntries(
