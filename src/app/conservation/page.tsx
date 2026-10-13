@@ -32,7 +32,7 @@ export default function ConservationPage() {
       </section>
 
       {/* How it's calculated */}
-      <section className="container-x grid gap-12 py-16 md:grid-cols-12 md:py-24">
+      <section id="how-it-works" className="container-x grid scroll-mt-24 gap-12 py-16 md:grid-cols-12 md:py-24">
         <div className="md:col-span-5">
           <p className="eyebrow mb-4">How it is calculated</p>
           <h2 className="display text-4xl md:text-5xl">Simple on purpose.</h2>
@@ -74,7 +74,7 @@ export default function ConservationPage() {
       </section>
 
       {/* Partners */}
-      <section className="container-x py-16 md:py-24">
+      <section id="partners" className="container-x scroll-mt-24 py-16 md:py-24">
         <SectionHeading eyebrow="Where it goes" title="Three places, chosen carefully." />
         <div className="grid gap-6 md:grid-cols-3">
           {partners.map((p) => (

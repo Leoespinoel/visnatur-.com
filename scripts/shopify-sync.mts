@@ -8,9 +8,10 @@
  * from the environment or .env.local. Safe to run again: products are matched by handle (= slug).
  *
  * The site stays the source of truth for names, prices, sizes and descriptions. Edit
- * products.ts, then re-run this. Photos are added in Shopify admin (it does not take SVGs).
+ * products.ts, then re-run this. A product with no photos in Shopify gets the site's (packshot, on
+ * model, detail) fetched from NEXT_PUBLIC_SITE_URL, so deploy before syncing new products.
  */
-import { products, editionKindLabel, editionLabel, editionTotal, isOneOfOne, type Product } from "../src/data/products.ts";
+import { products, productImages, editionKindLabel, editionLabel, editionTotal, isOneOfOne, type Product } from "../src/data/products.ts";
 import { categories, site } from "../src/data/site.ts";
 
 const API_VERSION = "2026-07";
@@ -129,14 +130,28 @@ for (const p of products) {
     { handle: p.slug },
   );
   const input = { ...productInput(p), ...(existing.productByIdentifier ? { id: existing.productByIdentifier.id } : {}) };
-  const set = await gql<{ productSet: UserErrors & { product: { id: string } | null } }>(
+  const set = await gql<{ productSet: UserErrors & { product: { id: string; mediaCount: { count: number } } | null } }>(
     `mutation Set($input: ProductSetInput!) {
-       productSet(input: $input, synchronous: true) { product { id } userErrors { field message } }
+       productSet(input: $input, synchronous: true) { product { id mediaCount { count } } userErrors { field message } }
      }`,
     { input },
   );
   check(`productSet ${p.slug}`, set.productSet);
   const id = set.productSet.product!.id;
+
+  // Photos only go on once, so a re-run never duplicates them; Shopify fetches them from the live site.
+  if (!set.productSet.product!.mediaCount.count) {
+    const media = await gql<{ productUpdate: UserErrors }>(
+      `mutation Media($product: ProductUpdateInput!, $media: [CreateMediaInput!]) {
+         productUpdate(product: $product, media: $media) { userErrors { field message } }
+       }`,
+      {
+        product: { id },
+        media: productImages(p).map((src) => ({ originalSource: `${siteUrl}${src}`, mediaContentType: "IMAGE", alt: `${p.name}, ${p.colour.name}` })),
+      },
+    );
+    check(`photos ${p.slug}`, media.productUpdate);
+  }
 
   const pub = await gql<{ publishablePublish: UserErrors }>(
     `mutation Pub($id: ID!, $input: [PublicationInput!]!) {

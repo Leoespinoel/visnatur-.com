@@ -10,7 +10,7 @@ import { ProductGrid } from "@/components/ProductGrid";
 
 export const metadata: Metadata = {
   title: "Available pieces",
-  description: "Every Vis Naturæ design is released once, in a numbered edition made to order. Swim, polos, knitwear, shirts, trousers, outerwear and accessories.",
+  description: "Every Vis Naturæ design is released once, in a numbered edition made to order. Swim, hoodies and knitwear, linen shirts, chinos, linen trousers, caps and socks.",
 };
 
 export default async function ShopPage() {

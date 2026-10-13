@@ -118,7 +118,7 @@ export const SHOTS = {
     ["p7", "skate", ["touchline-rugby-shirt-red-navy"], "at the lip of a concrete skate bowl, board at his feet, in the red, white and navy rugby shirt with cream trousers"],
     ["p8", "snowboard", ["clubhouse-knit-jacket-red-ecru"], "outside a mountain hut in the snow, board leaning on the wall, in the red and ecru knitted jacket"],
     ["p9", "downhill", ["harbour-quarter-zip-orange"], "on a forest trail beside his mountain bike, in the orange half-zip knit with olive trousers"],
-    ["p10", "freeride", ["regatta-cardigan-ecru-navy"], "on a wooden chalet terrace with skis behind him, in the ecru and navy knitted cardigan over a white tee"],
+    ["p10", "freeride", ["regatta-cardigan-navy-ecru"], "on a wooden chalet terrace with skis behind him, in the navy knitted cardigan with ecru trim over a white tee"],
     ["p11", "trail", ["pavilion-cable-vest-navy"], "on a mountain trail above the sea, in the navy cable knit vest over a white tee"],
     ["p12", "climbing", ["riviera-linen-shirt-clementine"], "at the foot of a sea cliff with a chalk bag on his hip, in the clementine linen shirt with sleeves rolled and stone trousers"],
   ]),
@@ -126,9 +126,13 @@ export const SHOTS = {
   // ── On-model product shots (one model per design, kept across its colourways) ──────────────
   ...onModel("marram-cap", ["beige", "ecru-pine", "ecru-red", "red", "mustard-navy", "ecru", "ecru-navy", "ecru-pink", "ecru-beige", "ecru-yellow", "ecru-orange", "ecru-black", "ecru-sky"],
     "a man around thirty with short dark curly hair and light stubble, wearing the cap with a plain white t-shirt, cream trousers and white sneakers"),
+  ...onModel("sett-cap", ["navy", "pine", "red", "pink", "beige", "yellow", "orange", "black", "sky"],
+    "a Black man in his early forties with a shaved head and a short greying beard, wearing the cap straight on with a plain light grey marl t-shirt, cream trousers and white leather sneakers"),
+  ...onModel("cabana-cap", ["navy", "oat", "sky", "sage", "red", "clementine", "yellow", "pink", "black"],
+    "a Lebanese man in his early thirties with a neatly kept full dark beard and short dark hair, wearing the striped cap straight on with a plain white t-shirt, the stone chinos and white canvas sneakers"),
   ...onModel("tidal-swim-short", ["navy", "saffron", "red", "hibiscus", "lagoon", "palm", "papaya"],
     "an athletic swimmer-build man in his late twenties with sun-bleached brown hair, bare-chested and barefoot, wearing the swim shorts"),
-  ...onModel("shore-swim-short", ["pine-ecru", "navy-saffron", "red-ecru"],
+  ...onModel("shore-swim-short", ["pine-ecru", "red-ecru", "navy-ecru", "pink-ecru", "beige-ecru", "yellow-ecru", "orange-ecru", "black-ecru", "sky-ecru"],
     "a lean Black man around thirty with close-cropped hair, bare-chested and barefoot, wearing the swim shorts"),
   ...onModel("riviera-linen-shirt", ["oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink", "black"],
     "a man in his mid thirties with sandy hair, wearing the linen shirt with sleeves rolled once and the top button open, cream linen trousers and tan suede loafers"),
@@ -137,25 +141,27 @@ export const SHOTS = {
     "a man in his mid thirties with sandy hair, wearing the linen shirt with sleeves rolled once and the top button open, cream linen trousers and tan suede loafers"),
   ...onModel("cabana-linen-shirt", ["sky", "oat", "navy", "sage", "red", "clementine", "yellow", "pink", "black"],
     "a Southern European man in his late twenties with thick dark wavy hair and light stubble, wearing the striped linen shirt with sleeves rolled to the forearm and the top two buttons open, tucked into white pleated trousers, with tan suede loafers"),
-  ...onModel("harbour-quarter-zip", ["navy", "forest", "red", "mustard", "sky", "orange", "black"],
-    "an East Asian man in his early thirties with neat black hair, wearing the half-zip knit zipped halfway with cream chinos and white sneakers"),
+  ...onModel("harbour-quarter-zip", ["navy", "forest", "red", "mustard", "sky", "orange", "black", "oat", "sage", "clementine", "yellow", "pink"],
+    "an East Asian man in his early thirties with neat black hair, wearing the half-zip knit zipped halfway with the chinos and white sneakers"),
   ...onModel("cabana-hoodie", ["navy", "oat", "sky", "sage", "red", "clementine", "yellow", "pink", "black"],
     "a Mauritian man of Creole heritage in his mid twenties with short tight curls, a thin moustache and a lean build, wearing the striped hooded sweatshirt with the hood down and the drawcords hanging evenly, with the oat drawstring linen trousers and white canvas sneakers"),
-  ...onModel("regatta-cardigan", ["ecru-navy"],
-    "a man in his mid forties with salt-and-pepper hair and a short beard, wearing the knitted cardigan buttoned over a white t-shirt, cream trousers and brown loafers"),
-  ...onModel("pavilion-cable-vest", ["navy"],
-    "a South Asian man in his late twenties with short dark hair, wearing the cable knit vest over a white oxford shirt, cream trousers and brown loafers"),
-  ...onModel("mooring-stripe-crew", ["navy-ecru", "red-ecru", "green-ecru", "navy-yellow"],
-    "a man around thirty with curly dark hair and warm brown skin, wearing the striped knit crewneck with cream trousers and white sneakers"),
-  ...onModel("clubhouse-knit-jacket", ["red-ecru", "ecru-red", "sand"],
-    "a man in his late thirties with short dark hair and a trimmed beard, wearing the knitted jacket zipped open over a white t-shirt, cream trousers and white sneakers"),
-  ...onModel("ridge-knit-gilet", ["black"],
-    "a tall blond man in his early thirties, wearing the knitted gilet over a cream crewneck sweater with stone trousers and brown boots"),
-  ...onModel("breakwater-rugby-shirt", ["red-ecru"],
-    "a broad-shouldered Pacific Islander man in his late twenties, wearing the rugby shirt untucked with cream chinos and white sneakers"),
-  ...onModel("touchline-rugby-shirt", ["red-navy"],
-    "a man in his late twenties with short red-brown hair and freckles, wearing the rugby shirt untucked with stone chinos and white sneakers"),
-  ...onModel("lido-stripe-swim-short", ["saffron", "red", "sky", "pink", "red-black", "green", "orange", "navy-saffron"],
+  ...onModel("riviera-hoodie", ["oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink", "black"],
+    "a lean man in his early fifties with short silver hair, a tanned clean-shaven face and laugh lines, wearing the plain hooded sweatshirt with the hood down and the drawcords hanging evenly, with the stone chinos and white canvas sneakers"),
+  ...onModel("regatta-cardigan", ["navy-ecru", "forest-ecru", "burgundy-ecru", "black-ecru"],
+    "a man in his mid forties with salt-and-pepper hair and a short beard, wearing the knitted cardigan buttoned over a white t-shirt, the chinos and brown loafers"),
+  ...onModel("pavilion-cable-vest", ["navy", "oat", "sky", "sage", "red", "clementine", "yellow", "pink", "black"],
+    "a South Asian man in his late twenties with short dark hair, wearing the cable knit vest over a white oxford shirt, the chinos and brown loafers"),
+  ...onModel("mooring-stripe-crew", ["navy-ecru", "red-ecru", "green-ecru", "navy-yellow", "oat-ecru", "sky-ecru", "sage-ecru", "clementine-ecru", "yellow-ecru", "pink-ecru", "black-ecru"],
+    "a man around thirty with curly dark hair and warm brown skin, wearing the striped knit crewneck with the chinos and white sneakers"),
+  ...onModel("clubhouse-knit-jacket", ["red-ecru", "ecru-red", "sand", "oat-ecru", "sky-ecru", "navy-ecru", "sage-ecru", "clementine-ecru", "yellow-ecru", "pink-ecru", "black-ecru"],
+    "a man in his late thirties with short dark hair and a trimmed beard, wearing the knitted jacket zipped open over a white t-shirt, the chinos and white sneakers"),
+  ...onModel("ridge-knit-gilet", ["black", "oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink"],
+    "a tall blond man in his early thirties, wearing the knitted gilet over a cream crewneck sweater with the chinos and brown boots"),
+  ...onModel("breakwater-rugby-shirt", ["red-ecru", "oat-ecru", "sky-ecru", "navy-ecru", "sage-ecru", "clementine-ecru", "yellow-ecru", "pink-ecru", "black-ecru"],
+    "a broad-shouldered Pacific Islander man in his late twenties, wearing the rugby shirt untucked with the chinos and white sneakers"),
+  ...onModel("touchline-rugby-shirt", ["red-navy", "oat-navy", "sky-navy", "navy-white", "sage-navy", "clementine-navy", "yellow-navy", "pink-navy", "black-white"],
+    "a man in his late twenties with short red-brown hair and freckles, wearing the rugby shirt untucked with the chinos and white sneakers"),
+  ...onModel("lido-stripe-swim-short", ["saffron", "red", "sky", "pink", "green", "orange", "black", "oat", "navy", "sage", "clementine", "yellow"],
     "a Latin American man around thirty with dark wavy hair, bare-chested and barefoot, wearing the striped swim shorts"),
   ...onModel("esplanade-linen-trouser", ["oat", "ecru", "navy", "black"],
     "a man in his early forties with olive skin, short dark hair greying at the temples and a neat beard, wearing the tailored trousers with a white linen shirt tucked in, a brown leather belt and tan suede loafers"),
@@ -172,16 +178,52 @@ for (const [id, shot] of Object.entries(onModel("burrow-sock", ["white", "black"
   SHOTS[id] = { ...shot, look: "legs" };
 
 // Chinos are shot with one of the knits on top, so the knit is worn too (refs: chino, then knit).
-for (const [c, knit] of [["stone", "harbour-quarter-zip-navy"], ["navy", "mooring-stripe-crew-red-ecru"], ["white", "regatta-cardigan-ecru-navy"], ["forest", "clubhouse-knit-jacket-sand"], ["tobacco", "mooring-stripe-crew-navy-ecru"], ["charcoal", "pavilion-cable-vest-navy"], ["black", "harbour-quarter-zip-mustard"]]) {
+for (const [c, knit] of [["stone", "harbour-quarter-zip-navy"], ["navy", "mooring-stripe-crew-red-ecru"], ["white", "regatta-cardigan-navy-ecru"], ["forest", "clubhouse-knit-jacket-sand"], ["tobacco", "mooring-stripe-crew-navy-ecru"], ["charcoal", "pavilion-cable-vest-navy"], ["black", "harbour-quarter-zip-mustard"]]) {
   SHOTS[`quayside-chino-${c}`].wear.push(knit);
 }
 SHOTS["quayside-chino-charcoal"].prompt += " The cable knit vest is worn over a white oxford shirt.";
-SHOTS["quayside-chino-white"].prompt += " The cardigan is buttoned over a white t-shirt.";
-// Hoodies are worn with the oat Veranda trouser, so that is worn too (refs: hoodie, then trouser).
+SHOTS["quayside-chino-white"].prompt += " The cardigan is buttoned over a white t-shirt. The chinos are off-white, as pale as the trouser reference image, not beige or stone.";
+// The Regatta's model reference wears the earlier ecru-body cardigan and pulls the body back to ecru.
+for (const [c, colour] of [["navy", "deep navy"], ["forest", "deep forest green"], ["burgundy", "deep burgundy"], ["black", "true black"]])
+  SHOTS[`regatta-cardigan-${c}-ecru`].prompt += ` The cardigan body and sleeves are ${colour} knit, not ecru; only the V-neck placket, the two sleeve bars and the chest script are ecru.`;
+// Knitwear is worn with the Quayside chino (refs: knit, then chino), in a colour picked to contrast with the
+// top's main colour; the Touchline's navy hem takes stone.
+const CHINO_UNDER = { oat: "charcoal", sky: "navy", navy: "stone", sage: "white", red: "stone", clementine: "navy", yellow: "navy", pink: "charcoal", black: "stone", forest: "stone", green: "stone", mustard: "charcoal", orange: "white", sand: "navy", ecru: "navy", burgundy: "stone" };
+for (const family of ["harbour-quarter-zip", "regatta-cardigan", "pavilion-cable-vest", "mooring-stripe-crew", "clubhouse-knit-jacket", "ridge-knit-gilet", "breakwater-rugby-shirt", "touchline-rugby-shirt"]) {
+  for (const [id, shot] of Object.entries(SHOTS).filter(([id, s]) => s.family === family)) {
+    const c = id.slice(family.length + 1);
+    const chino = family === "touchline-rugby-shirt" ? "stone" : CHINO_UNDER[c.split("-")[0]];
+    shot.wear.push(`quayside-chino-${chino}`);
+    shot.prompt = shot.prompt.replace("the chinos", `the ${chino} chinos`);
+  }
+}
+// The Cabana hoodies stay in the oat Veranda linen trouser (refs: hoodie, then trouser).
 for (const c of ["navy", "oat", "sky", "sage", "red", "clementine", "yellow", "pink", "black"]) SHOTS[`cabana-hoodie-${c}`].wear.push("veranda-linen-trouser-oat");
 // The navy take is this design's model reference and pulls the black towards navy.
 SHOTS["cabana-hoodie-black"].prompt += " The hoodie is true black and white stripes with black ribbed cuffs and hem, not navy.";
-
+SHOTS["pavilion-cable-vest-black"].prompt += " The vest is true jet black cable knit with ecru stripes at the V-neck, not navy.";
+// The plain hoodies are worn with the stone Quayside chino (refs: hoodie, then chino).
+for (const c of ["sky", "navy", "sage", "red", "clementine", "yellow", "pink", "black"]) SHOTS[`riviera-hoodie-${c}`].wear.push("quayside-chino-stone");
+// The oat hoodie is worn with the oat Veranda linen trouser instead (the approved take was edited to swap them).
+SHOTS["riviera-hoodie-oat"].wear.push("veranda-linen-trouser-oat");
+SHOTS["riviera-hoodie-oat"].prompt = SHOTS["riviera-hoodie-oat"].prompt.replace("the stone chinos", "the oat drawstring linen trousers");
+// The Cabana caps are worn with the stone Quayside chino too (refs: cap, then chino).
+for (const c of ["navy", "oat", "sky", "sage", "red", "clementine", "yellow", "pink", "black"]) SHOTS[`cabana-cap-${c}`].wear.push("quayside-chino-stone");
+// The navy take is this design's model reference and turns the oat and black caps navy.
+SHOTS["cabana-cap-oat"].prompt += " The cap is warm oat beige and white stripes with a solid oat beige visor and oat VN script, exactly like the cap reference image; nothing on the cap is navy.";
+SHOTS["cabana-cap-black"].prompt += " The cap is true jet black and white stripes with a solid black visor and black VN script, exactly like the cap reference image; nothing on the cap is navy.";
+// The Cabana caps were then reshot on the swim models: each approved take is that swim short's approved shot with the cap added.
+// Lido stripes where a matching colour exists, otherwise the Shore colour-block.
+const CABANA_CAP_SWIM = { clementine: "lido-stripe-swim-short-orange", sky: "lido-stripe-swim-short-sky", red: "lido-stripe-swim-short-red", pink: "lido-stripe-swim-short-pink", yellow: "lido-stripe-swim-short-saffron", sage: "lido-stripe-swim-short-green", oat: "shore-swim-short-beige-ecru", navy: "shore-swim-short-navy-ecru", black: "shore-swim-short-black-ecru" };
+for (const [c, swim] of Object.entries(CABANA_CAP_SWIM)) {
+  SHOTS[`cabana-cap-${c}`].wear = [`cabana-cap-${c}`, swim];
+  SHOTS[`cabana-cap-${c}`].prompt = `${SHOTS[swim].prompt.replace(/, wearing the (striped )?swim shorts\.$/, "")}, wearing the striped cap straight on with the swim shorts.`;
+}
+// Leo then swapped the black cap's Shore shorts for the black Lido stripe: take 4 is approved take 3 with only the shorts replaced.
+SHOTS["cabana-cap-black"].wear = ["cabana-cap-black", "lido-stripe-swim-short-black"];
+// The Lemon Lido drifts towards saffron on the model (the saffron take is this design's model reference);
+// approved take 3 is the approved oat take with only the shorts recoloured to Lemon.
+SHOTS["lido-stripe-swim-short-yellow"].prompt += " The stripes are a pale soft lemon yellow, exactly as light as the reference image, much lighter than saffron or gold.";
 function community(rows) {
   return Object.fromEntries(
     rows.map(([id, sport, wear, scene]) => [

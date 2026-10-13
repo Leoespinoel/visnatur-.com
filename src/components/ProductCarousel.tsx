@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { siblingsOf, type Product } from "@/data/products";
-import { availabilityOf, type Inventory } from "@/lib/editions";
+import type { Inventory } from "@/lib/editions";
 import { ProductCard } from "./ProductCard";
 import { ArrowIcon, ChevronIcon } from "./Icons";
 
@@ -42,7 +42,7 @@ export function ProductCarousel({
           <div ref={track} className="no-scrollbar flex snap-x snap-mandatory gap-1.5 overflow-x-auto md:gap-2">
             {products.map((p, i) => (
               <div key={p.slug} className="w-[calc((100%-0.375rem)/2)] shrink-0 snap-start md:w-[calc((100%-2rem)/5)]">
-                <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} availability={inventory ? availabilityOf(p, inventory) : undefined} />
+                <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} inventory={inventory} />
               </div>
             ))}
           </div>
@@ -92,7 +92,7 @@ export function ProductCarousel({
       <div ref={track} className="no-scrollbar flex snap-x snap-mandatory gap-1.5 overflow-x-auto md:gap-2">
         {products.map((p, i) => (
           <div key={p.slug} className="w-[calc((100%-0.375rem)/2)] shrink-0 snap-start md:w-[calc((100%-1.5rem)/4)]">
-            <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} availability={inventory ? availabilityOf(p, inventory) : undefined} />
+            <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} inventory={inventory} />
           </div>
         ))}
       </div>

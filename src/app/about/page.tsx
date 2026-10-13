@@ -15,7 +15,7 @@ export default function AboutPage() {
     <>
       <PageIntro eyebrow="About" title="Vis Naturæ." lede="Latin for force of nature. A menswear and resort label where every design is released once, in a numbered edition made to order, and a tenth of every sale goes back to the places it is made for." />
 
-      <section className="container-x grid gap-10 pb-16 md:grid-cols-12 md:pb-24">
+      <section id="story" className="container-x grid scroll-mt-24 gap-10 pb-16 md:grid-cols-12 md:pb-24">
         <div className="md:col-span-5">
           <div className="image-frame aspect-[4/5]">
             <Image src="/images/about.jpg" alt="A man in a sage linen shirt walking barefoot over basalt rocks on the Mauritius coast" fill unoptimized priority sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
@@ -47,7 +47,7 @@ export default function AboutPage() {
       </section>
 
       {/* The mark: why the logo is a honey badger, asleep on its back. */}
-      <section id="the-mark" className="bg-black text-white">
+      <section id="the-mark" className="scroll-mt-24 bg-black text-white">
         <div className="container-x grid gap-10 py-16 md:grid-cols-12 md:items-center md:py-24">
           <div className="md:col-span-6">
             <div className="flex aspect-[4/3] items-center justify-center px-8 md:px-12">

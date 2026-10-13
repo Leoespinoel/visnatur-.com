@@ -62,7 +62,7 @@ export const campaigns: Campaign[] = [
   {
     key: "knitwear",
     title: "Knitwear",
-    text: "Cardigans, stripe crews, rugby shirts and quarter zips, for the back nine and the drive home.",
+    text: "Striped hoodies, cardigans, stripe crews, rugby shirts and quarter zips, for the back nine and the drive home.",
     image: "/images/campaign-golf.jpg?v=2",
     alt: "A golfer in a navy striped knit crewneck teeing off by the sea, his partner in a sand knitted jacket",
     primary: { label: "Shop now", href: "/shop/polos-knitwear" },

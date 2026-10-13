@@ -31,7 +31,7 @@ export const communityPosts: CommunityPost[] = [
   { image: "/community/p8.jpg?v=2", label: "Snowboard" },
   { image: "/community/a8.jpg", video: "/community/a8.mp4", label: "Snowboard" },
   { image: "/community/p9.jpg?v=2", label: "Downhill" },
-  { image: "/community/p10.jpg?v=2", label: "Freeride" },
+  { image: "/community/p10.jpg?v=3", label: "Freeride" },
   { image: "/community/p11.jpg?v=2", label: "Trail" },
   { image: "/community/p12.jpg?v=2", label: "Climbing" },
 ];

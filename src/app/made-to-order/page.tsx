@@ -69,7 +69,7 @@ export default function MadeToOrderPage() {
         lede={`Every Vis Naturæ design is released once, in a numbered edition of ${editionWord(site.editionSize.core)}. It is cut and sewn after orders close, ships ${leadTimeLabel()} later, and is never made again. Here is what that means for you.`}
       />
 
-      <section className="container-x pb-16 md:pb-24">
+      <section id="how-it-works" className="container-x scroll-mt-24 pb-16 md:pb-24">
         <HowItWorks />
       </section>
 
@@ -157,7 +157,7 @@ export default function MadeToOrderPage() {
       </section>
 
       {/* FAQ */}
-      <section className="container-x pb-16 md:pb-24">
+      <section id="questions" className="container-x scroll-mt-24 pb-16 md:pb-24">
         <SectionHeading eyebrow="Questions" title="Asked often." />
         <div className="divide-y divide-line border-y border-line md:max-w-3xl">
           {faqs.map((f) => (

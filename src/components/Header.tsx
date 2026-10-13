@@ -3,25 +3,41 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useSyncExternalStore, type CSSProperties } from "react";
-import { categories, nav } from "@/data/site";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
+import { audiences, nav } from "@/data/site";
+import { menus, type MenuKey, type MenuTile } from "@/data/menu";
 import { film } from "@/data/film";
 import { useCart } from "@/lib/cart";
 import { Wordmark } from "./Wordmark";
 import { AnnouncementBar } from "./AnnouncementBar";
 import { BagIcon, CloseIcon, MenuIcon } from "./Icons";
+import { Carousel } from "./Carousel";
 
-/** Mega menu columns and collection tiles, as on kith.com. */
-const megaColumns = [
-  { title: "Shop", href: "/shop", links: nav.shop.slice(0, 3) },
-  { title: "Categories", href: "/shop/all", links: categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })) },
-  { title: "Vis Naturæ", href: "/about", links: nav.primary.filter((i) => !i.mega) },
-];
-const megaTiles = [
-  { label: "Drop I", href: "/shop", image: "/community/p12.jpg?v=2" },
-  { label: "Swim", href: "/shop/swim", image: "/community/p6.jpg?v=2" },
-  { label: "Made in Mauritius", href: "/made-to-order", image: "/images/cutting-table.jpg?v=2" },
-];
+const MENUS = menus();
+const isShop = (k: MenuKey) => k === "men" || k === "women";
+
+/** A tall photo with its label across the bottom, as in the ralphlauren.com mega menu. */
+function MegaTile({ tile }: { tile: MenuTile }) {
+  if (tile.packshot) {
+    return (
+      // Packshots are shot on white, so the tile stays white (and the label dark) in either theme.
+      <Link href={tile.href} className="group relative block aspect-[3/4] overflow-hidden border border-line bg-white">
+        <Image src={tile.image} alt="" fill unoptimized sizes="20vw" className="object-contain p-6 pb-20 transition-transform duration-700 group-hover:scale-[1.03]" />
+        <span className="absolute inset-x-0 bottom-0 px-4 pb-7 text-center font-serif text-[clamp(15px,1.35vw,20px)] uppercase leading-snug tracking-[0.14em] text-[#0a0a0a]">
+          {tile.label}
+        </span>
+      </Link>
+    );
+  }
+  return (
+    <Link href={tile.href} className="group relative block aspect-[3/4] overflow-hidden bg-paper-2">
+      <Image src={tile.image} alt="" fill unoptimized sizes="20vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent px-4 pb-7 pt-24 text-center font-serif text-[clamp(15px,1.35vw,20px)] uppercase leading-snug tracking-[0.14em] text-white">
+        {tile.label}
+      </span>
+    </Link>
+  );
+}
 
 const subscribeNever = () => () => {};
 let todayCache = "";
@@ -42,18 +58,33 @@ export function Header() {
   const { count, open, hydrated } = useCart();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
+  // Which mega menu is open (Men / Women). Closing waits a moment so the pointer can cross
+  // from one nav item to the next, or down into the panel, without it flickering shut.
+  const [mega, setMega] = useState<MenuKey | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  // The side link whose tiles show; back to the categories whenever a section opens.
+  const [sub, setSub] = useState("all");
+  const openMega = (m: MenuKey) => {
+    clearTimeout(closeTimer.current);
+    if (m !== mega) setSub("all");
+    setMega(m);
+  };
+  const keepMega = () => clearTimeout(closeTimer.current);
+  const closeMega = () => {
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setMega(null), 120);
+  };
   const [scrolled, setScrolled] = useState(false);
   const [seenPath, setSeenPath] = useState(pathname);
 
   const home = pathname === "/";
-  const overlay = home && !scrolled && !menuOpen && !shopOpen;
+  const overlay = home && !scrolled && !menuOpen && !mega;
 
   // Close any open menu when the route changes (state adjustment during render, per React docs).
   if (seenPath !== pathname) {
     setSeenPath(pathname);
     setMenuOpen(false);
-    setShopOpen(false);
+    setMega(null);
   }
 
   useEffect(() => {
@@ -107,30 +138,25 @@ export function Header() {
             {menuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
           <nav className="hidden md:flex items-center gap-7" aria-label="Primary">
-            {nav.primary.map((item) =>
-              item.mega ? (
-                <div
-                  key={item.href}
-                  className="relative flex items-center"
-                  onMouseEnter={() => setShopOpen(true)}
-                  onMouseLeave={() => setShopOpen(false)}
+            {nav.primary.map((item) => (
+              // The brand pages only fit beside the centred wordmark on wide screens.
+              <div
+                key={item.href}
+                className={`relative items-center ${isShop(item.mega) ? "flex" : "hidden min-[1400px]:flex"}`}
+                onMouseEnter={() => openMega(item.mega)}
+                onMouseLeave={closeMega}
+              >
+                <Link
+                  href={item.href}
+                  className={`eyebrow !text-(--hdr-fg) link-underline py-6 ${mega === item.mega ? "after:[transform:none]" : ""}`}
+                  aria-haspopup="true"
+                  aria-expanded={mega === item.mega}
+                  onFocus={() => openMega(item.mega)}
                 >
-                  <Link
-                    href={item.href}
-                    className="eyebrow !text-(--hdr-fg) link-underline py-6"
-                    aria-haspopup="true"
-                    aria-expanded={shopOpen}
-                    onFocus={() => setShopOpen(true)}
-                  >
-                    {item.label}
-                  </Link>
-                </div>
-              ) : (
-                <Link key={item.href} href={item.href} className="eyebrow !text-(--hdr-fg) link-underline py-6">
                   {item.label}
                 </Link>
-              ),
-            )}
+              </div>
+            ))}
           </nav>
         </div>
 
@@ -166,43 +192,56 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mega menu (desktop) */}
+      {/* Mega menus (desktop), as on ralphlauren.com: each header item's links down a grey side panel; hovering
+          one swaps the tiles on the right to that link's own (the panel opens on its "all" item). */}
       <div
         className={`hidden md:block absolute inset-x-0 top-full border-b border-line bg-paper text-ink transition-[opacity,visibility] duration-200 ${
-          shopOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          mega ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
-        onMouseEnter={() => setShopOpen(true)}
-        onMouseLeave={() => setShopOpen(false)}
+        onMouseEnter={keepMega}
+        onMouseLeave={closeMega}
       >
-        {/* Kith-style: columns of links on the left, collection tiles on the right */}
-        <div className="container-x grid grid-cols-12 gap-8 py-10">
-          {megaColumns.map((col) => (
-            <div key={col.title} className="col-span-2">
-              <Link href={col.href} className="text-[12px] font-semibold uppercase tracking-[0.1em] link-underline">
-                {col.title}
-              </Link>
-              <ul className="mt-4 space-y-2.5">
-                {col.links.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="text-[13px] text-ink-2 transition-colors hover:text-ink">
-                      {l.label}
+        {(Object.keys(MENUS) as MenuKey[]).map((key) => {
+          const items = MENUS[key];
+          const item = items.find((i) => i.key === sub) ?? items.find((i) => i.key === "all")!;
+          return (
+            <div key={key} className={mega === key ? "grid grid-cols-[minmax(220px,22%)_1fr]" : "hidden"}>
+              <ul className="space-y-5 bg-surface py-12 pl-8 pr-6 min-[1440px]:pl-[calc((100vw-1440px)/2+2rem)]">
+                {items.map((i) => (
+                  <li key={i.key}>
+                    <Link
+                      href={i.href}
+                      onMouseEnter={() => setSub(i.key)}
+                      onFocus={() => setSub(i.key)}
+                      className={`font-serif text-[21px] leading-none underline-offset-[6px] transition-colors hover:text-ink ${i.key === item.key ? "text-ink underline" : "text-ink-2"}`}
+                    >
+                      {i.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
-          ))}
-          <div className="col-span-6 grid grid-cols-3 gap-2">
-            {megaTiles.map((t) => (
-              <Link key={t.href} href={t.href} className="group">
-                <div className="image-frame aspect-[4/5]">
-                  <Image src={t.image} alt="" fill unoptimized sizes="240px" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+              <div className="min-w-0 py-12 pl-10 pr-8 min-[1440px]:pr-[calc((100vw-1440px)/2+2rem)]">
+                <p className="eyebrow border-b border-ink pb-4 !text-ink">{item.heading}</p>
+                <div className="mt-7">
+                  {item.note ? (
+                    <div className="flex items-end gap-10">
+                      <div className="w-[calc((100%-2.25rem)/4)] shrink-0">
+                        <MegaTile tile={item.tiles[0]} />
+                      </div>
+                      <p className="max-w-sm pb-2 font-serif text-xl leading-snug text-ink-2">{item.note}</p>
+                    </div>
+                  ) : (
+                    <Carousel key={`${key}-${item.key}`} ariaLabel={item.heading} arrows={item.tiles.length > 4 ? "sides" : "none"} gap="gap-3" itemClassName="w-[calc((100%-2.25rem)/4)]">
+                      {item.tiles.map((t) => (
+                        <MegaTile key={t.label} tile={t} />
+                      ))}
+                    </Carousel>
+                  )}
                 </div>
-                <p className="mt-2.5 text-[12px] font-medium">{t.label}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Mobile menu */}
@@ -213,20 +252,26 @@ export function Header() {
         aria-hidden={!menuOpen}
       >
         <nav className="container-x py-8" aria-label="Mobile">
-          <p className="eyebrow mb-4">Shop</p>
-          <ul className="mb-10 space-y-4">
-            {nav.shop.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="font-serif text-3xl">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {audiences.map((a) => (
+            <div key={a.slug} className="mb-10">
+              <p className="eyebrow mb-4">{a.name}</p>
+              <ul className="space-y-3.5">
+                {MENUS[a.slug]
+                  .filter((i) => i.key !== "archive")
+                  .map((i) => (
+                    <li key={i.key}>
+                      <Link href={i.href} className="font-serif text-2xl">
+                        {i.label}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          ))}
           <p className="eyebrow mb-4">Brand</p>
           <ul className="space-y-4">
             {nav.primary
-              .filter((i) => !i.mega)
+              .filter((i) => !isShop(i.mega))
               .map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="font-serif text-3xl">
@@ -234,6 +279,11 @@ export function Header() {
                   </Link>
                 </li>
               ))}
+            <li>
+              <Link href="/archive" className="font-serif text-3xl">
+                Archive
+              </Link>
+            </li>
             <li>
               <Link href="/contact" className="font-serif text-3xl">
                 Contact

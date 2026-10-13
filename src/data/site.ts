@@ -97,9 +97,64 @@ export const categories = [
     image: "/products/marram-cap-ecru-pine.jpg?v=2",
     scene: "/images/caps-scene.jpg",
   },
+  {
+    slug: "sunglasses",
+    name: "Sunglasses",
+    short: "Sunglasses",
+    description: "Hand-polished acetate with a metal core through the arms and polarised lenses, cut for anyone.",
+    image: "/products/alize-sunglasses-tortoise.jpg?v=3",
+    scene: "/images/sunglasses-scene.jpg",
+  },
 ] as const;
 
 export type CategorySlug = (typeof categories)[number]["slug"];
+
+export type AudienceSlug = "men" | "women";
+
+/**
+ * Top-level shop sections, as on ralphlauren.com: Men and Women each open a mega menu with the same
+ * categories down the side and a row of category tiles under "Explore for him / her" (the panels are
+ * built in menu.ts). Which pieces show in each is decided by `isFor()` in products.ts.
+ */
+export const audiences: {
+  slug: AudienceSlug;
+  name: string;
+  explore: string;
+  lede: string;
+  /** Lifestyle image per category, for the "Explore for him / her" tiles. */
+  scenes: Record<CategorySlug, string>;
+  /** Lookbook image per design family, for its tile in this section's menu (else the on-model shot, never a man under Women). */
+  looks?: Record<string, string>;
+}[] = [
+  {
+    slug: "men",
+    name: "Men",
+    explore: "Explore for him",
+    lede: "Swim, knitwear, linen, trousers, accessories and sunglasses. Every design is released once, in a numbered edition made to order in Mauritius.",
+    scenes: Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>,
+  },
+  {
+    slug: "women",
+    name: "Women",
+    explore: "Explore for her",
+    lede: "Hoodies, caps, socks and sunglasses cut for anyone, in numbered editions made to order in Mauritius. Pieces cut for women follow in the next drops.",
+    scenes: {
+      swim: "/images/women/swim.jpg",
+      "polos-knitwear": "/images/women/knitwear.jpg",
+      "shirts-trousers": "/images/women/linen.jpg",
+      trousers: "/images/women/trousers.jpg",
+      "outerwear-accessories": "/images/women/accessories.jpg",
+      sunglasses: "/images/women/sunglasses.jpg",
+    },
+    looks: {
+      "cabana-hoodie": "/images/women/knitwear.jpg",
+      "riviera-hoodie": "/images/women/riviera-hoodie.jpg",
+      "marram-cap": "/images/women/accessories.jpg",
+      "burrow-sock": "/images/women/burrow-sock.jpg",
+      "alize-sunglasses": "/images/women/sunglasses.jpg",
+    },
+  },
+];
 
 export const partners = [
   {
@@ -120,20 +175,18 @@ export const partners = [
 ];
 
 export const nav = {
+  /** Each opens its mega menu (built in menu.ts); Men and Women are the shop, the rest the brand pages. */
   primary: [
-    { label: "Shop", href: "/shop", mega: true },
-    { label: "Made to order", href: "/made-to-order" },
-    { label: "Conservation", href: "/conservation" },
-    { label: "About", href: "/about" },
-  ],
-  shop: [
-    { label: "All pieces", href: "/shop/all" },
-    { label: "New in", href: "/shop/all?filter=new" },
-    { label: "Archive", href: "/archive" },
-    ...categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })),
-  ],
+    { label: "Men", href: "/men", mega: "men" },
+    { label: "Women", href: "/women", mega: "women" },
+    { label: "Made to order", href: "/made-to-order", mega: "made-to-order" },
+    { label: "Conservation", href: "/conservation", mega: "conservation" },
+    { label: "About", href: "/about", mega: "about" },
+  ] as const,
   footer: {
     shop: [
+      { label: "Men", href: "/men" },
+      { label: "Women", href: "/women" },
       { label: "All pieces", href: "/shop/all" },
       ...categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })),
       { label: "Archive", href: "/archive" },

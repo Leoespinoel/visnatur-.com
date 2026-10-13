@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getInventory } from "@/lib/inventory";
-import { availabilityOf, currentDrop, formatDropDate, listableProducts, nextDrop, upcomingProducts, windowLabel } from "@/lib/editions";
+import { currentDrop, formatDropDate, listableProducts, nextDrop, upcomingProducts, windowLabel } from "@/lib/editions";
 import { categories } from "@/data/site";
 import { interleaveFamilies, products, siblingsOf } from "@/data/products";
 import { favouriteSlugs } from "@/data/favourites";
@@ -14,7 +14,7 @@ import { ArrowIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Shop",
-  description: "Every Vis Naturæ design is released once, in a numbered edition made to order in Mauritius. Swim, knitwear, rugby shirts, linen shirts, linen trousers and caps.",
+  description: "Every Vis Naturæ design is released once, in a numbered edition made to order in Mauritius. Swim, hoodies and knitwear, linen shirts, chinos, linen trousers, caps and socks.",
 };
 
 /** Shop landing, modelled on Kith's "Shop Mens": split hero with picks, category tiles, campaigns. */
@@ -27,15 +27,15 @@ export default async function ShopLandingPage() {
   const picks = listableProducts(
     inventory,
     favouriteSlugs.map((slug) => products.find((p) => p.slug === slug)).filter((p): p is (typeof products)[number] => Boolean(p)),
-  ).slice(0, 6);
+  ).slice(0, 9);
 
   return (
     <>
       <h1 className="sr-only">Shop</h1>
 
-      {/* 1. Split hero: one big image, the drop's picks beside it */}
+      {/* 1. Split hero: one big image, held in view while the drop's picks scroll beside it */}
       <section className="grid gap-1.5 md:grid-cols-2 md:gap-2">
-        <Link href="/shop/all" className="group relative block aspect-[4/5] overflow-hidden bg-paper-2 md:aspect-auto md:min-h-[760px]">
+        <Link href="/shop/all" className="group relative block aspect-[4/5] overflow-hidden bg-paper-2 md:sticky md:top-[73px] md:aspect-auto md:h-[calc(100svh-73px)] md:min-h-[600px] md:self-start">
           <Image src="/community/p12.jpg?v=2" alt="A climber in a clementine linen shirt at the foot of a sea cliff" fill unoptimized preload sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-[1200ms] group-hover:scale-[1.02]" />
         </Link>
         <div className="px-4 py-8 md:px-8 md:py-10 xl:px-12">
@@ -50,9 +50,9 @@ export default async function ShopLandingPage() {
             </Link>
           </div>
           {picks.length > 0 ? (
-            <div className="grid grid-cols-2 gap-x-1.5 gap-y-8 lg:grid-cols-3 md:gap-x-2">
+            <div className="grid grid-cols-2 gap-x-1.5 gap-y-8 lg:grid-cols-3 md:gap-x-2 max-lg:[&>*:nth-child(9)]:hidden">
               {picks.map((p, i) => (
-                <ProductCard key={p.slug} product={p} siblings={siblingsOf(p)} priority={i < 3} availability={availabilityOf(p, inventory)} />
+                <ProductCard key={p.slug} product={p} siblings={siblingsOf(p)} priority={i < 3} inventory={inventory} />
               ))}
             </div>
           ) : (
@@ -62,7 +62,7 @@ export default async function ShopLandingPage() {
       </section>
 
       {/* 2. Category tiles with the label on the picture */}
-      <section className="grid grid-cols-2 gap-1.5 pt-1.5 md:grid-cols-5 md:gap-2 md:pt-2 [&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:col-span-1">
+      <section className="grid grid-cols-2 gap-1.5 pt-1.5 md:grid-cols-3 md:gap-2 md:pt-2 lg:grid-cols-6 [&>*:last-child:nth-child(odd)]:col-span-2 md:[&>*:last-child:nth-child(odd)]:col-span-1">
         {categories.map((c) => (
           <LabelTile key={c.slug} href={`/shop/${c.slug}`} image={c.scene} label={c.name} />
         ))}

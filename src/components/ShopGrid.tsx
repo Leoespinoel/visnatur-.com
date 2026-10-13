@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { groupByFamily, type Product } from "@/data/products";
 import { categories, type CategorySlug } from "@/data/site";
-import { availabilityOf, currentDrop, windowLabel, type Inventory } from "@/lib/editions";
+import { currentDrop, windowLabel, type Inventory } from "@/lib/editions";
 import { ProductCard } from "./ProductCard";
 import { CloseIcon, FilterIcon } from "./Icons";
 
@@ -22,7 +22,18 @@ const SORTS: { value: Sort; label: string }[] = [
  * Listing: a row of family chips, the count and a FILTER button that opens a panel above the grid.
  * Families are links, so the chip row doubles as navigation between /shop and /shop/<family>.
  */
-export function ShopGrid({ products, inventory, fixedCategory }: { products: Product[]; inventory: Inventory; fixedCategory?: CategorySlug }) {
+export function ShopGrid({
+  products,
+  inventory,
+  fixedCategory,
+  base = "/shop",
+}: {
+  products: Product[];
+  inventory: Inventory;
+  fixedCategory?: CategorySlug;
+  /** Where the chips point: /shop (everything), /men or /women. */
+  base?: string;
+}) {
   const params = useSearchParams();
   const drop = currentDrop(inventory.now);
   const [sort, setSort] = useState<Sort>("featured");
@@ -63,11 +74,11 @@ export function ShopGrid({ products, inventory, fixedCategory }: { products: Pro
     <div>
       {/* Family chips, count and the filter button */}
       <div className="flex flex-wrap items-center gap-2 pb-4">
-        <Chip href="/shop/all" active={!fixedCategory}>
+        <Chip href={base === "/shop" ? "/shop/all" : base} active={!fixedCategory}>
           All pieces
         </Chip>
         {categories.map((c) => (
-          <Chip key={c.slug} href={`/shop/${c.slug}`} active={fixedCategory === c.slug}>
+          <Chip key={c.slug} href={`${base}/${c.slug}`} active={fixedCategory === c.slug}>
             {c.short}
           </Chip>
         ))}
@@ -145,7 +156,7 @@ export function ShopGrid({ products, inventory, fixedCategory }: { products: Pro
       ) : (
         <div className="grid grid-cols-2 gap-x-1.5 gap-y-8 md:gap-x-2 md:gap-y-12 lg:grid-cols-4">
           {groups.map((group, i) => (
-            <ProductCard key={group[0].slug} product={group[0]} siblings={group} priority={i < 4} availability={availabilityOf(group[0], inventory)} />
+            <ProductCard key={group[0].slug} product={group[0]} siblings={group} priority={i < 4} inventory={inventory} />
           ))}
         </div>
       )}
