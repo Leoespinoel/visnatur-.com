@@ -69,7 +69,7 @@ export const categories = [
     slug: "polos-knitwear",
     name: "Knitwear",
     short: "Knitwear",
-    description: "Cardigans, crew necks, vests, quarter zips and rugby shirts, knitted and sewn for the drive home.",
+    description: "Cardigans, crew necks, vests, quarter zips, hoodies and rugby shirts, knitted and sewn for the drive home.",
     image: "/products/harbour-quarter-zip-forest.jpg?v=2",
     scene: "/images/golf-green.jpg?v=2",
   },

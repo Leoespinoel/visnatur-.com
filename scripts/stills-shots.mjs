@@ -136,6 +136,8 @@ export const SHOTS = {
     "a Southern European man in his late twenties with thick dark wavy hair and light stubble, wearing the striped linen shirt with sleeves rolled to the forearm and the top two buttons open, tucked into white pleated trousers, with tan suede loafers"),
   ...onModel("harbour-quarter-zip", ["navy", "forest", "red", "mustard", "sky", "orange", "black"],
     "an East Asian man in his early thirties with neat black hair, wearing the half-zip knit zipped halfway with cream chinos and white sneakers"),
+  ...onModel("cabana-hoodie", ["navy", "oat", "sky", "sage", "red", "clementine", "yellow", "pink", "black"],
+    "a Mauritian man of Creole heritage in his mid twenties with short tight curls, a thin moustache and a lean build, wearing the striped hooded sweatshirt with the hood down and the drawcords hanging evenly, with the oat drawstring linen trousers and white canvas sneakers"),
   ...onModel("regatta-cardigan", ["ecru-navy"],
     "a man in his mid forties with salt-and-pepper hair and a short beard, wearing the knitted cardigan buttoned over a white t-shirt, cream trousers and brown loafers"),
   ...onModel("pavilion-cable-vest", ["navy"],
@@ -172,6 +174,10 @@ for (const [c, knit] of [["stone", "harbour-quarter-zip-navy"], ["navy", "moorin
 }
 SHOTS["quayside-chino-charcoal"].prompt += " The cable knit vest is worn over a white oxford shirt.";
 SHOTS["quayside-chino-white"].prompt += " The cardigan is buttoned over a white t-shirt.";
+// Hoodies are worn with the oat Veranda trouser, so that is worn too (refs: hoodie, then trouser).
+for (const c of ["navy", "oat", "sky", "sage", "red", "clementine", "yellow", "pink", "black"]) SHOTS[`cabana-hoodie-${c}`].wear.push("veranda-linen-trouser-oat");
+// The navy take is this design's model reference and pulls the black towards navy.
+SHOTS["cabana-hoodie-black"].prompt += " The hoodie is true black and white stripes with black ribbed cuffs and hem, not navy.";
 
 function community(rows) {
   return Object.fromEntries(
