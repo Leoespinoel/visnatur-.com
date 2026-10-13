@@ -1,9 +1,9 @@
 export const site = {
   name: "Vis Naturæ",
   nameAscii: "Vis Naturae",
-  tagline: "Numbered editions. Made once you order it.",
+  tagline: "Made once you order it.",
   description:
-    "Vis Naturæ is a made-to-order menswear and resort label. Each design is released once, in a numbered edition of twelve, made for the people who ordered it, then retired. Outerwear is one of one. 10% of every sale goes to conservation.",
+    "Vis Naturæ is a made-to-order resort label for men and women. Every piece is cut and sewn by hand in Mauritius, in the size you choose. 10% of every sale goes to conservation.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   currency: "EUR",
   locale: "en-IE",
@@ -11,48 +11,29 @@ export const site = {
   pledgeRate: 0.1,
   /** Manually updated running total (in cents). Leave at 0 until the first orders come in. */
   pledgeRaisedCents: 0,
+  /**
+   * Where the Support button beside the total on /conservation goes: a payment link
+   * (Stripe, Shopify) or a partner's donation page. Empty: it opens an email to us.
+   */
+  donateUrl: "" as string,
   freeShippingThresholdCents: 15000,
   /** Express from Mauritius costs us around €35 a parcel; €15 is the most a buyer will carry. */
   flatShippingCents: 1500,
-  /** Making time for an edition, counted from the day its order window closes. */
+  /** Making time, counted from the day the piece is ordered. */
   leadTime: { minWeeks: 3, maxWeeks: 4 },
-  /** One-of-one pieces already exist: working days from payment to dispatch. */
-  oneOfOneDispatchDays: 3,
-  /** Default edition sizes by tier. Individual products can override with `edition.size`. */
-  editionSize: { core: 12, accessories: 24 },
   email: "hello@visnaturae.com",
   instagram: "https://instagram.com/visnaturae",
   foundedYear: 2026,
   /** Play the red-wipe intro on every full page load. */
   intro: true,
-  /** Minutes a checkout session holds a piece before it is released. */
-  reservationMinutes: 30,
-  /**
-   * Pieces sold outside the site (in person, by email). Add the slug here and
-   * redeploy and it disappears from the shop like an online sale would.
-   */
-  soldOffline: [] as string[],
 } as const;
 
-/**
- * Release calendar. A drop is an order window: editions in it can be claimed
- * between `opens` and `closes` (inclusive, UTC dates), then the batch is made.
- * One-of-one pieces in a drop go live on `opens` and stay until sold.
- * Dates are placeholders until the Mauritius maker confirms a schedule.
- */
-export const drops = [
-  { number: 1, name: "Drop I", opens: "2026-10-08", closes: "2026-10-29" },
-  { number: 2, name: "Drop II", opens: "2026-12-01", closes: "2026-12-22" },
-] as const;
-
-export type DropNumber = (typeof drops)[number]["number"];
-
 export const announcements = [
-  "Numbered editions of twelve",
   "Made once you order it",
+  "Cut and sewn in your size in Mauritius",
   "10% of every sale goes to conservation",
   "Free shipping across Europe over €150",
-  "Drop I closes 29 October",
+  "Free repairs for life",
 ];
 
 export const categories = [
@@ -130,14 +111,14 @@ export const audiences: {
     slug: "men",
     name: "Men",
     explore: "Explore for him",
-    lede: "Swim, knitwear, linen, trousers, accessories and sunglasses. Every design is released once, in a numbered edition made to order in Mauritius.",
+    lede: "Swim, knitwear, linen, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
     scenes: Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>,
   },
   {
     slug: "women",
     name: "Women",
     explore: "Explore for her",
-    lede: "Hoodies, caps, socks and sunglasses cut for anyone, in numbered editions made to order in Mauritius. Pieces cut for women follow in the next drops.",
+    lede: "Hoodies, caps, socks and sunglasses cut for anyone, made to order in Mauritius. Pieces cut for women follow in the next collection.",
     scenes: {
       swim: "/images/women/swim.jpg",
       "polos-knitwear": "/images/women/knitwear.jpg",
@@ -156,23 +137,84 @@ export const audiences: {
   },
 ];
 
-export const partners = [
+/**
+ * `logo` is the partner's own logo in public/partners/ (SVG or transparent PNG), shown in the partner band on /conservation.
+ * Until it is set, the band draws a placeholder emblem from `mark`.
+ */
+export const partners: {
+  name: string;
+  focus: string;
+  status: string;
+  mark: "ocean" | "forest" | "wetlands";
+  logo?: string;
+  /** Why a euro goes far here: one sourced figure, shown on the partner's card. */
+  leverage: { figure: string; text: string; source: { label: string; url: string } };
+}[] = [
   {
     name: "Ocean partner",
     focus: "Reef restoration and marine protection in the Indian Ocean around Mauritius",
     status: "Partnership in progress",
+    mark: "ocean",
+    leverage: {
+      figure: "<1%",
+      text: "of the ocean floor is coral reef, yet reefs support an estimated quarter of all known marine species. Protect a little reef and you protect a lot of sea.",
+      source: { label: "NOAA", url: "https://floridakeys.noaa.gov/corals/biodiversity.html" },
+    },
   },
   {
     name: "Forest partner",
     focus: "Native forest restoration and endemic species recovery in Mauritius",
     status: "Partnership in progress",
+    mark: "forest",
+    leverage: {
+      figure: "2%",
+      text: "of Mauritius is still native forest. Small sums here have already pulled the kestrel, the pink pigeon and the echo parakeet back from extinction.",
+      source: { label: "Convention on Biological Diversity", url: "https://www.cbd.int/countries/profile?country=mu" },
+    },
   },
   {
     name: "Rivers & wetlands partner",
     focus: "Freshwater habitat and migratory species, Europe and beyond",
     status: "Partnership in progress",
+    mark: "wetlands",
+    leverage: {
+      figure: "85%",
+      text: "average fall in monitored freshwater wildlife populations since 1970, the steepest of any habitat on Earth.",
+      source: { label: "WWF Living Planet Report 2024", url: "https://livingplanet.panda.org/" },
+    },
   },
 ];
+
+/**
+ * The impact charts on /conservation: four counters, money to the work by month, and partner targets.
+ * Every figure is a PLACEHOLDER until the first transfer clears; while `placeholder` is true the page says so.
+ * "Sent to the work" is the sum of `months`; the coral and tree counters read the first two targets.
+ */
+export const impact = {
+  placeholder: true,
+  piecesMade: 1030,
+  /** Euros sent to the work, oldest month first. */
+  months: [
+    { month: "Oct", cents: 42000 },
+    { month: "Nov", cents: 61000 },
+    { month: "Dec", cents: 98000 },
+    { month: "Jan", cents: 87000 },
+    { month: "Feb", cents: 114000 },
+    { month: "Mar", cents: 142000 },
+    { month: "Apr", cents: 156000 },
+    { month: "May", cents: 171000 },
+    { month: "Jun", cents: 205000 },
+    { month: "Jul", cents: 196000 },
+    { month: "Aug", cents: 234000 },
+    { month: "Sep", cents: 246000 },
+  ],
+  /** Progress towards each partner's year-end goal. */
+  targets: [
+    { label: "Coral fragments planted", partner: "Ocean partner", value: 310, goal: 500, unit: "" },
+    { label: "Native trees planted", partner: "Forest partner", value: 480, goal: 1000, unit: "" },
+    { label: "Wetland restored", partner: "Rivers & wetlands partner", value: 0.6, goal: 2, unit: "ha" },
+  ],
+};
 
 export const nav = {
   /** Each opens its mega menu (built in menu.ts); Men and Women are the shop, the rest the brand pages. */
@@ -189,7 +231,6 @@ export const nav = {
       { label: "Women", href: "/women" },
       { label: "All pieces", href: "/shop/all" },
       ...categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })),
-      { label: "Archive", href: "/archive" },
     ],
     brand: [
       { label: "About", href: "/about" },

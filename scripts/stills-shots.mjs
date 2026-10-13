@@ -16,6 +16,9 @@ export const STUDIO =
 // Socks: the same studio, cropped from the knee down so the ankle embroidery reads.
 export const STUDIO_LEGS =
   "Clean e-commerce photograph for a premium menswear shop on a seamless light grey studio backdrop, soft even studio light: a close crop of one male model's lower legs from just above the knee down to the floor, standing relaxed with one foot a little forward and turned slightly so the outer side of the ankle faces the camera, sharp focus on the socks.";
+// Sunglasses: the same studio, head and shoulders so the frame reads at true size.
+export const STUDIO_FACE =
+  "Clean e-commerce photograph for a premium menswear shop on a seamless light grey studio backdrop, soft even studio light: a head-and-shoulders portrait of one male model from the top of the head to mid chest, face turned a little to one side so the front of the frame and one arm both show, calm expression, sharp focus on the sunglasses. The sunglasses from the reference images reproduced exactly: the same slim narrow oval acetate frame whose lenses are a shallow horizontal oval about twice as wide as they are tall, not round, same colour and translucency, same lens tint, the three small metal pins at each front corner, sitting naturally on the nose at true size for an adult face, not oversized.";
 export const GARMENT =
   "The clothing from the reference product images must be reproduced exactly: same colours, same stripe count and stripe widths, same knit or weave texture, same collar, buttons, zip and drawcord, and the small embroidered logo in the same place at the same size. No other logos, text or branding anywhere.";
 export const REAL = "Real people with natural skin texture and real hair, real fabric with natural creases, photographic realism, no CGI look, no smoothing.";
@@ -155,7 +158,7 @@ export const SHOTS = {
     "a man around thirty with curly dark hair and warm brown skin, wearing the striped knit crewneck with the chinos and white sneakers"),
   ...onModel("clubhouse-knit-jacket", ["red-ecru", "ecru-red", "sand", "oat-ecru", "sky-ecru", "navy-ecru", "sage-ecru", "clementine-ecru", "yellow-ecru", "pink-ecru", "black-ecru"],
     "a man in his late thirties with short dark hair and a trimmed beard, wearing the knitted jacket zipped open over a white t-shirt, the chinos and white sneakers"),
-  ...onModel("ridge-knit-gilet", ["black", "oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink"],
+  ...onModel("ridge-knit-gilet", ["black", "oat"],
     "a tall blond man in his early thirties, wearing the knitted gilet over a cream crewneck sweater with the chinos and brown boots"),
   ...onModel("breakwater-rugby-shirt", ["red-ecru", "oat-ecru", "sky-ecru", "navy-ecru", "sage-ecru", "clementine-ecru", "yellow-ecru", "pink-ecru", "black-ecru"],
     "a broad-shouldered Pacific Islander man in his late twenties, wearing the rugby shirt untucked with the chinos and white sneakers"),
@@ -176,6 +179,10 @@ SHOTS["esplanade-linen-trouser-ecru"].prompt += " The trousers are a very pale o
 for (const [id, shot] of Object.entries(onModel("burrow-sock", ["white", "black", "beige", "brown", "navy", "grey", "olive"],
   "a man with light brown skin and a little leg hair, wearing the socks pulled up to full crew length with stone cotton shorts ending just above the knee and plain white leather tennis sneakers")))
   SHOTS[id] = { ...shot, look: "legs" };
+// Sunglasses are shot head and shoulders (STUDIO_FACE), worn with the oat Riviera shirt (refs: sunglasses, then shirt).
+for (const [id, shot] of Object.entries(onModel("alize-sunglasses", ["tortoise", "black", "blue", "olive"],
+  "a ruggedly handsome Caucasian man in his early forties with lightly tanned skin, light blue eyes, a strong jaw and a short full stubble beard, and thick, full, dark brunette hair with a full hairline, worn long enough to reach the shirt collar at the back, slicked straight back off the forehead with volume and a little shine, the ends curling out behind the ears at the nape, wearing the sunglasses with the oat linen shirt, top two buttons open")))
+  SHOTS[id] = { ...shot, look: "face", wear: [...shot.wear, "riviera-linen-shirt-oat"] };
 
 // Chinos are shot with one of the knits on top, so the knit is worn too (refs: chino, then knit).
 for (const [c, knit] of [["stone", "harbour-quarter-zip-navy"], ["navy", "mooring-stripe-crew-red-ecru"], ["white", "regatta-cardigan-navy-ecru"], ["forest", "clubhouse-knit-jacket-sand"], ["tobacco", "mooring-stripe-crew-navy-ecru"], ["charcoal", "pavilion-cable-vest-navy"], ["black", "harbour-quarter-zip-mustard"]]) {
@@ -197,10 +204,6 @@ for (const family of ["harbour-quarter-zip", "regatta-cardigan", "pavilion-cable
     shot.prompt = shot.prompt.replace("the chinos", `the ${chino} chinos`);
   }
 }
-// The Cabana hoodies stay in the oat Veranda linen trouser (refs: hoodie, then trouser).
-for (const c of ["navy", "oat", "sky", "sage", "red", "clementine", "yellow", "pink", "black"]) SHOTS[`cabana-hoodie-${c}`].wear.push("veranda-linen-trouser-oat");
-// The navy take is this design's model reference and pulls the black towards navy.
-SHOTS["cabana-hoodie-black"].prompt += " The hoodie is true black and white stripes with black ribbed cuffs and hem, not navy.";
 SHOTS["pavilion-cable-vest-black"].prompt += " The vest is true jet black cable knit with ecru stripes at the V-neck, not navy.";
 // The plain hoodies are worn with the stone Quayside chino (refs: hoodie, then chino).
 for (const c of ["sky", "navy", "sage", "red", "clementine", "yellow", "pink", "black"]) SHOTS[`riviera-hoodie-${c}`].wear.push("quayside-chino-stone");
@@ -219,8 +222,19 @@ for (const [c, swim] of Object.entries(CABANA_CAP_SWIM)) {
   SHOTS[`cabana-cap-${c}`].wear = [`cabana-cap-${c}`, swim];
   SHOTS[`cabana-cap-${c}`].prompt = `${SHOTS[swim].prompt.replace(/, wearing the (striped )?swim shorts\.$/, "")}, wearing the striped cap straight on with the swim shorts.`;
 }
-// Leo then swapped the black cap's Shore shorts for the black Lido stripe: take 4 is approved take 3 with only the shorts replaced.
-SHOTS["cabana-cap-black"].wear = ["cabana-cap-black", "lido-stripe-swim-short-black"];
+// Leo then put every cap with the matching Shore Swim Short: the approved takes keep the Lido model and cap and
+// only replace the shorts (clementine t5, sky t3, red t3, pink t5, yellow t3, sage t3); black is back on its take 3.
+const CABANA_CAP_SHORE = { clementine: "orange", sky: "sky", red: "red", pink: "pink", yellow: "yellow", sage: "pine", oat: "beige", navy: "navy", black: "black" };
+for (const [c, shore] of Object.entries(CABANA_CAP_SHORE)) SHOTS[`cabana-cap-${c}`].wear = [`cabana-cap-${c}`, `shore-swim-short-${shore}-ecru`];
+// The Cabana hoodies were reshot the same way on the Shore model, barefoot in the same matching Shore short:
+// each approved take is that Shore shot with only the hoodie added (refs: hoodie, then shorts).
+for (const [c, shore] of Object.entries(CABANA_CAP_SHORE)) {
+  const swim = `shore-swim-short-${shore}-ecru`;
+  SHOTS[`cabana-hoodie-${c}`].wear = [`cabana-hoodie-${c}`, swim];
+  SHOTS[`cabana-hoodie-${c}`].prompt = `${SHOTS[swim].prompt.replace(/, bare-chested and barefoot, wearing the swim shorts\.$/, "")}, barefoot, wearing the striped hooded sweatshirt with the hood down and the drawcords hanging evenly, with the swim shorts.`;
+}
+// The navy hoodie pulls the black towards navy.
+SHOTS["cabana-hoodie-black"].prompt += " The hoodie is true black and white stripes with black ribbed cuffs and hem, not navy.";
 // The Lemon Lido drifts towards saffron on the model (the saffron take is this design's model reference);
 // approved take 3 is the approved oat take with only the shorts recoloured to Lemon.
 SHOTS["lido-stripe-swim-short-yellow"].prompt += " The stripes are a pale soft lemon yellow, exactly as light as the reference image, much lighter than saffron or gold.";

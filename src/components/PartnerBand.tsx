@@ -1,0 +1,55 @@
+import { partners } from "@/data/site";
+import { LeafIcon } from "./Icons";
+
+type Partner = (typeof partners)[number];
+
+const base = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round" } as const;
+
+/** Placeholder emblems, one per remit, until each partner's own logo is in public/partners/. */
+const marks: Record<Partner["mark"], React.ReactNode> = {
+  ocean: (
+    <svg {...base} aria-hidden="true">
+      <path d="M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+      <path d="M3 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+      <path d="M3 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
+    </svg>
+  ),
+  forest: <LeafIcon width={22} height={22} />,
+  wetlands: (
+    <svg {...base} aria-hidden="true">
+      <path d="M8 19V8M12 19V5M16 19v-9" />
+      <path d="M8 8c-1.5-1-2-2.5-2-4M16 10c1.5-1 2-2.5 2-4" />
+      <path d="M3 21c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0" />
+    </svg>
+  ),
+};
+
+function Logo({ partner }: { partner: Partner }) {
+  if (partner.logo) {
+    return <img src={partner.logo} alt={partner.name} className="h-10 w-auto max-w-48 object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 md:h-12" />;
+  }
+  return (
+    <span className="flex items-center gap-3 text-ink-2">
+      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-current">{marks[partner.mark]}</span>
+      <span className="text-xs font-medium uppercase tracking-label whitespace-nowrap md:text-sm">{partner.name}</span>
+    </span>
+  );
+}
+
+/** Partner logos running edge to edge across the page, on the site's marquee. */
+export function PartnerBand() {
+  // The track slides by half its width, so each half must be wider than the widest screen: the three partners repeat four times per half.
+  const half = Array.from({ length: 4 }, () => partners).flat();
+  const items = [...half, ...half];
+  return (
+    <div className="overflow-hidden border-y border-line bg-paper">
+      <ul className="marquee-track marquee-hover-pause py-7 md:py-9 [--marquee-duration:60s]" aria-label="Conservation partners">
+        {items.map((p, i) => (
+          <li key={i} className="flex shrink-0 items-center px-8 md:px-14" aria-hidden={i >= partners.length}>
+            <Logo partner={p} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

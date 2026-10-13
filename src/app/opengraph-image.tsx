@@ -30,7 +30,7 @@ export default async function OpenGraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 104, lineHeight: 1.0 }}>Made once you order it.</div>
           <div style={{ fontSize: 34, marginTop: 28, color: "#c8102e" }}>
-            Made-to-order menswear · 10% of every sale to conservation
+            For men and women · 10% of every sale to conservation
           </div>
         </div>
       </div>

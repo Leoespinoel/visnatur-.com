@@ -25,9 +25,3 @@ export function formatPriceExact(cents: number): string {
 export function leadTimeLabel(): string {
   return `${site.leadTime.minWeeks}–${site.leadTime.maxWeeks} weeks`;
 }
-
-/** "twelve" for the default edition size, used in prose. Falls back to digits for odd sizes. */
-export function editionWord(n: number): string {
-  const words: Record<number, string> = { 1: "one", 6: "six", 8: "eight", 10: "ten", 12: "twelve", 20: "twenty", 24: "twenty-four", 25: "twenty-five", 30: "thirty", 50: "fifty" };
-  return words[n] ?? String(n);
-}

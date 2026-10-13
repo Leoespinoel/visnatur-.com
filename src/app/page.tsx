@@ -1,8 +1,6 @@
 import { site } from "@/data/site";
 import { featuredProducts, interleaveFamilies, productsInCategory } from "@/data/products";
 import { campaigns, type Campaign } from "@/data/campaigns";
-import { getInventory } from "@/lib/inventory";
-import { listableProducts, type Inventory } from "@/lib/editions";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { Carousel } from "@/components/Carousel";
 import { CampaignBlock } from "@/components/CampaignBlock";
@@ -16,21 +14,19 @@ import { communityPosts } from "@/data/community";
 import { atelierFilm } from "@/data/film";
 
 /** The row under a campaign image: a five-up product carousel or four lookbook images. */
-function CampaignRow({ campaign, inventory }: { campaign: Campaign; inventory: Inventory }) {
+function CampaignRow({ campaign }: { campaign: Campaign }) {
   const { row } = campaign;
   if (row.kind === "lookbook") return <LookbookRow images={row.images} />;
-  const items = row.kind === "featured" ? listableProducts(inventory, featuredProducts(12)).slice(0, 10) : interleaveFamilies(listableProducts(inventory, productsInCategory(row.category)));
+  const items = row.kind === "featured" ? featuredProducts(10) : interleaveFamilies(productsInCategory(row.category));
   if (items.length === 0) return null;
   return (
     <div className="container-x py-10 md:py-12">
-      <ProductCarousel variant="kith" title={campaign.title} products={items} inventory={inventory} link={{ label: "Shop all", href: campaign.primary.href }} />
+      <ProductCarousel variant="kith" title={campaign.title} products={items} link={{ label: "Shop all", href: campaign.primary.href }} />
     </div>
   );
 }
 
-export default async function HomePage() {
-  const inventory = await getInventory();
-
+export default function HomePage() {
   return (
     <>
       {/* Hero: the film. Whole thing is one link, chrome floats over it. */}
@@ -43,19 +39,19 @@ export default async function HomePage() {
       {campaigns.map((c, i) => (
         <div key={c.key} className="pt-1.5 md:pt-2">
           <CampaignBlock image={c.image} alt={c.alt} title={c.title} text={c.text} primary={c.primary} secondary={c.secondary} preload={i === 0} />
-          <CampaignRow campaign={c} inventory={inventory} />
+          <CampaignRow campaign={c} />
         </div>
       ))}
 
       {/* Half-width pair, like Kith's "Apparel | Accessories" */}
       <section className="grid gap-1.5 pt-1.5 md:grid-cols-2 md:gap-2 md:pt-2">
         <LabelTile href="/shop/outerwear-accessories" image="/images/caps-scene.jpg" label="Caps" cta="Shop now" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
-        <LabelTile href="/archive" image="/images/numbered-label.jpg?v=2" label="The archive" cta="Browse" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
+        <LabelTile href="/made-to-order" image="/images/numbered-label.jpg?v=2" label="Made to order" cta="A closer look" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
       </section>
 
       {/* The making-of, as a campaign */}
       <div className="pt-1.5 md:pt-2">
-        <FilmBlock {...atelierFilm} text="Every edition is cut, sewn and numbered by hand in a small workshop in Mauritius." link={{ label: "A closer look", href: "/made-to-order" }} />
+        <FilmBlock {...atelierFilm} text="Every piece is cut and sewn by hand, to order, in a small workshop in Mauritius." link={{ label: "A closer look", href: "/made-to-order" }} />
       </div>
 
       {/* Community: tall cards of people in the clothes, some playable */}

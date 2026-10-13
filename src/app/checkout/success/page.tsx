@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { leadTimeLabel } from "@/lib/format";
-import { site } from "@/data/site";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { PageIntro } from "@/components/PageIntro";
 import { LeafIcon } from "@/components/Icons";
@@ -16,8 +15,8 @@ export default function SuccessPage() {
       <ClearCart />
       <PageIntro
         eyebrow="Thank you"
-        title="Your number is yours."
-        lede={`Edition pieces are made together once orders close and ship ${leadTimeLabel()} later; one-of-one pieces already exist and ship within ${site.oneOfOneDispatchDays} working days. We email you when your piece is cut and when it ships.`}
+        title="Now we make it."
+        lede={`Your piece is cut and sewn in your size in Mauritius and ships ${leadTimeLabel()} after you ordered. We email you when it is cut and when it ships.`}
       />
       <section className="container-x pb-24">
         <Summary />

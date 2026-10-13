@@ -1,18 +1,17 @@
-import { editionWord, leadTimeLabel } from "@/lib/format";
-import { site } from "@/data/site";
+import { leadTimeLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 
 export function HowItWorks({ compact = false }: { compact?: boolean }) {
   const steps = [
     {
       n: "01",
-      title: "You claim a number",
-      text: `Every design is released once, in a numbered edition of ${editionWord(site.editionSize.core)}. Choose your size and one of them is yours.`,
+      title: "You order",
+      text: "Choose a design and your size. Nothing is made in advance, so nothing has been cut yet.",
     },
     {
       n: "02",
-      title: "We make the edition",
-      text: `When orders close, the whole edition is cut and sewn together in a small workshop in Mauritius, each in its owner's size, then the design is retired. Allow ${leadTimeLabel()} from closing.`,
+      title: "We make it",
+      text: `Your piece is cut and sewn by hand in a small workshop in Mauritius, in your size. Allow ${leadTimeLabel()} from the day you order.`,
     },
     {
       n: "03",

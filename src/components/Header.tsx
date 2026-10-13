@@ -256,15 +256,13 @@ export function Header() {
             <div key={a.slug} className="mb-10">
               <p className="eyebrow mb-4">{a.name}</p>
               <ul className="space-y-3.5">
-                {MENUS[a.slug]
-                  .filter((i) => i.key !== "archive")
-                  .map((i) => (
-                    <li key={i.key}>
-                      <Link href={i.href} className="font-serif text-2xl">
-                        {i.label}
-                      </Link>
-                    </li>
-                  ))}
+                {MENUS[a.slug].map((i) => (
+                  <li key={i.key}>
+                    <Link href={i.href} className="font-serif text-2xl">
+                      {i.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           ))}
@@ -279,11 +277,6 @@ export function Header() {
                   </Link>
                 </li>
               ))}
-            <li>
-              <Link href="/archive" className="font-serif text-3xl">
-                Archive
-              </Link>
-            </li>
             <li>
               <Link href="/contact" className="font-serif text-3xl">
                 Contact

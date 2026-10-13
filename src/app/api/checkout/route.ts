@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { getProduct, editionLabel, editionKindLabel, isOneOfOne } from "@/data/products";
+import { designNumber, getProduct } from "@/data/products";
+import { leadTimeLabel } from "@/lib/format";
 import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
-import { availabilityOf, dispatchLabel, dropOf, formatDropDate } from "@/lib/editions";
-import { readInventory } from "@/lib/inventory";
 import { storefront, storefrontConfigured } from "@/lib/shopify";
 
 type Item = { slug: string; size: string };
@@ -24,46 +23,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Your bag is empty." }, { status: 400 });
   }
 
-  // A bag line is one unit of a design in one size. The edition must still have that many units free.
-  let inventory;
-  try {
-    inventory = await readInventory();
-  } catch (err) {
-    console.error("Inventory read failed at checkout", err);
-    return NextResponse.json({ error: "We couldn't reach checkout. Please try again in a moment." }, { status: 502 });
-  }
-  const wanted = new Map<string, number>();
+  // A bag line is one piece of a design in one size. Every piece is made to order, so there is no stock to check.
   const units: Item[] = [];
   let subtotal = 0;
 
   for (const item of items) {
     const product = getProduct(String(item.slug));
-    if (!product) return NextResponse.json({ error: `Unknown piece: ${item.slug}` }, { status: 400 });
+    if (!product) {
+      return NextResponse.json({ error: "A piece in your bag is no longer available, so we took it out.", unavailable: [String(item.slug)] }, { status: 409 });
+    }
     if (!product.sizes.includes(item.size)) {
       return NextResponse.json({ error: `Unknown size for ${product.name}.` }, { status: 400 });
     }
-    const already = wanted.get(product.slug) ?? 0;
-    const a = availabilityOf(product, inventory);
-
-    if (a.state === "upcoming") {
-      return NextResponse.json(
-        { error: `${product.name} is part of ${dropOf(product).name}, which opens ${formatDropDate(dropOf(product).opens)}.`, soldOut: [product.slug] },
-        { status: 409 },
-      );
-    }
-    if (a.state === "closed") {
-      return NextResponse.json(
-        { error: `Orders for ${product.name} closed on ${formatDropDate(dropOf(product).closes)}. The edition is being made and will not reopen.`, soldOut: [product.slug] },
-        { status: 409 },
-      );
-    }
-    if (a.state === "sold" || a.remaining <= already) {
-      const msg = isOneOfOne(product)
-        ? `${product.name} has just been sold. It was one of one.`
-        : `${product.name} has just sold out. All ${a.total} are spoken for.`;
-      return NextResponse.json({ error: msg, soldOut: [product.slug] }, { status: 409 });
-    }
-    wanted.set(product.slug, already + 1);
     units.push({ slug: product.slug, size: item.size });
     subtotal += product.price;
   }
@@ -91,9 +62,8 @@ export async function POST(req: Request) {
       quantity: 1,
       // Shown on Shopify's checkout and kept on the order.
       attributes: [
-        { key: "Design", value: `${editionLabel(product)} · ${product.colour.name}` },
-        { key: "Edition", value: editionKindLabel(product) },
-        { key: "When", value: dispatchLabel(product) },
+        { key: "Design", value: `${designNumber(product)} · ${product.colour.name}` },
+        { key: "When", value: `Made to order in your size. Ships ${leadTimeLabel()} after you order.` },
       ],
     });
   }

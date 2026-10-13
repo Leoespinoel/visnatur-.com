@@ -3,10 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { editionLabel, editionKindLabel, isOneOfOne, productImages, type Product } from "@/data/products";
+import { designNumber, productImages, type Product } from "@/data/products";
 import { formatPrice } from "@/lib/format";
 import { pledgeCents } from "@/lib/pledge";
-import { availabilityOf, isArchived, remainingLabel, type Inventory } from "@/lib/editions";
 
 /**
  * Product tile in the style of a classic resort e-commerce grid: a flat studio tile with the
@@ -17,25 +16,17 @@ import { availabilityOf, isArchived, remainingLabel, type Inventory } from "@/li
 export function ProductCard({
   product,
   priority = false,
-  inventory,
   siblings,
 }: {
   product: Product;
   priority?: boolean;
-  /** When given, the tile shows live counts (remaining, sold out, closed) for the colour on show. */
-  inventory?: Inventory;
   /** Other colourways of the same pattern (including `product`), shown as dots under the tile. */
   siblings?: Product[];
 }) {
   const colours = siblings && siblings.length > 1 ? siblings : null;
   const [shownSlug, setShownSlug] = useState(product.slug);
   const shown = colours?.find((c) => c.slug === shownSlug) ?? product;
-  const availability = inventory ? availabilityOf(shown, inventory) : undefined;
   const [front, hover] = productImages(shown);
-  const done = availability ? isArchived(availability) : false;
-  const corner = !availability || availability.state === "upcoming" ? editionKindLabel(shown) : remainingLabel(shown, availability);
-  const urgent = done || (availability !== undefined && availability.remaining <= 3 && !isOneOfOne(shown));
-  const foot = !availability || !done ? null : availability.state === "closed" ? `Closed at ${availability.sold} of ${availability.total}` : isOneOfOne(shown) ? "Made for its owner" : `All ${availability.total} made for their owners`;
 
   return (
     <article>
@@ -48,7 +39,7 @@ export function ProductCard({
             unoptimized
             priority={priority}
             sizes="(min-width: 1024px) 25vw, 50vw"
-            className={`object-cover transition-opacity duration-500 group-hover:opacity-0 ${done ? "grayscale" : ""}`}
+            className="object-cover transition-opacity duration-500 group-hover:opacity-0"
           />
           <Image
             src={hover}
@@ -56,19 +47,16 @@ export function ProductCard({
             fill
             unoptimized
             sizes="(min-width: 1024px) 25vw, 50vw"
-            className={`object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${done ? "grayscale" : ""}`}
+            className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           />
-          <div className="absolute left-2 top-2 flex flex-col items-start gap-1">
-            <span className={`bg-paper px-2 py-1.5 text-[11px] leading-none ${urgent ? "text-red" : "text-ink"}`}>{corner}</span>
-            {shown.badge && !done && <span className="bg-ink px-2 py-1.5 text-[11px] leading-none text-paper">{shown.badge}</span>}
-          </div>
+          {shown.badge && <span className="absolute left-2 top-2 bg-ink px-2 py-1.5 text-[11px] leading-none text-paper">{shown.badge}</span>}
         </div>
 
         <div className="mt-3 space-y-1.5 px-0.5">
           <h3 className="font-sans text-[11px] font-medium uppercase leading-snug tracking-[0.06em] text-ink">{shown.name}</h3>
           <div className="flex items-baseline justify-between gap-3">
-            <p className={`text-[12px] tabular-nums ${done ? "text-muted line-through" : "text-ink"}`}>{formatPrice(shown.price)}</p>
-            <span className="text-[10px] uppercase tracking-[0.12em] text-muted">{editionLabel(shown)}</span>
+            <p className="text-[12px] tabular-nums text-ink">{formatPrice(shown.price)}</p>
+            <span className="text-[10px] uppercase tracking-[0.12em] text-muted">{designNumber(shown)}</span>
           </div>
           <div className="flex items-center justify-between gap-3 pt-0.5">
             {colours ? (
@@ -79,7 +67,7 @@ export function ProductCard({
                 <span className="hidden sm:inline">{shown.colour.name}</span>
               </span>
             )}
-            <span className={`whitespace-nowrap text-[10px] ${foot ? "text-muted" : "text-red"}`}>{foot ?? `${formatPrice(pledgeCents(shown.price))} to conservation`}</span>
+            <span className="whitespace-nowrap text-[10px] text-red">{formatPrice(pledgeCents(shown.price))} to conservation</span>
           </div>
         </div>
       </Link>

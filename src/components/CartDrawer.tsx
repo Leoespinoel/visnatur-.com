@@ -7,7 +7,7 @@ import { useCart } from "@/lib/cart";
 import { formatPrice, leadTimeLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { site } from "@/data/site";
-import { editionLabel, editionKindLabel, isOneOfOne, productImages } from "@/data/products";
+import { designNumber, productImages } from "@/data/products";
 import { lineKey, rememberCheckout } from "@/lib/cart";
 import { CloseIcon, LeafIcon } from "./Icons";
 
@@ -45,10 +45,10 @@ export function CartDrawer() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ items: cart.lines.map(({ slug, size }) => ({ slug, size })) }),
       });
-      const data = (await res.json()) as { url?: string; cartId?: string; error?: string; soldOut?: string[] };
+      const data = (await res.json()) as { url?: string; cartId?: string; error?: string; unavailable?: string[] };
       if (!res.ok || !data.url) {
-        // A piece that sold while it sat in the bag is removed so the rest can proceed.
-        if (data.soldOut?.length) cart.removeMany(data.soldOut);
+        // A piece that can't be bought any more is removed so the rest can proceed.
+        if (data.unavailable?.length) cart.removeMany(data.unavailable);
         throw new Error(data.error ?? "Checkout failed. Please try again.");
       }
       // Shopify's checkout doesn't come back here, so remember it and empty the bag once it becomes an order.
@@ -90,9 +90,9 @@ export function CartDrawer() {
         {cart.lines.length === 0 ? (
           <div className="flex flex-1 flex-col items-start justify-center gap-6 px-6">
             <p className="font-serif text-3xl">Your bag is empty.</p>
-            <p className="text-sm text-ink-2 max-w-xs">Every design is released once, in a numbered edition. Claim a number and it is made for you.</p>
+            <p className="text-sm text-ink-2 max-w-xs">Nothing is made until you order it. Choose a piece and a size, and we make it for you.</p>
             <Link href="/shop" onClick={cart.close} className="btn btn-primary">
-              See what is available
+              Shop now
             </Link>
           </div>
         ) : (
@@ -110,13 +110,13 @@ export function CartDrawer() {
                           {l.product.name}
                         </Link>
                         <p className="mt-1 text-xs text-muted">
-                          {editionLabel(l.product)} · {l.product.colour.name} · Size {l.size}
+                          {designNumber(l.product)} · {l.product.colour.name} · Size {l.size}
                         </p>
                       </div>
                       <p className="text-sm tabular-nums">{formatPrice(l.product.price)}</p>
                     </div>
                     <div className="mt-auto flex items-center justify-between pt-3">
-                      <span className="eyebrow !text-red">{editionKindLabel(l.product)}</span>
+                      <span className="eyebrow !text-red">Made to order</span>
                       <button type="button" className="eyebrow link-underline" onClick={() => cart.remove({ slug: l.slug, size: l.size })}>
                         Remove
                       </button>
@@ -130,10 +130,8 @@ export function CartDrawer() {
               <div className="flex items-start gap-3 bg-surface border border-line p-3">
                 <LeafIcon className="text-red shrink-0 mt-0.5" width={18} height={18} />
                 <p className="text-xs text-ink-2 leading-relaxed">
-                  <span className="text-ink font-medium">{formatPrice(cart.pledge)}</span> of this order goes to conservation.{" "}
-                  {cart.lines.some((l) => !isOneOfOne(l.product))
-                    ? `Edition pieces are made together once orders close and ship ${leadTimeLabel()} later.`
-                    : `One-of-one pieces already exist and ship within ${site.oneOfOneDispatchDays} working days.`}{" "}
+                  <span className="text-ink font-medium">{formatPrice(cart.pledge)}</span> of this order goes to conservation. Each piece is
+                  made in your size after you order and ships {leadTimeLabel()} later.
                 </p>
               </div>
               <dl className="space-y-1.5 text-sm">

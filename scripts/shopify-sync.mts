@@ -1,7 +1,7 @@
 /**
- * Mirrors the catalogue in src/data/products.ts into Shopify and wires the webhook.
+ * Mirrors the catalogue in src/data/products.ts into Shopify.
  *
- *   npm run shopify:sync              create/update every product, publish it, subscribe the webhook
+ *   npm run shopify:sync              create/update every product, publish it, drop the old order webhook
  *   npm run shopify:sync -- --dry-run print what would be sent, without calling Shopify
  *
  * Reads SHOPIFY_STORE_DOMAIN, SHOPIFY_CLIENT_ID, SHOPIFY_CLIENT_SECRET and NEXT_PUBLIC_SITE_URL
@@ -11,7 +11,7 @@
  * products.ts, then re-run this. A product with no photos in Shopify gets the site's (packshot, on
  * model, detail) fetched from NEXT_PUBLIC_SITE_URL, so deploy before syncing new products.
  */
-import { products, productImages, editionKindLabel, editionLabel, editionTotal, isOneOfOne, type Product } from "../src/data/products.ts";
+import { products, productImages, designNumber, type Product } from "../src/data/products.ts";
 import { categories, site } from "../src/data/site.ts";
 
 const API_VERSION = "2026-07";
@@ -32,7 +32,7 @@ const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").rep
 function descriptionHtml(p: Product): string {
   return [
     `<p>${escape(p.description)}</p>`,
-    `<p><strong>${escape(editionLabel(p))} · ${escape(editionKindLabel(p))}</strong> · ${escape(p.colour.name)}</p>`,
+    `<p><strong>${escape(designNumber(p))} · Made to order</strong> · ${escape(p.colour.name)}</p>`,
     `<p>${escape(p.fabric)}</p>`,
     `<ul>${p.details.map((d) => `<li>${escape(d)}</li>`).join("")}</ul>`,
     `<p><em>${escape(p.care)}</em></p>`,
@@ -48,8 +48,6 @@ function productInput(p: Product) {
     vendor: site.name,
     productType: category?.name ?? p.category,
     tags: [
-      `drop-${p.drop}`,
-      isOneOfOne(p) ? "one-of-one" : `edition-of-${editionTotal(p)}`,
       `no-${String(p.number).padStart(3, "0")}`,
       p.garment,
     ],
@@ -58,7 +56,7 @@ function productInput(p: Product) {
     variants: p.sizes.map((size) => ({
       optionValues: [{ optionName: "Size", name: size }],
       price: (p.price / 100).toFixed(2),
-      // Editions are counted across sizes by the site, not by Shopify stock.
+      // Every piece is made to order, so Shopify tracks no stock.
       inventoryItem: { sku: `VN-${String(p.number).padStart(3, "0")}-${size.replace(/\s+/g, "").toUpperCase()}`, tracked: false, requiresShipping: true },
     })),
   };
@@ -68,7 +66,7 @@ if (DRY) {
   const sample = productInput(products[0]);
   console.log(`Dry run: ${products.length} products would be synced. First one:\n`);
   console.log(JSON.stringify(sample, null, 2));
-  console.log(`\nWebhook: ${siteUrl || "<NEXT_PUBLIC_SITE_URL>"}/api/webhook for ORDERS_PAID, ORDERS_UPDATED, ORDERS_CANCELLED, REFUNDS_CREATE`);
+  console.log(`\nWould remove any webhook pointing at ${siteUrl || "<NEXT_PUBLIC_SITE_URL>"}/api/webhook`);
   process.exit(0);
 }
 
@@ -163,26 +161,21 @@ for (const p of products) {
   console.log(`✓ ${existing.productByIdentifier ? "updated" : "created"} ${p.slug} (${p.sizes.length} sizes, €${(p.price / 100).toFixed(2)})`);
 }
 
-/* ---------- Webhook ---------- */
+/* ---------- Old webhook ---------- */
 
+// The site used to count edition sales through an order webhook at /api/webhook. Every piece is now
+// made to order and that route is gone, so remove the subscriptions instead of letting them fail.
 const uri = `${siteUrl}/api/webhook`;
-const topics = ["ORDERS_PAID", "ORDERS_UPDATED", "ORDERS_CANCELLED", "REFUNDS_CREATE"];
 const subs = await gql<{ webhookSubscriptions: { nodes: { id: string; topic: string; uri: string }[] } }>(
   `{ webhookSubscriptions(first: 50) { nodes { id topic uri } } }`,
 );
-for (const topic of topics) {
-  if (subs.webhookSubscriptions.nodes.some((s) => s.topic === topic && s.uri === uri)) {
-    console.log(`✓ webhook ${topic} already set`);
-    continue;
-  }
-  const created = await gql<{ webhookSubscriptionCreate: UserErrors }>(
-    `mutation Hook($topic: WebhookSubscriptionTopic!, $sub: WebhookSubscriptionInput!) {
-       webhookSubscriptionCreate(topic: $topic, webhookSubscription: $sub) { userErrors { field message } }
-     }`,
-    { topic, sub: { uri } },
+for (const sub of subs.webhookSubscriptions.nodes.filter((s) => s.uri === uri)) {
+  const deleted = await gql<{ webhookSubscriptionDelete: UserErrors }>(
+    `mutation Unhook($id: ID!) { webhookSubscriptionDelete(id: $id) { userErrors { field message } } }`,
+    { id: sub.id },
   );
-  check(`webhook ${topic}`, created.webhookSubscriptionCreate);
-  console.log(`✓ webhook ${topic} → ${uri}`);
+  check(`webhook ${sub.topic}`, deleted.webhookSubscriptionDelete);
+  console.log(`✓ removed webhook ${sub.topic} → ${uri}`);
 }
 
 console.log(`\nDone. ${products.length} products are in ${shop.shop.name}.`);

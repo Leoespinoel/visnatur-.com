@@ -49,16 +49,8 @@ export function menuFor(audience: AudienceSlug): MenuItem[] {
       const base = { key: c.slug, label: c.name, href: `/${audience}/${c.slug}`, heading: `${c.name} for ${them}` };
       return tiles.length
         ? { ...base, tiles }
-        : { ...base, tiles: [{ label: c.name, href: base.href, image: a.scenes[c.slug] }], note: "Nothing here is cut for women yet. The first women’s pieces follow in the next drops." };
+        : { ...base, tiles: [{ label: c.name, href: base.href, image: a.scenes[c.slug] }], note: "Nothing here is cut for women yet. The first women’s pieces follow in the next collection." };
     }),
-    {
-      key: "archive",
-      label: "Archive",
-      href: "/archive",
-      heading: "Closed editions",
-      tiles: [{ label: "Archive", href: "/archive", image: "/images/numbered-label.jpg?v=2" }],
-      note: "Every design is released once. When its window closes or its last number is claimed, it lives here, and it will not be made again.",
-    },
   ];
 }
 
@@ -89,8 +81,8 @@ function madeToOrder(): MenuItem[] {
       key: "all",
       label: "How it works",
       href: "/made-to-order#how-it-works",
-      heading: "Released once. Made to order.",
-      tiles: [tile("How it works", "how-it-works", IMG.cutting), tile("Numbered editions", "how-it-works", IMG.label), tile("Shipping", "shipping", IMG.atelier), tile("Sizing", "sizing", IMG.sizing)],
+      heading: "Made once you order it.",
+      tiles: [tile("How it works", "how-it-works", IMG.cutting), tile("Shipping", "shipping", IMG.atelier), tile("Sizing", "sizing", IMG.sizing), tile("Questions", "questions", IMG.label)],
     },
     {
       key: "shipping",
@@ -98,7 +90,7 @@ function madeToOrder(): MenuItem[] {
       href: "/made-to-order#shipping",
       heading: "Shipping & lead times",
       tiles: [tile("Shipping", "shipping", IMG.atelier)],
-      note: `Cut and sewn in Mauritius once the drop closes, ready ${leadTimeLabel()} later, then express to Europe in 4–7 working days. Free over ${formatPrice(site.freeShippingThresholdCents)}.`,
+      note: `Cut and sewn in Mauritius after you order, ready ${leadTimeLabel()} later, then express to Europe in 4–7 working days. Free over ${formatPrice(site.freeShippingThresholdCents)}.`,
     },
     {
       key: "sizing",
@@ -114,7 +106,7 @@ function madeToOrder(): MenuItem[] {
       href: "/made-to-order#questions",
       heading: "Asked often",
       tiles: [tile("Questions", "questions", IMG.label)],
-      note: "What happens after you order, when your number is cut, returns, and the one-of-one pieces.",
+      note: "What happens after you order, when your piece is cut, cancelling, returns and repairs.",
     },
     contact,
   ];
@@ -142,9 +134,9 @@ function conservation(): MenuItem[] {
       key: "partners",
       label: "Where it goes",
       href: "/conservation#partners",
-      heading: "Three places, chosen carefully",
+      heading: "Highest leverage, not highest profile",
       tiles: [tile("Where it goes", "#partners", IMG.swim)],
-      note: "The reef and sea around Mauritius, its native forest and endemic species, and rivers and wetlands in Europe. Partnerships in progress.",
+      note: "Where each euro changes the most: the reef around Mauritius, its last native forest, and rivers and wetlands in Europe. Partnerships in progress.",
     },
   ];
 }

@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { editionLabel, editionKindLabel, getProduct, isOneOfOne, productImages, products, productsInCategory } from "@/data/products";
+import { designNumber, getProduct, productImages, products, productsInCategory } from "@/data/products";
 import { categories } from "@/data/site";
 import { formatPrice } from "@/lib/format";
-import { availabilityOf, dropOf, isArchived, isReleased, listableProducts } from "@/lib/editions";
-import { getInventory } from "@/lib/inventory";
 import { ProductDetails } from "@/components/ProductDetails";
 import { ProductGrid } from "@/components/ProductGrid";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -22,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = getProduct(slug);
   if (!p) return {};
   return {
-    title: `${p.name} · ${editionLabel(p)} · ${editionKindLabel(p)}`,
+    title: `${p.name} · ${p.colour.name} · ${designNumber(p)}`,
     description: p.description,
     openGraph: { images: [{ url: productImages(p)[0] }] },
   };
@@ -32,24 +30,12 @@ export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const product = getProduct(slug);
   if (!product) notFound();
-  const inventory = await getInventory();
-  // Designs in a drop that has not opened yet do not exist to the public.
-  if (!isReleased(product, inventory.now)) notFound();
 
   const category = categories.find((c) => c.slug === product.category)!;
   const images = productImages(product);
-  const availability = availabilityOf(product, inventory);
-  const done = isArchived(availability);
-  const related = listableProducts(inventory, productsInCategory(product.category))
+  const related = productsInCategory(product.category)
     .filter((p) => p.family !== product.family)
     .slice(0, 8);
-
-  const eyebrow =
-    availability.state === "sold"
-      ? isOneOfOne(product) ? "Sold" : "Sold out"
-      : availability.state === "closed"
-        ? "Orders closed"
-        : `${editionKindLabel(product)} · ${dropOf(product).name}`;
 
   return (
     <>
@@ -85,7 +71,7 @@ export default async function ProductPage({ params }: Props) {
                   unoptimized
                   priority={i === 0}
                   sizes="(min-width: 1280px) 30vw, (min-width: 1024px) 58vw, (min-width: 640px) 50vw, 100vw"
-                  className={`object-cover ${done ? "grayscale" : ""}`}
+                  className="object-cover"
                 />
               </div>
             ))}
@@ -95,14 +81,13 @@ export default async function ProductPage({ params }: Props) {
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
             <p className="eyebrow mb-3">
-              <span className={done ? "text-red" : ""}>{eyebrow}</span>
-              {product.badge && !done ? ` · ${product.badge}` : ""}
+              Made to order{product.badge ? ` · ${product.badge}` : ""}
             </p>
             <h1 className="display text-4xl md:text-5xl">{product.name}</h1>
             <p className="mt-3 text-lg tabular-nums">{formatPrice(product.price)}</p>
             <p className="mt-5 text-sm leading-relaxed text-ink-2">{product.description}</p>
             <div className="mt-8">
-              <ProductDetails product={product} availability={availability} inventory={inventory} />
+              <ProductDetails product={product} />
             </div>
           </div>
         </div>
@@ -110,8 +95,8 @@ export default async function ProductPage({ params }: Props) {
 
       {related.length > 0 && (
         <section className="container-x border-t border-line pt-16">
-          <SectionHeading eyebrow={category.name} title="Still available." link={{ label: `All ${category.short}`, href: `/shop/${category.slug}` }} />
-          <ProductGrid products={related} inventory={inventory} />
+          <SectionHeading eyebrow={category.name} title="You may also like." link={{ label: `All ${category.short}`, href: `/shop/${category.slug}` }} />
+          <ProductGrid products={related} />
         </section>
       )}
     </>

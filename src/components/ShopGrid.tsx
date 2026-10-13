@@ -5,7 +5,6 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { groupByFamily, type Product } from "@/data/products";
 import { categories, type CategorySlug } from "@/data/site";
-import { currentDrop, windowLabel, type Inventory } from "@/lib/editions";
 import { ProductCard } from "./ProductCard";
 import { CloseIcon, FilterIcon } from "./Icons";
 
@@ -24,18 +23,15 @@ const SORTS: { value: Sort; label: string }[] = [
  */
 export function ShopGrid({
   products,
-  inventory,
   fixedCategory,
   base = "/shop",
 }: {
   products: Product[];
-  inventory: Inventory;
   fixedCategory?: CategorySlug;
   /** Where the chips point: /shop (everything), /men or /women. */
   base?: string;
 }) {
   const params = useSearchParams();
-  const drop = currentDrop(inventory.now);
   const [sort, setSort] = useState<Sort>("featured");
   const [sizes, setSizes] = useState<string[]>([]);
   const [newOnly, setNewOnly] = useState(params.get("filter") === "new");
@@ -85,7 +81,6 @@ export function ShopGrid({
         <div className="ml-auto flex items-center gap-4">
           <p className="text-xs text-muted">
             {groups.length} design{groups.length === 1 ? "" : "s"} · {visible.length} colourway{visible.length === 1 ? "" : "s"}
-            {drop ? <span className="hidden md:inline"> · {windowLabel(drop, inventory.now)}</span> : null}
           </p>
           <button
             type="button"
@@ -156,7 +151,7 @@ export function ShopGrid({
       ) : (
         <div className="grid grid-cols-2 gap-x-1.5 gap-y-8 md:gap-x-2 md:gap-y-12 lg:grid-cols-4">
           {groups.map((group, i) => (
-            <ProductCard key={group[0].slug} product={group[0]} siblings={group} priority={i < 4} inventory={inventory} />
+            <ProductCard key={group[0].slug} product={group[0]} siblings={group} priority={i < 4} />
           ))}
         </div>
       )}

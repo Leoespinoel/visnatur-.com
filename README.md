@@ -1,6 +1,6 @@
 # Vis Naturæ
 
-Made-to-order menswear and resort label, made in Mauritius. Every design is released once, in a numbered edition of twelve (accessories twenty-four), made as one batch after its order window closes, then retired. Outerwear and heavy knits are one of one. 10% of every sale price goes to conservation.
+Made-to-order resort label for men and women, made in Mauritius. Every design stays on sale; each piece is cut and sewn in the buyer's size after it is ordered and ships 3–4 weeks later. 10% of every sale price goes to conservation.
 
 Built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4, with Shopify for checkout, payments and orders.
 
@@ -22,7 +22,7 @@ Other scripts:
 | `npm run start` | Serve the production build. |
 | `npm run lint` | ESLint. |
 | `npm run placeholders` | Regenerate the placeholder SVG imagery in `public/`. |
-| `npm run shopify:sync` | Create or update every product in Shopify and subscribe the webhook. `-- --dry-run` previews without calling Shopify. |
+| `npm run shopify:sync` | Create or update every product in Shopify and remove the old order webhook. `-- --dry-run` previews without calling Shopify. |
 
 ## Environment variables
 
@@ -30,21 +30,21 @@ See `.env.example`. On Hostinger they go in the site's Environment variables.
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Public URL, no trailing slash, ASCII form (`https://xn--visnatur-q0a.com`). Used for metadata, the sitemap and the webhook address. |
+| `NEXT_PUBLIC_SITE_URL` | Public URL, no trailing slash, ASCII form (`https://xn--visnatur-q0a.com`). Used for metadata, the sitemap and product photos sent to Shopify. |
 | `SHOPIFY_STORE_DOMAIN` | The store's `….myshopify.com` address. |
 | `SHOPIFY_STOREFRONT_TOKEN` | Private Storefront API token from the Headless channel. Creates carts and sends buyers to Shopify checkout. |
-| `SHOPIFY_CLIENT_ID`, `SHOPIFY_CLIENT_SECRET` | Dev Dashboard app (client credentials). Reads orders for edition counts, tags paid orders with their numbers, verifies webhooks, and lets `npm run shopify:sync` create products. |
+| `SHOPIFY_CLIENT_ID`, `SHOPIFY_CLIENT_SECRET` | Dev Dashboard app (client credentials). Lets `npm run shopify:sync` create products. The site itself doesn't use them. |
 
-Leave the Shopify variables blank and the site runs with checkout off (the bag says so) and every unit available.
+Leave the Shopify variables blank and the site runs with checkout off (the bag says so).
 
 ## Shopify setup (once)
 
 1. **Store.** Create the store, set the currency to EUR (Settings → General), and set up Shopify Payments, shipping zones and taxes. Match the shipping countries in `shippingCountries` (`src/data/site.ts`), a flat €15 rate and free shipping over €150.
 2. **Headless channel.** Install it from the Shopify App Store, create a storefront, and copy its **private** Storefront API token into `SHOPIFY_STOREFRONT_TOKEN`.
 3. **Admin app.** In the Shopify Dev Dashboard, create an app in the same organization as the store, give it the scopes in `.env.example`, release a version and install it on the store. Copy the client ID and secret.
-4. **Products and webhook.** Put the variables in `.env.local` and run `npm run shopify:sync`. It creates all products (handle = slug, one variant per size, stock not tracked), publishes them to the Headless storefront, and subscribes `/api/webhook` to paid, cancelled and refunded orders. Re-run it whenever `src/data/products.ts` changes.
+4. **Products.** Put the variables in `.env.local` and run `npm run shopify:sync`. It creates all products (handle = slug, one variant per size, stock not tracked) and publishes them to the Headless storefront. Re-run it whenever `src/data/products.ts` changes.
 5. **Hostinger.** Add the same variables to the site and redeploy.
-6. **Test.** Turn on Shopify's test mode (Bogus Gateway), buy one piece, and check the order in Shopify is tagged `slug n/12` and the count on the site drops.
+6. **Test.** Turn on Shopify's test mode (Bogus Gateway), buy one piece, and check the order arrives in Shopify with its design number and size.
 
 ## Where things live
 
@@ -53,9 +53,8 @@ src/data/site.ts          brand settings: pledge rate, lead time, shipping thres
 src/data/products.ts      the catalogue (prices in euro cents, colours, sizes, copy)
 src/lib/cart.tsx          bag state, persisted in localStorage
 src/lib/pledge.ts         the 10% calculation used everywhere
-src/lib/shopify.ts        Storefront and Admin API clients, webhook signature check, paid units from orders
-src/app/api/checkout      checks editions, then builds a Shopify cart and returns its checkout URL (never trusts client prices)
-src/app/api/webhook       Shopify orders/paid, orders/cancelled, refunds/create: numbers the order, refreshes counts
+src/lib/shopify.ts        Storefront API client
+src/app/api/checkout      checks the bag against the catalogue, then builds a Shopify cart and returns its checkout URL (never trusts client prices)
 scripts/shopify-sync.mts  mirrors the catalogue into Shopify
 scripts/generate-placeholders.mts   draws the placeholder garment sketches
 ```
@@ -78,22 +77,13 @@ The logo is the wordmark itself: VIS NATUR in black with the final Æ in brand r
 
 Before printing labels or filing a trademark, have a clearance search run for Æ figurative marks in class 25 (EUIPO eSearch plus / TMview).
 
-## Editions, drops and stock
+## Made to order
 
-Each product carries a `drop` (which order window it belongs to, see `drops` in `src/data/site.ts`) and an `edition`: `{ kind: "edition" }` for a numbered run (size defaults to `site.editionSize.core`, accessories pass `size`), or `{ kind: "one-of-one" }` for a single garment that already exists in the one size listed. There is no inventory database: **Shopify orders are the record**. Shopify does not track stock for these products; the site counts units across sizes against the edition size.
+Nothing is held in stock and nothing is limited: every product in `src/data/products.ts` is on sale, and each order is cut and sewn in the buyer's size after it is placed. Lead time (`leadTime` in `src/data/site.ts`) runs from the order date. Shopify doesn't track stock for these products, and the site never reads orders.
 
-- `src/lib/editions.ts` holds the pure logic: window state (upcoming / open / closed), units sold and reserved per design, and the availability state a page shows (`available`, `reserved`, `sold`, `closed`, `upcoming`). Server and client code share it.
-- `src/lib/inventory.ts` reads Shopify: every unit on a paid, uncancelled order is sold (refunded units drop out). Shopify checkout doesn't hold units, so nothing is ever reserved. The snapshot includes its own timestamp so window states are never judged against `Date.now()` during a render.
-- Pages read this through a cached function tagged `inventory`. The webhook clears that cache on every paid, cancelled or refunded order, so counts update immediately.
-- `/api/checkout` re-reads Shopify uncached before creating a cart and refuses units that are sold out, closed or not yet open.
-- Unit numbers are assigned in order of payment. The webhook tags each paid order with them (`tidal-swim-short 3/12`) so the atelier sees the number to sew in.
+- `/api/checkout` checks each bag line against the catalogue (the piece exists, the size is one it is made in), then creates a Shopify cart. The design number, colour and lead time travel with each line onto the order.
 - Shopify's checkout doesn't return to the site. The bag remembers the cart it sent to checkout and empties itself on the next visit once Shopify reports that cart became an order.
-- A sold-out edition, a closed window, or a sold one-of-one moves to `/archive`; product URLs stay live in that state so shared links don't break. Designs in a drop that has not opened yet return 404 and are left out of the sitemap.
-- Sold something in person? Add its slug to `soldOffline` in `src/data/site.ts` (once per unit) and redeploy.
-- The webhook logs `OVERSOLD` if more units are paid for than the edition holds. The order is also tagged `OVERSOLD`. Refund the later one in Shopify.
-- Drop dates in `src/data/site.ts` are placeholders until the maker confirms a schedule. Lead time runs from the closing date, not the order date.
-
-Without the Shopify variables every unit shows as available.
+- `/archive` (the old list of closed editions) redirects to `/shop/all`.
 
 ## Updating the pledge total
 

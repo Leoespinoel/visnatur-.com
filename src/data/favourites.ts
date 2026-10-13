@@ -1,8 +1,7 @@
 /**
- * Hand-picked pieces beside the big image at the top of /shop (the first nine that are available,
- * eight below the lg breakpoint so the two-column grid stays even), one card per pick.
- * Order here is the order on the page; the newest designs lead.
- * Picks that are sold out, closed or not yet released are skipped automatically.
+ * Hand-picked pieces beside the big image at the top of /shop (the first nine, eight below the
+ * lg breakpoint so the two-column grid stays even), one card per pick.
+ * Order here is the order on the page; the newest designs lead. Slugs no longer in the catalogue are skipped.
  */
 export const favouriteSlugs = [
   "cabana-hoodie-navy",

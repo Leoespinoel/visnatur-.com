@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRef } from "react";
 import { siblingsOf, type Product } from "@/data/products";
-import type { Inventory } from "@/lib/editions";
 import { ProductCard } from "./ProductCard";
 import { ArrowIcon, ChevronIcon } from "./Icons";
 
@@ -14,14 +13,12 @@ import { ArrowIcon, ChevronIcon } from "./Icons";
 export function ProductCarousel({
   title,
   products,
-  inventory,
   link,
   priorityCount = 0,
   variant = "default",
 }: {
   title: string;
   products: Product[];
-  inventory?: Inventory;
   link?: { label: string; href: string };
   priorityCount?: number;
   /** `kith`: no headline, five across, arrows at the sides and a centred "Shop all" button under the row. */
@@ -42,7 +39,7 @@ export function ProductCarousel({
           <div ref={track} className="no-scrollbar flex snap-x snap-mandatory gap-1.5 overflow-x-auto md:gap-2">
             {products.map((p, i) => (
               <div key={p.slug} className="w-[calc((100%-0.375rem)/2)] shrink-0 snap-start md:w-[calc((100%-2rem)/5)]">
-                <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} inventory={inventory} />
+                <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} />
               </div>
             ))}
           </div>
@@ -92,7 +89,7 @@ export function ProductCarousel({
       <div ref={track} className="no-scrollbar flex snap-x snap-mandatory gap-1.5 overflow-x-auto md:gap-2">
         {products.map((p, i) => (
           <div key={p.slug} className="w-[calc((100%-0.375rem)/2)] shrink-0 snap-start md:w-[calc((100%-1.5rem)/4)]">
-            <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} inventory={inventory} />
+            <ProductCard product={p} siblings={siblingsOf(p)} priority={i < priorityCount} />
           </div>
         ))}
       </div>

@@ -16,15 +16,15 @@ export type Campaign = {
   alt: string;
   primary: { label: string; href: string };
   secondary?: { label: string; href: string };
-  /** What sits under the image. `featured` = the current drop's featured pieces. */
+  /** What sits under the image. `featured` = the featured pieces (see `featured` in products.ts). */
   row: { kind: "featured" } | { kind: "category"; category: CategorySlug } | { kind: "lookbook"; images: LookbookImage[] };
 };
 
 export const campaigns: Campaign[] = [
   {
-    key: "drop",
-    title: "Drop I",
-    text: "Every design released once, in a numbered edition of twelve, and made in Mauritius after orders close.",
+    key: "collection",
+    title: "Collection I",
+    text: "Every piece made to order in Mauritius, in your size, once you order it.",
     image: "/images/campaign-drop.jpg?v=2",
     alt: "Four friends on a basalt harbour wall in Mauritius in a navy quarter zip, oat linen shirt, red striped knit and saffron striped swim shorts",
     primary: { label: "Shop now", href: "/shop" },

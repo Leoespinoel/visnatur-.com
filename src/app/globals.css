@@ -69,6 +69,19 @@
   color: var(--ink);
 }
 
+/* A red band inside a light page: white text tokens on the brand red. --red is left alone so the band follows the theme's red. */
+.theme-red {
+  --paper: var(--red);
+  --paper-2: rgb(255 255 255 / 0.12);
+  --surface: rgb(255 255 255 / 0.08);
+  --ink: #ffffff;
+  --ink-2: rgb(255 255 255 / 0.88);
+  --muted: rgb(255 255 255 / 0.75);
+  --line: rgb(255 255 255 / 0.3);
+  background: var(--red);
+  color: var(--ink);
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
@@ -263,11 +276,49 @@ button {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 40s linear infinite;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+
+.marquee-hover-pause:hover {
+  animation-play-state: paused;
+}
+
+/* Badger rows: strips of badgers drifting sideways, alternate rows the other way. A badger is as tall as
+   the "10%" in the page headline (0.573 of its 3rem / 4.5rem size). The tile is 409×96 px, badger plus gap.
+   Each strip is one tile wider than its row and slides exactly one tile, so the loop is seamless. */
+@keyframes badger-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-1 * var(--badger-tile)));
+  }
+}
+
+.badger-row {
+  --badger-h: 1.72rem;
+  --badger-tile: calc(var(--badger-h) * 409 / 96);
+  flex-shrink: 0;
+  height: var(--badger-h);
+  width: calc(100% + var(--badger-tile));
+  background: url("/brand/badger-tile.png?v=2") repeat-x 0 0 / var(--badger-tile) 100%;
+  animation: badger-drift 9s linear infinite;
+}
+
+@media (min-width: 48rem) {
+  .badger-row {
+    --badger-h: 2.58rem;
+  }
+}
+
+.badger-row:nth-child(even) {
+  animation-direction: reverse;
+  animation-delay: -4.5s;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  .marquee-track,
+  .badger-row {
     animation: none;
   }
   html {
