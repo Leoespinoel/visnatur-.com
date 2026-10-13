@@ -129,6 +129,8 @@ export const SHOTS = {
     "a lean Black man around thirty with close-cropped hair, bare-chested and barefoot, wearing the swim shorts"),
   ...onModel("riviera-linen-shirt", ["oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink"],
     "a man in his mid thirties with sandy hair, wearing the linen shirt with sleeves rolled once and the top button open, cream linen trousers and tan suede loafers"),
+  ...onModel("cabana-linen-shirt", ["sky", "oat", "navy", "sage", "red", "clementine", "yellow", "pink"],
+    "a Southern European man in his late twenties with thick dark wavy hair and light stubble, wearing the striped linen shirt with sleeves rolled to the forearm and the top two buttons open, tucked into white pleated trousers, with tan suede loafers"),
   ...onModel("harbour-quarter-zip", ["navy", "forest", "red", "mustard", "sky", "orange", "black"],
     "an East Asian man in his early thirties with neat black hair, wearing the half-zip knit zipped halfway with cream chinos and white sneakers"),
   ...onModel("regatta-cardigan", ["ecru-navy"],
