@@ -124,15 +124,18 @@ export const SHOTS = {
   ]),
 
   // ── On-model product shots (one model per design, kept across its colourways) ──────────────
-  ...onModel("marram-cap", ["beige", "ecru-pine", "ecru-red", "red", "mustard-navy"],
+  ...onModel("marram-cap", ["beige", "ecru-pine", "ecru-red", "red", "mustard-navy", "ecru", "ecru-navy", "ecru-pink", "ecru-beige", "ecru-yellow", "ecru-orange", "ecru-black", "ecru-sky"],
     "a man around thirty with short dark curly hair and light stubble, wearing the cap with a plain white t-shirt, cream trousers and white sneakers"),
   ...onModel("tidal-swim-short", ["navy", "saffron", "red", "hibiscus", "lagoon", "palm", "papaya"],
     "an athletic swimmer-build man in his late twenties with sun-bleached brown hair, bare-chested and barefoot, wearing the swim shorts"),
   ...onModel("shore-swim-short", ["pine-ecru", "navy-saffron", "red-ecru"],
     "a lean Black man around thirty with close-cropped hair, bare-chested and barefoot, wearing the swim shorts"),
-  ...onModel("riviera-linen-shirt", ["oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink"],
+  ...onModel("riviera-linen-shirt", ["oat", "sky", "navy", "sage", "red", "clementine", "yellow", "pink", "black"],
     "a man in his mid thirties with sandy hair, wearing the linen shirt with sleeves rolled once and the top button open, cream linen trousers and tan suede loafers"),
-  ...onModel("cabana-linen-shirt", ["sky", "oat", "navy", "sage", "red", "clementine", "yellow", "pink"],
+  // The other Corniche colourways were shot as the first Riviera; same model (stills-src/models/corniche-linen-shirt.png).
+  ...onModel("corniche-linen-shirt", ["black", "yellow", "pink"],
+    "a man in his mid thirties with sandy hair, wearing the linen shirt with sleeves rolled once and the top button open, cream linen trousers and tan suede loafers"),
+  ...onModel("cabana-linen-shirt", ["sky", "oat", "navy", "sage", "red", "clementine", "yellow", "pink", "black"],
     "a Southern European man in his late twenties with thick dark wavy hair and light stubble, wearing the striped linen shirt with sleeves rolled to the forearm and the top two buttons open, tucked into white pleated trousers, with tan suede loafers"),
   ...onModel("harbour-quarter-zip", ["navy", "forest", "red", "mustard", "sky", "orange", "black"],
     "an East Asian man in his early thirties with neat black hair, wearing the half-zip knit zipped halfway with cream chinos and white sneakers"),
