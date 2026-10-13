@@ -31,7 +31,7 @@ export function ShopGrid({ products, inventory, fixedCategory }: { products: Pro
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const allSizes = useMemo(() => {
-    const order = ["XS", "S", "M", "L", "XL", "XXL", "28", "30", "32", "34", "36", "38", "One size"];
+    const order = ["XS", "S", "M", "L", "XL", "XXL", "28", "30", "32", "34", "36", "38", "EU 39–42", "EU 43–46", "One size"];
     const set = new Set(products.flatMap((p) => p.sizes));
     return order.filter((s) => set.has(s));
   }, [products]);

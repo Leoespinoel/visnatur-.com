@@ -13,6 +13,9 @@ export const EDITORIAL =
 // Product-page look: an on-model shot that sits next to the white packshots.
 export const STUDIO =
   "Clean e-commerce photograph for a premium menswear shop: one male model on a seamless light grey studio backdrop, soft even studio light, full length from head to shoes with space above and below, standing relaxed and natural, calm expression, sharp focus on the clothing.";
+// Socks: the same studio, cropped from the knee down so the ankle embroidery reads.
+export const STUDIO_LEGS =
+  "Clean e-commerce photograph for a premium menswear shop on a seamless light grey studio backdrop, soft even studio light: a close crop of one male model's lower legs from just above the knee down to the floor, standing relaxed with one foot a little forward and turned slightly so the outer side of the ankle faces the camera, sharp focus on the socks.";
 export const GARMENT =
   "The clothing from the reference product images must be reproduced exactly: same colours, same stripe count and stripe widths, same knit or weave texture, same collar, buttons, zip and drawcord, and the small embroidered logo in the same place at the same size. No other logos, text or branding anywhere.";
 export const REAL = "Real people with natural skin texture and real hair, real fabric with natural creases, photographic realism, no CGI look, no smoothing.";
@@ -158,6 +161,10 @@ export const SHOTS = {
 };
 // The oat take is this design's model reference and pulls the ecru towards beige.
 SHOTS["esplanade-linen-trouser-ecru"].prompt += " The trousers are a very pale off-white ecru, almost as light as the shirt, not beige.";
+// Socks are shot from the knee down (STUDIO_LEGS in generate-stills.mjs).
+for (const [id, shot] of Object.entries(onModel("burrow-sock", ["white", "black", "beige", "brown", "navy", "grey", "olive"],
+  "a man with light brown skin and a little leg hair, wearing the socks pulled up to full crew length with stone cotton shorts ending just above the knee and plain white leather tennis sneakers")))
+  SHOTS[id] = { ...shot, look: "legs" };
 
 // Chinos are shot with one of the knits on top, so the knit is worn too (refs: chino, then knit).
 for (const [c, knit] of [["stone", "harbour-quarter-zip-navy"], ["navy", "mooring-stripe-crew-red-ecru"], ["white", "regatta-cardigan-ecru-navy"], ["forest", "clubhouse-knit-jacket-sand"], ["tobacco", "mooring-stripe-crew-navy-ecru"], ["charcoal", "pavilion-cable-vest-navy"], ["black", "harbour-quarter-zip-mustard"]]) {

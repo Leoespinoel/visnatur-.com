@@ -91,9 +91,9 @@ export const categories = [
   },
   {
     slug: "outerwear-accessories",
-    name: "Caps",
-    short: "Caps",
-    description: "Six-panel caps with the name embroidered in script.",
+    name: "Accessories",
+    short: "Accessories",
+    description: "Six-panel caps with the name embroidered in script, and ribbed cotton socks with the badger at the ankle.",
     image: "/products/marram-cap-ecru-pine.jpg?v=2",
     scene: "/images/caps-scene.jpg",
   },

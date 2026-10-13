@@ -11,7 +11,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { EDITORIAL, GARMENT, REAL, SHOTS, STUDIO } from "./stills-shots.mjs";
+import { EDITORIAL, GARMENT, REAL, SHOTS, STUDIO, STUDIO_LEGS } from "./stills-shots.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const takesDir = join(root, "stills-src", "takes");
@@ -48,7 +48,11 @@ for (const slug of shot.wear) {
 if (refs.length > 14) throw new Error(`${id}: ${refs.length} references, Nano Banana Pro takes 14`);
 
 const keep = face && !shot.face ? "The man in the first reference image, same face, same build, same skin and hair. " : "";
-const prompt = shot.look === "studio" ? `${keep}${STUDIO} The model is ${shot.prompt} ${GARMENT} ${REAL}` : `${shot.prompt} ${EDITORIAL} ${GARMENT} ${REAL}`;
+const keepLegs = face && !shot.face ? "The same legs, skin, shorts and sneakers as in the first reference image, same pose and framing. " : "";
+const prompt =
+  shot.look === "studio" ? `${keep}${STUDIO} The model is ${shot.prompt} ${GARMENT} ${REAL}`
+  : shot.look === "legs" ? `${keepLegs}${STUDIO_LEGS} The model is ${shot.prompt} ${GARMENT} ${REAL}`
+  : `${shot.prompt} ${EDITORIAL} ${GARMENT} ${REAL}`;
 
 const taken = readdirSync(takesDir)
   .map((f) => f.match(new RegExp(`^${id}-t(\\d+)\\.(png|json)$`)))

@@ -144,7 +144,7 @@ export default function MadeToOrderPage() {
                 ))}
               </tbody>
             </table>
-            <p className="mt-4 text-xs text-muted">Trousers and shorts are sized by waist in inches (28–38) and hemmed to your inseam.</p>
+            <p className="mt-4 text-xs text-muted">Trousers and shorts are sized by waist in inches (28–38) and hemmed to your inseam. Socks come in EU 39–42 and 43–46.</p>
           </div>
           <div className="text-sm leading-relaxed text-ink-2 md:col-span-4 md:col-start-9">
             <p>
