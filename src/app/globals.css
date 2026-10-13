@@ -292,7 +292,7 @@ details > summary::-webkit-details-marker {
   background: #ffffff;
   overflow: hidden;
   cursor: pointer;
-  animation: intro-fade 250ms ease 2150ms forwards;
+  animation: intro-fade 250ms ease 2600ms forwards;
 }
 
 .intro-panel {
@@ -306,9 +306,11 @@ details > summary::-webkit-details-marker {
   background: #c8102e;
   color: #ffffff;
   transform: translateX(-101%);
+  /* The Æ locks at ~1400ms (SHUFFLE_START_MS + LAST_SETTLE_MS in IntroOverlay); the wordmark
+     then holds for a second before the panel wipes out. */
   animation:
     intro-wipe-in 400ms cubic-bezier(0.77, 0, 0.18, 1) 0ms forwards,
-    intro-wipe-out 450ms cubic-bezier(0.77, 0, 0.18, 1) 1950ms forwards;
+    intro-wipe-out 450ms cubic-bezier(0.77, 0, 0.18, 1) 2400ms forwards;
 }
 
 /* The badger, white on the red panel, rises in just ahead of the letters. */
