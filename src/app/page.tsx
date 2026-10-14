@@ -9,8 +9,10 @@ import { LookbookRow } from "@/components/LookbookRow";
 import { LabelTile } from "@/components/LabelTile";
 import { FilmBlock } from "@/components/FilmBlock";
 import { Newsletter } from "@/components/Newsletter";
+import { Playlist } from "@/components/Playlist";
 import { HeroFilm } from "@/components/HeroFilm";
 import { CommunityCard } from "@/components/CommunityCard";
+import { BadgerRows } from "@/components/BadgerRows";
 import { communityPosts } from "@/data/community";
 import { atelierFilm } from "@/data/film";
 
@@ -56,19 +58,26 @@ export default function HomePage() {
       </div>
 
       {/* Community: tall cards of people in the clothes, some playable */}
-      <section className="py-16 md:py-24">
-        <h2 className="display text-center text-4xl md:text-5xl">Community</h2>
-        <p className="mb-8 mt-4 text-center md:mb-10">
-          <Link href="/stories#community" className="eyebrow !text-ink link-underline">
-            More stories
-          </Link>
-        </p>
-        <Carousel ariaLabel="Community" itemClassName="w-[62%] sm:w-[40%] md:w-[calc((100%-2rem)/4.3)] lg:w-[calc((100%-2.5rem)/5.3)]" gap="gap-1.5 md:gap-2">
-          {communityPosts.map((post, i) => (
-            <CommunityCard key={i} post={post} />
-          ))}
-        </Carousel>
+      <section className="relative overflow-hidden py-16 md:py-24">
+        {/* The drifting badgers from behind the pledge figure on /conservation */}
+        <BadgerRows rows={24} />
+        <div className="relative">
+          <h2 className="display text-center text-4xl md:text-5xl">Community</h2>
+          <p className="mb-8 mt-4 text-center md:mb-10">
+            <Link href="/stories#community" className="eyebrow !text-ink link-underline">
+              More stories
+            </Link>
+          </p>
+          <Carousel ariaLabel="Community" itemClassName="w-[62%] sm:w-[40%] md:w-[calc((100%-2rem)/4.3)] lg:w-[calc((100%-2.5rem)/5.3)]" gap="gap-1.5 md:gap-2">
+            {communityPosts.map((post, i) => (
+              <CommunityCard key={i} post={post} />
+            ))}
+          </Carousel>
+        </div>
       </section>
+
+      {/* The playlist, on black between the community and the red newsletter */}
+      <Playlist />
 
       <Newsletter />
     </>

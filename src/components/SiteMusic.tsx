@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TRACK = "/audio/where-you-really-come-from.mp4"; // .mp4, not .m4a: Hostinger serves .m4a as text/plain // Tobiahs, VV-Ace – Where You Really Come From
 
@@ -13,6 +13,14 @@ export function SiteMusic() {
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [ended, setEnded] = useState(false);
+
+  // The Spotify players on the homepage (Playlist) and the soundtrack never play together: they ask it
+  // to stop with "vn:music-stop", and it tells them it has started with "vn:music-play".
+  useEffect(() => {
+    const stop = () => ref.current?.pause();
+    window.addEventListener("vn:music-stop", stop);
+    return () => window.removeEventListener("vn:music-stop", stop);
+  }, []);
 
   const toggle = () => {
     const audio = ref.current;
@@ -27,7 +35,10 @@ export function SiteMusic() {
         ref={ref}
         src={TRACK}
         preload="none"
-        onPlay={() => setPlaying(true)}
+        onPlay={() => {
+          setPlaying(true);
+          window.dispatchEvent(new Event("vn:music-play"));
+        }}
         onPause={() => setPlaying(false)}
         onEnded={() => {
           setPlaying(false);

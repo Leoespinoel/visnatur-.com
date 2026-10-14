@@ -8,6 +8,7 @@ import { PageIntro } from "@/components/PageIntro";
 import { RollingNumber } from "@/components/RollingNumber";
 import { PartnerBand } from "@/components/PartnerBand";
 import { ImpactCharts } from "@/components/ImpactCharts";
+import { BadgerRows } from "@/components/BadgerRows";
 
 export const metadata: Metadata = {
   title: "Conservation",
@@ -32,11 +33,7 @@ export default function ConservationPage() {
       {/* Running total */}
       <section className="relative overflow-hidden">
         {/* Rows of badgers drifting behind the figure */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col justify-center gap-4 opacity-20 md:gap-6" aria-hidden="true">
-          {Array.from({ length: 16 }, (_, i) => (
-            <div key={i} className="badger-row" />
-          ))}
-        </div>
+        <BadgerRows />
         <div className="container-x relative py-20 text-center md:py-28">
           <p className="eyebrow mx-auto flex w-fit items-center gap-2.5 bg-paper px-3 py-2">
             <span className="relative flex h-2 w-2" aria-hidden="true">

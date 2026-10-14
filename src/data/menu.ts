@@ -19,7 +19,7 @@ export type MenuKey = AudienceSlug | "made-to-order" | "conservation" | "stories
 
 /**
  * One tile per design: the section's lookbook image for it if there is one, else its first colourway's
- * on-model shot (Men only, since those models are men), else the packshot.
+ * on-model shot (under Women only for the women's line, since the other models are men), else the packshot.
  */
 function familyTiles(list: Product[], audience: AudienceSlug, looks: Record<string, string> = {}): MenuTile[] {
   return groupByFamily(list).map((g) => {
@@ -27,7 +27,8 @@ function familyTiles(list: Product[], audience: AudienceSlug, looks: Record<stri
     const base = { label: p.name, href: `/product/${p.slug}` };
     if (looks[p.family]) return { ...base, image: looks[p.family] };
     const images = productImages(p);
-    const model = audience === "men" ? images.find((i) => i.includes("-model.")) : undefined;
+    // Men's model shots are men; under Women only the women's line has its own model shots.
+    const model = audience === "men" || p.audience === "women" ? images.find((i) => i.includes("-model.")) : undefined;
     return model ? { ...base, image: model } : { ...base, image: images[0], packshot: true };
   });
 }
@@ -35,7 +36,9 @@ function familyTiles(list: Product[], audience: AudienceSlug, looks: Record<stri
 export function menuFor(audience: AudienceSlug): MenuItem[] {
   const a = audiences.find((x) => x.slug === audience)!;
   const them = audience === "men" ? "him" : "her";
-  const mine = products.filter((p) => isFor(p, audience));
+  const cut = products.filter((p) => isFor(p, audience));
+  // Under Women the women's line comes before the pieces cut for anyone.
+  const mine = audience === "women" ? [...cut.filter((p) => p.audience === "women"), ...cut.filter((p) => p.audience !== "women")] : cut;
   // /men and /women are landing pages; their listings are one level down.
   const listing = `/${audience}/all`;
   return [
@@ -52,7 +55,7 @@ export function menuFor(audience: AudienceSlug): MenuItem[] {
       const base = { key: c.slug, label: c.name, href: `/${audience}/${c.slug}`, heading: `${c.name} for ${them}` };
       return tiles.length
         ? { ...base, tiles }
-        : { ...base, tiles: [{ label: c.name, href: base.href, image: a.scenes[c.slug] }], note: "Nothing here is cut for women yet. The first women’s pieces follow in the next collection." };
+        : { ...base, tiles: [{ label: c.name, href: base.href, image: a.scenes[c.slug] }], note: audience === "women" ? "More pieces for her are on the way." : "New designs are coming." };
     }),
   ];
 }

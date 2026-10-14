@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { site } from "@/data/site";
+import { instagramHandle } from "@/data/stories";
 import { PageIntro } from "@/components/PageIntro";
 
 export const metadata: Metadata = { title: "Contact", description: "Write to Vis Naturæ about sizing, orders or anything else." };
@@ -34,7 +35,7 @@ export default function ContactPage() {
           <div>
             <p className="eyebrow mb-2">Instagram</p>
             <a href={site.instagram} target="_blank" rel="noreferrer" className="font-serif text-2xl text-ink link-underline">
-              @visnaturae
+              @{instagramHandle}
             </a>
           </div>
           <div>

@@ -27,7 +27,13 @@ export function audienceMetadata(audience: AudienceSlug, category?: string): Met
 export function AudienceShop({ audience, category, allHref }: { audience: AudienceSlug; category?: string; allHref?: string }) {
   const { a, cat } = lookup(audience, category);
   if (category !== undefined && !cat) notFound();
-  const items = products.filter((p) => isFor(p, audience) && (!cat || p.category === cat.slug));
+  const all = products.filter((p) => isFor(p, audience) && (!cat || p.category === cat.slug));
+  // On the women's pages the women's line leads; the pieces cut for anyone follow in catalogue order
+  // (their `featured` rank is for the shop and the homepage, so it is dropped here).
+  const items =
+    audience === "women"
+      ? [...all.filter((p) => p.audience === "women"), ...all.filter((p) => p.audience !== "women").map((p) => ({ ...p, featured: undefined }))]
+      : all;
   // The women's listings only take the stories whose picture suits them.
   const feature = cat && (audience === "men" || categoryFeatures[cat.slug].women) ? categoryFeatures[cat.slug] : undefined;
 
@@ -46,11 +52,10 @@ export function AudienceShop({ audience, category, allHref }: { audience: Audien
           <div className="py-20 text-center text-sm text-muted">
             {audience === "women" ? (
               <>
-                <p>Nothing here is cut for women yet. The first women&rsquo;s pieces follow in the next collection.</p>
+                <p>More pieces for her are on the way.</p>
                 <p className="mt-2">
-                  Until then, the hoodies, caps and socks are cut for anyone.{" "}
                   <Link href="/women/all" className="link-underline text-ink">
-                    See them all
+                    See every women&rsquo;s piece
                   </Link>
                 </p>
               </>

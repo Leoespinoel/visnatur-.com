@@ -24,10 +24,27 @@ export const site = {
   /** Making time, counted from the day the piece is ordered. */
   leadTime: { minWeeks: 3, maxWeeks: 4 },
   email: "hello@visnaturae.com",
-  instagram: "https://instagram.com/visnaturae",
+  instagram: "https://instagram.com/visnaturae.world",
   foundedYear: 2026,
   /** Play the red-wipe intro on every full page load. */
   intro: true,
+  /**
+   * The Spotify playlist band on the homepage, above the newsletter. url: Spotify → Share → Copy link to playlist.
+   * Empty: the band is hidden.
+   */
+  playlist: {
+    title: "Vis Naturæ",
+    url: "https://open.spotify.com/playlist/30TKfGSqvK2oTtI4a53hrJ" as string,
+    /** Songs with their own small player under the playlist. url: Spotify → a song → Share → Copy song link. */
+    tracks: [
+      { title: "Neverender, Justice and Tame Impala", url: "https://open.spotify.com/track/3aQ9MHkMeL7Yu7jpyF62xn" },
+      { title: "Knockout, Emanuel Satie, Maga and Mâhfoud", url: "https://open.spotify.com/track/27Vxc5UngiYQ3LbuOKqfa7" },
+      { title: "Where You Really Come From, Tobiahs and VV-Ace", url: "https://open.spotify.com/track/3OYoAxiD88QHs4MzzA8cjn" },
+      { title: "Time, Carlita", url: "https://open.spotify.com/track/0IAIsE9u9AYUH3wh7p77AE" },
+      { title: "Tadow, Masego and FKJ", url: "https://open.spotify.com/track/6FMMd1fixOMmhplCevpjL7" },
+      { title: "Navajo, Masego", url: "https://open.spotify.com/track/6zWU7YALeEDMcPGhKKZJhV" },
+    ],
+  },
 } as const;
 
 export const announcements = [
@@ -63,6 +80,14 @@ export const categories = [
     description: "Linen shirts that are allowed to crease.",
     image: "/products/riviera-linen-shirt-sky.jpg?v=3",
     scene: "/images/summit.jpg?v=2",
+  },
+  {
+    slug: "shorts-tees",
+    name: "Shorts & Tees",
+    short: "Shorts & Tees",
+    description: "Chino and linen shorts cut above the knee, and heavy cotton tees with the mark on the chest.",
+    image: "/products/mens-sandbar-tee-white.jpg?v=3",
+    scene: "/images/shop/shorts-tees.jpg",
   },
   {
     slug: "trousers",
@@ -118,6 +143,13 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
     alt: "Two men in linen shirts at the end of a long lunch by the lagoon",
     links: [{ label: "Shop the edit", href: "/shop/edit/cabana" }],
   },
+  "shorts-tees": {
+    eyebrow: "Shorts & Tees",
+    title: "For the walk up from the beach",
+    image: "/images/shop/grid-shorts-tees.jpg",
+    alt: "A man in the Cabana Stripe Tee and oat Jetty Linen Short on a harbour wall in Mauritius",
+    links: [{ label: "How it works", href: "/made-to-order" }],
+  },
   trousers: {
     eyebrow: "Shirts",
     title: "To go with them",
@@ -164,18 +196,19 @@ export const audiences: {
     slug: "men",
     name: "Men",
     explore: "Explore for him",
-    lede: "Swim, knitwear, shirts, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
+    lede: "Swim, knitwear, shirts, shorts and tees, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
     scenes: Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>,
   },
   {
     slug: "women",
     name: "Women",
     explore: "Explore for her",
-    lede: "Hoodies, caps, socks and sunglasses cut for anyone, made to order in Mauritius. Pieces cut for women follow in the next collection.",
+    lede: "Swimsuits, shirts, shorts, tees, trousers and knitwear cut for women, with the caps, socks and sunglasses cut for anyone. Every piece is made to order in Mauritius, in your size.",
     scenes: {
       swim: "/images/women/swim.jpg",
       "polos-knitwear": "/images/women/knitwear.jpg",
       "shirts-trousers": "/images/women/linen.jpg",
+      "shorts-tees": "/images/women/landing/cat-caps.jpg",
       trousers: "/images/women/trousers.jpg",
       "outerwear-accessories": "/images/women/accessories.jpg",
       sunglasses: "/images/women/sunglasses.jpg",

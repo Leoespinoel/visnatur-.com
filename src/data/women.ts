@@ -1,9 +1,9 @@
 /**
  * The /women landing page, built like /men (src/data/men.ts) after ralphlauren.com/men: hero slider,
- * the pieces, the stories, a full-bleed banner, our favourites, more to explore. Women's pieces are
- * the ones cut for anyone (hoodies, caps, socks, sunglasses) until pieces cut for women follow, so the
- * tiles point at designs rather than at the empty Swim, Shirts and Trousers listings. Every women's
- * piece is at /women/all.
+ * the pieces, the stories, a full-bleed banner, our favourites, more to explore. The women's line
+ * (swimsuits, shirts, shorts and tees, the Veranda trouser, knitwear; Nos. 235–295) sits alongside the
+ * pieces cut for anyone (hoodies, caps, socks, sunglasses). Every women's piece is at /women/all.
+ * The lifestyle pictures still show the pieces cut for anyone until the women's line is photographed.
  */
 import type { BannerSlide } from "@/components/landing/BannerSlider";
 import type { MosaicTile } from "@/components/landing/CategoryMosaic";
@@ -23,7 +23,7 @@ export const heroSlides: HeroSlide[] = [
     key: "collection",
     label: "Collection I",
     title: "Collection I",
-    text: "Hoodies, caps, socks and sunglasses, made in Mauritius once you order them.",
+    text: "Swimsuits, linen, shorts, tees and knitwear, made in Mauritius once you order them.",
     cta: { label: "Explore now", href: "/women/all" },
     image: `${IMG}/campaign-collection.jpg`,
     alt: "Two friends on the end of a jetty at Grand Baie in the navy Cabana Hoodie and cap and the sage Riviera Hoodie",
@@ -67,14 +67,14 @@ export const heroSlides: HeroSlide[] = [
   },
 ];
 
-/** Column order: Cabana Hoodie over Riviera Hoodie, Caps (tall), Sunglasses (tall), Socks over All pieces. */
+/** Column order: Swim over Shirts, Shorts & Tees (tall), Sunglasses (tall), Knitwear over Trousers. */
 export const categoryTiles: [MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile] = [
-  { label: "Cabana Hoodie", href: designs("cabana-hoodie"), image: "/images/women/knitwear.jpg", alt: "A woman on a harbour wall in the sky Cabana Hoodie" },
-  { label: "Riviera Hoodie", href: designs("riviera-hoodie"), image: "/images/women/riviera-hoodie.jpg", alt: "A woman on a tea plantation veranda in the sage Riviera Hoodie" },
-  { label: "Caps", href: designs("marram-cap", "sett-cap", "cabana-cap"), image: `${IMG}/cat-caps.jpg`, alt: "A woman on the Port Louis waterfront in the clementine Cabana Cap" },
+  { label: "Swim", href: "/women/swim", image: "/images/women/swim.jpg", alt: "A woman walking up a white sand beach in an oat linen shirt over a swimsuit" },
+  { label: "Shirts", href: "/women/shirts-trousers", image: "/images/women/linen.jpg", alt: "A woman at a market in Port Louis in the pink Cabana Linen Shirt" },
+  { label: "Shorts & Tees", href: "/women/shorts-tees", image: `${IMG}/cat-caps.jpg`, alt: "A woman on the Port Louis waterfront in a white tee, white linen shorts and the clementine Cabana Cap" },
   { label: "Sunglasses", href: "/women/sunglasses", image: `${IMG}/cat-sunglasses.jpg`, alt: "A woman on the basalt rocks at Gris Gris in the olive Alizé sunglasses and oat Riviera Hoodie" },
-  { label: "Socks", href: designs("burrow-sock"), image: "/images/women/burrow-sock.jpg", alt: "A woman on the deck of a sailing boat in white Burrow Socks and suede loafers" },
-  { label: "All pieces", href: "/women/all", image: "/images/women/accessories.jpg", alt: "A woman in a pirogue in the lagoon in an ecru Marram Cap" },
+  { label: "Knitwear", href: "/women/polos-knitwear", image: "/images/women/knitwear.jpg", alt: "A woman on a harbour wall in the sky Cabana Hoodie" },
+  { label: "Trousers", href: "/women/trousers", image: "/images/women/trousers.jpg", alt: "A woman on a wooden jetty in white drawstring linen trousers and a white tee" },
 ];
 
 /** Curated edits, RL's "The Stories". */
@@ -82,9 +82,9 @@ export const stories: { title: string; text: string; feature: StoryCard; cards: 
   title: "The stories",
   text: "Edits, and the island they are made on.",
   feature: {
-    eyebrow: "Hoodie · Cap",
+    eyebrow: "Shirt · Tee · Hoodie · Cap",
     title: "The Cabana Stripe",
-    href: designs("cabana-hoodie", "cabana-cap"),
+    href: designs("womens-cabana-linen-shirt", "cabana-stripe-tee", "cabana-hoodie", "cabana-cap"),
     image: "/images/shop/cabana.jpg",
     alt: "A woman in the sky Cabana Hoodie and cap on a sun lounger in front of striped beach cabanas",
   },
@@ -117,10 +117,12 @@ export const bannerSlides: BannerSlide[] = [
 
 const cat = (slug: string) => categories.find((c) => c.slug === slug)!;
 
-/** One card per women's design, on its packshot: there are no women's model shots yet. */
+/** One card per women's design: the on-model shot for the women's line, else the packshot (the unisex pieces' models are men). */
 function favouriteCard(slug: string): StoryCard {
   const p = getProduct(slug) as Product;
-  return { eyebrow: cat(p.category).name, title: p.name, href: `/product/${p.slug}`, image: productImages(p)[0], alt: `${p.name} in ${p.colour.name}` };
+  const images = productImages(p);
+  const image = (p.audience === "women" && images.find((i) => i.includes("-model."))) || images[0];
+  return { eyebrow: cat(p.category).name, title: p.name, href: `/product/${p.slug}`, image, alt: `${p.name} in ${p.colour.name}` };
 }
 
 /** RL's "Gifts for Her": the feature, then one card per design. */
@@ -134,7 +136,7 @@ export const favourites: { title: string; text: string; feature: StoryCard; card
     image: `${IMG}/edit-hoodie.jpg`,
     alt: "A woman on an upturned pirogue on Île aux Cerfs in the pink Cabana Hoodie",
   },
-  cards: ["riviera-hoodie-sky", "cabana-cap-clementine", "sett-cap-pink", "marram-cap-ecru-sky", "burrow-sock-white", "alize-sunglasses-tortoise"].map(favouriteCard),
+  cards: ["tidal-swimsuit-lagoon", "womens-riviera-linen-shirt-pink", "esplanade-linen-short-white", "sandbar-tee-white", "womens-mooring-stripe-crew-pink-ecru", "alize-sunglasses-tortoise"].map(favouriteCard),
 };
 
 export const explore: { title: string; text: string; tiles: ExploreTile[] } = {

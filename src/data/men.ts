@@ -65,11 +65,12 @@ export const heroSlides: HeroSlide[] = [
 
 const cat = (slug: string) => categories.find((c) => c.slug === slug)!;
 
-/** Column order: Swim over Trousers, Shirts (tall), Knitwear (tall), Accessories over Sunglasses. */
-export const categoryTiles: [MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile] = [
+/** Column order: Swim over Trousers, Shirts (tall), Shorts & Tees over Knitwear, Accessories over Sunglasses. */
+export const categoryTiles: [MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile] = [
   { label: cat("swim").name, href: "/men/swim", image: "/images/beach-surfer.jpg?v=2", alt: "A surfer on the beach at sunset in sky striped swim shorts and an oat linen shirt" },
   { label: cat("trousers").name, href: "/men/trousers", image: "/images/men/cat-trousers.jpg", alt: "A stack of folded chinos in seven colours on a teak table" },
   { label: cat("shirts-trousers").name, href: "/men/shirts-trousers", image: "/images/men/cat-linen.jpg", alt: "A man on a wooden jetty in a clementine linen shirt and white linen trousers" },
+  { label: cat("shorts-tees").name, href: "/men/shorts-tees", image: "/images/shop/shorts-tees.jpg", alt: "A man in the white Sandbar Tee and stone Quayside Chino Short by the lagoon" },
   { label: cat("polos-knitwear").name, href: "/men/polos-knitwear", image: "/images/men/cat-knitwear.jpg", alt: "A man in a plantation house doorway in a navy quarter zip and stone chinos" },
   { label: cat("outerwear-accessories").name, href: "/men/outerwear-accessories", image: "/images/caps-scene.jpg", alt: "A man on a jetty in an ecru and pine cap and a navy quarter zip" },
   { label: cat("sunglasses").name, href: "/men/sunglasses", image: "/images/sunglasses-scene.jpg", alt: "A man in sunglasses and a sky linen shirt in a boat below Le Morne" },

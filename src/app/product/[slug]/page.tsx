@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { designNumber, getProduct, productImages, products, productsInCategory } from "@/data/products";
+import { designNumber, getProduct, isFor, productImages, products, productsInCategory } from "@/data/products";
 import { categories } from "@/data/site";
 import { formatPrice } from "@/lib/format";
 import { ProductDetails } from "@/components/ProductDetails";
@@ -33,22 +33,26 @@ export default async function ProductPage({ params }: Props) {
 
   const category = categories.find((c) => c.slug === product.category)!;
   const images = productImages(product);
+  // Suggest pieces for whoever this one is cut for (a women's swimsuit doesn't suggest men's swim shorts).
+  const cutFor = (["men", "women"] as const).filter((a) => isFor(product, a));
   const related = productsInCategory(product.category)
-    .filter((p) => p.family !== product.family)
+    .filter((p) => p.family !== product.family && cutFor.some((a) => isFor(p, a)))
     .slice(0, 8);
+  // Pieces cut for women sit under Women; everything else keeps the shop trail.
+  const trail = product.audience === "women" ? { label: "Women", href: "/women" } : { label: "Shop", href: "/shop" };
 
   return (
     <>
       <nav aria-label="Breadcrumb" className="container-x pt-6 text-xs text-muted">
         <ol className="flex flex-wrap items-center gap-2">
           <li>
-            <Link href="/shop" className="link-underline">
-              Shop
+            <Link href={trail.href} className="link-underline">
+              {trail.label}
             </Link>
           </li>
           <li aria-hidden="true">/</li>
           <li>
-            <Link href={`/shop/${category.slug}`} className="link-underline">
+            <Link href={`${trail.href}/${category.slug}`} className="link-underline">
               {category.name}
             </Link>
           </li>

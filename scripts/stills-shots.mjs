@@ -13,6 +13,9 @@ export const EDITORIAL =
 // Product-page look: an on-model shot that sits next to the white packshots.
 export const STUDIO =
   "Clean e-commerce photograph for a premium menswear shop: one male model on a seamless light grey studio backdrop, soft even studio light, full length from head to shoes with space above and below, standing relaxed and natural, calm expression, sharp focus on the clothing.";
+// The women's line's product pages: the same studio with one female model (look "studio-w").
+export const STUDIO_W =
+  "Clean e-commerce photograph for a premium womenswear shop: one female model on a seamless light grey studio backdrop, soft even studio light, full length from head to feet with space above and below, standing relaxed and natural, calm expression, sharp focus on the clothing.";
 // Socks: the same studio, cropped from the knee down so the ankle embroidery reads.
 export const STUDIO_LEGS =
   "Clean e-commerce photograph for a premium menswear shop on a seamless light grey studio backdrop, soft even studio light: a close crop of one male model's lower legs from just above the knee down to the floor, standing relaxed with one foot a little forward and turned slightly so the outer side of the ankle faces the camera, sharp focus on the socks.";
@@ -238,6 +241,18 @@ export const SHOTS = {
     prompt:
       "Evening on the terrace of a restaurant by the sea at Grand Baie, Mauritius, candle lanterns on the tables, the bay deep blue behind. A Southern European man in his late thirties stands at the terrace rail with one hand in his pocket, talking to someone out of frame. He wears the navy tailored linen trousers with a pressed crease and the oat linen shirt tucked in, with brown leather loafers. Medium-wide shot, full length, the rest of the frame warm and quiet.",
   },
+  "shop-shorts-tees": {
+    out: "images/shop/shorts-tees.jpg", aspect: T, size: [1200, 1500],
+    wear: ["mens-sandbar-tee-white", "mens-quayside-chino-short-stone"],
+    prompt:
+      "Late morning on the sand at the edge of the lagoon at Trou aux Biches, Mauritius, filao trees behind, the water pale turquoise. An Indo-Mauritian man in his late twenties with short black hair and a trimmed beard walks barefoot along the waterline, a pair of brown leather sandals hanging from one hand, smiling at someone out of frame. He wears the plain white crew-neck tee and the stone cotton chino shorts ending above the knee. Full figure, vertical frame, the fit of the tee and the length of the shorts clearly visible.",
+  },
+  "shop-grid-shorts-tees": {
+    out: "images/shop/grid-shorts-tees.jpg", aspect: C, size: [2560, 1440],
+    wear: ["mens-cabana-stripe-tee-navy", "mens-jetty-linen-short-oat"],
+    prompt:
+      "Afternoon on an old basalt harbour wall at Mahébourg, Mauritius, wooden fishing pirogues painted blue and red moored in the calm bay behind. A fair-skinned man in his mid-thirties with curly light brown hair and stubble sits on the wall with one leg drawn up, peeling a mango with a small knife, relaxed. He wears the navy and white striped crew-neck tee and the oat linen drawstring shorts, barefoot, a pair of brown leather sandals on the stones beside him. Medium-wide shot, full length, the rest of the frame calm and sunlit.",
+  },
   "shop-grid-accessories": {
     out: "images/shop/grid-accessories.jpg", aspect: C, size: [2560, 1440], look: "women",
     wear: ["sett-cap-pink", "burrow-sock-white"],
@@ -382,7 +397,28 @@ export const SHOTS = {
     "a Black man in his mid twenties with short twists, wearing the drawstring linen trousers with a plain white t-shirt tucked in at the front so the drawcord waist shows, and brown leather sandals"),
   ...onModel("quayside-chino", ["stone", "navy", "white", "forest", "tobacco", "charcoal", "black"],
     "a North African man in his early forties with close-cropped greying hair and a trimmed salt-and-pepper beard, wearing the chinos with the knitwear from the reference images on top, a brown leather belt and brown suede loafers"),
+  // Men's Shorts & Tees: each short is worn with a top from the range and each tee with one of the shorts (refs: piece, then partner).
+  ...onModel("mens-quayside-chino-short", ["stone"],
+    "a tanned Spanish man in his early sixties with a neat white beard and swept-back white hair, wearing the chino shorts with the plain white tee untucked and white canvas sneakers"),
+  ...onModel("mens-jetty-linen-short", ["oat"],
+    "a Brazilian man in his early thirties with light brown skin, a shaved head and a short full beard, wearing the drawstring linen shorts with the navy tee with the small red badger on the chest, tucked in loosely at the front so the drawcord waist shows, and brown leather sandals"),
+  ...onModel("mens-esplanade-linen-short", ["navy"],
+    "a Scandinavian man in his late forties with swept-back greying blond hair and a tanned face, wearing the tailored shorts with the oat linen shirt tucked in and its sleeves rolled once, a brown leather belt and tan suede loafers"),
+  ...onModel("mens-sandbar-tee", ["white"],
+    "a Black British man in his early thirties with a neat high-top fade and a clean-shaven face, wearing the plain white tee untucked with the navy tailored shorts and white leather sneakers"),
+  ...onModel("mens-cabana-stripe-tee", ["navy"],
+    "a Sino-Mauritian man in his late thirties with short neat black hair and a lean build, wearing the striped tee untucked with the oat drawstring linen shorts and white canvas sneakers"),
+  ...onModel("badger-tee", ["navy"],
+    "a Greek man in his mid twenties with dark hair tied back in a short bun and a light beard, wearing the navy tee with the small red badger on the chest untucked, with the stone chino shorts and brown leather sandals"),
 };
+for (const [slug, partner] of [
+  ["mens-quayside-chino-short-stone", "mens-sandbar-tee-white"],
+  ["mens-jetty-linen-short-oat", "badger-tee-navy"],
+  ["mens-esplanade-linen-short-navy", "riviera-linen-shirt-oat"],
+  ["mens-sandbar-tee-white", "mens-esplanade-linen-short-navy"],
+  ["mens-cabana-stripe-tee-navy", "mens-jetty-linen-short-oat"],
+  ["badger-tee-navy", "mens-quayside-chino-short-stone"],
+]) SHOTS[slug].wear.push(partner);
 // The oat take is this design's model reference and pulls the ecru towards beige.
 SHOTS["esplanade-linen-trouser-ecru"].prompt += " The trousers are a very pale off-white ecru, almost as light as the shirt, not beige.";
 // Socks are shot from the knee down (STUDIO_LEGS in generate-stills.mjs).
@@ -448,6 +484,57 @@ SHOTS["cabana-hoodie-black"].prompt += " The hoodie is true black and white stri
 // The Lemon Lido drifts towards saffron on the model (the saffron take is this design's model reference);
 // approved take 3 is the approved oat take with only the shorts recoloured to Lemon.
 SHOTS["lido-stripe-swim-short-yellow"].prompt += " The stripes are a pale soft lemon yellow, exactly as light as the reference image, much lighter than saffron or gold.";
+// ── Women's line on-model shots (2026-10-14) ────────────────────────────────────────────────
+// STUDIO_W, one woman per design kept across its colourways, each styled with another women's piece
+// (refs: the piece, then what it is worn with). Avoid the word "polo": Higgsfield's filter refuses it.
+const WOMEN_ON_MODEL = [
+  ["tidal-swimsuit", ["lagoon", "navy", "hibiscus", "saffron", "palm"],
+    "a Mauritian Creole woman in her late twenties with long dark curly hair and an athletic swimmer's build, barefoot, wearing the one-piece swimsuit", () => []],
+  ["lido-stripe-swimsuit", ["red", "sky", "navy", "pink", "yellow"],
+    "a Scandinavian woman in her early thirties with short platinum blonde hair and lightly tanned skin, barefoot, wearing the striped one-piece swimsuit", () => []],
+  ["womens-riviera-linen-shirt", ["pink", "oat", "sky", "yellow", "navy"],
+    "a South Asian woman in her late thirties with shoulder-length black hair, wearing the linen shirt loose with the sleeves rolled to the elbow, half tucked into the white tailored linen shorts, with tan leather sandals", () => ["esplanade-linen-short-white"]],
+  ["womens-cabana-linen-shirt", ["sky", "pink", "yellow", "navy", "clementine"],
+    "a Southern European woman in her mid twenties with long dark brown wavy hair, wearing the striped linen shirt with the sleeves rolled to the forearm, the front tucked into the white drawstring linen shorts, with tan leather sandals", () => ["jetty-linen-short-white"]],
+  ["womens-veranda-linen-trouser", ["oat", "white", "navy", "black"],
+    "a Black woman in her mid thirties with close-cropped natural hair, wearing the wide drawstring linen trousers with the plain white t-shirt tucked in at the front so the drawcord waist shows, and flat brown leather sandals", () => ["sandbar-tee-white"]],
+  ["esplanade-linen-short", ["white", "oat", "navy", "black"],
+    "a Mauritian woman of Indian heritage in her early twenties with long black hair worn loose, wearing the tailored linen shorts with the plain white t-shirt tucked in and flat tan leather sandals", () => ["sandbar-tee-white"]],
+  ["jetty-linen-short", ["white", "oat", "sage", "sky", "navy"],
+    "a Japanese woman in her late twenties with a short black bob, wearing the drawstring linen shorts with the navy and white striped t-shirt loosely tucked in at the front, and white canvas sneakers", () => ["cabana-stripe-tee-navy"]],
+  ["quayside-chino-short", ["stone", "navy", "white", "forest"],
+    "a woman in her mid forties with shoulder-length light brown hair, freckles and a warm smile, wearing the cotton chino shorts with the sky blue linen shirt tucked in and the sleeves rolled, and white canvas sneakers", () => ["womens-riviera-linen-shirt-sky"]],
+  ["sandbar-tee", ["white", "oat", "sky", "navy", "black"],
+    "a Mauritian woman of Chinese heritage in her early thirties with long straight black hair in a low ponytail, wearing the t-shirt tucked into the cotton chino shorts, and white canvas sneakers",
+    (c) => [`quayside-chino-short-${{ oat: "navy", sky: "white" }[c] ?? "stone"}`]],
+  ["cabana-stripe-tee", ["navy", "red", "sky", "pink", "yellow"],
+    "a Brazilian woman in her late twenties with long dark curly hair, wearing the striped t-shirt tucked in at the front of the white drawstring linen shorts, and tan leather sandals", () => ["jetty-linen-short-white"]],
+  ["womens-regatta-cardigan", ["burgundy-ecru", "navy-ecru", "forest-ecru", "black-ecru"],
+    "a woman in her early fifties with a sleek silver bob and tanned skin, wearing the cropped knitted cardigan buttoned up with the white wide drawstring linen trousers and flat tan leather sandals", () => ["womens-veranda-linen-trouser-white"]],
+  ["womens-mooring-stripe-crew", ["pink-ecru", "navy-ecru", "sky-ecru", "oat-ecru", "red-ecru"],
+    "a Black woman in her early twenties with long box braids, wearing the cropped striped knit crewneck with the white tailored linen shorts and white canvas sneakers", () => ["esplanade-linen-short-white"]],
+  ["promenade-knit-polo", ["clementine", "navy", "sky", "pink", "black"],
+    "a North African woman in her late thirties with dark hair pulled back in a low bun, wearing the short-sleeved knitted collared top tucked into the white cotton chino shorts, with flat tan leather sandals", () => ["quayside-chino-short-white"]],
+];
+// The first colourway's approved take is the model reference and pulls the others towards its colour.
+for (const [family, colours, casting, with_] of WOMEN_ON_MODEL)
+  for (const [id, shot] of Object.entries(onModel(family, colours, casting))) {
+    const c = id.slice(family.length + 1);
+    const pull = c === colours[0] ? "" : " The first reference image only shows who the model is: the piece must be exactly the colour of its own product reference image, not the colour she wears in the first image.";
+    SHOTS[id] = { ...shot, look: "studio-w", prompt: shot.prompt + pull, wear: [...shot.wear, ...with_(c)] };
+  }
+SHOTS["womens-riviera-linen-shirt-oat"].prompt += " The shirt is warm oat beige linen, not pink.";
+SHOTS["quayside-chino-short-forest"].prompt += " The shorts are deep forest green cotton twill, not stone or beige.";
+SHOTS["womens-regatta-cardigan-navy-ecru"].prompt += " The cardigan body and sleeves are deep navy knit, not burgundy; only the placket, the two sleeve bars and the script are ecru.";
+SHOTS["womens-mooring-stripe-crew-oat-ecru"].prompt += " The knit is warm oat beige with ecru bands, not pink.";
+SHOTS["promenade-knit-polo-pink"].prompt += " The knitted top is soft dusty pink, not orange or clementine.";
+SHOTS["promenade-knit-polo-navy"].prompt += " The knitted top is deep navy, not orange or clementine.";
+// The women's Cabana colourways were redone in the navy's irregular awning stripe; the model reference wears the old sky stripe.
+for (const c of ["sky", "pink", "yellow", "clementine"])
+  SHOTS[`womens-cabana-linen-shirt-${c}`].prompt += " The shirt's stripes follow its product reference image exactly: an irregular awning stripe of wide and narrow coloured stripes between wide white stripes, not the even stripes she wears in the first image.";
+// The navy take became this design's model reference (the first one wore the old sky stripe), so it pulls the sky towards navy.
+SHOTS["womens-cabana-linen-shirt-sky"].prompt += " The stripes are a soft light sky blue, exactly the colour of the shirt's product reference image, not navy or dark blue.";
+
 function community(rows) {
   return Object.fromEntries(
     rows.map(([id, sport, wear, scene]) => [
