@@ -1,12 +1,12 @@
 import { partners } from "@/data/site";
-import { LeafIcon } from "./Icons";
+import { LeafIcon, NeedleIcon } from "./Icons";
 
 type Partner = (typeof partners)[number];
 
 const base = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
-/** Placeholder emblems, one per remit, until each partner's own logo is in public/partners/. */
-const marks: Record<Partner["mark"], React.ReactNode> = {
+/** Placeholder emblems, one per remit, until each partner's own logo is in public/partners/ (plus one for the workshop, on /stories). */
+const marks: Record<Partner["mark"] | "workshop", React.ReactNode> = {
   ocean: (
     <svg {...base} aria-hidden="true">
       <path d="M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0" />
@@ -22,7 +22,13 @@ const marks: Record<Partner["mark"], React.ReactNode> = {
       <path d="M3 21c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0" />
     </svg>
   ),
+  workshop: <NeedleIcon width={22} height={22} />,
 };
+
+/** A partner's placeholder emblem in its ring. */
+export function PartnerMark({ mark }: { mark: keyof typeof marks }) {
+  return <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-current">{marks[mark]}</span>;
+}
 
 function Logo({ partner }: { partner: Partner }) {
   if (partner.logo) {
@@ -30,7 +36,7 @@ function Logo({ partner }: { partner: Partner }) {
   }
   return (
     <span className="flex items-center gap-3 text-ink-2">
-      <span className="flex h-11 w-11 items-center justify-center rounded-full border border-current">{marks[partner.mark]}</span>
+      <PartnerMark mark={partner.mark} />
       <span className="text-xs font-medium uppercase tracking-label whitespace-nowrap md:text-sm">{partner.name}</span>
     </span>
   );

@@ -481,3 +481,13 @@ details > summary::-webkit-details-marker {
     display: none;
   }
 }
+
+/* Landing sliders (/men): the line under the slides fills over one slide's time, then the slide advances. */
+@keyframes slide-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

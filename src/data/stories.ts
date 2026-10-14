@@ -1,0 +1,353 @@
+import { partners, site } from "./site";
+import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
+
+/**
+ * Stories (/stories): films, journal pieces, interviews and past newsletters, each with its own page at
+ * /stories/<slug>. Newest first; the first entry leads the page. Only write what is true: no invented
+ * people, quotes or figures. Interviews go up once a partner's agreement is signed (see `forthcoming`).
+ */
+export type ArticleKind = "film" | "journal" | "interview" | "letter";
+
+export const kindLabels: Record<ArticleKind, string> = { film: "Film", journal: "Journal", interview: "Interview", letter: "Letter" };
+
+/** One piece of an article body. `qa` is a question and its answer, for interviews. */
+export type Block =
+  | { type: "p"; text: string }
+  | { type: "quote"; text: string; by?: string }
+  /** `size` (the file's own pixels) shows the image whole and centred, for marks and drawings; without it, a 3:2 photo. */
+  | { type: "image"; src: string; alt: string; caption?: string; size?: { width: number; height: number } }
+  | { type: "qa"; q: string; a: string };
+
+export type Article = {
+  slug: string;
+  kind: ArticleKind;
+  title: string;
+  dek: string;
+  /** Year and month published, "2026-10". */
+  month: string;
+  image: string;
+  alt: string;
+  /** Films: the file that plays at the top of the page, with `image` as its poster. */
+  video?: string;
+  /** Films: running time, "0:27". */
+  runtime?: string;
+  /** For the slides at the top of /stories: a wide picture when `image` is tall, and where to centre it on phones. */
+  hero?: { image?: string; alt?: string; position?: string };
+  body: Block[];
+  /** Where to go next, under the body. */
+  links: { label: string; href: string }[];
+};
+
+const tenPercent = pledgePercentLabel();
+
+export const articles: Article[] = [
+  {
+    slug: "made-once-you-order-it",
+    kind: "journal",
+    title: "Made once you order it.",
+    dek: "No stock, no sale rail, no sizes left over. Why every piece starts with an order.",
+    month: "2026-10",
+    image: "/images/cutting-table.jpg?v=2",
+    alt: "Hands cutting sky-blue linen with tailor's shears on a wooden worktable",
+    hero: { image: "/images/numbered-label.jpg?v=2", alt: "Hands folding a red knit into a tissue-lined box on a workshop bench", position: "62% 50%" },
+    body: [
+      {
+        type: "p",
+        text: "We hold no stock. Every design stays on sale, and none of it exists until somebody orders it. Then it is cut and sewn by hand, in Mauritius, in the size they chose.",
+      },
+      {
+        type: "p",
+        text: `Making takes ${leadTimeLabel()}, counted from the day of the order. Then the piece goes express from the island and reaches most of Europe in 4–7 working days, free over ${formatPrice(site.freeShippingThresholdCents)}.`,
+      },
+      { type: "quote", text: "No overstock to discount, and no pressure to sell what nobody asked for." },
+      {
+        type: "p",
+        text: "Most clothing is made first and sold second, in guessed quantities and guessed sizes. Whatever doesn't sell is marked down, shipped somewhere else, then thrown away. Making to order turns that round: nothing is made that nobody wanted.",
+      },
+      { type: "image", src: "/images/numbered-label.jpg?v=2", alt: "Hands folding a red knit into a tissue-lined box on a workshop bench" },
+      {
+        type: "p",
+        text: "It asks one thing of you, a few weeks of patience. In return the piece is cut for you, and if anything ever gives, we repair it for free, for life.",
+      },
+    ],
+    links: [
+      { label: "How it works", href: "/made-to-order" },
+      { label: "Sizing", href: "/made-to-order#sizing" },
+    ],
+  },
+  {
+    slug: "the-grind-then-the-calm",
+    kind: "film",
+    title: "The grind, then the calm.",
+    dek: "Twelve sports at full intensity, two seconds a shot. Then the same faces, standing still.",
+    month: "2026-10",
+    image: "/film/poster-landscape.jpg",
+    alt: "A rugby winger sprinting for the line under floodlights",
+    video: "/film/hero-landscape.mp4",
+    runtime: "0:27",
+    hero: { position: "38% 50%" },
+    body: [
+      {
+        type: "p",
+        text: "The film that opens this site is the grind: rugby, cycling, golf, surfing, kitesurfing, wakeboarding, skateboarding, snowboarding, downhill, freeride skiing, trail running and climbing, each at full competition pitch, cut to about two seconds a shot and never held.",
+      },
+      {
+        type: "p",
+        text: "The calm is the other half. The same people afterwards, one at a time, standing still and looking into the lens. Mud still on a face, a board under an arm, a bike against a wall. Nobody has to smile.",
+      },
+      { type: "image", src: "/community/p1.jpg?v=2", alt: "A rugby player on an empty pitch by the sea in a red and white striped rugby shirt", caption: "The calm: rugby." },
+      {
+        type: "p",
+        text: "There is no competition kit anywhere in it. Every shot, the effort and the stillness after, is in Vis Naturæ pieces: clothes made for the hours after, worn through the hours before as well.",
+      },
+      { type: "quote", text: "The calm is the reward after the effort." },
+      { type: "image", src: "/community/p12.jpg?v=2", alt: "A climber in an orange linen shirt at the top of a sea cliff", caption: "The calm: climbing." },
+      {
+        type: "p",
+        text: "Those portraits also make up our community wall, until pictures from the people wearing the pieces take their place.",
+      },
+    ],
+    links: [
+      { label: "Community", href: "/stories#community" },
+      { label: "Shop the pieces", href: "/shop" },
+    ],
+  },
+  {
+    slug: "why-our-badger-sleeps-on-its-back",
+    kind: "journal",
+    title: "Why our badger sleeps on its back.",
+    dek: "Most animals survive by knowing when to run. The honey badger simply refuses to.",
+    month: "2026-10",
+    image: "/products/sett-cap-navy-detail.jpg",
+    alt: "The badger embroidered in ecru on the front of a navy cap",
+    body: [
+      {
+        type: "p",
+        text: "The honey badger lives across Africa and is no bigger than a house cat. It spends its life picking fights with animals far bigger than itself: the black mamba, lions, even elephants.",
+      },
+      {
+        type: "p",
+        text: "Its skin is so thick and loose that teeth and claws struggle to find a hold. It digs through hard ground in minutes and raids beehives through a thousand stings. When a cobra sinks its fangs in, it has been seen to lie down, sleep it off, and get back up to finish the hunt.",
+      },
+      { type: "image", src: "/brand/badger-mark.png", alt: "The Vis Naturæ badger, asleep on its back", size: { width: 852, height: 300 } },
+      { type: "p", text: "That sleep is the one on our label. On its back, paws folded, one fight behind it and the next not yet begun." },
+      { type: "quote", text: "Go all in, then rest like you mean it." },
+      {
+        type: "p",
+        text: "You will find it small and quiet: at the ankle of a sock, low on the front of a cap, on the chest of a linen shirt, mostly stitched in the colour of the cloth.",
+      },
+      { type: "image", src: "/products/burrow-sock-olive-detail.jpg", alt: "The badger embroidered tone on tone on an olive ribbed cotton sock" },
+    ],
+    links: [
+      { label: "The full story", href: "/about#the-mark" },
+      { label: "Shop accessories", href: "/shop/outerwear-accessories" },
+    ],
+  },
+  {
+    slug: "made-by-hand",
+    kind: "film",
+    title: "Made by hand.",
+    dek: "Every piece is cut and sewn by hand, to order, in a small workshop in Mauritius.",
+    month: "2026-10",
+    image: "/film/atelier-poster.jpg",
+    alt: "Hands guiding oat linen under the needle of a sewing machine",
+    video: "/film/atelier-landscape.mp4",
+    runtime: "0:23",
+    body: [
+      {
+        type: "p",
+        text: "Nothing we sell exists until somebody orders it. Then the cloth is cut in that person's size, sewn, pressed, folded and boxed, in a small workshop in Mauritius.",
+      },
+      {
+        type: "p",
+        text: "This short film follows that work: the needle, the seam, the fold. It is the part of a garment most labels would rather you didn't think about. We think it is the best part.",
+      },
+      { type: "image", src: "/images/campaign-atelier.jpg", alt: "A seamstress at her worktable in a workshop hung with red, green and yellow linen shirts" },
+      { type: "quote", text: "There is more inside each piece than the photographs show. We leave that for you to find." },
+      {
+        type: "p",
+        text: `From the order to the box takes ${leadTimeLabel()}. Then the piece flies express from Mauritius, and reaches most of Europe in 4–7 working days.`,
+      },
+    ],
+    links: [{ label: "How made to order works", href: "/made-to-order" }],
+  },
+  {
+    slug: "ten-percent-of-the-price",
+    kind: "journal",
+    title: `${tenPercent} of the price, not the profit.`,
+    dek: "Why our pledge is on the sale price, and how we choose where it goes.",
+    month: "2026-10",
+    image: "/images/sea-cliff-wide.jpg?v=2",
+    alt: "A man in a dark knit vest on a green sea cliff above the Indian Ocean",
+    body: [
+      {
+        type: "p",
+        text: `Percent-of-profit pledges are easy to make and hard to check. Ours is on the sale price, so you can do the sum yourself: on a ${formatPrice(16500)} piece, ${formatPrice(pledgeCents(16500))} goes to conservation. Shipping and taxes are left out.`,
+      },
+      { type: "p", text: "It is worked out on every order, shown on every product page, and reported every season." },
+      { type: "quote", text: "Highest leverage, not highest profile." },
+      {
+        type: "p",
+        text: "We don't give it to the best-known name, or spread it so thin it changes nothing. Every partner has to pass three tests. Concentrated: small places that hold a lot of life. Close to the edge: habitats with the least left, where money now is worth more than money later. Counted: partners who measure outcomes, not activity, and publish them.",
+      },
+      {
+        type: "p",
+        text: "Three areas pass: the reef around Mauritius, the island's last native forest, and rivers and wetlands in Europe. Agreements are being finalised, and the names will be published before the first transfer is made. Then the people doing the work will be interviewed here.",
+      },
+    ],
+    links: [
+      { label: "The pledge", href: "/conservation" },
+      { label: "Where it goes", href: "/conservation#partners" },
+    ],
+  },
+];
+
+/**
+ * Interviews still to come, shown under "In conversation" until each one is published: the
+ * conservation partners (named here once they are in site.ts) and the workshop that makes the pieces.
+ */
+export const forthcoming: { name: string; focus: string; mark: (typeof partners)[number]["mark"] | "workshop" }[] = [
+  { name: "The workshop", focus: "The people who cut and sew every piece by hand in Mauritius", mark: "workshop" },
+  ...partners.map((p) => ({ name: p.name, focus: p.focus, mark: p.mark })),
+];
+
+/**
+ * The two ways we sponsor, under "Sponsorship" on /stories: individual athletes and ambassadors, and
+ * clubs, teams and events. Each applies by email; `template` prefills the body. No one is sponsored yet,
+ * so name nobody here until they have agreed.
+ */
+export type Sponsorship = {
+  key: string;
+  title: string;
+  text: string;
+  image: string;
+  alt: string;
+  give: string[];
+  lookFor: string[];
+  cta: string;
+  subject: string;
+  template: string[];
+};
+
+export const sponsorships: Sponsorship[] = [
+  {
+    key: "individuals",
+    title: "Athletes & ambassadors",
+    text: "Surfers, kiters, sailors, golfers, climbers, runners: people who compete hard, or simply go all in at something, and care about the places they do it in.",
+    image: "/community/surf-still.jpg",
+    alt: "A surfer crouched deep in the barrel of a breaking wave",
+    give: [
+      "Pieces made for you, in your size, through the season",
+      "Your story in our films and on these pages, in your own words",
+      "A say in the next pieces we make, tested where you train",
+    ],
+    lookFor: [
+      "Commitment you can see, at any level",
+      "Care for the coast, the mountains and the water you use",
+      "Honesty: wear what you like, and say what you don't",
+    ],
+    cta: "Apply as an athlete",
+    subject: "Sponsorship: athlete",
+    template: ["Name:", "Sport or discipline:", "Where you train and compete:", "Links (Instagram, results, press):", "Why Vis Naturæ:"],
+  },
+  {
+    key: "corporate",
+    title: "Clubs, teams & events",
+    text: "Golf and sailing clubs, rugby and surf clubs, regattas, tournaments and teams of every kind, in Mauritius and across Europe.",
+    image: "/images/campaign-golf.jpg",
+    alt: "Two golfers in Vis Naturæ knitwear on a seaside fairway at golden hour",
+    give: [
+      "Pieces for the whole team or event, each made to order in the wearer's size",
+      `${tenPercent} of every piece to conservation, as on every order, reported each season`,
+      "Your club or event in our films and on these pages",
+    ],
+    lookFor: [
+      "Clubs and events rooted in a place worth protecting",
+      "A shared interest in the reef, forest or water around you",
+      "Room to tell the story honestly",
+    ],
+    cta: "Propose a partnership",
+    subject: "Sponsorship: club, team or event",
+    template: ["Club, team or event:", "Where and when:", "How many people:", "Links:", "What you have in mind:"],
+  },
+];
+
+/** A sponsorship's application email, with its template in the body. */
+export const sponsorshipMailto = (s: Sponsorship) =>
+  `mailto:${site.email}?subject=${encodeURIComponent(s.subject)}&body=${encodeURIComponent(s.template.join("\n\n") + "\n")}`;
+
+/** The Instagram grid on /stories: pictures from the site linking to the profile, not a live feed. */
+export const instagramTiles: { image: string; alt: string }[] = [
+  { image: "/images/campaign-linen.jpg", alt: "Two men in linen shirts at a long lunch by the lagoon" },
+  { image: "/images/beach-surfer.jpg?v=2", alt: "A surfer in striped swim shorts and an open linen shirt on the beach at sunset" },
+  { image: "/images/golf-green.jpg?v=2", alt: "A golfer in a green quarter zip crouched on the green" },
+  { image: "/images/caps-scene.jpg", alt: "A man in a navy quarter zip with a coffee on a jetty" },
+  { image: "/images/sunglasses-scene.jpg", alt: "A man in sunglasses and a pale blue linen shirt on a boat" },
+  { image: "/images/campaign-drop.jpg", alt: "Four friends on a harbour wall in knitwear, linen and swim shorts" },
+];
+
+/** The handle at the end of `site.instagram`, without the @. */
+export const instagramHandle = site.instagram.split("/").filter(Boolean).pop() ?? "";
+
+export const articleHref = (a: Article) => `/stories/${a.slug}`;
+
+/** "2 min read" from the words in the body, or a film's running time. */
+export function readLabel(a: Article): string {
+  if (a.runtime) return a.runtime;
+  const words = a.body
+    .map((b) => (b.type === "p" || b.type === "quote" ? b.text : b.type === "qa" ? `${b.q} ${b.a}` : ""))
+    .join(" ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
+/**
+ * Events, after redbull.com's events row: what we host or sponsor, sorted into Upcoming and Past by
+ * date on the visitor's side. Empty until the first one is confirmed; only list real, agreed events.
+ */
+export type StoryEvent = {
+  title: string;
+  /** ISO dates, "2026-11-07"; `end` for events over several days. */
+  start: string;
+  end?: string;
+  place: string;
+  sport: string;
+  image: string;
+  alt: string;
+  status?: "registrations-open" | "upcoming" | "invitation-only";
+  /** The event's own page, or its story here once it has happened. */
+  href?: string;
+};
+
+export const eventStatusLabels: Record<NonNullable<StoryEvent["status"]>, string> = {
+  "registrations-open": "Registrations open",
+  upcoming: "Upcoming",
+  "invitation-only": "Invitation only",
+};
+
+export const events: StoryEvent[] = [];
+
+/** "17 October 2026", or "21 – 26 October 2026" across several days. */
+export function eventDates(e: StoryEvent): string {
+  const fmt = (iso: string, opts: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat("en-GB", { ...opts, timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
+  const full = { day: "numeric", month: "long", year: "numeric" } as const;
+  if (!e.end || e.end === e.start) return fmt(e.start, full);
+  const [s, t] = [e.start.split("-"), e.end.split("-")];
+  if (s[0] !== t[0]) return `${fmt(e.start, full)} – ${fmt(e.end, full)}`;
+  if (s[1] !== t[1]) return `${fmt(e.start, { day: "numeric", month: "long" })} – ${fmt(e.end, full)}`;
+  return `${Number(s[2])} – ${fmt(e.end, full)}`;
+}
+
+export function getArticle(slug: string): Article | undefined {
+  return articles.find((a) => a.slug === slug);
+}
+
+export const articlesOf = (kind: ArticleKind) => articles.filter((a) => a.kind === kind);
+
+/** "2026-10" as "October 2026". */
+export function monthLabel(month: string): string {
+  const [y, m] = month.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(y, m - 1, 1)));
+}

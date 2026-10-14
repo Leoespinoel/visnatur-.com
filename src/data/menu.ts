@@ -2,6 +2,7 @@ import { audiences, categories, site, type AudienceSlug } from "./site";
 import { groupByFamily, isFor, productImages, products, type Product } from "./products";
 import { formatPrice, leadTimeLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
+import { articleHref, articles, instagramHandle } from "./stories";
 
 /** `packshot` tiles show the garment on white with the label in ink; the rest are photos with the label over them. */
 export type MenuTile = { label: string; href: string; image: string; packshot?: boolean };
@@ -14,7 +15,7 @@ export type MenuTile = { label: string; href: string; image: string; packshot?: 
 export type MenuItem = { key: string; label: string; href: string; heading: string; tiles: MenuTile[]; note?: string };
 
 /** The header items that open a mega menu, in nav order. */
-export type MenuKey = AudienceSlug | "made-to-order" | "conservation" | "about";
+export type MenuKey = AudienceSlug | "made-to-order" | "conservation" | "stories" | "about";
 
 /**
  * One tile per design: the section's lookbook image for it if there is one, else its first colourway's
@@ -35,12 +36,14 @@ export function menuFor(audience: AudienceSlug): MenuItem[] {
   const a = audiences.find((x) => x.slug === audience)!;
   const them = audience === "men" ? "him" : "her";
   const mine = products.filter((p) => isFor(p, audience));
+  // /men and /women are landing pages; their listings are one level down.
+  const listing = `/${audience}/all`;
   return [
-    { key: "new", label: "New in", href: `/${audience}?filter=new`, heading: `New in for ${them}`, tiles: familyTiles(mine.filter((p) => p.badge === "New"), audience, a.looks) },
+    { key: "new", label: "New in", href: `${listing}?filter=new`, heading: `New in for ${them}`, tiles: familyTiles(mine.filter((p) => p.badge === "New"), audience, a.looks) },
     {
       key: "all",
       label: "All pieces",
-      href: `/${audience}`,
+      href: listing,
       heading: a.explore,
       tiles: categories.map((c) => ({ label: c.name, href: `/${audience}/${c.slug}`, image: a.scenes[c.slug] })),
     },
@@ -141,6 +144,64 @@ function conservation(): MenuItem[] {
   ];
 }
 
+function stories(): MenuItem[] {
+  const tile = (label: string, hash: string, image: string): MenuTile => ({ label, href: `/stories#${hash}`, image });
+  const toTile = (a: (typeof articles)[number]): MenuTile => ({ label: a.title.replace(/\.$/, ""), href: articleHref(a), image: a.image });
+  const interviews = tile("In conversation", "interviews", IMG.atelier);
+  const community = tile("Community", "community", "/community/p4.jpg?v=2");
+  const letters = tile("Newsletter", "letters", "/images/campaign-linen.jpg");
+  return [
+    {
+      key: "all",
+      label: "All stories",
+      href: "/stories",
+      heading: "Told, not sold",
+      tiles: [tile("Latest", "latest", articles[0].image), tile("Events", "events", "/images/campaign-drop.jpg"), community, interviews],
+    },
+    { key: "latest", label: "Latest", href: "/stories#latest", heading: "Latest stories", tiles: articles.slice(0, 4).map(toTile) },
+    {
+      key: "events",
+      label: "Events",
+      href: "/stories#events",
+      heading: "Events",
+      tiles: [tile("Events", "events", "/images/campaign-drop.jpg")],
+      note: "Days on the water, on the course and on the trail, hosted or backed by Vis Naturæ. The first are being planned.",
+    },
+    {
+      key: "interviews",
+      label: "Interviews",
+      href: "/stories#interviews",
+      heading: "In conversation",
+      tiles: [interviews],
+      note: "The workshop that makes every piece and the partners the ten percent goes to, in their own words. Each goes up once the agreement behind it is signed.",
+    },
+    {
+      key: "community",
+      label: "Community & Instagram",
+      href: "/stories#community",
+      heading: "In the pieces, out in the world",
+      tiles: [community],
+      note: `Tag @${instagramHandle} to be featured. We always ask before we share.`,
+    },
+    {
+      key: "sponsorship",
+      label: "Sponsorship",
+      href: "/stories#sponsorship",
+      heading: "We back people who go all in",
+      tiles: [tile("Sponsorship", "sponsorship", "/community/surf-still.jpg")],
+      note: "Athletes and ambassadors, and clubs, teams and events. Tell us what you go all in at.",
+    },
+    {
+      key: "letters",
+      label: "Newsletter",
+      href: "/stories#letters",
+      heading: "First to know",
+      tiles: [letters],
+      note: "Behind the scenes, written rarely. Sign up and you hear first.",
+    },
+  ];
+}
+
 function about(): MenuItem[] {
   return [
     {
@@ -168,5 +229,5 @@ function about(): MenuItem[] {
 }
 
 export function menus(): Record<MenuKey, MenuItem[]> {
-  return { men: menuFor("men"), women: menuFor("women"), "made-to-order": madeToOrder(), conservation: conservation(), about: about() };
+  return { men: menuFor("men"), women: menuFor("women"), "made-to-order": madeToOrder(), conservation: conservation(), stories: stories(), about: about() };
 }

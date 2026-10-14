@@ -11,7 +11,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { EDITORIAL, GARMENT, REAL, SHOTS, STUDIO, STUDIO_FACE, STUDIO_LEGS } from "./stills-shots.mjs";
+import { EDITORIAL, GARMENT, REAL, SHOTS, STILL, STUDIO, STUDIO_FACE, STUDIO_LEGS } from "./stills-shots.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const takesDir = join(root, "stills-src", "takes");
@@ -53,7 +53,8 @@ const prompt =
   shot.look === "studio" ? `${keep}${STUDIO} The model is ${shot.prompt} ${GARMENT} ${REAL}`
   : shot.look === "legs" ? `${keepLegs}${STUDIO_LEGS} The model is ${shot.prompt} ${GARMENT} ${REAL}`
   : shot.look === "face" ? `${keep}${STUDIO_FACE} The model is ${shot.prompt} ${GARMENT} ${REAL}`
-  : `${shot.prompt} ${EDITORIAL} ${GARMENT} ${REAL}`;
+  : shot.look === "still" ? `${shot.prompt} ${STILL}${shot.wear.length ? ` ${GARMENT}` : ""}`
+  : `${shot.prompt} ${shot.look === "women" ? EDITORIAL.replace("menswear", "womenswear") : shot.look === "mixed" ? EDITORIAL.replace("menswear ", "") : EDITORIAL} ${GARMENT} ${REAL}`;
 
 const taken = readdirSync(takesDir)
   .map((f) => f.match(new RegExp(`^${id}-t(\\d+)\\.(png|json)$`)))

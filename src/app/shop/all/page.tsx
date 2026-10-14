@@ -14,8 +14,9 @@ export const metadata: Metadata = {
 export default function ShopPage() {
   return (
     <>
-      <PageIntro variant="listing"
-        eyebrow="Made to order"
+      <PageIntro
+        variant="listing"
+        crumbs={[{ label: "Shop", href: "/shop" }]}
         title="All pieces"
         lede={`Nothing here is made until you order it. Choose your size, we cut and sew it for you in Mauritius, and it ships ${leadTimeLabel()} later.`}
       />

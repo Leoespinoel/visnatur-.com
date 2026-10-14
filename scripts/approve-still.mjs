@@ -29,6 +29,7 @@ if (existsSync(dest) && !existsSync(backup)) {
   copyFileSync(dest, backup);
 }
 const [w, h] = shot.size;
+mkdirSync(dirname(dest), { recursive: true });
 await sharp(src).resize(w, h, { fit: "cover", position: "attention" }).jpeg({ quality: 86, mozjpeg: true }).toFile(dest);
 
 const approvedDir = join(root, "stills-src", "approved");

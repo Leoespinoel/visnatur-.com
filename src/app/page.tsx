@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/data/site";
 import { featuredProducts, interleaveFamilies, productsInCategory } from "@/data/products";
 import { campaigns, type Campaign } from "@/data/campaigns";
@@ -56,7 +57,12 @@ export default function HomePage() {
 
       {/* Community: tall cards of people in the clothes, some playable */}
       <section className="py-16 md:py-24">
-        <h2 className="display mb-8 text-center text-4xl md:mb-10 md:text-5xl">Community</h2>
+        <h2 className="display text-center text-4xl md:text-5xl">Community</h2>
+        <p className="mb-8 mt-4 text-center md:mb-10">
+          <Link href="/stories#community" className="eyebrow !text-ink link-underline">
+            More stories
+          </Link>
+        </p>
         <Carousel ariaLabel="Community" itemClassName="w-[62%] sm:w-[40%] md:w-[calc((100%-2rem)/4.3)] lg:w-[calc((100%-2.5rem)/5.3)]" gap="gap-1.5 md:gap-2">
           {communityPosts.map((post, i) => (
             <CommunityCard key={i} post={post} />

@@ -2,12 +2,50 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
+import { getProduct } from "@/data/products";
 import { pledgePercentLabel } from "@/lib/pledge";
+import { ArrowIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "About",
   description: "Vis Naturæ is a made-to-order resort label for men and women, founded in 2026. Force of nature, taken seriously.",
 };
+
+/** A day on the island in four moments; each photo's pieces come from the stills shot list (scripts/stills-shots.mjs, day-*). */
+const day = [
+  {
+    time: "Morning",
+    title: "Kitesurfing with friends",
+    text: "The trade wind fills in over the lagoon at Le Morne, and the kites are up before anyone has had breakfast.",
+    image: "/images/day-kite.jpg",
+    alt: "Friends rigging kites on the beach at Le Morne, one already riding on the turquoise lagoon",
+    wears: "lido-stripe-swim-short-saffron",
+  },
+  {
+    time: "Midday",
+    title: "Out on the catamaran",
+    text: "Off the west coast, spinner dolphins come up to ride the bow while everyone crowds onto the net to watch.",
+    image: "/images/day-catamaran.jpg",
+    alt: "Friends on the net of a catamaran watching spinner dolphins leap off the bow",
+    wears: "cabana-linen-shirt-sky",
+  },
+  {
+    time: "Afternoon",
+    title: "Over the reef",
+    text: "Mask on, face down, drifting over coral and shoals of reef fish in water as clear as glass.",
+    image: "/images/day-reef.jpg",
+    alt: "A snorkeller floating over a coral reef in clear turquoise water, sunlight falling in rays",
+    wears: "tidal-swim-short-red",
+  },
+  {
+    time: "Sunset",
+    title: "The sundowner",
+    text: "The day ends barefoot at a beach bar, a local DJ on the decks and a cocktail in hand.",
+    image: "/images/day-sundowner.jpg",
+    alt: "Friends with cocktails at a beach bar at sunset while a local DJ plays under festoon lights",
+    wears: "cabana-hoodie-oat",
+  },
+];
 
 export default function AboutPage() {
   return (
@@ -156,18 +194,50 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="theme-red">
-        <div className="container-x grid gap-8 py-16 md:grid-cols-3 md:py-24">
-          {[
-            { k: "Founded", v: String(site.foundedYear) },
-            { k: "Made in", v: "Mauritius" },
-            { k: "Pledge", v: `${pledgePercentLabel()} of every sale` },
-          ].map((s) => (
-            <div key={s.k} className="border-t border-ink pt-4">
-              <p className="eyebrow">{s.k}</p>
-              <p className="mt-2 font-serif text-3xl">{s.v}</p>
+      {/* The life that made it: one day on the island, from first wind to last light. */}
+      <section id="the-life" className="theme-red scroll-mt-24">
+        <div className="container-x py-16 md:py-24">
+          <div className="grid gap-8 md:grid-cols-12 md:items-end">
+            <div className="md:col-span-6">
+              <p className="eyebrow mb-4">The life that made it</p>
+              <h2 className="display text-4xl md:text-6xl">
+                In Mauritius, the luxury is time <em className="italic">outside</em>.
+              </h2>
             </div>
-          ))}
+            <p className="text-base leading-relaxed text-ink-2 md:col-span-5 md:col-start-8 md:text-lg">
+              On an island ringed by reef, lagoon and mountain, the best days are the ones spent in it, with friends, from the first wind to
+              the last light. Vis Naturæ is made for that day: shorts that dry on the boat, linen for the deck, a hoodie for when the sun drops.
+            </p>
+          </div>
+
+          {/* Each moment spans five rows of a shared subgrid, so photos, titles, text and links line up across the columns. */}
+          <ol className="mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-16 xl:grid-cols-4">
+            {day.map((m) => {
+              const worn = getProduct(m.wears);
+              return (
+                <li key={m.time} className="row-span-5 grid grid-rows-subgrid gap-y-0">
+                  <div className="image-frame aspect-[4/5]">
+                    <Image src={m.image} alt={m.alt} fill unoptimized sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+                  </div>
+                  <p className="eyebrow mt-5">{m.time}</p>
+                  <h3 className="mt-2 font-serif text-2xl md:text-3xl">{m.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-2">{m.text}</p>
+                  {worn ? (
+                    <Link href={`/product/${worn.slug}`} className="eyebrow !text-ink link-underline mt-4 inline-flex items-center gap-2 self-start justify-self-start">
+                      Worn: {worn.name}
+                      <ArrowIcon width={14} height={14} />
+                    </Link>
+                  ) : (
+                    <span />
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+
+          <p className="eyebrow mt-14 border-t border-line pt-5">
+            Founded {site.foundedYear} · Made in Mauritius · {pledgePercentLabel()} of every sale to conservation
+          </p>
         </div>
       </section>
     </>

@@ -50,9 +50,9 @@ const getToday = () => {
 const getTodayServer = () => "";
 
 /**
- * Site header. On the homepage it floats transparent, in white, over the
- * full-screen hero and turns solid (with the announcement bar) once the hero
- * has scrolled away. Everywhere else it is the usual sticky white bar.
+ * Site header. On the pages that open on a full-screen hero (the homepage film, the /men slider, the /stories slides)
+ * it floats transparent, in white, over the hero and turns solid (with the announcement bar)
+ * once the hero has scrolled away. Everywhere else it is the usual sticky white bar.
  */
 export function Header() {
   const { count, open, hydrated } = useCart();
@@ -77,8 +77,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [seenPath, setSeenPath] = useState(pathname);
 
-  const home = pathname === "/";
-  const overlay = home && !scrolled && !menuOpen && !mega;
+  const hero = pathname === "/" || pathname === "/men" || pathname === "/women" || pathname === "/stories";
+  const overlay = hero && !scrolled && !menuOpen && !mega;
 
   // Close any open menu when the route changes (state adjustment during render, per React docs).
   if (seenPath !== pathname) {
@@ -99,7 +99,7 @@ export function Header() {
 
   // Solid once the hero (100svh) is almost gone.
   useEffect(() => {
-    if (!home) return;
+    if (!hero) return;
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -108,11 +108,11 @@ export function Header() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [home]);
+  }, [hero]);
 
   return (
     <header
-      className={`${home ? "fixed inset-x-0" : "sticky"} top-0 z-40 border-b transition-[background-color,border-color,color] duration-300 ${
+      className={`${hero ? "fixed inset-x-0" : "sticky"} top-0 z-40 border-b transition-[background-color,border-color,color] duration-300 ${
         overlay ? "border-transparent bg-transparent text-white" : "border-line bg-paper/90 text-ink backdrop-blur"
       }`}
       style={{ "--hdr-fg": overlay ? "#ffffff" : "var(--ink)" } as CSSProperties}
@@ -137,12 +137,12 @@ export function Header() {
           >
             {menuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
-          <nav className="hidden md:flex items-center gap-7" aria-label="Primary">
+          <nav className="hidden md:flex items-center gap-7 min-[1440px]:gap-5" aria-label="Primary">
             {nav.primary.map((item) => (
-              // The brand pages only fit beside the centred wordmark on wide screens.
+              // The brand pages only fit beside the centred wordmark on wide screens, a little closer together.
               <div
                 key={item.href}
-                className={`relative items-center ${isShop(item.mega) ? "flex" : "hidden min-[1400px]:flex"}`}
+                className={`relative items-center ${isShop(item.mega) ? "flex" : "hidden min-[1440px]:flex"}`}
                 onMouseEnter={() => openMega(item.mega)}
                 onMouseLeave={closeMega}
               >

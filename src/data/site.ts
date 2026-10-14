@@ -1,3 +1,5 @@
+import type { Story } from "@/components/StoryCopy";
+
 export const site = {
   name: "Vis Naturæ",
   nameAscii: "Vis Naturae",
@@ -68,7 +70,7 @@ export const categories = [
     short: "Trousers",
     description: "Chinos and linen trousers, cut clean and sized by the waist.",
     image: "/products/quayside-chino-stone.jpg?v=3",
-    scene: "/products/quayside-chino-stone-model.jpg?v=3",
+    scene: "/images/shop/trousers.jpg",
   },
   {
     slug: "outerwear-accessories",
@@ -89,6 +91,57 @@ export const categories = [
 ] as const;
 
 export type CategorySlug = (typeof categories)[number]["slug"];
+
+/**
+ * The story tile set into each category's listing grid, as ralphlauren.com sets stories into its
+ * product grids. `women` marks the ones whose picture also suits the women's listing.
+ */
+export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }> = {
+  swim: {
+    eyebrow: "Made to order",
+    title: "Cut once you order it",
+    image: "/images/campaign-swim.jpg",
+    alt: "A man in navy swim shorts walking out of the lagoon at dawn",
+    links: [{ label: "How it works", href: "/made-to-order" }],
+  },
+  "polos-knitwear": {
+    eyebrow: "The Clubhouse",
+    title: "Knits for the last nine",
+    image: "/images/campaign-golf.jpg",
+    alt: "Two golfers in Vis Naturæ knitwear on a seaside fairway at golden hour",
+    links: [{ label: "Shop the edit", href: "/shop/edit/clubhouse" }],
+  },
+  "shirts-trousers": {
+    eyebrow: "The Cabana Stripe",
+    title: "One stripe, three ways",
+    image: "/images/campaign-linen.jpg?v=9",
+    alt: "Two men in linen shirts at the end of a long lunch by the lagoon",
+    links: [{ label: "Shop the edit", href: "/shop/edit/cabana" }],
+  },
+  trousers: {
+    eyebrow: "Linen",
+    title: "Shirts to go with them",
+    image: "/images/shop/grid-trousers.jpg",
+    alt: "A man in navy tailored linen trousers and the oat linen shirt on a terrace at Grand Baie",
+    links: [{ label: "Shop linen", href: "/shop/shirts-trousers" }],
+  },
+  "outerwear-accessories": {
+    eyebrow: "Tone on tone",
+    title: "The Badger",
+    image: "/images/shop/grid-accessories.jpg",
+    alt: "A woman in the ecru and navy cap and white ribbed socks on the steps of a veranda",
+    links: [{ label: "Shop the edit", href: "/shop/edit/badger" }],
+    women: true,
+  },
+  sunglasses: {
+    eyebrow: "Alizé",
+    title: "Named for the trade wind",
+    image: "/images/shop/grid-sunglasses.jpg",
+    alt: "A woman in the tortoiseshell Alizé sunglasses on the deck of a catamaran",
+    links: [{ label: "How it works", href: "/made-to-order" }],
+    women: true,
+  },
+};
 
 export type AudienceSlug = "men" | "women";
 
@@ -223,6 +276,7 @@ export const nav = {
     { label: "Women", href: "/women", mega: "women" },
     { label: "Made to order", href: "/made-to-order", mega: "made-to-order" },
     { label: "Conservation", href: "/conservation", mega: "conservation" },
+    { label: "Stories", href: "/stories", mega: "stories" },
     { label: "About", href: "/about", mega: "about" },
   ] as const,
   footer: {
@@ -236,6 +290,7 @@ export const nav = {
       { label: "About", href: "/about" },
       { label: "Made to order", href: "/made-to-order" },
       { label: "Conservation", href: "/conservation" },
+      { label: "Stories", href: "/stories" },
       { label: "Contact", href: "/contact" },
       /** Static page in public/pitch.html, served at /pitch; `plain` renders an <a> instead of a Link. */
       { label: "Partners & press", href: "/pitch", plain: true },
