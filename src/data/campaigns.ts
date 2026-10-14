@@ -51,7 +51,7 @@ export const campaigns: Campaign[] = [
   },
   {
     key: "linen",
-    title: "Linen",
+    title: "Shirts",
     text: "Linen shirts that are allowed to crease.",
     image: "/images/campaign-linen.jpg?v=9",
     alt: "Lunch on the sand under a sea almond tree by the lagoon, wine poured in sky and clementine linen shirts",

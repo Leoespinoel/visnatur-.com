@@ -60,11 +60,11 @@ export default function ShopLandingPage() {
       links: [{ label: "Shop swim", href: "/shop/swim" }],
     },
     {
-      eyebrow: "Linen",
+      eyebrow: "Shirts",
       title: "Allowed to crease",
       image: "/images/women/linen.jpg",
       alt: "A woman in a pink striped linen shirt and white linen trousers at a market",
-      links: [{ label: "Shop linen", href: "/shop/shirts-trousers" }],
+      links: [{ label: "Shop shirts", href: "/shop/shirts-trousers" }],
     },
     editStory("clubhouse"),
     editStory("rugby"),

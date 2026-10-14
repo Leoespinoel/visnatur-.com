@@ -39,8 +39,8 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     key: "linen",
-    label: "Linen",
-    title: "Linen",
+    label: "Shirts",
+    title: "Shirts",
     text: "Washed linen that is allowed to crease.",
     cta: { label: "Explore now", href: "/men/shirts-trousers" },
     image: "/images/campaign-linen.jpg?v=9",
@@ -65,7 +65,7 @@ export const heroSlides: HeroSlide[] = [
 
 const cat = (slug: string) => categories.find((c) => c.slug === slug)!;
 
-/** Column order: Swim over Trousers, Linen (tall), Knitwear (tall), Accessories over Sunglasses. */
+/** Column order: Swim over Trousers, Shirts (tall), Knitwear (tall), Accessories over Sunglasses. */
 export const categoryTiles: [MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile] = [
   { label: cat("swim").name, href: "/men/swim", image: "/images/beach-surfer.jpg?v=2", alt: "A surfer on the beach at sunset in sky striped swim shorts and an oat linen shirt" },
   { label: cat("trousers").name, href: "/men/trousers", image: "/images/men/cat-trousers.jpg", alt: "A stack of folded chinos in seven colours on a teak table" },

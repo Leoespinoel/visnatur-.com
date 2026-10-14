@@ -2,7 +2,7 @@
  * The /women landing page, built like /men (src/data/men.ts) after ralphlauren.com/men: hero slider,
  * the pieces, the stories, a full-bleed banner, our favourites, more to explore. Women's pieces are
  * the ones cut for anyone (hoodies, caps, socks, sunglasses) until pieces cut for women follow, so the
- * tiles point at designs rather than at the empty Swim, Linen and Trousers listings. Every women's
+ * tiles point at designs rather than at the empty Swim, Shirts and Trousers listings. Every women's
  * piece is at /women/all.
  */
 import type { BannerSlide } from "@/components/landing/BannerSlider";

@@ -58,8 +58,8 @@ export const categories = [
   },
   {
     slug: "shirts-trousers",
-    name: "Linen",
-    short: "Linen",
+    name: "Shirts",
+    short: "Shirts",
     description: "Linen shirts that are allowed to crease.",
     image: "/products/riviera-linen-shirt-sky.jpg?v=3",
     scene: "/images/summit.jpg?v=2",
@@ -119,11 +119,11 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
     links: [{ label: "Shop the edit", href: "/shop/edit/cabana" }],
   },
   trousers: {
-    eyebrow: "Linen",
-    title: "Shirts to go with them",
+    eyebrow: "Shirts",
+    title: "To go with them",
     image: "/images/shop/grid-trousers.jpg",
     alt: "A man in navy tailored linen trousers and the oat linen shirt on a terrace at Grand Baie",
-    links: [{ label: "Shop linen", href: "/shop/shirts-trousers" }],
+    links: [{ label: "Shop shirts", href: "/shop/shirts-trousers" }],
   },
   "outerwear-accessories": {
     eyebrow: "Tone on tone",
@@ -164,7 +164,7 @@ export const audiences: {
     slug: "men",
     name: "Men",
     explore: "Explore for him",
-    lede: "Swim, knitwear, linen, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
+    lede: "Swim, knitwear, shirts, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
     scenes: Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>,
   },
   {
