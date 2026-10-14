@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Vis Naturæ for co-founders, investors and press: a made-to-order resort label for men and women, made in Mauritius in the buyer's size, 10% of every sale price to conservation.">
+<meta name="description" content="Vis Naturæ for media, conservation partners, manufacturers and investors: a made-to-order resort label for men and women, made in Mauritius in the buyer's size, 10% of every sale price to conservation.">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vis Naturæ">
 <meta property="og:title" content="Vis Naturæ · Partners & press">
-<meta property="og:description" content="Nothing is made until you ask for it. The model, the range, the pledge and the ask, for the people who might build it with us, back it, or write about it.">
+<meta property="og:description" content="Nothing is made until you ask for it. The model, the range, the pledge and the ask, for the people who might write about it, put its ten percent to work, make it, or back it.">
 <meta property="og:image" content="/film/poster-landscape.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/icon">
@@ -174,7 +174,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .steps p + p { margin-top: 0.5rem; color: var(--fg-2); font-size: 0.8125rem; }
 .steps h3 + p { margin-top: 0.5rem; color: var(--fg-2); font-size: 0.8125rem; }
 .cards { display: grid; gap: 0.5rem; }
-@media (min-width: 48rem) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 48rem) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } .cards.two-up, .cards.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 80rem) { .cards.four { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .card { background: var(--bg-2); padding: 1.5rem; display: flex; flex-direction: column; gap: 0.625rem; }
 .card h3 { font-family: var(--font-serif); font-weight: 400; font-size: 1.625rem; line-height: 1.05; }
 .card p { font-size: 0.875rem; color: var(--fg-2); }
@@ -213,7 +214,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (min-width: 40rem) { .flats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 64rem) { .flats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .flat { background: var(--bg-2); border: 1px solid var(--line); }
-@media (min-width: 64rem) { .flats.six { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.flats.cats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 64rem) { .flats.six { grid-template-columns: repeat(5, minmax(0, 1fr)); } .flats.cats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 80rem) { .flats.cats { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 .flat .img { aspect-ratio: 4 / 5; overflow: hidden; position: relative; }
 .flat .img img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease; }
 .flat:hover .img img { transform: scale(1.03); }
@@ -341,7 +344,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 <header class="top">
   <div class="wrap">
     <a class="wordmark" href="#c01" aria-label="Vis Naturæ, back to the cover">VIS NATUR<span class="ae">Æ</span></a>
-    <p class="eyebrow mid">The pitch · For co-founders, investors and media</p>
+    <p class="eyebrow mid">The pitch · For media, conservation partners, manufacturers and investors</p>
     <div class="right">
       <p class="eyebrow counter num" aria-live="polite"><span id="cur">01</span><span>/</span><span id="tot">26</span></p>
       <button class="chip" type="button" id="indexBtn" aria-expanded="false" aria-controls="index">Index</button>
@@ -361,9 +364,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   <!-- 01 Cover -->
   <section class="slide cover" id="c01" data-title="Cover" data-short="Cover">
     <div class="wrap">
-      <p class="eyebrow">For co-founders, investors and media · October 2026</p>
+      <p class="eyebrow">For media, conservation partners, manufacturers and investors · October 2026</p>
       <p class="mark">VIS NATUR<span class="ae">Æ</span></p>
-      <h1 class="sub">Outside, a menswear label. Inside, a force of nature.</h1>
+      <h1 class="sub">Outside, a resort label for men and women. Inside, a force of nature.</h1>
       <p class="body">Every design stays on sale, and every piece is made in Mauritius, in the buyer's size, once it is ordered. Ten percent of every sale price goes to conservation. Nothing is made until you ask for it.</p>
       <a class="next" href="#c02"><span class="eyebrow">Scroll, or press →</span><span>Start here</span></a>
     </div>
@@ -378,12 +381,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       </div>
       <div class="grid">
         <div class="c5 body lede">
-          <p>The site is built, the range is specified and the model is set. What it needs now is the people who complete it. This page is addressed to three of them, in no particular order.</p>
+          <p>The site is built, the range is specified and the model is set. What it needs now is the people who complete it. This page is addressed to four of them, in no particular order.</p>
         </div>
-        <div class="off7 cards">
-          <div class="card"><h3>Co-founders</h3><p>A partner in product or operations, with as much creative input as the founder has. Someone who would rather make fewer things well.</p></div>
-          <div class="card"><h3>Investors</h3><p>No round is open and no figure is set. If made to order, provenance and a fixed pledge interest you, the conversation starts before a round exists.</p></div>
+        <div class="off7 cards two-up">
           <div class="card"><h3>Media</h3><p>Writers, photographers and filmmakers who want the story early, with the facts straight and the imagery labelled honestly.</p></div>
+          <div class="card"><h3>Conservation partners</h3><p>Organisations restoring reefs, native forest and rivers. A fixed ten percent of every sale price, set aside at checkout, and your work filmed with the same care as the clothes.</p></div>
+          <div class="card"><h3>Manufacturers</h3><p>Workshops in Mauritius that cut and sew to order, each piece in the buyer's size, finished inside as well as out. Steady orders, never stock.</p></div>
+          <div class="card"><h3>Investors</h3><p>No round is open and no figure is set. If made to order, provenance and a fixed pledge interest you, the conversation starts before a round exists.</p></div>
         </div>
         <div class="c12">
           <p class="eyebrow" style="margin-bottom:0.75rem">Still open, on purpose</p>
@@ -417,7 +421,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
             <li><b>Production.</b><span>Factory conversations in Mauritius are already underway through people I know.</span></li>
             <li><b>Reach.</b><span>Military service and years in Europe. A brand has to travel beyond its first market.</span></li>
             <li><b>Already carried.</b><span>The taste lens, the range, the model, the site, the films and the maker relationship in Mauritius.</span></li>
-            <li><b>One seat, one voice.</b><span>The same as every other founder at this table.</span></li>
+            <li><b>Partners, not suppliers.</b><span>The workshop, the conservation partners and the press each get a real say in their part.</span></li>
           </ul>
         </div>
       </div>
@@ -434,7 +438,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       </div>
       <div class="grid">
         <div class="c5 body lede">
-          <p>Vis Naturæ is Latin for force of nature. It is a menswear and resort label in the register of Aimé Leon Dore, Vilebrequin and Ralph Lauren: swim, polos, linen, knit, a field jacket. The clothes earn the attention. The conservation is what people find when they look closer.</p>
+          <p>Vis Naturæ is Latin for force of nature. It is a resort label for men and women in the register of Aimé Leon Dore, Vilebrequin and Ralph Lauren: swim, linen, knitwear, trousers, caps and sunglasses. The clothes earn the attention. The conservation is what people find when they look closer.</p>
         </div>
         <div class="off7">
           <ul class="rows">
@@ -442,6 +446,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
             <li><b>Made for one person.</b><span>Every piece is cut and sewn in its owner's size after the order. Nothing is waiting on a rail for anyone else. That is a luxury signal independent of price.</span></li>
             <li><b>Small branding.</b><span>Silhouette and fabric carry it. The mark stays small. The warmest compliment is "where did you get that?"</span></li>
             <li><b>Made for somewhere.</b><span>Clothes made for the sea and the sun borrow everything from the places they are worn in. Ours are made on an island in the Indian Ocean.</span></li>
+            <li><b>For men and women.</b><span>A Men and a Women shop from the first day. The hoodies, caps, socks and sunglasses are cut for anyone. The first pieces cut for women follow in the next collection.</span></li>
           </ul>
         </div>
       </div>
@@ -490,7 +495,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <p>We started with a question: what would a clothing brand look like if it refused to make anything nobody wanted? The answer was slower, and better. No stock. No sales. No seasons thrown away.</p>
         </div>
         <div class="off8 body">
-          <p>The pieces are the ones we wanted and could not find. Swim shorts in a clean cut. A piqué polo heavy enough to hold its collar. Linen that is allowed to crease. A field jacket you will re-wax rather than replace.</p>
+          <p>The pieces are the ones we wanted and could not find. Swim shorts in a clean cut. Linen that is allowed to crease. Knitwear for the drive home. A hoodie, a cap and a pair of sunglasses cut for anyone.</p>
         </div>
       </div>
       <a class="next" href="#c07"><span class="eyebrow">Next</span><span>How does it work?</span></a>
@@ -534,8 +539,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <p>The pattern and the sampling are paid once per design. With no cap, every further order carries that cost further, instead of the design being retired just as it finds its buyers. It keeps the price where a great product should sit, and still nothing is made before it is ordered.</p>
         </div>
         <div class="c12 stats" role="list" aria-label="Made-to-order economics, targets">
-          <div class="stat" role="listitem"><p class="v num">€154</p><p class="k">Average price per colourway</p><p class="sub">From a €75 cap to a €185 quarter zip</p></div>
-          <div class="stat" role="listitem"><p class="v num">27</p><p class="k">Colourways at launch</p><p class="sub">Five designs, every colour on sale all year</p></div>
+          <div class="stat" role="listitem"><p class="v num">€160</p><p class="k">Average price per colourway</p><p class="sub">From a €30 sock to a €225 knit jacket</p></div>
+          <div class="stat" role="listitem"><p class="v num">195</p><p class="k">Colourways in Collection I</p><p class="sub">Twenty-four styles, every colour on sale all year</p></div>
           <div class="stat" role="listitem"><p class="v num">0</p><p class="k">Pieces made before they are ordered</p><p class="sub">No stock, no sale, no landfill</p></div>
           <div class="stat" role="listitem"><p class="v num">10%</p><p class="k">Of every sale price to conservation</p><p class="sub">Before shipping and tax</p></div>
         </div>
@@ -550,35 +555,33 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <div class="wrap">
       <div class="head">
         <p class="eyebrow"><span class="num">09</span> · The range</p>
-        <h2 class="headline h">Five designs. <em>Twenty-seven</em> colours.</h2>
+        <h2 class="headline h">Twenty-four styles, <em>for</em> men and women.</h2>
       </div>
-      <p class="eyebrow">The launch range · every colourway made to order · price</p>
-      <div class="flats six">
-        <figure class="flat"><div class="img"><img src="products/tidal-swim-short-navy.jpg" alt="Tidal Swim Short" width="1200" height="1500" loading="lazy"><span class="tag">7 colours</span></div><figcaption class="cap"><span>Tidal Swim Short</span><span class="price num">€165</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/shore-swim-short-pine-ecru.jpg" alt="Shore Swim Short" width="1200" height="1500" loading="lazy"><span class="tag">2 colours</span></div><figcaption class="cap"><span>Shore Swim Short</span><span class="price num">€175</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/riviera-linen-shirt-oat.jpg" alt="Riviera Linen Shirt" width="1200" height="1500" loading="lazy"><span class="tag">6 colours</span></div><figcaption class="cap"><span>Riviera Linen Shirt</span><span class="price num">€165</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/harbour-quarter-zip-navy.jpg" alt="Harbour Quarter Zip" width="1200" height="1500" loading="lazy"><span class="tag">6 colours</span></div><figcaption class="cap"><span>Harbour Quarter Zip</span><span class="price num">€185</span></figcaption></figure>
-        <figure class="flat"><div class="img"><img src="products/marram-cap-ecru-pine.jpg" alt="Marram Cap" width="1200" height="1500" loading="lazy"><span class="tag">7 colours</span></div><figcaption class="cap"><span>Marram Cap</span><span class="price num">€75</span></figcaption></figure>
+      <p class="eyebrow">Collection I · six categories · every colourway made to order · price</p>
+      <div class="flats cats">
+        <figure class="flat"><div class="img"><img src="products/lido-stripe-swim-short-sky.jpg" alt="Lido Stripe Swim Short in sky" width="1200" height="1500" loading="lazy"><span class="tag">3 styles</span></div><figcaption class="cap"><span>Swim</span><span class="price num">€165–175</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/riviera-hoodie-navy.jpg" alt="Riviera Hoodie in navy" width="1200" height="1500" loading="lazy"><span class="tag">10 styles</span></div><figcaption class="cap"><span>Knitwear</span><span class="price num">€165–225</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/cabana-linen-shirt-clementine.jpg" alt="Cabana Linen Shirt in clementine" width="1200" height="1500" loading="lazy"><span class="tag">3 styles</span></div><figcaption class="cap"><span>Linen</span><span class="price num">€165–175</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/quayside-chino-stone.jpg" alt="Quayside Chino in stone" width="1200" height="1500" loading="lazy"><span class="tag">3 styles</span></div><figcaption class="cap"><span>Trousers</span><span class="price num">€165–185</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/marram-cap-ecru-sky.jpg" alt="Marram Cap in ecru and sky" width="1200" height="1500" loading="lazy"><span class="tag">4 styles</span></div><figcaption class="cap"><span>Accessories</span><span class="price num">€30–85</span></figcaption></figure>
+        <figure class="flat"><div class="img"><img src="products/alize-sunglasses-tortoise.jpg" alt="Alizé Sunglasses in tortoise" width="1200" height="1500" loading="lazy"><span class="tag">1 style</span></div><figcaption class="cap"><span>Sunglasses</span><span class="price num">€165</span></figcaption></figure>
       </div>
-      <div class="strip" aria-label="More colourways">
-        <figure><div class="ph"><img src="products/tidal-swim-short-saffron.jpg" alt="Tidal Swim Short Saffron" width="1200" height="1500" loading="lazy"></div><figcaption>saffron</figcaption></figure>
-        <figure><div class="ph"><img src="products/tidal-swim-short-lagoon.jpg" alt="Tidal Swim Short Lagoon" width="1200" height="1500" loading="lazy"></div><figcaption>lagoon</figcaption></figure>
-        <figure><div class="ph"><img src="products/tidal-swim-short-hibiscus.jpg" alt="Tidal Swim Short Hibiscus" width="1200" height="1500" loading="lazy"></div><figcaption>hibiscus</figcaption></figure>
-        <figure><div class="ph"><img src="products/shore-swim-short-red-ecru.jpg" alt="Shore Swim Short Red Ecru" width="1200" height="1500" loading="lazy"></div><figcaption>red / ecru</figcaption></figure>
-        <figure><div class="ph"><img src="products/riviera-linen-shirt-sky.jpg" alt="Riviera Linen Shirt Sky" width="1200" height="1500" loading="lazy"></div><figcaption>sky</figcaption></figure>
-        <figure><div class="ph"><img src="products/riviera-linen-shirt-clementine.jpg" alt="Riviera Linen Shirt Clementine" width="1200" height="1500" loading="lazy"></div><figcaption>clementine</figcaption></figure>
-        <figure><div class="ph"><img src="products/harbour-quarter-zip-forest.jpg" alt="Harbour Quarter Zip Forest" width="1200" height="1500" loading="lazy"></div><figcaption>forest</figcaption></figure>
-        <figure><div class="ph"><img src="products/harbour-quarter-zip-mustard.jpg" alt="Harbour Quarter Zip Mustard" width="1200" height="1500" loading="lazy"></div><figcaption>mustard</figcaption></figure>
-        <figure><div class="ph"><img src="products/marram-cap-ecru-red.jpg" alt="Marram Cap Ecru Red" width="1200" height="1500" loading="lazy"></div><figcaption>ecru / red</figcaption></figure>
-        <figure><div class="ph"><img src="products/marram-cap-ecru-pine.jpg" alt="Marram Cap Ecru Pine" width="1200" height="1500" loading="lazy"></div><figcaption>ecru / pine</figcaption></figure>
+      <p class="eyebrow">Cut for anyone · sold in the Men and the Women shop</p>
+      <div class="strip" aria-label="Pieces cut for anyone, worn by women">
+        <figure><div class="ph"><img src="images/women/knitwear.jpg" alt="A woman on a harbour wall in the Cabana Hoodie in sky stripe" width="1200" height="1500" loading="lazy"></div><figcaption>Cabana Hoodie</figcaption></figure>
+        <figure><div class="ph"><img src="images/women/riviera-hoodie.jpg" alt="A woman on a veranda above tea fields in the Riviera Hoodie in sage" width="1200" height="1500" loading="lazy"></div><figcaption>Riviera Hoodie</figcaption></figure>
+        <figure><div class="ph"><img src="images/women/accessories.jpg" alt="A woman in a boat wearing the Marram Cap in ecru and navy" width="1200" height="1500" loading="lazy"></div><figcaption>Marram Cap</figcaption></figure>
+        <figure><div class="ph"><img src="images/women/burrow-sock.jpg" alt="A woman on the deck of a sailing boat in white Burrow Socks and loafers" width="1200" height="1500" loading="lazy"></div><figcaption>Burrow Sock</figcaption></figure>
+        <figure><div class="ph"><img src="images/women/sunglasses.jpg" alt="A woman on the rocks by the sea in Alizé Sunglasses" width="1200" height="1500" loading="lazy"></div><figcaption>Alizé Sunglasses</figcaption></figure>
       </div>
       <div class="grid">
         <div class="c6 body">
-          <p>Swim shorts in solids and colour-block, a linen shirt and a quarter zip with the badger small on the chest, and a six-panel cap with the name in script. Every colour stays on sale, and each piece is made in the buyer's size after the order.</p>
+          <p>Swim shorts, linen shirts and trousers, ten knitwear styles from quarter zips to rugby shirts and hoodies, three caps, a sock and a pair of sunglasses, each with the badger or the VN script kept small. Every colour stays on sale, and each piece is made in the buyer's size after the order.</p>
+          <p><strong>For men and women.</strong> The hoodies, caps, socks and sunglasses are cut for anyone and sold in both shops. The first pieces cut for women follow in the next collection.</p>
         </div>
         <div class="off8 body">
-          <p>Prices run from €75 to €185 and never change. Free shipping across Europe over €150, otherwise €15 flat. We ship to the EU, EEA, Switzerland and the UK.</p>
-          <p class="caption" style="margin-top:0.75rem">Product renders. Photography follows the first samples.</p>
+          <p>Prices run from €30 to €225 and never change. Free shipping across Europe over €150, otherwise €15 flat. We ship to the EU, EEA, Switzerland and the UK.</p>
+          <p class="caption" style="margin-top:0.75rem">Product renders. Lifestyle images are AI-generated previsualisation. Photography follows the first samples.</p>
         </div>
       </div>
       <a class="next" href="#c10"><span class="eyebrow">Next</span><span>Where is it made?</span></a>
@@ -879,7 +882,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <h3>Done</h3>
           <ul class="status">
             <li class="done"><span class="mk">Æ</span><span>Site built on Next.js with Shopify checkout. Every design is made to order in the buyer's size.</span></li>
-            <li class="done"><span class="mk">Æ</span><span>Five designs in twenty-seven colourways, rendered, priced and live on the site.</span></li>
+            <li class="done"><span class="mk">Æ</span><span>Twenty-four styles in 195 colourways, rendered, priced and live, in a Men and a Women shop.</span></li>
+            <li class="done"><span class="mk">Æ</span><span>A measurement sheet for every style, ready for the workshop (see the appendix).</span></li>
             <li class="done"><span class="mk">Æ</span><span>The pledge is shown on every piece, so anyone can do the sum.</span></li>
             <li class="done"><span class="mk">Æ</span><span>Three films scripted. Two in production, cut one approved clip at a time.</span></li>
             <li class="done"><span class="mk">Æ</span><span>The mark, the palette, the pledge mechanics, shipping, returns, remake and repair policies.</span></li>
@@ -890,6 +894,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <ul class="status">
             <li><span class="mk">–</span><span>Maker quotes from Mauritius: one piece, twelve pieces, pattern per design.</span></li>
             <li><span class="mk">–</span><span>First samples, then real photography. Everything shown here is a render or a previsualisation.</span></li>
+            <li><span class="mk">–</span><span>The first pieces cut for women: patterns, fit and samples.</span></li>
             <li><span class="mk">–</span><span>Conservation partners named and agreements signed.</span></li>
             <li><span class="mk">–</span><span>Legal entity, terms reviewed, trademark clearance for the Æ mark.</span></li>
             <li><span class="mk">–</span><span>Vector version of the logo, order emails and a mailing-list provider.</span></li>
@@ -910,7 +915,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       <ol class="road">
         <li><p class="yr">Q4 2026</p><p class="lbl">Launch</p><ul><li>Maker quotes in, prices confirmed</li><li>First samples photographed</li><li>Range opens for orders (date placeholder)</li><li>First orders cut and sewn in Mauritius</li></ul></li>
         <li><p class="yr">Q1 2027</p><p class="lbl">Proof</p><ul><li>First orders delivered</li><li>Partners named, first transfer published</li><li>Brand film released</li><li>Flats replaced by photography</li></ul></li>
-        <li><p class="yr">Q2 2027</p><p class="lbl">Rhythm</p><ul><li>New designs added for summer</li><li>Outerwear added, made to order like the rest</li><li>Weekly story cadence settled</li><li>Second season report</li></ul></li>
+        <li><p class="yr">Q2 2027</p><p class="lbl">Rhythm</p><ul><li>The first pieces cut for women, and the campaign to match</li><li>New designs added for summer</li><li>Outerwear added, made to order like the rest</li><li>Weekly story cadence settled</li><li>Second season report</li></ul></li>
         <li><p class="yr">2028</p><p class="lbl">Scale, slowly</p><ul><li>A year of new designs and stories planned by week</li><li>Episodes from each partner's place</li><li>Workshop capacity grown with orders, never ahead of them</li></ul></li>
       </ol>
       <p class="caption">Intent, not commitment. Dates move with the maker and the partners.</p>
@@ -947,13 +952,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
       </div>
       <ul class="risks">
         <li class="risk"><p class="k">Answers 01</p><h3>Quote before launch, price after.</h3><p>Nothing opens until the three quotes are in. If the quotes say the price is wrong, the price moves before launch, and the page says so.</p></li>
-        <li class="risk"><p class="k">Answers 02</p><h3>Patterns only where they are earned.</h3><p>Five designs at launch, every colour made to order. Nothing is made before it is ordered, so a design that draws few orders costs a pattern, not stock. New patterns go to the designs that earn them.</p></li>
+        <li class="risk"><p class="k">Answers 02</p><h3>Patterns only where they are earned.</h3><p>Twenty-four styles at launch, every colour made to order. Nothing is made before it is ordered, so a style that draws few orders costs a pattern, not stock. New patterns go to the styles that earn them.</p></li>
         <li class="risk"><p class="k">Answers 03</p><h3>One piece at a time, no shortcuts.</h3><p>Refit every block per fabric. Release nothing until the sample holds up. The hidden details are the test: if the inside is not worth finding, it is not ready.</p></li>
         <li class="risk"><p class="k">Answers 04</p><h3>Price the distance in.</h3><p>The €20 shipping gap sits inside the margin target. Duties are stated on every page. Sizing guidance and the remake policy are written to make the second crossing rare.</p></li>
         <li class="risk"><p class="k">Answers 05</p><h3>Proof built in.</h3><p>Ten percent set aside at checkout, held in its own account, named partners before the first transfer, published every season.</p></li>
-        <li class="risk"><p class="k">Answers 06</p><h3>A seat beside the founder.</h3><p>This page exists to fill it. Product or operations, with real time and a real say. Until then, the calendar is sized to one person and says so.</p></li>
+        <li class="risk"><p class="k">Answers 06</p><h3>Partners carry their part.</h3><p>The workshop runs the making, the conservation partners run the projects and the press tells the story. The founder keeps the taste and the numbers. Until those partnerships are signed, the calendar is sized to one person and says so.</p></li>
       </ul>
-      <a class="next" href="#c23"><span class="eyebrow">Next</span><span>And who sits beside the founder?</span></a>
+      <a class="next" href="#c23"><span class="eyebrow">Next</span><span>So who is at the table?</span></a>
     </div>
   </section>
 
@@ -965,13 +970,27 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
         <h2 class="headline h">One seat taken, <em>the rest</em> open.</h2>
       </div>
       <p class="body lede">Nobody is assigned a seat. Each person says what they can give and takes the one that matches. Every term below is a starting point, to be agreed in the room.</p>
-      <div class="cards">
+      <div class="cards four">
         <div class="card">
-          <h3>The co-founder seat</h3>
+          <h3>The media seat</h3>
           <p class="lbl">What it asks</p>
-          <ul><li>Real time, alongside the founder</li><li>An area that is yours to run: product or operations</li><li>The same taste test on every piece</li></ul>
+          <ul><li>Your eye and your voice: the story, the imagery, the reach</li><li>Honesty about what is previsualisation and what is real</li></ul>
           <p class="lbl">What it gives</p>
-          <ul><li>A founding share, earned over time so what you hold matches what you put in</li><li>An equal say in the brand and its direction</li></ul>
+          <ul><li>Early access to new designs, the atelier and the partners' places</li><li>The story first, with the facts straight and the imagery labelled honestly</li></ul>
+        </div>
+        <div class="card">
+          <h3>The conservation seat</h3>
+          <p class="lbl">What it asks</p>
+          <ul><li>A remit we can name: reef, native forest or rivers</li><li>Projects we can film and outcomes we can count</li><li>Audited accounts, so every transfer can be traced</li></ul>
+          <p class="lbl">What it gives</p>
+          <ul><li>Ten percent of every sale price, set aside at checkout in its own account</li><li>Your work filmed with the same director and grade as the clothes</li><li>A seasonal report, published: raised, transferred, outcomes</li></ul>
+        </div>
+        <div class="card">
+          <h3>The manufacturer seat</h3>
+          <p class="lbl">What it asks</p>
+          <ul><li>Quotes for one piece, a small run and the pattern per design</li><li>Each piece cut and sewn to order, in the buyer's size, within three to four weeks</li><li>The inside finished as well as the outside</li></ul>
+          <p class="lbl">What it gives</p>
+          <ul><li>Orders that grow with the brand, on terms agreed together</li><li>No stock and no overruns: everything you make is already sold</li><li>Your workshop shown and credited, because the making is the content</li></ul>
         </div>
         <div class="card">
           <h3>The investor seat</h3>
@@ -979,13 +998,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
           <ul><li>Capital for samples, photography and the launch, on terms agreed together</li><li>Acceptance that ten percent leaves every sale first</li><li>Patience with a brand built to grow slowly</li></ul>
           <p class="lbl">What it gives</p>
           <ul><li>A stake in the company, on terms we agree</li><li>The same seasonal report the public sees: raised, transferred, outcomes</li></ul>
-        </div>
-        <div class="card">
-          <h3>The media seat</h3>
-          <p class="lbl">What it asks</p>
-          <ul><li>Your eye and your voice: the story, the imagery, the reach</li><li>Honesty about what is previsualisation and what is real</li></ul>
-          <p class="lbl">What it gives</p>
-          <ul><li>Early access to new designs, the atelier and the partners' places</li><li>The story first, with the facts straight and the imagery labelled honestly</li></ul>
         </div>
       </div>
       <a class="next" href="#c24"><span class="eyebrow">Next</span><span>So what is the ask?</span></a>
@@ -997,13 +1009,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <div class="wrap">
       <div class="head">
         <p class="eyebrow"><span class="num">24</span> · The ask</p>
-        <h2 class="headline h">Three ways <em>in</em>.</h2>
+        <h2 class="headline h">Four ways <em>in</em>.</h2>
       </div>
       <div class="grid">
         <div class="c5">
           <ol class="steps one">
-            <li><p class="k">01</p><h3>Take a seat: co-founder, investor or media.</h3></li>
-            <li><p class="k">02</p><h3>Bring your eye to the first range.</h3></li>
+            <li><p class="k">01</p><h3>Take a seat: media, conservation partner, manufacturer or investor.</h3></li>
+            <li><p class="k">02</p><h3>Bring your voice, your cause, your craft or your capital.</h3></li>
             <li><p class="k">03</p><h3>Agree the terms in the room.</h3></li>
             <li><p class="k">04</p><h3>Put the brand first.</h3></li>
           </ol>
@@ -1015,14 +1027,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
             <dl>
               <div class="row"><dt>Name</dt><dd>Vis Naturæ. Latin for force of nature. Pronounced "vis na-TOO-rye".</dd></div>
               <div class="row"><dt>Founded</dt><dd>2026, by Leo</dd></div>
-              <div class="row"><dt>Category</dt><dd>Made-to-order menswear and resort</dd></div>
+              <div class="row"><dt>Category</dt><dd>Made-to-order resort wear for men and women</dd></div>
               <div class="row"><dt>Made in</dt><dd>Mauritius, in small workshops visited in person</dd></div>
               <div class="row"><dt>Model</dt><dd>Made to order. Every design stays on sale, and each piece is cut and sewn in the buyer's size after the order.</dd></div>
               <div class="row"><dt>Pledge</dt><dd>10% of every sale price to conservation, before shipping and tax, reported every season</dd></div>
-              <div class="row"><dt>Prices</dt><dd class="num">€75 to €185. Average about €154. No sales, ever.</dd></div>
+              <div class="row"><dt>Prices</dt><dd class="num">€30 to €225. Average about €160. No sales, ever.</dd></div>
               <div class="row"><dt>Lead time</dt><dd>3 to 4 weeks from the order, then 4 to 7 working days express</dd></div>
               <div class="row"><dt>Ships to</dt><dd>EU, EEA, Switzerland and the UK, in euro</dd></div>
-              <div class="row"><dt>Range</dt><dd>Five designs in 27 colourways at launch. The launch date is a placeholder until the maker confirms.</dd></div>
+              <div class="row"><dt>Range</dt><dd>Twenty-four styles in 195 colourways: swim, knitwear, linen, trousers, accessories and sunglasses. The launch date is a placeholder until the maker confirms.</dd></div>
+              <div class="row"><dt>For</dt><dd>Men and women. Hoodies, caps, socks and sunglasses are cut for anyone. The first pieces cut for women follow in the next collection.</dd></div>
               <div class="row"><dt>Imagery</dt><dd>Product images are renders. Film stills and campaign images are AI-generated previsualisation. Real photography follows the first samples.</dd></div>
               <div class="row"><dt>Contact</dt><dd>leo@visnaturæ.com · instagram.com/visnaturae</dd></div>
             </dl>
