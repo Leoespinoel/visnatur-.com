@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { audiences, categories, categoryFeatures, type AudienceSlug } from "@/data/site";
 import { isFor, products } from "@/data/products";
+import { menuFor } from "@/data/menu";
 import { PageIntro } from "./PageIntro";
+import { MegaTile } from "./MegaTile";
 import { ShopGrid } from "./ShopGrid";
 import { ProductGrid } from "./ProductGrid";
 
@@ -36,6 +38,8 @@ export function AudienceShop({ audience, category, allHref }: { audience: Audien
       : all;
   // The women's listings only take the stories whose picture suits them.
   const feature = cat && (audience === "men" || categoryFeatures[cat.slug].women) ? categoryFeatures[cat.slug] : undefined;
+  // The whole range opens on the menu's "All pieces" tiles, one per kind of piece, in place of the chips and Filter & Sort.
+  const explore = cat ? undefined : menuFor(audience).find((i) => i.key === "all");
 
   return (
     <>
@@ -48,6 +52,16 @@ export function AudienceShop({ audience, category, allHref }: { audience: Audien
         lede={cat ? (audience === "men" ? cat.description : undefined) : a.lede}
       />
       <section className="container-x pb-10">
+        {explore && (
+          <div className="mb-12 border-b border-line pb-12 md:mb-16 md:pb-16">
+            <p className="eyebrow border-b border-ink pb-4 !text-ink">{explore.heading}</p>
+            <div className="mt-7 grid grid-cols-2 gap-1.5 md:gap-3 lg:grid-cols-4">
+              {explore.tiles.map((t) => (
+                <MegaTile key={t.label} tile={t} />
+              ))}
+            </div>
+          </div>
+        )}
         {items.length === 0 ? (
           <div className="py-20 text-center text-sm text-muted">
             {audience === "women" ? (
@@ -65,7 +79,7 @@ export function AudienceShop({ audience, category, allHref }: { audience: Audien
           </div>
         ) : (
           <Suspense fallback={<ProductGrid products={items} />}>
-            <ShopGrid products={items} fixedCategory={cat?.slug} base={`/${audience}`} allHref={allHref} feature={feature} />
+            <ShopGrid products={items} fixedCategory={cat?.slug} base={`/${audience}`} allHref={allHref} feature={feature} filters={!explore} />
           </Suspense>
         )}
       </section>

@@ -37,11 +37,11 @@ export const site = {
     url: "https://open.spotify.com/playlist/30TKfGSqvK2oTtI4a53hrJ" as string,
     /** Songs with their own small player under the playlist. url: Spotify → a song → Share → Copy song link. */
     tracks: [
+      { title: "Five Star Hotels., RAYE and Mahalia", url: "https://open.spotify.com/track/0MI4U8nhdfJ1FPRAgYhXxC" },
       { title: "Neverender, Justice and Tame Impala", url: "https://open.spotify.com/track/3aQ9MHkMeL7Yu7jpyF62xn" },
       { title: "Knockout, Emanuel Satie, Maga and Mâhfoud", url: "https://open.spotify.com/track/27Vxc5UngiYQ3LbuOKqfa7" },
       { title: "Where You Really Come From, Tobiahs and VV-Ace", url: "https://open.spotify.com/track/3OYoAxiD88QHs4MzzA8cjn" },
       { title: "Time, Carlita", url: "https://open.spotify.com/track/0IAIsE9u9AYUH3wh7p77AE" },
-      { title: "Tadow, Masego and FKJ", url: "https://open.spotify.com/track/6FMMd1fixOMmhplCevpjL7" },
       { title: "Navajo, Masego", url: "https://open.spotify.com/track/6zWU7YALeEDMcPGhKKZJhV" },
     ],
   },
@@ -66,10 +66,27 @@ export const categories = [
     scene: "/images/beach-surfer.jpg?v=2",
   },
   {
+    slug: "polo-shirts",
+    name: "Polo Shirts",
+    short: "Polo Shirts",
+    description: "Short-sleeved polos in cotton piqué, linen jersey, fine-gauge knit and terry towelling, cut for the heat.",
+    image: "/products/promenade-knit-polo-navy.jpg?v=3",
+    scene: "/community/w3.jpg",
+  },
+  {
+    slug: "rugby-shirts",
+    name: "Rugby Shirts",
+    short: "Rugby Shirts",
+    description: "Hooped and striped rugby shirts in heavy cotton jersey, with a woven twill collar and rubber buttons.",
+    image: "/products/breakwater-rugby-shirt-navy-ecru.jpg?v=3",
+    scene: "/images/shop/rugby.jpg",
+  },
+  {
+    // The slug is from when polos and rugby shirts sat in here; kept so the links still work.
     slug: "polos-knitwear",
     name: "Knitwear",
     short: "Knitwear",
-    description: "Cardigans, crew necks, vests, quarter zips, hoodies and rugby shirts, knitted and sewn for the drive home.",
+    description: "Cardigans, crew necks, vests, quarter zips and hoodies, knitted and sewn for the drive home.",
     image: "/products/harbour-quarter-zip-forest.jpg?v=2",
     scene: "/images/golf-green.jpg?v=2",
   },
@@ -82,11 +99,19 @@ export const categories = [
     scene: "/images/summit.jpg?v=2",
   },
   {
-    slug: "shorts-tees",
-    name: "Shorts & Tees",
-    short: "Shorts & Tees",
-    description: "Chino and linen shorts cut above the knee, and heavy cotton tees with the mark on the chest.",
+    slug: "tees",
+    name: "Tees",
+    short: "Tees",
+    description: "Plain and striped tees in dense cotton jersey, with the mark embroidered small on the chest.",
     image: "/products/mens-sandbar-tee-white.jpg?v=3",
+    scene: "/images/shop/grid-shorts-tees.jpg",
+  },
+  {
+    slug: "shorts",
+    name: "Shorts",
+    short: "Shorts",
+    description: "Chino and linen shorts cut above the knee.",
+    image: "/products/mens-quayside-chino-short-stone.jpg?v=3",
     scene: "/images/shop/shorts-tees.jpg",
   },
   {
@@ -129,6 +154,21 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
     alt: "A man in navy swim shorts walking out of the lagoon at dawn",
     links: [{ label: "How it works", href: "/made-to-order" }],
   },
+  "polo-shirts": {
+    eyebrow: "Sett · Promenade",
+    title: "Lunch on the veranda",
+    image: "/images/shop/polos.jpg",
+    alt: "Two friends laughing on the veranda of a beach house at Blue Bay, he in the navy Sett Polo and stone chinos, she in the sky Promenade Knit Polo and white chino shorts",
+    links: [{ label: "How it works", href: "/made-to-order" }],
+    women: true,
+  },
+  "rugby-shirts": {
+    eyebrow: "Breakwater & Touchline",
+    title: "A game on the sand at dusk",
+    image: "/images/shop/rugby.jpg",
+    alt: "Friends playing touch rugby on the beach at dusk in the Breakwater and Touchline rugby shirts",
+    links: [{ label: "Shop the edit", href: "/shop/edit/rugby" }],
+  },
   "polos-knitwear": {
     eyebrow: "The Clubhouse",
     title: "Knits for the last nine",
@@ -143,12 +183,19 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
     alt: "Two men in linen shirts at the end of a long lunch by the lagoon",
     links: [{ label: "Shop the edit", href: "/shop/edit/cabana" }],
   },
-  "shorts-tees": {
-    eyebrow: "Shorts & Tees",
+  tees: {
+    eyebrow: "Shorts",
     title: "For the walk up from the beach",
+    image: "/images/shop/shorts-tees.jpg",
+    alt: "A man walking along the lagoon at Trou aux Biches in the white Sandbar Tee and stone Quayside Chino Short",
+    links: [{ label: "Shop shorts", href: "/shop/shorts" }],
+  },
+  shorts: {
+    eyebrow: "Tees",
+    title: "A mango on the harbour wall",
     image: "/images/shop/grid-shorts-tees.jpg",
     alt: "A man in the Cabana Stripe Tee and oat Jetty Linen Short on a harbour wall in Mauritius",
-    links: [{ label: "How it works", href: "/made-to-order" }],
+    links: [{ label: "Shop tees", href: "/shop/tees" }],
   },
   trousers: {
     eyebrow: "Shirts",
@@ -196,19 +243,24 @@ export const audiences: {
     slug: "men",
     name: "Men",
     explore: "Explore for him",
-    lede: "Swim, knitwear, shirts, shorts and tees, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
-    scenes: Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>,
+    lede: "Swim, polo shirts, rugby shirts, knitwear, shirts, tees, shorts, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
+    // The category scene is the women's Promenade, so his polo tile shows his own.
+    scenes: { ...(Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>), "polo-shirts": "/images/men/cat-polo.jpg" },
   },
   {
     slug: "women",
     name: "Women",
     explore: "Explore for her",
-    lede: "Swimsuits, shirts, shorts, tees, trousers and knitwear cut for women, with the caps, socks and sunglasses cut for anyone. Every piece is made to order in Mauritius, in your size.",
+    lede: "Swimsuits, shirts, polo shirts, tees, shorts, trousers and knitwear cut for women, with the caps, socks and sunglasses cut for anyone. Every piece is made to order in Mauritius, in your size.",
     scenes: {
       swim: "/images/women/swim.jpg",
-      "polos-knitwear": "/images/women/knitwear.jpg",
+      "polo-shirts": "/community/w3.jpg",
+      // No rugby shirt for her yet; never a man under Women, so the knitwear picture stands in.
+      "rugby-shirts": "/images/women/landing/cat-knitwear.jpg",
+      "polos-knitwear": "/images/women/landing/cat-knitwear.jpg",
       "shirts-trousers": "/images/women/linen.jpg",
-      "shorts-tees": "/images/women/landing/cat-caps.jpg",
+      tees: "/community/w4.jpg",
+      shorts: "/images/women/landing/cat-caps.jpg",
       trousers: "/images/women/trousers.jpg",
       "outerwear-accessories": "/images/women/accessories.jpg",
       sunglasses: "/images/women/sunglasses.jpg",
@@ -231,7 +283,7 @@ export const partners: {
   name: string;
   focus: string;
   status: string;
-  mark: "ocean" | "forest" | "wetlands";
+  mark: "ocean" | "forest" | "coast";
   logo?: string;
   /** Why a euro goes far here: one sourced figure, shown on the partner's card. */
   leverage: { figure: string; text: string; source: { label: string; url: string } };
@@ -259,46 +311,53 @@ export const partners: {
     },
   },
   {
-    name: "Rivers & wetlands partner",
-    focus: "Freshwater habitat and migratory species, Europe and beyond",
+    name: "Coastlines partner",
+    focus: "Mangrove restoration and coastal habitat around Mauritius",
     status: "Partnership in progress",
-    mark: "wetlands",
+    mark: "coast",
     leverage: {
-      figure: "85%",
-      text: "average fall in monitored freshwater wildlife populations since 1970, the steepest of any habitat on Earth.",
-      source: { label: "WWF Living Planet Report 2024", url: "https://livingplanet.panda.org/" },
+      figure: "Up to 4×",
+      text: "more carbon per hectare is held in mangrove forests than in most other tropical forests. Replant a little shoreline and you lock away a lot of carbon.",
+      source: { label: "USDA Forest Service", url: "https://www.sciencedaily.com/releases/2011/04/110404173247.htm" },
     },
   },
 ];
 
 /**
- * The impact charts on /conservation: four counters, money to the work by month, and partner targets.
- * Every figure is a PLACEHOLDER until the first transfer clears; while `placeholder` is true the page says so.
+ * The impact charts on /conservation: four counters, money to the work by month, invested by partner, and partner targets.
+ * Every figure is the real count (all zero until the first sale); set `placeholder` to true to label them as placeholders.
  * "Sent to the work" is the sum of `months`; the coral and tree counters read the first two targets.
+ * "Invested to date" in the middle of the pie is the sum of `invested`.
  */
 export const impact = {
-  placeholder: true,
-  piecesMade: 1030,
+  placeholder: false,
+  piecesMade: 0,
   /** Euros sent to the work, oldest month first. */
   months: [
-    { month: "Oct", cents: 42000 },
-    { month: "Nov", cents: 61000 },
-    { month: "Dec", cents: 98000 },
-    { month: "Jan", cents: 87000 },
-    { month: "Feb", cents: 114000 },
-    { month: "Mar", cents: 142000 },
-    { month: "Apr", cents: 156000 },
-    { month: "May", cents: 171000 },
-    { month: "Jun", cents: 205000 },
-    { month: "Jul", cents: 196000 },
-    { month: "Aug", cents: 234000 },
-    { month: "Sep", cents: 246000 },
+    { month: "Oct", cents: 0 },
+    { month: "Nov", cents: 0 },
+    { month: "Dec", cents: 0 },
+    { month: "Jan", cents: 0 },
+    { month: "Feb", cents: 0 },
+    { month: "Mar", cents: 0 },
+    { month: "Apr", cents: 0 },
+    { month: "May", cents: 0 },
+    { month: "Jun", cents: 0 },
+    { month: "Jul", cents: 0 },
+    { month: "Aug", cents: 0 },
+    { month: "Sep", cents: 0 },
+  ],
+  /** Euros transferred to each partner since the first transfer, in the order of `partners`; drawn as the pie. */
+  invested: [
+    { partner: "Ocean partner", cents: 0 },
+    { partner: "Forest partner", cents: 0 },
+    { partner: "Coastlines partner", cents: 0 },
   ],
   /** Progress towards each partner's year-end goal. */
   targets: [
-    { label: "Coral fragments planted", partner: "Ocean partner", value: 310, goal: 500, unit: "" },
-    { label: "Native trees planted", partner: "Forest partner", value: 480, goal: 1000, unit: "" },
-    { label: "Wetland restored", partner: "Rivers & wetlands partner", value: 0.6, goal: 2, unit: "ha" },
+    { label: "Coral fragments planted", partner: "Ocean partner", value: 0, goal: 500, unit: "" },
+    { label: "Native trees planted", partner: "Forest partner", value: 0, goal: 1000, unit: "" },
+    { label: "Mangroves planted", partner: "Coastlines partner", value: 0, goal: 2000, unit: "" },
   ],
 };
 
@@ -309,8 +368,8 @@ export const nav = {
     { label: "Women", href: "/women", mega: "women" },
     { label: "Made to order", href: "/made-to-order", mega: "made-to-order" },
     { label: "Conservation", href: "/conservation", mega: "conservation" },
-    { label: "Stories", href: "/stories", mega: "stories" },
-    { label: "About", href: "/about", mega: "about" },
+    { label: "Community", href: "/stories", mega: "stories" },
+    { label: "Origins", href: "/about", mega: "about" },
   ] as const,
   footer: {
     shop: [
@@ -320,10 +379,10 @@ export const nav = {
       ...categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })),
     ],
     brand: [
-      { label: "About", href: "/about" },
+      { label: "Origins", href: "/about" },
       { label: "Made to order", href: "/made-to-order" },
       { label: "Conservation", href: "/conservation" },
-      { label: "Stories", href: "/stories" },
+      { label: "Community", href: "/stories" },
       { label: "Contact", href: "/contact" },
       /** Static page in public/pitch.html, served at /pitch; `plain` renders an <a> instead of a Link. */
       { label: "Partners & press", href: "/pitch", plain: true },

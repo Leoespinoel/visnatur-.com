@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { comingSoon } from "@/data/availability";
 import { StoryCopy, type Story } from "./StoryCopy";
+import { ComingSoon } from "./ComingSoon";
 
 /** One story on a picture, copy bottom-left; the picture links to the story's first link. */
 export function StoryTile({
@@ -20,6 +22,7 @@ export function StoryTile({
         <Image src={story.image} alt={story.alt} fill unoptimized sizes={sizes} className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
       </Link>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+      {story.links[0] && comingSoon(story.links[0].href) && <ComingSoon />}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 md:p-8">
         <StoryCopy {...story} size={size} />
       </div>

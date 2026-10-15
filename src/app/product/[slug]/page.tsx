@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { designNumber, getProduct, isFor, productImages, products, productsInCategory } from "@/data/products";
+import { isAvailable } from "@/data/availability";
 import { categories } from "@/data/site";
 import { formatPrice } from "@/lib/format";
 import { ProductDetails } from "@/components/ProductDetails";
@@ -85,7 +86,7 @@ export default async function ProductPage({ params }: Props) {
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
             <p className="eyebrow mb-3">
-              Made to order{product.badge ? ` · ${product.badge}` : ""}
+              {isAvailable(product) ? "" : "Coming soon · "}Made to order{product.badge ? ` · ${product.badge}` : ""}
             </p>
             <h1 className="display text-4xl md:text-5xl">{product.name}</h1>
             <p className="mt-3 text-lg tabular-nums">{formatPrice(product.price)}</p>

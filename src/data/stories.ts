@@ -193,7 +193,7 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Three areas pass: the reef around Mauritius, the island's last native forest, and rivers and wetlands in Europe. Agreements are being finalised, and the names will be published before the first transfer is made. Then the people doing the work will be interviewed here.",
+        text: "Three areas pass: the reef around Mauritius, the island's last native forest, and its mangrove coast. Agreements are being finalised, and the names will be published before the first transfer is made. Then the people doing the work will be interviewed here.",
       },
     ],
     links: [
@@ -213,8 +213,8 @@ export const forthcoming: { name: string; focus: string; mark: (typeof partners)
 ];
 
 /**
- * The two ways we sponsor, under "Sponsorship" on /stories: individual athletes and ambassadors, and
- * clubs, teams and events. Each applies by email; `template` prefills the body. No one is sponsored yet,
+ * The three ways we sponsor, under "Sponsorship" on /stories: individual athletes and ambassadors,
+ * artists, and clubs, teams and events. Each applies by email; `template` prefills the body. No one is sponsored yet,
  * so name nobody here until they have agreed.
  */
 export type Sponsorship = {
@@ -252,6 +252,26 @@ export const sponsorships: Sponsorship[] = [
     template: ["Name:", "Sport or discipline:", "Where you train and compete:", "Links (Instagram, results, press):", "Why Vis Naturæ:"],
   },
   {
+    key: "artists",
+    title: "Artists",
+    text: "Painters, photographers, illustrators, filmmakers, musicians and makers: people whose work starts in the sea, the forest or the island, and who keep at it.",
+    image: "/images/sponsor-artist.jpg",
+    alt: "A painter in an oat linen shirt at a wooden easel on the beach below Le Morne",
+    give: [
+      "Pieces made for you, in your size, to work and live in",
+      "Your work in our films and on these pages, credited by name",
+      "A chance to make something with us: a print, a lining or a label",
+    ],
+    lookFor: [
+      "Work that comes from the places we protect",
+      "A practice you keep at, in any medium, at any stage",
+      "Honesty: make what you mean, and tell us what you think",
+    ],
+    cta: "Apply as an artist",
+    subject: "Sponsorship: artist",
+    template: ["Name:", "What you make (medium):", "Where you work:", "Links (portfolio, Instagram, press):", "What you would make with us:"],
+  },
+  {
     key: "corporate",
     title: "Clubs, teams & events",
     text: "Golf and sailing clubs, rugby and surf clubs, regattas, tournaments and teams of every kind, in Mauritius and across Europe.",
@@ -284,7 +304,7 @@ export const instagramTiles: { image: string; alt: string }[] = [
   { image: "/images/golf-green.jpg?v=2", alt: "A golfer in a green quarter zip crouched on the green" },
   { image: "/images/caps-scene.jpg", alt: "A man in a navy quarter zip with a coffee on a jetty" },
   { image: "/images/sunglasses-scene.jpg", alt: "A man in sunglasses and a pale blue linen shirt on a boat" },
-  { image: "/images/campaign-drop.jpg", alt: "Four friends on a harbour wall in knitwear, linen and swim shorts" },
+  { image: "/images/campaign-drop.jpg?v=3", alt: "Four friends on a harbour wall in knitwear, linen and swim shorts" },
 ];
 
 /** The handle at the end of `site.instagram`, without the @. */

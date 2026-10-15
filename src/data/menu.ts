@@ -1,8 +1,9 @@
-import { audiences, categories, site, type AudienceSlug } from "./site";
-import { groupByFamily, isFor, productImages, products, type Product } from "./products";
+import { audiences, categories, site, type AudienceSlug, type CategorySlug } from "./site";
+import { groupByFamily, isFor, productImages, products, type Garment, type Product } from "./products";
 import { formatPrice, leadTimeLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { articleHref, articles, instagramHandle } from "./stories";
+import { outfitsFor } from "./outfits";
 
 /** `packshot` tiles show the garment on white with the label in ink; the rest are photos with the label over them. */
 export type MenuTile = { label: string; href: string; image: string; packshot?: boolean };
@@ -10,9 +11,10 @@ export type MenuTile = { label: string; href: string; image: string; packshot?: 
 /**
  * One line down the side of a mega menu and what the right of the panel shows while it is hovered: a
  * heading and a row of tiles, or one tile and a note (as on ralphlauren.com, where each side link swaps
- * the panel). The item keyed "all" is what a panel opens on.
+ * the panel). With `grid` the tiles wrap into rows of four instead of a carousel. The item keyed "all"
+ * is what a panel opens on.
  */
-export type MenuItem = { key: string; label: string; href: string; heading: string; tiles: MenuTile[]; note?: string };
+export type MenuItem = { key: string; label: string; href: string; heading: string; tiles: MenuTile[]; note?: string; grid?: boolean };
 
 /** The header items that open a mega menu, in nav order. */
 export type MenuKey = AudienceSlug | "made-to-order" | "conservation" | "stories" | "about";
@@ -33,6 +35,36 @@ function familyTiles(list: Product[], audience: AudienceSlug, looks: Record<stri
   });
 }
 
+/** The kinds of garment that open the "All pieces" panel, one tile each: tops first, then bottoms. */
+const KINDS: { label: string; garment: Garment }[] = [
+  { label: "Polo Shirts", garment: "polo" },
+  { label: "Knitwear", garment: "knit" },
+  { label: "Hoodies", garment: "hoodie" },
+  { label: "Shirts", garment: "shirt" },
+  { label: "Tees", garment: "tee" },
+  { label: "Rugby Shirts", garment: "rugby" },
+  { label: "Trousers", garment: "trouser" },
+  { label: "Shorts", garment: "short" },
+  { label: "Swim Shorts", garment: "swim-short" },
+];
+
+/** A kind's picture is its category's scene, except the hoodies, which share Knitwear's category. */
+const KIND_IMAGES: Record<AudienceSlug, Partial<Record<Garment, string>>> = {
+  men: { hoodie: "/images/men/edit-hoodie.jpg" },
+  women: { hoodie: "/images/women/riviera-hoodie.jpg" },
+};
+
+/**
+ * A kind of garment's listing: its category, narrowed to its designs (?design=) when the category holds
+ * other kinds too, as Knitwear does with the hoodies. Each kind sits in one category.
+ */
+function kindHref(kind: Product[], cut: Product[], audience: AudienceSlug): string {
+  const cat = kind[0].category;
+  const families = [...new Set(kind.map((p) => p.family))];
+  const whole = cut.every((p) => p.category !== cat || families.includes(p.family));
+  return `/${audience}/${cat}${whole ? "" : `?design=${families.join(",")}`}`;
+}
+
 export function menuFor(audience: AudienceSlug): MenuItem[] {
   const a = audiences.find((x) => x.slug === audience)!;
   const them = audience === "men" ? "him" : "her";
@@ -41,6 +73,15 @@ export function menuFor(audience: AudienceSlug): MenuItem[] {
   const mine = audience === "women" ? [...cut.filter((p) => p.audience === "women"), ...cut.filter((p) => p.audience !== "women")] : cut;
   // /men and /women are landing pages; their listings are one level down.
   const listing = `/${audience}/all`;
+  const kinds = KINDS.map((k) => ({ ...k, pieces: cut.filter((p) => p.garment === k.garment) })).filter((k) => k.pieces.length);
+  const category = (slug: CategorySlug): MenuItem => {
+    const c = categories.find((x) => x.slug === slug)!;
+    const tiles = familyTiles(mine.filter((p) => p.category === c.slug), audience, a.looks);
+    const base = { key: c.slug, label: c.name, href: `/${audience}/${c.slug}`, heading: `${c.name} for ${them}` };
+    return tiles.length
+      ? { ...base, tiles }
+      : { ...base, tiles: [{ label: c.name, href: base.href, image: a.scenes[c.slug] }], note: audience === "women" ? "More pieces for her are on the way." : "New designs are coming." };
+  };
   return [
     { key: "new", label: "New in", href: `${listing}?filter=new`, heading: `New in for ${them}`, tiles: familyTiles(mine.filter((p) => p.badge === "New"), audience, a.looks) },
     {
@@ -48,15 +89,26 @@ export function menuFor(audience: AudienceSlug): MenuItem[] {
       label: "All pieces",
       href: listing,
       heading: a.explore,
-      tiles: categories.map((c) => ({ label: c.name, href: `/${audience}/${c.slug}`, image: a.scenes[c.slug] })),
+      grid: true,
+      // Tops, then bottoms, then the categories no kind has covered (Swim for her, Accessories, Sunglasses).
+      // Kinds and categories with nothing cut for this audience are left out (no women's rugby shirt yet).
+      tiles: [
+        ...kinds.map((k) => ({ label: k.label, href: kindHref(k.pieces, cut, audience), image: KIND_IMAGES[audience][k.garment] ?? a.scenes[k.pieces[0].category] })),
+        ...categories
+          .filter((c) => mine.some((p) => p.category === c.slug) && !kinds.some((k) => k.pieces[0].category === c.slug))
+          .map((c) => ({ label: c.name, href: `/${audience}/${c.slug}`, image: a.scenes[c.slug] })),
+      ],
     },
-    ...categories.map((c): MenuItem => {
-      const tiles = familyTiles(mine.filter((p) => p.category === c.slug), audience, a.looks);
-      const base = { key: c.slug, label: c.name, href: `/${audience}/${c.slug}`, heading: `${c.name} for ${them}` };
-      return tiles.length
-        ? { ...base, tiles }
-        : { ...base, tiles: [{ label: c.name, href: base.href, image: a.scenes[c.slug] }], note: audience === "women" ? "More pieces for her are on the way." : "New designs are coming." };
-    }),
+    category("swim"),
+    category("outerwear-accessories"),
+    category("sunglasses"),
+    {
+      key: "outfits",
+      label: "Outfits",
+      href: `/${audience}/outfits`,
+      heading: `Outfits for ${them}`,
+      tiles: outfitsFor(audience).map((o) => ({ label: o.title, href: `/${audience}/outfits#${o.slug}`, image: o.image })),
+    },
   ];
 }
 
@@ -142,7 +194,7 @@ function conservation(): MenuItem[] {
       href: "/conservation#partners",
       heading: "Highest leverage, not highest profile",
       tiles: [tile("Where it goes", "#partners", IMG.swim)],
-      note: "Where each euro changes the most: the reef around Mauritius, its last native forest, and rivers and wetlands in Europe. Partnerships in progress.",
+      note: "Where each euro changes the most: the reef around Mauritius, its last native forest, and its mangrove coast. Partnerships in progress.",
     },
   ];
 }
@@ -159,7 +211,7 @@ function stories(): MenuItem[] {
       label: "All stories",
       href: "/stories",
       heading: "Told, not sold",
-      tiles: [tile("Latest", "latest", articles[0].image), tile("Events", "events", "/images/campaign-drop.jpg"), community, interviews],
+      tiles: [tile("Latest", "latest", articles[0].image), tile("Events", "events", "/images/campaign-drop.jpg?v=3"), community, interviews],
     },
     { key: "latest", label: "Latest", href: "/stories#latest", heading: "Latest stories", tiles: articles.slice(0, 4).map(toTile) },
     {
@@ -167,7 +219,7 @@ function stories(): MenuItem[] {
       label: "Events",
       href: "/stories#events",
       heading: "Events",
-      tiles: [tile("Events", "events", "/images/campaign-drop.jpg")],
+      tiles: [tile("Events", "events", "/images/campaign-drop.jpg?v=3")],
       note: "Days on the water, on the course and on the trail, hosted or backed by Vis Naturæ. The first are being planned.",
     },
     {
@@ -192,7 +244,7 @@ function stories(): MenuItem[] {
       href: "/stories#sponsorship",
       heading: "We back people who go all in",
       tiles: [tile("Sponsorship", "sponsorship", "/community/surf-still.jpg")],
-      note: "Athletes and ambassadors, and clubs, teams and events. Tell us what you go all in at.",
+      note: "Athletes and ambassadors, artists, and clubs, teams and events. Tell us what you go all in at.",
     },
     {
       key: "letters",

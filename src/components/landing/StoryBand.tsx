@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { comingSoon } from "@/data/availability";
 import { Carousel } from "../Carousel";
+import { ComingSoon } from "../ComingSoon";
 
 export type StoryCard = { eyebrow?: string; title: string; href: string; image: string; alt: string };
 
@@ -57,6 +59,7 @@ function Card({ card, large = false }: { card: StoryCard; large?: boolean }) {
         className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
       />
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
+      {comingSoon(card.href) && <ComingSoon />}
       <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
         {card.eyebrow && <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-white/85 md:text-[11px]">{card.eyebrow}</p>}
         <p className={`display mt-2 ${large ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"}`}>{card.title}</p>

@@ -2,9 +2,10 @@
  * Homepage "Community" carousel, modelled on Dito Collective's: tall cards of people in the clothes,
  * each with a handle, some playable as video.
  *
- * The cards currently show the athletes from the brand film (AI-generated, not real customers), so
- * `handle` is left empty and the card shows the discipline instead. When real people share photos,
- * swap in their image and set `handle` (with their permission) to their Instagram handle.
+ * The cards currently show the athletes from the brand film and, between them, sportswomen in the women's
+ * line (community/w*.jpg). All are AI-generated, not real customers, so `handle` is left empty and the card
+ * shows the discipline instead. When real people share photos, swap in their image and set `handle` (with
+ * their permission) to their Instagram handle.
  */
 export type CommunityPost = {
   image: string;
@@ -18,19 +19,25 @@ export type CommunityPost = {
 
 export const communityPosts: CommunityPost[] = [
   { image: "/community/p1.jpg?v=2", label: "Rugby" },
+  { image: "/community/w1.jpg", label: "Surf" },
   { image: "/community/a1.jpg", video: "/community/a1.mp4", label: "Rugby" },
   { image: "/community/p2.jpg?v=2", label: "Cycling" },
+  { image: "/community/w3.jpg", label: "Golf" },
   { image: "/community/a4.jpg?v=2", video: "/community/a4.mp4?v=2", label: "Surf" },
   { image: "/community/p3.jpg?v=2", label: "Golf" },
+  { image: "/community/w2.jpg", label: "Kitesurf" },
   { image: "/community/p4.jpg?v=2", label: "Surf" },
   { image: "/community/a5.jpg?v=2", video: "/community/a5.mp4?v=2", label: "Kitesurf" },
   { image: "/community/p5.jpg?v=2", label: "Kitesurf" },
+  { image: "/community/w5.jpg", label: "Sailing" },
   { image: "/community/p6.jpg?v=2", label: "Wakeboard" },
   { image: "/community/a7.jpg", video: "/community/a7.mp4", label: "Skate" },
   { image: "/community/p7.jpg?v=2", label: "Skate" },
+  { image: "/community/w4.jpg", label: "Trail" },
   { image: "/community/p8.jpg?v=2", label: "Snowboard" },
   { image: "/community/a8.jpg", video: "/community/a8.mp4", label: "Snowboard" },
   { image: "/community/p9.jpg?v=2", label: "Downhill" },
+  { image: "/community/w6.jpg", label: "Freedive" },
   { image: "/community/p10.jpg?v=3", label: "Freeride" },
   { image: "/community/p11.jpg?v=2", label: "Trail" },
   { image: "/community/p12.jpg?v=2", label: "Climbing" },

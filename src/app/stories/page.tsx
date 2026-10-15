@@ -26,7 +26,7 @@ import { StoriesHero, type HeroStory } from "@/components/StoriesHero";
 import { EventsRail, type EventItem } from "@/components/EventsRail";
 
 export const metadata: Metadata = {
-  title: "Stories",
+  title: "Community",
   description: "Films, the journal, events, the community, sponsorship, conversations with our partners and the newsletter: the stories behind Vis Naturæ.",
 };
 
@@ -78,13 +78,13 @@ export default function StoriesPage() {
     {
       key: "sponsorship",
       title: "We back people who go all in.",
-      dek: "Athletes and ambassadors, clubs, teams and events. Tell us what you go all in at.",
+      dek: "Athletes and ambassadors, artists, clubs, teams and events. Tell us what you go all in at.",
       image: "/images/campaign-golf.jpg",
       alt: "Two golfers in Vis Naturæ knitwear on a seaside fairway at golden hour",
       position: "62% 50%",
       href: "/stories#sponsorship",
       cta: "Apply",
-      meta: ["Sponsorship", "Athletes, clubs & events"],
+      meta: ["Sponsorship", "Athletes, artists, clubs & events"],
     },
   ];
 
@@ -102,7 +102,7 @@ export default function StoriesPage() {
 
   return (
     <>
-      <h1 className="sr-only">Stories</h1>
+      <h1 className="sr-only">Community</h1>
       <StoriesHero slides={slides} />
 
       {/* The page slides up over the foot of the pictures, as on redbull.com: the latest stories, then events */}
@@ -192,34 +192,38 @@ export default function StoriesPage() {
         </div>
       </section>
 
-      {/* Sponsorship: the people, clubs and events we back, on black */}
+      {/* Sponsorship: the athletes, artists, clubs and events we back, on black */}
       <section id="sponsorship" className="theme-dark scroll-mt-24 py-16 md:py-24">
         <div className="container-x">
           <BandHeading eyebrow="Sponsorship" title="We back people who go all in.">
-            Vis Naturæ sponsors individual athletes and ambassadors, and clubs, teams and events. Not the biggest names: the ones who go all in,
+            Vis Naturæ sponsors athletes and ambassadors, artists, and clubs, teams and events. Not the biggest names: the ones who go all in,
             then rest like they mean it. We read every application and answer within two working days.
           </BandHeading>
-          <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
-            {sponsorships.map((s) => (
-              <article key={s.key} className="flex flex-col border border-line">
-                <div className="image-frame aspect-[3/2]">
-                  <Image src={s.image} alt={s.alt} fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-                </div>
-                <div className="flex flex-1 flex-col p-6 md:p-8">
-                  <h3 className="display text-3xl md:text-4xl">{s.title}</h3>
-                  <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink-2">{s.text}</p>
-                  <div className="mt-8 grid gap-8 sm:grid-cols-2">
-                    <SponsorList title="What we give" items={s.give} />
-                    <SponsorList title="What we look for" items={s.lookFor} />
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+            {sponsorships.map((s, i) => {
+              // An odd last card takes the whole row on tablets, under a wider picture.
+              const wide = sponsorships.length % 2 === 1 && i === sponsorships.length - 1;
+              return (
+                <article key={s.key} className={`flex flex-col border border-line ${wide ? "md:max-lg:col-span-2" : ""}`}>
+                  <div className={`image-frame aspect-[3/2] ${wide ? "md:max-lg:aspect-[2/1]" : ""}`}>
+                    <Image src={s.image} alt={s.alt} fill unoptimized sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
                   </div>
-                  <div className="mt-auto pt-10">
-                    <a href={sponsorshipMailto(s)} className="btn btn-primary">
-                      {s.cta}
-                    </a>
+                  <div className="flex flex-1 flex-col p-6 md:p-8">
+                    <h3 className="display text-3xl md:text-4xl">{s.title}</h3>
+                    <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink-2">{s.text}</p>
+                    <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
+                      <SponsorList title="What we give" items={s.give} />
+                      <SponsorList title="What we look for" items={s.lookFor} />
+                    </div>
+                    <div className="mt-auto pt-10">
+                      <a href={sponsorshipMailto(s)} className="btn btn-primary">
+                        {s.cta}
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

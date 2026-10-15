@@ -1,4 +1,5 @@
 import { products, type Product } from "./products";
+import type { Story } from "@/components/StoryCopy";
 
 /**
  * Curated edits across categories, like ralphlauren.com's story listings ("Linen Shop", "Wimbledon
@@ -49,6 +50,12 @@ export const editHref = (e: Edit) => `/shop/edit/${e.slug}`;
 
 export function getEdit(slug: string): Edit | undefined {
   return edits.find((e) => e.slug === slug);
+}
+
+/** An edit as a story tile, linking to its listing. */
+export function editStory(slug: string): Story {
+  const e = getEdit(slug) as Edit;
+  return { eyebrow: e.eyebrow, title: e.title, dek: e.dek, image: e.image, alt: e.alt, links: [{ label: "Shop the edit", href: editHref(e) }] };
 }
 
 /** The edit's pieces, its designs in the order the edit lists them. */

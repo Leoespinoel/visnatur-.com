@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { comingSoon } from "@/data/availability";
+import { ComingSoon } from "./ComingSoon";
 
 export type CategoryTile = { label: string; href: string; image: string };
 
@@ -17,6 +19,7 @@ export function CategoryTiles({ title, tiles }: { title: string; tiles: Category
             <Link href={t.href} className="group block">
               <div className="relative aspect-[4/5] overflow-hidden bg-paper-2">
                 <Image src={t.image} alt="" fill unoptimized sizes={`(min-width: 768px) ${Math.ceil(100 / tiles.length)}vw, 33vw`} className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                {comingSoon(t.href) && <ComingSoon />}
               </div>
               <p className="mt-3 text-center text-[11px] font-medium uppercase tracking-[0.12em] text-ink">{t.label}</p>
             </Link>

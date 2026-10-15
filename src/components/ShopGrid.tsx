@@ -35,6 +35,7 @@ export function ShopGrid({
   allHref,
   chips = fixedCategory ? "designs" : "categories",
   feature,
+  filters = true,
 }: {
   products: Product[];
   fixedCategory?: CategorySlug;
@@ -45,6 +46,8 @@ export function ShopGrid({
   chips?: "categories" | "designs";
   /** A story set into the grid. */
   feature?: Story;
+  /** False leaves out the chips, the count and Filter & Sort, for a page that leads with its own way in. */
+  filters?: boolean;
 }) {
   const params = useSearchParams();
   const [sort, setSort] = useState<Sort>("featured");
@@ -115,57 +118,69 @@ export function ShopGrid({
 
   return (
     <div>
-      {/* Quick filters: category links, or the designs in this listing */}
-      <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-4 md:mx-0 md:flex-wrap md:px-0">
-        {chips === "categories" ? (
-          <>
-            <Chip href={allHref ?? (base === "/shop" ? "/shop/all" : base)} active={!fixedCategory}>
-              All pieces
-            </Chip>
-            {categories.map((c) => (
-              <Chip key={c.slug} href={`${base}/${c.slug}`} active={fixedCategory === c.slug}>
-                {c.short}
-              </Chip>
-            ))}
-          </>
-        ) : (
-          families.length > 1 && (
-            <>
-              <Chip active={designs.length === 0} onClick={() => setDesigns([])}>
-                All
-              </Chip>
-              {families.map((f) => (
-                <Chip key={f.family} active={designs.includes(f.family)} onClick={() => setDesigns(designs.length === 1 && designs[0] === f.family ? [] : [f.family])}>
-                  {f.name}
+      {filters && (
+        <>
+          {/* Quick filters: category links, or the designs in this listing */}
+          <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-4 md:mx-0 md:flex-wrap md:px-0">
+            {chips === "categories" ? (
+              <>
+                <Chip href={allHref ?? (base === "/shop" ? "/shop/all" : base)} active={!fixedCategory}>
+                  All pieces
                 </Chip>
-              ))}
-            </>
-          )
-        )}
-      </div>
-
-      {/* Count, clear and the Filter & Sort button */}
-      <div className="mb-6 flex items-center justify-between gap-4 border-y border-line py-3">
-        {/* One line on phones: the colourway count gives way to the buttons. */}
-        <p className="whitespace-nowrap text-xs text-muted">
-          {groups.length} design{groups.length === 1 ? "" : "s"}
-          <span className="hidden sm:inline">
-            {" "}
-            · {visible.length} colourway{visible.length === 1 ? "" : "s"}
-          </span>
-        </p>
-        <div className="flex items-center gap-4 sm:gap-5">
-          {activeCount > 0 && (
-            <button type="button" onClick={clearAll} className="eyebrow link-underline whitespace-nowrap !text-ink">
-              Clear all
-            </button>
-          )}
-          <button type="button" onClick={() => setDrawerOpen(true)} aria-expanded={drawerOpen} aria-controls="filter-drawer" className="inline-flex items-center gap-2.5 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] text-ink">
-            <FilterIcon width={14} height={14} />
-            Filter &amp; Sort{activeCount ? ` (${activeCount})` : ""}
-          </button>
-        </div>
-      </div>
+                {/* Only the categories with pieces in this listing (no women's rugby shirt yet). */}
+                {categories
+                  .filter((c) => products.some((p) => p.category === c.slug))
+                  .map((c) => (
+                    <Chip key={c.slug} href={`${base}/${c.slug}`} active={fixedCategory === c.slug}>
+                      {c.short}
+                    </Chip>
+                  ))}
+                {base !== "/shop" && (
+                  <Chip href={`${base}/outfits`} active={false}>
+                    Outfits
+                  </Chip>
+                )}
+              </>
+            ) : (
+              families.length > 1 && (
+                <>
+                  <Chip active={designs.length === 0} onClick={() => setDesigns([])}>
+                    All
+                  </Chip>
+                  {families.map((f) => (
+                    <Chip key={f.family} active={designs.includes(f.family)} onClick={() => setDesigns(designs.length === 1 && designs[0] === f.family ? [] : [f.family])}>
+                      {f.name}
+                    </Chip>
+                  ))}
+                </>
+              )
+            )}
+          </div>
+    
+          {/* Count, clear and the Filter & Sort button */}
+          <div className="mb-6 flex items-center justify-between gap-4 border-y border-line py-3">
+            {/* One line on phones: the colourway count gives way to the buttons. */}
+            <p className="whitespace-nowrap text-xs text-muted">
+              {groups.length} design{groups.length === 1 ? "" : "s"}
+              <span className="hidden sm:inline">
+                {" "}
+                · {visible.length} colourway{visible.length === 1 ? "" : "s"}
+              </span>
+            </p>
+            <div className="flex items-center gap-4 sm:gap-5">
+              {activeCount > 0 && (
+                <button type="button" onClick={clearAll} className="eyebrow link-underline whitespace-nowrap !text-ink">
+                  Clear all
+                </button>
+              )}
+              <button type="button" onClick={() => setDrawerOpen(true)} aria-expanded={drawerOpen} aria-controls="filter-drawer" className="inline-flex items-center gap-2.5 whitespace-nowrap text-[11px] uppercase tracking-[0.18em] text-ink">
+                <FilterIcon width={14} height={14} />
+                Filter &amp; Sort{activeCount ? ` (${activeCount})` : ""}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Grid, with the story set in after the sixth design */}
       {visible.length === 0 ? (
@@ -186,92 +201,94 @@ export function ShopGrid({
       )}
 
       {/* Filter & Sort drawer */}
-      <div className={`fixed inset-0 z-50 ${drawerOpen ? "" : "pointer-events-none"}`} aria-hidden={!drawerOpen}>
-        <button
-          type="button"
-          aria-label="Close filters"
-          tabIndex={drawerOpen ? 0 : -1}
-          onClick={() => setDrawerOpen(false)}
-          className={`absolute inset-0 bg-ink/40 transition-opacity duration-300 ${drawerOpen ? "opacity-100" : "opacity-0"}`}
-        />
-        <aside
-          id="filter-drawer"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Filter and sort"
-          inert={!drawerOpen}
-          className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-paper text-ink shadow-2xl transition-transform duration-300 ease-out ${drawerOpen ? "translate-x-0" : "translate-x-full"}`}
-        >
-          <div className="flex h-16 items-center justify-between border-b border-line px-6">
-            <h2 className="eyebrow !text-ink">Filter &amp; Sort</h2>
-            <button type="button" onClick={() => setDrawerOpen(false)} aria-label="Close filters" className="-mr-2 p-2">
-              <CloseIcon />
-            </button>
-          </div>
-
-          <div className="flex-1 space-y-8 overflow-y-auto px-6 py-6">
-            <fieldset>
-              <legend className="eyebrow mb-3">Sort by</legend>
-              <div className="space-y-2.5">
-                {SORTS.map((s) => (
-                  <label key={s.value} className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-2 hover:text-ink">
-                    <input type="radio" name="sort" value={s.value} checked={sort === s.value} onChange={() => setSort(s.value)} className="h-3.5 w-3.5 accent-[var(--red)]" />
-                    {s.label}
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-
-            {families.length > 1 && (
+      {filters && (
+        <div className={`fixed inset-0 z-50 ${drawerOpen ? "" : "pointer-events-none"}`} aria-hidden={!drawerOpen}>
+          <button
+            type="button"
+            aria-label="Close filters"
+            tabIndex={drawerOpen ? 0 : -1}
+            onClick={() => setDrawerOpen(false)}
+            className={`absolute inset-0 bg-ink/40 transition-opacity duration-300 ${drawerOpen ? "opacity-100" : "opacity-0"}`}
+          />
+          <aside
+            id="filter-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Filter and sort"
+            inert={!drawerOpen}
+            className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-paper text-ink shadow-2xl transition-transform duration-300 ease-out ${drawerOpen ? "translate-x-0" : "translate-x-full"}`}
+          >
+            <div className="flex h-16 items-center justify-between border-b border-line px-6">
+              <h2 className="eyebrow !text-ink">Filter &amp; Sort</h2>
+              <button type="button" onClick={() => setDrawerOpen(false)} aria-label="Close filters" className="-mr-2 p-2">
+                <CloseIcon />
+              </button>
+            </div>
+  
+            <div className="flex-1 space-y-8 overflow-y-auto px-6 py-6">
               <fieldset>
-                <legend className="eyebrow mb-3">Design</legend>
+                <legend className="eyebrow mb-3">Sort by</legend>
                 <div className="space-y-2.5">
-                  {families.map((f) => (
-                    <label key={f.family} className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-2 hover:text-ink">
-                      <input type="checkbox" checked={designs.includes(f.family)} onChange={() => setDesigns(toggle(designs, f.family))} className="h-3.5 w-3.5 accent-[var(--red)]" />
-                      {f.name}
+                  {SORTS.map((s) => (
+                    <label key={s.value} className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-2 hover:text-ink">
+                      <input type="radio" name="sort" value={s.value} checked={sort === s.value} onChange={() => setSort(s.value)} className="h-3.5 w-3.5 accent-[var(--red)]" />
+                      {s.label}
                     </label>
                   ))}
                 </div>
               </fieldset>
-            )}
-
-            <fieldset>
-              <legend className="eyebrow mb-3">Size</legend>
-              <div className="flex flex-wrap gap-2">
-                {allSizes.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    aria-pressed={sizes.includes(s)}
-                    onClick={() => setSizes((v) => toggle(v, s))}
-                    className={`min-w-10 border px-2.5 py-1.5 text-xs transition-colors ${sizes.includes(s) ? "border-ink bg-ink text-paper" : "border-line hover:border-ink"}`}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend className="eyebrow mb-3">Collection</legend>
-              <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-2 hover:text-ink">
-                <input type="checkbox" checked={newOnly} onChange={() => setNewOnly((v) => !v)} className="h-3.5 w-3.5 accent-[var(--red)]" />
-                New in only
-              </label>
-            </fieldset>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 border-t border-line px-6 py-4">
-            <button type="button" onClick={clearAll} disabled={activeCount === 0} className="btn btn-outline">
-              Clear all
-            </button>
-            <button type="button" onClick={() => setDrawerOpen(false)} className="btn btn-primary">
-              Show {groups.length} design{groups.length === 1 ? "" : "s"}
-            </button>
-          </div>
-        </aside>
-      </div>
+  
+              {families.length > 1 && (
+                <fieldset>
+                  <legend className="eyebrow mb-3">Design</legend>
+                  <div className="space-y-2.5">
+                    {families.map((f) => (
+                      <label key={f.family} className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-2 hover:text-ink">
+                        <input type="checkbox" checked={designs.includes(f.family)} onChange={() => setDesigns(toggle(designs, f.family))} className="h-3.5 w-3.5 accent-[var(--red)]" />
+                        {f.name}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              )}
+  
+              <fieldset>
+                <legend className="eyebrow mb-3">Size</legend>
+                <div className="flex flex-wrap gap-2">
+                  {allSizes.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      aria-pressed={sizes.includes(s)}
+                      onClick={() => setSizes((v) => toggle(v, s))}
+                      className={`min-w-10 border px-2.5 py-1.5 text-xs transition-colors ${sizes.includes(s) ? "border-ink bg-ink text-paper" : "border-line hover:border-ink"}`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+  
+              <fieldset>
+                <legend className="eyebrow mb-3">Collection</legend>
+                <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink-2 hover:text-ink">
+                  <input type="checkbox" checked={newOnly} onChange={() => setNewOnly((v) => !v)} className="h-3.5 w-3.5 accent-[var(--red)]" />
+                  New in only
+                </label>
+              </fieldset>
+            </div>
+  
+            <div className="grid grid-cols-2 gap-2 border-t border-line px-6 py-4">
+              <button type="button" onClick={clearAll} disabled={activeCount === 0} className="btn btn-outline">
+                Clear all
+              </button>
+              <button type="button" onClick={() => setDrawerOpen(false)} className="btn btn-primary">
+                Show {groups.length} design{groups.length === 1 ? "" : "s"}
+              </button>
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }

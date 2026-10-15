@@ -10,8 +10,6 @@ export type Cue = { start: number; end: number; text: string };
 
 export const film = {
   title: "Dressed for it",
-  /** Shown under the wordmark while the film plays, next to today's date. */
-  location: "Shot on location",
   sources: {
     landscape: "/film/hero-landscape.mp4",
     portrait: "", // e.g. "/film/hero-portrait.mp4"

@@ -46,6 +46,11 @@ export function ImpactCharts() {
       </div>
 
       <div className="mt-16 md:mt-24">
+        <ChartHead title="Where it went, by partner." note={`Invested to date${tag}`} />
+        <InvestedPie />
+      </div>
+
+      <div className="mt-16 md:mt-24">
         <ChartHead title="Where it should be by year end." note={`Partner targets${tag}`} />
         <Targets />
       </div>
@@ -62,9 +67,9 @@ function ChartHead({ title, note }: { title: string; note: string }) {
   );
 }
 
-/** A tick step of 1, 2 or 5 × 10ⁿ that splits `max` into at most four bands. */
+/** A tick step of 1, 2 or 5 × 10ⁿ that splits `max` into at most four bands; an empty chart still gets a €1,000 scale. */
 function tickStep(max: number) {
-  const raw = Math.max(max, 1) / 4;
+  const raw = Math.max(max, 400000) / 4;
   const pow = 10 ** Math.floor(Math.log10(raw));
   return [1, 2, 5, 10].map((m) => m * pow).find((s) => s >= raw)!;
 }
@@ -136,6 +141,94 @@ function MonthlyColumns() {
           </span>
         ))}
       </div>
+    </div>
+  );
+}
+
+// One colour per partner, in the order of `partners`: red, white, grey. Red and grey sit close for red-blind readers,
+// so every slice also has a labelled legend row and a gap either side.
+const SLICE_COLORS = ["var(--red)", "var(--ink)", "var(--muted)"];
+const R = 46;
+const C = 2 * Math.PI * R;
+const GAP = 1;
+
+function InvestedPie() {
+  const [ref, shown] = useRevealOnce<HTMLDivElement>(0.3);
+  const [active, setActive] = useState<number | null>(null);
+  const total = impact.invested.reduce((sum, p) => sum + p.cents, 0);
+  const share = (cents: number) => `${total ? Math.round((cents / total) * 100) : 0}%`;
+  // Only cut gaps between slices when there is more than one to cut.
+  const gap = impact.invested.filter((p) => p.cents > 0).length > 1 ? GAP : 0;
+
+  const arc = (cents: number) => (total ? (cents / total) * C : 0);
+  const slices = impact.invested.map((p, i) => ({
+    ...p,
+    color: SLICE_COLORS[i],
+    // Where the slice begins along the ring: the length of every slice before it.
+    start: impact.invested.slice(0, i).reduce((sum, q) => sum + arc(q.cents), 0),
+    len: Math.max(arc(p.cents) - gap, 0),
+  }));
+  const on = active === null ? null : slices[active];
+  const hover = (i: number) => ({
+    onMouseEnter: () => setActive(i),
+    onMouseLeave: () => setActive(null),
+  });
+
+  return (
+    <div ref={ref} className="grid items-center gap-10 md:grid-cols-12 md:gap-12">
+      <div className="relative mx-auto aspect-square w-full max-w-72 md:col-span-5 md:max-w-80">
+        <svg
+          viewBox="0 0 120 120"
+          className="h-full w-full -rotate-90"
+          role="img"
+          aria-label={`Invested by partner: ${slices.map((s) => `${s.partner} ${formatPrice(s.cents)} (${share(s.cents)})`).join(", ")}`}
+        >
+          {/* Nothing has been sent yet: an empty ring rather than no chart. */}
+          {total === 0 && <circle cx={60} cy={60} r={R} fill="none" stroke="var(--line)" strokeWidth={16} />}
+          {slices.map((s, i) => (
+            <g key={s.partner} {...hover(i)} className={`transition-opacity duration-200 ${active !== null && active !== i ? "opacity-35" : ""}`}>
+              <circle
+                cx={60}
+                cy={60}
+                r={R}
+                fill="none"
+                stroke={s.color}
+                strokeWidth={16}
+                strokeDasharray={`${shown ? s.len : 0} ${C}`}
+                strokeDashoffset={-s.start}
+                className={`transition-[stroke-dasharray] duration-[1400ms] motion-reduce:transition-none ${EASE}`}
+                style={{ transitionDelay: `${i * 120}ms` }}
+              />
+            </g>
+          ))}
+        </svg>
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 text-center" aria-hidden="true">
+          <p className="eyebrow max-w-[9rem] leading-snug">{on ? on.partner : "Invested to date"}</p>
+          <p className="display text-4xl leading-none tabular-nums lining-nums md:text-5xl">{formatPrice(on ? on.cents : total)}</p>
+          <p className={`eyebrow transition-opacity duration-200 ${on ? "opacity-100" : "opacity-0"}`}>{on ? share(on.cents) : "0%"}</p>
+        </div>
+      </div>
+
+      <ul className="border-t border-line md:col-span-6 md:col-start-7">
+        {slices.map((s, i) => (
+          <li
+            key={s.partner}
+            tabIndex={0}
+            {...hover(i)}
+            onFocus={() => setActive(i)}
+            onBlur={() => setActive(null)}
+            className={`grid cursor-default grid-cols-[auto_1fr_auto] items-center gap-x-4 border-b border-line py-5 outline-none transition-opacity duration-200 focus-visible:bg-white/5 md:py-6 ${
+              active !== null && active !== i ? "opacity-40" : ""
+            }`}
+          >
+            <span className="h-2.5 w-2.5" style={{ background: s.color }} aria-hidden="true" />
+            <span className="text-sm font-semibold tracking-[0.02em] text-ink uppercase">{s.partner}</span>
+            <span className="text-sm tabular-nums text-ink-2">
+              {formatPrice(s.cents)} <span className="text-muted">· {share(s.cents)}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

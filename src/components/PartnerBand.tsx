@@ -15,11 +15,11 @@ const marks: Record<Partner["mark"] | "workshop", React.ReactNode> = {
     </svg>
   ),
   forest: <LeafIcon width={22} height={22} />,
-  wetlands: (
+  coast: (
     <svg {...base} aria-hidden="true">
-      <path d="M8 19V8M12 19V5M16 19v-9" />
-      <path d="M8 8c-1.5-1-2-2.5-2-4M16 10c1.5-1 2-2.5 2-4" />
-      <path d="M3 21c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0" />
+      <path d="M5 10.5A3.5 3.5 0 0 1 8 7a4 4 0 0 1 8 0 3.5 3.5 0 0 1 3 3.5 2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 10.5z" />
+      <path d="M12 13v2.5c-2.5 0-4.5 2-5.5 5M12 15.5c2.5 0 4.5 2 5.5 5M12 15.5v5" />
+      <path d="M3 18.5c2-1.2 4-1.2 6 0s4 1.2 6 0 4-1.2 6 0" />
     </svg>
   ),
   workshop: <NeedleIcon width={22} height={22} />,

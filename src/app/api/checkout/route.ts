@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { designNumber, getProduct } from "@/data/products";
+import { isAvailable } from "@/data/availability";
 import { leadTimeLabel } from "@/lib/format";
 import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
 import { storefront, storefrontConfigured } from "@/lib/shopify";
@@ -31,6 +32,9 @@ export async function POST(req: Request) {
     const product = getProduct(String(item.slug));
     if (!product) {
       return NextResponse.json({ error: "A piece in your bag is no longer available, so we took it out.", unavailable: [String(item.slug)] }, { status: 409 });
+    }
+    if (!isAvailable(product)) {
+      return NextResponse.json({ error: `The ${product.name} is coming soon and can't be ordered yet, so we took it out.`, unavailable: [product.slug] }, { status: 409 });
     }
     if (!product.sizes.includes(item.size)) {
       return NextResponse.json({ error: `Unknown size for ${product.name}.` }, { status: 400 });

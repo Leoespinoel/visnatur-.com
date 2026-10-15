@@ -1,79 +1,68 @@
 import Link from "next/link";
 import { site } from "@/data/site";
-import { featuredProducts, interleaveFamilies, productsInCategory } from "@/data/products";
-import { campaigns, type Campaign } from "@/data/campaigns";
+import { alternateAudiences, featuredProducts } from "@/data/products";
+import { campaigns, exploreStories, homeSlides, type Campaign } from "@/data/campaigns";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { Carousel } from "@/components/Carousel";
-import { CampaignBlock } from "@/components/CampaignBlock";
-import { LookbookRow } from "@/components/LookbookRow";
-import { LabelTile } from "@/components/LabelTile";
+import { HeroSlider } from "@/components/landing/HeroSlider";
+import { StoryPair } from "@/components/StoryPair";
+import { StoryCarousel } from "@/components/StoryCarousel";
+import type { Story } from "@/components/StoryCopy";
 import { FilmBlock } from "@/components/FilmBlock";
 import { Newsletter } from "@/components/Newsletter";
 import { Playlist } from "@/components/Playlist";
-import { HeroFilm } from "@/components/HeroFilm";
 import { CommunityCard } from "@/components/CommunityCard";
-import { BadgerRows } from "@/components/BadgerRows";
 import { communityPosts } from "@/data/community";
 import { atelierFilm } from "@/data/film";
 
-/** The row under a campaign image: a five-up product carousel or four lookbook images. */
-function CampaignRow({ campaign }: { campaign: Campaign }) {
-  const { row } = campaign;
-  if (row.kind === "lookbook") return <LookbookRow images={row.images} />;
-  const items = row.kind === "featured" ? featuredProducts(10) : interleaveFamilies(productsInCategory(row.category));
-  if (items.length === 0) return null;
-  return (
-    <div className="container-x py-10 md:py-12">
-      <ProductCarousel variant="kith" title={campaign.title} products={items} link={{ label: "Shop all", href: campaign.primary.href }} />
-    </div>
-  );
+/** A campaign as one half of a pair: its picture, title, line and both links. */
+function campaignStory(key: string): Story {
+  const c = campaigns.find((c) => c.key === key) as Campaign;
+  return { title: c.title, dek: c.text, image: c.image, alt: c.alt, links: c.secondary ? [c.primary, c.secondary] : [c.primary] };
 }
 
+/**
+ * Homepage, paced like /shop: the full-screen hero slider, the lines and edits, women and men side by side,
+ * one row of pieces, the making-of film, then the community, the playlist and the newsletter.
+ * Pictures alternate with white space so no two full-bleed images sit back to back.
+ */
 export default function HomePage() {
   return (
     <>
-      {/* Hero: the film. Whole thing is one link, chrome floats over it. */}
-      <HeroFilm />
       <h1 className="sr-only">
         {site.name}. {site.tagline}
       </h1>
 
-      {/* Campaigns, as on kith.com: full-bleed image, then products or a lookbook row */}
-      {campaigns.map((c, i) => (
-        <div key={c.key} className="pt-1.5 md:pt-2">
-          <CampaignBlock image={c.image} alt={c.alt} title={c.title} text={c.text} primary={c.primary} secondary={c.secondary} preload={i === 0} />
-          <CampaignRow campaign={c} />
-        </div>
-      ))}
+      {/* 1. Full-screen hero, as on /men and /women: a campaign card per line over a landscape; the header floats over it */}
+      <HeroSlider slides={homeSlides} label={site.name} />
 
-      {/* Half-width pair, like Kith's "Apparel | Accessories" */}
-      <section className="grid gap-1.5 pt-1.5 md:grid-cols-2 md:gap-2 md:pt-2">
-        <LabelTile href="/shop/outerwear-accessories" image="/images/caps-scene.jpg" label="Caps" cta="Shop now" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
-        <LabelTile href="/made-to-order" image="/images/numbered-label.jpg?v=2" label="Made to order" cta="A closer look" aspect="aspect-[4/5] md:aspect-[6/7]" sizes="(min-width: 768px) 50vw, 100vw" />
-      </section>
+      {/* 2. Lines, edits and the workshop */}
+      <StoryCarousel title="The collection" dek="Lines, edits and the workshop behind them." stories={exploreStories} />
 
-      {/* The making-of, as a campaign */}
-      <div className="pt-1.5 md:pt-2">
-        <FilmBlock {...atelierFilm} text="Every piece is cut and sewn by hand, to order, in a small workshop in Mauritius." link={{ label: "A closer look", href: "/made-to-order" }} />
+      {/* 3. Women and men side by side */}
+      <StoryPair stories={[campaignStory("women"), campaignStory("men")]} />
+
+      {/* 4. The featured pieces, alternating the women's line with the rest */}
+      <div className="container-x py-14 md:py-20">
+        <ProductCarousel title="Collection I" products={alternateAudiences(featuredProducts(Infinity)).slice(0, 16)} link={{ label: "Shop all", href: "/shop/all" }} />
       </div>
 
+      {/* 5. The making-of, full-bleed */}
+      <FilmBlock {...atelierFilm} text="Every piece is cut and sewn by hand, to order, in a small workshop in Mauritius." link={{ label: "A closer look", href: "/made-to-order" }} />
+
       {/* Community: tall cards of people in the clothes, some playable */}
-      <section className="relative overflow-hidden py-16 md:py-24">
-        {/* The drifting badgers from behind the pledge figure on /conservation */}
-        <BadgerRows rows={24} />
-        <div className="relative">
-          <h2 className="display text-center text-4xl md:text-5xl">Community</h2>
-          <p className="mb-8 mt-4 text-center md:mb-10">
-            <Link href="/stories#community" className="eyebrow !text-ink link-underline">
-              More stories
-            </Link>
-          </p>
-          <Carousel ariaLabel="Community" itemClassName="w-[62%] sm:w-[40%] md:w-[calc((100%-2rem)/4.3)] lg:w-[calc((100%-2.5rem)/5.3)]" gap="gap-1.5 md:gap-2">
-            {communityPosts.map((post, i) => (
-              <CommunityCard key={i} post={post} />
-            ))}
-          </Carousel>
-        </div>
+      <section className="py-16 md:py-24">
+        <h2 className="display text-center text-4xl md:text-5xl">Community</h2>
+        <p className="mb-8 mt-4 text-center md:mb-10">
+          <Link href="/stories#community" className="eyebrow !text-ink link-underline">
+            More stories
+          </Link>
+        </p>
+        <Carousel ariaLabel="Community" itemClassName="w-[62%] sm:w-[40%] md:w-[calc((100%-2rem)/4.3)] lg:w-[calc((100%-2.5rem)/5.3)]" gap="gap-1.5 md:gap-2">
+          {communityPosts.map((post, i) => (
+            <CommunityCard key={i} post={post} />
+          ))}
+        </Carousel>
       </section>
 
       {/* The playlist, on black between the community and the red newsletter */}

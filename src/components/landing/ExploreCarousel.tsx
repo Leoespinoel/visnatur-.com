@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { comingSoon } from "@/data/availability";
 import { Carousel } from "../Carousel";
+import { ComingSoon } from "../ComingSoon";
 
 export type ExploreTile = { title: string; href: string; image: string; alt: string; cta: string };
 
@@ -27,6 +29,7 @@ export function ExploreCarousel({ title, text, tiles, className = "" }: { title:
             <Link key={t.href} href={t.href} className="group relative block aspect-[3/4] overflow-hidden bg-paper-2 text-white">
               <Image src={t.image} alt={t.alt} fill unoptimized sizes="(min-width: 768px) 30vw, 72vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
+              {comingSoon(t.href) && <ComingSoon />}
               <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
                 <p className="display text-3xl md:text-4xl">{t.title}</p>
                 <span className="mt-3 inline-block border-b border-white pb-1 text-[11px] font-medium uppercase tracking-[0.16em] md:text-[12px]">{t.cta}</span>

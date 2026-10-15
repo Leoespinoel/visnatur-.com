@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { designNumber, siblingsOf, type Product } from "@/data/products";
+import { isAvailable } from "@/data/availability";
 import { useCart } from "@/lib/cart";
 import { formatPrice, leadTimeLabel } from "@/lib/format";
 import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
@@ -101,7 +102,11 @@ export function ProductDetails({ product }: { product: Product }) {
         {madeToMeasure && <p className="mt-2 text-xs text-muted">Tell us your inseam at checkout and we hem it for you at no extra cost.</p>}
       </div>
 
-      {inBag ? (
+      {!isAvailable(product) ? (
+        <button type="button" disabled className="btn btn-outline w-full">
+          Coming soon
+        </button>
+      ) : inBag ? (
         <button type="button" onClick={open} className="btn btn-outline w-full">
           In your bag · view
         </button>

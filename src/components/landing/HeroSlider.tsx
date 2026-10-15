@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { comingSoon } from "@/data/availability";
+import { locationOf } from "@/data/locations";
+import { setHeroCoords } from "@/lib/hero-location";
+import { ComingSoon } from "../ComingSoon";
 import { SlideProgress, useReducedMotion } from "./SlideProgress";
 
 export type HeroSlide = {
@@ -37,6 +41,12 @@ export function HeroSlider({ slides, label }: { slides: HeroSlide[]; label: stri
   const reduced = useReducedMotion();
   const next = () => setIndex((i) => (i + 1) % slides.length);
 
+  // The header shows the slide's coordinates under the wordmark too.
+  useEffect(() => {
+    setHeroCoords(locationOf(slides[index].image)?.coords);
+    return () => setHeroCoords(undefined);
+  }, [slides, index]);
+
   return (
     <section className="relative isolate h-[100svh] min-h-[640px] overflow-hidden bg-[#0a0a0a] text-white" aria-roledescription="carousel" aria-label={label}>
       {slides.map((s, i) => (
@@ -68,6 +78,7 @@ export function HeroSlider({ slides, label }: { slides: HeroSlide[]; label: stri
                   style={s.position ? { objectPosition: s.position } : undefined}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/5" />
+                {comingSoon(s.cta.href) && <ComingSoon />}
               </Link>
               {/* Lower in the card than on RL: our campaigns have faces where their close-ups have calm. */}
               <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-end px-6 pb-10 text-center md:pb-14">

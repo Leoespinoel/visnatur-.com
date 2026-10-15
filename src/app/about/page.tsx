@@ -7,7 +7,7 @@ import { pledgePercentLabel } from "@/lib/pledge";
 import { ArrowIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "Origins",
   description: "Vis Naturæ is a made-to-order resort label for men and women, founded in 2026. Force of nature, taken seriously.",
 };
 
@@ -52,7 +52,7 @@ export default function AboutPage() {
     <>
       {/* The name, set as a dictionary entry: pronunciation, senses, synonyms, then origin, history and what it asks of the brand. */}
       <section id="the-name" className="container-x scroll-mt-24 pt-14 pb-16 md:pt-20 md:pb-24">
-        <p className="eyebrow mb-4">About</p>
+        <p className="eyebrow mb-4">Origins</p>
         <div className="grid gap-10 xl:grid-cols-12">
           <div className="xl:col-span-6">
             <h1 className="display text-5xl md:text-7xl">
@@ -86,7 +86,7 @@ export default function AboutPage() {
           <div className="xl:col-span-6">
             <div className="image-frame aspect-[16/9] xl:aspect-auto xl:h-full">
               <Image
-                src="/images/campaign-drop.jpg?v=2"
+                src="/images/campaign-drop.jpg?v=3"
                 alt="Four friends on a basalt harbour wall in Mauritius in a navy quarter zip, oat linen shirt, red striped knit and saffron striped swim shorts"
                 fill
                 unoptimized

@@ -88,7 +88,8 @@ export const SHOTS = {
     out: "images/campaign-drop.jpg", aspect: C, size: [2560, 1440],
     wear: ["harbour-quarter-zip-navy", "riviera-linen-shirt-oat", "mooring-stripe-crew-red-ecru", "lido-stripe-swim-short-saffron"],
     prompt:
-      "Four friends in their late twenties to forties on an old black basalt harbour wall in Mauritius in late afternoon, wooden fishing boats and turquoise water behind them. One sits on a mooring bollard in the navy half-zip knit with cream trousers, one leans on the wall in the oat linen shirt with sleeves rolled, one stands in the red and ecru striped knit crewneck, one is barefoot in the saffron and white striped swim shorts. They are mid-conversation, laughing, not looking at the camera. Wide shot.",
+      // Take 1 gave four near-identical faces (Leo, 2026-10-15: "the models look the same"), so each man is described.
+      "Four friends on an old black basalt harbour wall in Mauritius in late afternoon, wooden fishing boats and turquoise water behind them. They are four clearly different men who look nothing alike, with different faces, ages, builds and hair. On a mooring bollard sits a stocky man in his late forties with a shaved head and a short grey beard, in the navy half-zip knit with cream trousers. Leaning on the wall is a tall, lean man in his early thirties with shoulder-length wavy dark hair tucked behind his ears and a moustache, in the oat linen shirt with sleeves rolled. Beside him stands a slim man in his late twenties with short tight curls and a clean-shaven face, in the red and ecru striped knit crewneck. Barefoot at the edge is a broad-shouldered man in his late thirties with sun-bleached sandy hair and stubble, in the saffron and white striped swim shorts. They are mid-conversation, laughing, not looking at the camera. Wide shot.",
   },
   "campaign-swim": {
     out: "images/campaign-swim.jpg", aspect: C, size: [2560, 1440],
@@ -113,6 +114,13 @@ export const SHOTS = {
     wear: ["riviera-linen-shirt-red", "riviera-linen-shirt-sage", "harbour-quarter-zip-mustard"],
     prompt:
       "Inside a small sunlit tailoring workshop in Port Louis, Mauritius. A seamstress in her fifties guides red linen under an industrial sewing machine. Behind her a clothes rail holds finished pieces: the red linen shirt, the sage linen shirt and the mustard half-zip knit, on wooden hangers. Bolts of linen, paper patterns and shears on a long wooden table, afternoon light through tall shutters. Wide shot.",
+  },
+  // The women's line (2026-10-15), second campaign on the homepage.
+  "campaign-women": {
+    out: "images/campaign-women.jpg", aspect: C, size: [2560, 1440], look: "women",
+    wear: ["womens-cabana-linen-shirt-navy", "esplanade-linen-short-white", "tidal-swimsuit-lagoon", "womens-riviera-linen-shirt-oat", "womens-mooring-stripe-crew-pink-ecru", "womens-veranda-linen-trouser-white"],
+    prompt:
+      "Late afternoon on the white sand at Pointe d'Esny on the south-east coast of Mauritius, the turquoise lagoon and a small green islet behind, a blue wooden pirogue pulled up on the beach. Three friends walk along the waterline towards the camera, relaxed, talking and laughing, three clearly different women who do not look alike: one in her late twenties with a short dark bob, in the navy and white awning-striped linen shirt with the sleeves rolled, tucked into the white tailored linen shorts; one in her mid forties with long loose sun-streaked hair, in the turquoise one-piece swimsuit with the oat linen shirt worn open over it, a towel over her shoulder; one in her thirties with dark curly hair, in the cropped pink and ecru striped knit crewneck with the white wide drawstring linen trousers, her sandals in her hand. All barefoot. Wide shot, all three full length but small enough to show the lagoon.",
   },
 
   // ── Shop category scenes and page images ─────────────────────────────────────────────────────
@@ -229,6 +237,19 @@ export const SHOTS = {
     prompt:
       "Dusk on a wide beach in Mauritius, the sky pink and orange over the sea. Friends play a loose game of touch rugby on the hard wet sand, barefoot. In the foreground two clearly different men: a fair-skinned man in his late twenties with short sandy hair, clean shaven, runs with the ball tucked under his arm in the navy and ecru striped rugby shirt with stone shorts, while a Mauritian Creole man in his thirties with a shaved head and a short beard, in the red, white and navy rugby shirt, reaches to tag him. The other players are far behind and blurred, in plain white t-shirts. Motion, sand kicking up, candid. Vertical frame.",
   },
+  // Polo Shirts (2026-10-15): the men's mosaic tile and menu scene, and the category's story tile for men and women.
+  "men-cat-polo": {
+    out: "images/men/cat-polo.jpg", aspect: T, size: [1200, 1500],
+    wear: ["cabana-stripe-polo-sky", "mens-esplanade-linen-short-navy"],
+    prompt:
+      "Mid-afternoon at an old open-air clay tennis court beside the sugar cane fields at Bel Ombre in the south of Mauritius, palms and green hills behind, warm light. A Rodriguan man in his late twenties with short tight curls and an easy smile sits on a weathered wooden bench at the side of the court, a wooden racket resting against his knee, drinking from a glass bottle of water. He wears the sky and white striped short-sleeved collared piqué shirt untucked, the navy tailored shorts and white canvas sneakers. Vertical portrait framing.",
+  },
+  "shop-polos": {
+    out: "images/shop/polos.jpg", aspect: C, size: [2560, 1440], look: "mixed",
+    wear: ["sett-polo-navy", "quayside-chino-stone", "promenade-knit-polo-sky", "quayside-chino-short-white"],
+    prompt:
+      "Lunch on the shaded wooden veranda of an old beach house at Blue Bay, Mauritius, the turquoise lagoon bright beyond the railing, a long table with a white cloth, glasses and a bowl of limes. Two clearly different friends stand by the table laughing: a Mauritian man of mixed Creole and French heritage in his early forties with salt-and-pepper curls, in the navy short-sleeved piqué collared shirt with the small tone-on-tone badger, tucked into stone chinos; and a woman of Indian heritage in her early thirties with long dark hair tied back, in the sky short-sleeved knitted collared top with cream tipping and the cream script on the chest, tucked into white chino shorts. Wide landscape framing.",
+  },
   "shop-trousers": {
     out: "images/shop/trousers.jpg", aspect: T, size: [1200, 1500],
     wear: ["quayside-chino-stone", "harbour-quarter-zip-navy"],
@@ -252,6 +273,13 @@ export const SHOTS = {
     wear: ["mens-cabana-stripe-tee-navy", "mens-jetty-linen-short-oat"],
     prompt:
       "Afternoon on an old basalt harbour wall at Mahébourg, Mauritius, wooden fishing pirogues painted blue and red moored in the calm bay behind. A fair-skinned man in his mid-thirties with curly light brown hair and stubble sits on the wall with one leg drawn up, peeling a mango with a small knife, relaxed. He wears the navy and white striped crew-neck tee and the oat linen drawstring shorts, barefoot, a pair of brown leather sandals on the stones beside him. Medium-wide shot, full length, the rest of the frame calm and sunlit.",
+  },
+  // The Artists card in the Sponsorship band on /stories.
+  "sponsor-artist": {
+    out: "images/sponsor-artist.jpg", aspect: C, size: [2560, 1440], look: "women",
+    wear: ["womens-riviera-linen-shirt-oat", "womens-veranda-linen-trouser-navy"],
+    prompt:
+      "Late afternoon on the sand at Le Morne, Mauritius, the mountain rising behind and the lagoon pale turquoise. A Malagasy woman in her mid thirties with short natural hair stands at a weathered wooden field easel, painting the mountain and the water on a canvas that is half finished, a brush in one hand and a small palette in the other, a tin of brushes and paint tubes on a cloth on the sand at her feet. She wears the oat linen shirt with its sleeves rolled to the elbow and the navy drawstring linen trousers, barefoot. Medium-wide shot, full figure, the canvas and the landscape both clearly visible, the light warm and low.",
   },
   "shop-grid-accessories": {
     out: "images/shop/grid-accessories.jpg", aspect: C, size: [2560, 1440], look: "women",
@@ -314,6 +342,13 @@ export const SHOTS = {
     prompt:
       "Full-length portrait of a Malagasy woman in her thirties with her hair tied up, standing barefoot on black basalt rocks at Gris Gris on the wild south coast of Mauritius, waves breaking white behind her, wind in her clothes. She wears the olive sunglasses from the reference images, a slim narrow oval acetate frame whose lenses are a shallow horizontal oval about twice as wide as they are tall, not round, at true size for her face, with the plain oat hoodie and white shorts. The whole figure from head to feet with space above.",
   },
+  // The Knitwear tile (and the women's knitwear scene in site.ts): the women's line's own knit, not a hoodie.
+  "women-cat-knitwear": {
+    out: "images/women/landing/cat-knitwear.jpg", aspect: T, size: [1200, 1500], look: "women",
+    wear: ["womens-mooring-stripe-crew-navy-ecru", "womens-veranda-linen-trouser-oat"],
+    prompt:
+      "A cool misty morning in the Bois Chéri tea plantation in the highlands of Mauritius, rows of bright green tea bushes rolling away behind, low cloud over the hills. A red-haired woman in her mid thirties with pale freckled skin and her hair in a loose low knot stands still between the rows, turned three-quarters to the camera and looking out over the fields, one hand resting on the tea bushes. She wears the navy and ecru striped knit crewneck from the reference images, sleeves pushed up a little, with the oat wide drawstring linen trousers and brown leather loafers. Full figure, vertical frame.",
+  },
   // The stories band: the badger pieces (settings kept clear of the existing women's lookbook: tea, boats).
   "women-story-badger": {
     out: "images/women/landing/story-badger.jpg", aspect: T, size: [1200, 1500], look: "women",
@@ -349,6 +384,15 @@ export const SHOTS = {
     ["p10", "freeride", ["regatta-cardigan-navy-ecru"], "on a wooden chalet terrace with skis behind him, in the navy knitted cardigan with ecru trim over a white tee"],
     ["p11", "trail", ["pavilion-cable-vest-navy"], "on a mountain trail above the sea, in the navy cable knit vest over a white tee"],
     ["p12", "climbing", ["riviera-linen-shirt-clementine"], "at the foot of a sea cliff with a chalk bag on his hip, in the clementine linen shirt with sleeves rolled and stone trousers"],
+  ]),
+  // Sportswomen in the women's line (2026-10-15): new people, not from the film, one per sport.
+  ...communityWomen([
+    ["w1", "a surfer in her early thirties with long sun-bleached sandy hair, salty and tangled, and tanned freckled skin", ["tidal-swimsuit-navy", "womens-riviera-linen-shirt-sky"], "on the sand with a white surfboard under one arm, waves breaking on the reef at Tamarin behind her, in the navy one-piece swimsuit with the sky blue linen shirt worn open over it"],
+    ["w2", "a kitesurfer, a Mauritian Creole woman in her mid twenties with short natural curls and an athletic build", ["lido-stripe-swimsuit-red"], "on a windy beach at Le Morne with her kite lying on the sand behind her, in the red and white striped one-piece swimsuit"],
+    ["w3", "a golfer, a Korean woman in her late thirties with a sleek low ponytail", ["promenade-knit-polo-navy", "quayside-chino-short-white"], "on a seaside fairway holding a club, in the navy short-sleeved knitted collared top tucked into the white cotton chino shorts, white golf shoes"],
+    ["w4", "a trail runner, a lean woman in her early forties with a short grey-streaked crop and sun lines around her eyes", ["cabana-stripe-tee-red", "quayside-chino-short-stone"], "on a ridge trail in the Black River Gorges, green forested hills and the sea far below, in the red and white striped t-shirt with the stone cotton chino shorts and trail shoes, a light sheen of sweat"],
+    ["w5", "a sailor in her mid fifties with a weathered tan and grey-blonde hair in a loose ponytail", ["womens-mooring-stripe-crew-navy-ecru", "esplanade-linen-short-white"], "on the wooden pontoon of a sailing club at Grand Baie, small dinghies with white sails moored behind her, in the cropped navy and ecru striped knit crewneck with the white tailored linen shorts"],
+    ["w6", "a freediver, a Mauritian woman of Indian heritage in her late twenties with long black hair slicked back and wet", ["lido-stripe-swimsuit-sky"], "on the deck of a small wooden boat over the reef at Blue Bay, a mask in one hand and long freediving fins under her arm, in the sky blue and white striped one-piece swimsuit, water drops on her skin"],
   ]),
 
   // ── On-model product shots (one model per design, kept across its colourways) ──────────────
@@ -535,6 +579,35 @@ for (const c of ["sky", "pink", "yellow", "clementine"])
 // The navy take became this design's model reference (the first one wore the old sky stripe), so it pulls the sky towards navy.
 SHOTS["womens-cabana-linen-shirt-sky"].prompt += " The stripes are a soft light sky blue, exactly the colour of the shirt's product reference image, not navy or dark blue.";
 
+// ── Men's polo shirts on-model shots (2026-10-15) ───────────────────────────────────────────────
+// One man per design, the first colourway first (its approved take becomes the model reference). Each piece is
+// worn with trousers or shorts from the range, `with_(colour)`. No "polo" in the prompts: Higgsfield refuses it.
+const MEN_POLOS = [
+  ["sett-polo", ["navy", "white", "sky", "pink", "red"],
+    "a Mauritian man of Indian heritage in his late twenties with short wavy black hair and light stubble, wearing the short-sleeved piqué collared shirt tucked into the stone chinos with a brown leather belt and white leather sneakers", () => ["quayside-chino-stone"]],
+  ["cabana-stripe-polo", ["sky", "navy", "red", "pink", "yellow"],
+    "a Japanese man in his early forties with short neat greying hair and a lean build, wearing the striped short-sleeved collared shirt untucked with the tailored shorts and white canvas sneakers",
+    (c) => [c === "navy" ? "mens-jetty-linen-short-oat" : "mens-esplanade-linen-short-navy"]],
+  ["riviera-linen-polo", ["sage", "oat", "sky", "navy", "clementine"],
+    "an Ethiopian man in his mid thirties with close-cropped hair and a short neat beard, wearing the short-sleeved jersey collared shirt untucked with the drawstring linen trousers and brown leather sandals",
+    (c) => [c === "oat" ? "veranda-linen-trouser-white" : "veranda-linen-trouser-oat"]],
+  ["sundeck-knit-polo", ["oat", "navy", "sage", "black"],
+    "an Italian man in his mid fifties with thick swept-back silver hair and a tanned face, wearing the fine knitted short-sleeved collared shirt tucked into the trousers with a brown leather belt and tan suede loafers",
+    (c) => [c === "navy" || c === "black" ? "quayside-chino-white" : "esplanade-linen-trouser-navy"]],
+  ["boathouse-tipped-polo", ["ecru", "navy", "sky", "pink"],
+    "a Korean man in his late twenties with a soft side-parted haircut, wearing the tipped short-sleeved piqué collared shirt tucked into the shorts with white leather tennis sneakers",
+    (c) => [c === "ecru" ? "mens-esplanade-linen-short-navy" : "mens-quayside-chino-short-stone"]],
+  ["cove-terry-polo", ["clementine", "sky", "yellow", "pink"],
+    "an Irish man in his early thirties with short red hair, freckles and a short red beard, wearing the terry towelling short-sleeved collared shirt untucked with the drawstring linen shorts and brown leather sandals",
+    () => ["mens-jetty-linen-short-oat"]],
+];
+for (const [family, colours, casting, with_] of MEN_POLOS)
+  for (const [id, shot] of Object.entries(onModel(family, colours, casting))) {
+    const c = id.slice(family.length + 1);
+    const pull = c === colours[0] ? "" : " The first reference image only shows who the model is: the piece must be exactly the colour of its own product reference image, not the colour he wears in the first image.";
+    SHOTS[id] = { ...shot, prompt: shot.prompt + pull, wear: [...shot.wear, ...with_(c)] };
+  }
+
 function community(rows) {
   return Object.fromEntries(
     rows.map(([id, sport, wear, scene]) => [
@@ -543,6 +616,18 @@ function community(rows) {
         out: `community/${id}.jpg`, aspect: T, size: [1080, 1350], wear,
         face: `community/${id}.jpg`,
         prompt: `Portrait of the ${sport} athlete from the first reference image, same face, same build, same skin and hair, standing still and looking calmly into the lens after a session, ${scene}. Natural light outdoors in Mauritius, waist-up to three-quarter length.`,
+      },
+    ]),
+  );
+}
+
+function communityWomen(rows) {
+  return Object.fromEntries(
+    rows.map(([id, who, wear, scene]) => [
+      id,
+      {
+        out: `community/${id}.jpg`, aspect: T, size: [1080, 1350], wear, look: "women",
+        prompt: `Portrait of ${who}, standing still and looking calmly into the lens after a session, ${scene}. Natural light outdoors in Mauritius, waist-up to three-quarter length.`,
       },
     ]),
   );

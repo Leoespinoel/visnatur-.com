@@ -21,7 +21,7 @@ const leverageTests = [
   { title: "Close to the edge", text: "Habitats with the least left, where money now is worth more than money later." },
   {
     title: "Counted",
-    text: "Partners who measure outcomes, not activity, and publish them: coral that survives, trees that take, wetland that holds water again.",
+    text: "Partners who measure outcomes, not activity, and publish them: coral that survives, trees that take, mangroves that hold the shore again.",
   },
 ];
 

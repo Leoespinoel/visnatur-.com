@@ -78,7 +78,7 @@ html = html.replace(specRe, (whole, open, name, mid, rest) => {
   const figure =
     `<figure class="overview"><a class="sheet" href="${file}" target="_blank" rel="noopener">` +
     `<img src="${file}" alt="${alt}" width="${W * n}" height="${H * ROWS.length}" loading="lazy"></a>` +
-    `<figcaption class="caption">${n === 1 ? "" : "Left to right: "}${colourways.map((c) => c.colour).join(", ")}. Flat, on model, detail. Previsualisation.</figcaption></figure>`;
+    `<figcaption class="caption">${n === 1 ? "" : "Left to right: "}${colourways.map((c) => c.colour).join(", ")}. Flat, on model, detail.</figcaption></figure>`;
   return `${open}${name}${mid}${count}${rest}${figure}`;
 });
 

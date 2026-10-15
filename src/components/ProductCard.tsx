@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { designNumber, productImages, type Product } from "@/data/products";
+import { isAvailable } from "@/data/availability";
 import { formatPrice } from "@/lib/format";
 import { pledgeCents } from "@/lib/pledge";
 import { ChevronIcon } from "./Icons";
+import { ComingSoon } from "./ComingSoon";
 
 /** Colour dots shown before the rest collapse into "+N". */
 const MAX_DOTS = 6;
@@ -20,6 +22,7 @@ const arrow =
  * Hovering swaps the front view for the on-model shot, or the detail view when there is none.
  * Hovering a colour dot shows that colourway on the tile, and the tile then links to it.
  * With `gallery` (the listings, as on ralphlauren.com) arrows and a swipe step through every image.
+ * Pieces not on sale yet carry the grey "Coming soon" veil.
  */
 export function ProductCard({
   product,
@@ -121,6 +124,7 @@ export function ProductCard({
               </>
             )}
           </Link>
+          {!isAvailable(shown) && <ComingSoon />}
           {shown.badge && <span className="pointer-events-none absolute left-2 top-2 bg-ink px-2 py-1.5 text-[11px] leading-none text-paper">{shown.badge}</span>}
           {gallery && n > 1 && (
             <>

@@ -20,7 +20,7 @@ export const heroSlides: HeroSlide[] = [
     title: "Collection I",
     text: "Made in Mauritius, in your size, once you order it.",
     cta: { label: "Explore now", href: "/men/all" },
-    image: "/images/campaign-drop.jpg?v=2",
+    image: "/images/campaign-drop.jpg?v=3",
     alt: "Four friends on a basalt harbour wall in Mauritius in a navy quarter zip, oat linen shirt, red striped knit and saffron striped swim shorts",
     plate: "/images/men/plate-collection.jpg",
     thumb: "/community/p10.jpg?v=3",
@@ -65,13 +65,19 @@ export const heroSlides: HeroSlide[] = [
 
 const cat = (slug: string) => categories.find((c) => c.slug === slug)!;
 
-/** Column order: Swim over Trousers, Shirts (tall), Shorts & Tees over Knitwear, Accessories over Sunglasses. */
-export const categoryTiles: [MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile] = [
+/**
+ * Column order: Swim over Trousers, Shirts over Knitwear over Polo Shirts, Rugby Shirts over Tees over Shorts,
+ * Accessories over Sunglasses.
+ */
+export const categoryTiles: MosaicTile[] = [
   { label: cat("swim").name, href: "/men/swim", image: "/images/beach-surfer.jpg?v=2", alt: "A surfer on the beach at sunset in sky striped swim shorts and an oat linen shirt" },
   { label: cat("trousers").name, href: "/men/trousers", image: "/images/men/cat-trousers.jpg", alt: "A stack of folded chinos in seven colours on a teak table" },
   { label: cat("shirts-trousers").name, href: "/men/shirts-trousers", image: "/images/men/cat-linen.jpg", alt: "A man on a wooden jetty in a clementine linen shirt and white linen trousers" },
-  { label: cat("shorts-tees").name, href: "/men/shorts-tees", image: "/images/shop/shorts-tees.jpg", alt: "A man in the white Sandbar Tee and stone Quayside Chino Short by the lagoon" },
   { label: cat("polos-knitwear").name, href: "/men/polos-knitwear", image: "/images/men/cat-knitwear.jpg", alt: "A man in a plantation house doorway in a navy quarter zip and stone chinos" },
+  { label: cat("polo-shirts").name, href: "/men/polo-shirts", image: "/images/men/cat-polo.jpg", alt: "A man on a bench by a clay tennis court at Bel Ombre in the sky Cabana Stripe Polo and navy tailored shorts" },
+  { label: cat("rugby-shirts").name, href: "/men/rugby-shirts", image: "/images/shop/rugby.jpg", alt: "Friends playing touch rugby on the beach at dusk in the Breakwater and Touchline rugby shirts" },
+  { label: cat("tees").name, href: "/men/tees", image: "/images/shop/grid-shorts-tees.jpg", alt: "A man in the navy Cabana Stripe Tee peeling a mango on a harbour wall at Mahébourg" },
+  { label: cat("shorts").name, href: "/men/shorts", image: "/images/shop/shorts-tees.jpg", alt: "A man in the white Sandbar Tee and stone Quayside Chino Short by the lagoon" },
   { label: cat("outerwear-accessories").name, href: "/men/outerwear-accessories", image: "/images/caps-scene.jpg", alt: "A man on a jetty in an ecru and pine cap and a navy quarter zip" },
   { label: cat("sunglasses").name, href: "/men/sunglasses", image: "/images/sunglasses-scene.jpg", alt: "A man in sunglasses and a sky linen shirt in a boat below Le Morne" },
 ];

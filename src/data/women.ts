@@ -67,13 +67,15 @@ export const heroSlides: HeroSlide[] = [
   },
 ];
 
-/** Column order: Swim over Shirts, Shorts & Tees (tall), Sunglasses (tall), Knitwear over Trousers. */
-export const categoryTiles: [MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile, MosaicTile] = [
+/** Column order: Swim over Shirts, Polo Shirts over Tees, Shorts over Sunglasses, Knitwear over Trousers. */
+export const categoryTiles: MosaicTile[] = [
   { label: "Swim", href: "/women/swim", image: "/images/women/swim.jpg", alt: "A woman walking up a white sand beach in an oat linen shirt over a swimsuit" },
   { label: "Shirts", href: "/women/shirts-trousers", image: "/images/women/linen.jpg", alt: "A woman at a market in Port Louis in the pink Cabana Linen Shirt" },
-  { label: "Shorts & Tees", href: "/women/shorts-tees", image: `${IMG}/cat-caps.jpg`, alt: "A woman on the Port Louis waterfront in a white tee, white linen shorts and the clementine Cabana Cap" },
-  { label: "Sunglasses", href: "/women/sunglasses", image: `${IMG}/cat-sunglasses.jpg`, alt: "A woman on the basalt rocks at Gris Gris in the olive Alizé sunglasses and oat Riviera Hoodie" },
-  { label: "Knitwear", href: "/women/polos-knitwear", image: "/images/women/knitwear.jpg", alt: "A woman on a harbour wall in the sky Cabana Hoodie" },
+  { label: "Polo Shirts", href: "/women/polo-shirts", image: "/community/w3.jpg", alt: "A golfer on a seaside fairway in the navy Promenade Knit Polo and white Quayside Chino Shorts" },
+  { label: "Tees", href: "/women/tees", image: "/community/w4.jpg", alt: "A trail runner on a ridge above the Black River Gorges in the red Cabana Stripe Tee and stone Quayside Chino Shorts" },
+  { label: "Shorts", href: "/women/shorts", image: `${IMG}/cat-caps.jpg`, alt: "A woman on the Port Louis waterfront in a white tee, white linen shorts and the clementine Cabana Cap", position: "50% 45%" },
+  { label: "Sunglasses", href: "/women/sunglasses", image: `${IMG}/cat-sunglasses.jpg`, alt: "A woman on the basalt rocks at Gris Gris in the olive Alizé sunglasses and oat Riviera Hoodie", position: "50% 20%" },
+  { label: "Knitwear", href: "/women/polos-knitwear", image: `${IMG}/cat-knitwear.jpg`, alt: "A red-haired woman standing in the misty Bois Chéri tea fields in the navy and ecru Women’s Mooring Stripe Crew and oat Veranda linen trousers" },
   { label: "Trousers", href: "/women/trousers", image: "/images/women/trousers.jpg", alt: "A woman on a wooden jetty in white drawstring linen trousers and a white tee" },
 ];
 
