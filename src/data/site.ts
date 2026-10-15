@@ -5,7 +5,7 @@ export const site = {
   nameAscii: "Vis Naturae",
   tagline: "Made once you order it.",
   description:
-    "Vis Naturæ is a made-to-order resort label for men and women. Every piece is cut and sewn by hand in Mauritius, in the size you choose. 10% of every sale goes to conservation.",
+    "Vis Naturæ is a made-to-order clothing label for men and women. Every piece is cut and sewn by hand in Mauritius, in the size you choose. 10% of every sale goes to conservation.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   currency: "EUR",
   locale: "en-IE",

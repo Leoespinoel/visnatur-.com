@@ -8,7 +8,7 @@ import { ArrowIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Origins",
-  description: "Vis Naturæ is a made-to-order resort label for men and women, founded in 2026. Force of nature, taken seriously.",
+  description: "Vis Naturæ is a made-to-order clothing label for men and women, founded in 2026. Force of nature, taken seriously.",
 };
 
 /** A day on the island in four moments; each photo's pieces come from the stills shot list (scripts/stills-shots.mjs, day-*). */
@@ -72,7 +72,7 @@ export default function AboutPage() {
                 Of a person: an energy that cannot be argued with or held back. <span className="italic">&ldquo;She is a force of nature.&rdquo;</span>
               </li>
               <li>
-                A resort label for men and women, founded in {site.foundedYear} and made to order in Mauritius.
+                A clothing label for men and women, founded in {site.foundedYear} and made to order in Mauritius.
               </li>
             </ol>
             <p className="eyebrow mt-8">Synonyms</p>

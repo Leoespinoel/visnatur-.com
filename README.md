@@ -1,6 +1,6 @@
 # Vis Naturæ
 
-Made-to-order resort label for men and women, made in Mauritius. Every design stays on sale; each piece is cut and sewn in the buyer's size after it is ordered and ships 3–4 weeks later. 10% of every sale price goes to conservation.
+Made-to-order clothing label for men and women, made in Mauritius. Every design stays on sale; each piece is cut and sewn in the buyer's size after it is ordered and ships 3–4 weeks later. 10% of every sale price goes to conservation.
 
 Built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4, with Shopify for checkout, payments and orders.
 
