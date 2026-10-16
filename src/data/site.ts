@@ -34,15 +34,15 @@ export const site = {
    */
   playlist: {
     title: "Vis Naturæ",
-    url: "https://open.spotify.com/playlist/30TKfGSqvK2oTtI4a53hrJ" as string,
+    url: "https://open.spotify.com/playlist/2KTVrBS5RpvW0tPy6zW5OZ" as string,
     /** Songs with their own small player under the playlist. url: Spotify → a song → Share → Copy song link. */
     tracks: [
-      { title: "Five Star Hotels., RAYE and Mahalia", url: "https://open.spotify.com/track/0MI4U8nhdfJ1FPRAgYhXxC" },
-      { title: "Neverender, Justice and Tame Impala", url: "https://open.spotify.com/track/3aQ9MHkMeL7Yu7jpyF62xn" },
-      { title: "Knockout, Emanuel Satie, Maga and Mâhfoud", url: "https://open.spotify.com/track/27Vxc5UngiYQ3LbuOKqfa7" },
-      { title: "Where You Really Come From, Tobiahs and VV-Ace", url: "https://open.spotify.com/track/3OYoAxiD88QHs4MzzA8cjn" },
-      { title: "Time, Carlita", url: "https://open.spotify.com/track/0IAIsE9u9AYUH3wh7p77AE" },
-      { title: "Navajo, Masego", url: "https://open.spotify.com/track/6zWU7YALeEDMcPGhKKZJhV" },
+      { title: "Give It To Me 2025, Adriatique, Notre Dame, Timbaland and Nelly Furtado", url: "https://open.spotify.com/track/2SXIxc92q42M6lMCfQ8hKL" },
+      { title: "I See U, HotLap", url: "https://open.spotify.com/track/2MPt7xLRfjNeN3qqNuGnfS" },
+      { title: "Groove, Eze Ramirez", url: "https://open.spotify.com/track/08czhby0shpWgYzjz7KW6a" },
+      { title: "Keep Moving, Knorst", url: "https://open.spotify.com/track/3etpVoJvsNwq0YaVaNf34v" },
+      { title: "You & Me, Max Styler", url: "https://open.spotify.com/track/6atTrGB6eK8NOT6nniI237" },
+      { title: "Taking Everything, Humans Musik and ANDRÉ (IT)", url: "https://open.spotify.com/track/4n51GN3MyMlRwJbOiEsNMr" },
     ],
   },
 } as const;

@@ -47,6 +47,18 @@ const day = [
   },
 ];
 
+/** The inspiration passage in pictures, in its order: rows of a wide and a tall picture (Leo, 2026-10-16). */
+const moments = [
+  { image: "/images/moments/surf-lineup.jpg", wide: true, span: "md:col-span-8", alt: "Two friends on their longboards far apart in the sea at sunset, waiting for the next wave" },
+  { image: "/images/moments/first-light.jpg", wide: false, span: "md:col-span-4", alt: "A surfer walking into the sea at first light while two friends in linen and a cricket jumper watch from the shore" },
+  { image: "/images/moments/drinks-wall.jpg", wide: true, span: "md:col-span-6", alt: "Two friends on an old stone sea wall at golden hour, a bottle in hand" },
+  { image: "/images/moments/kitchen-party.jpg", wide: true, span: "md:col-span-6", alt: "Late in an Amsterdam canal house kitchen, one friend on the counter with a glass of wine, the other at the window over the canal" },
+  { image: "/images/moments/courtyard.jpg", wide: false, span: "md:col-span-4", alt: "Two friends on the stone steps of a Paris courtyard at night under festoon lights" },
+  { image: "/images/moments/rooftop.jpg", wide: true, span: "md:col-span-8", alt: "Two friends on a London rooftop at blue hour among the chimney pots" },
+  { image: "/images/moments/dj-night.jpg", wide: true, span: "md:col-span-8", alt: "A DJ alone at the decks on a stone terrace above the sea at night, candles along the balustrade" },
+  { image: "/images/moments/sunrise-walk.jpg", wide: false, span: "md:col-span-4", alt: "Two friends walking home along the seafront at sunrise, loafers in hand" },
+];
+
 export default function AboutPage() {
   return (
     <>
@@ -158,6 +170,43 @@ export default function AboutPage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* The inspiration: the culture behind the brand, in one passage (Leo, 2026-10-16). White, between the black story and the grey mark. */}
+      <section id="inspiration" className="scroll-mt-24">
+        <div className="container-x py-16 md:py-24">
+          <p className="eyebrow mb-4">The inspiration</p>
+          <h2 className="display max-w-4xl text-4xl md:text-6xl">
+            Salt, songs and the nights nobody can <em className="italic">remember</em>.
+          </h2>
+          <p className="mt-10 max-w-4xl border-t border-line pt-10 font-serif text-2xl leading-snug text-ink md:mt-14 md:text-[2rem]">
+            It starts on an adventure, at first light: the same break every morning, wax on the board, salt in the hair. Then catching the one
+            that barrels, inside it, the whole world gone quiet for a second, and out the other side. Breakfast after, shared with your loved
+            ones, and lots of it: fruit cut that morning, a little taste of what nature has to offer, until nobody can fit another bite. The
+            same faces since school, the ones picked up along the way, the ones met in the lineup; nobody needs an invitation. One of them
+            mixing songs on the deck, another shooting it all on film that nobody will see for months.
+          </p>
+          <p className="mt-6 max-w-4xl font-serif text-2xl leading-snug text-ink md:mt-8 md:text-[2rem]">
+            One drink at sunset, by the canals, in a pub or a bistro, turns into three, then into a plan nobody agreed to, then on to
+            someone&apos;s kitchen in Amsterdam, a rooftop in London, a courtyard in Paris. Songs played on repeat until they belong to a summer,
+            so that one melody, years later, brings the whole night back. Sleep can happen tomorrow.
+          </p>
+          {/* The line that ties the water and the cities together, set apart. */}
+          <p className="mt-10 max-w-4xl font-serif text-2xl leading-snug text-ink md:mt-14 md:text-[2rem]">
+            Lost in the sauce, found again at sunrise, and paddling out anyway, because the feeling of that wave and the stories to tell are what
+            get you up in the morning and keep you up at night.
+          </p>
+          <ul className="mt-12 grid gap-3 md:mt-16 md:grid-cols-12">
+            {moments.map((m) => (
+              <li key={m.image} className={`image-frame relative ${m.wide ? "aspect-[16/9]" : "aspect-[4/5]"} md:aspect-auto md:h-[30rem] ${m.span}`}>
+                <Image src={m.image} alt={m.alt} fill unoptimized sizes="(min-width: 768px) 66vw, 100vw" className="object-cover" />
+              </li>
+            ))}
+          </ul>
+          <p className="mt-10 max-w-xl text-base leading-relaxed text-ink-2 md:text-lg">
+            Clothes built for all of it, and made properly, with a Nordic respect for things that last. Live it fully. The pieces will keep up.
+          </p>
         </div>
       </section>
 
