@@ -138,7 +138,7 @@ export const looks: Look[] = [
   },
   {
     slug: "harbour-wall",
-    image: "/images/women/landing/campaign-hoodies.jpg",
+    image: "/images/women/landing/campaign-hoodies.jpg?v=r1016",
     alt: "A woman in a coral red hoodie and white linen trousers on a harbour wall at dusk, a mug in her hands",
     caption: "Mahébourg · 18:40",
     pieces: ["riviera-hoodie-red"],
@@ -153,14 +153,14 @@ export const looks: Look[] = [
   },
   {
     slug: "the-quay",
-    image: "/images/shop/trousers.jpg",
+    image: "/images/shop/trousers.jpg?v=r1016",
     alt: "A man carrying bread along a stone quay by old warehouses in a navy long-sleeved knit polo and cream pleated trousers",
     caption: "Port Louis · 10:05",
     pieces: ["harbour-quarter-zip-navy", "quayside-chino-stone"],
   },
   {
     slug: "fishing-quay",
-    image: "/images/men/edit-hoodie.jpg",
+    image: "/images/men/edit-hoodie.jpg?v=r1016",
     alt: "A man in a navy hoodie and oat linen trousers on the edge of a fishing quay at dusk",
     caption: "Fishing quay · 18:10",
     pieces: ["cabana-hoodie-navy", "veranda-linen-trouser-oat"],
@@ -174,7 +174,7 @@ export const looks: Look[] = [
   },
   {
     slug: "the-rocks",
-    image: "/images/women/landing/cat-sunglasses.jpg",
+    image: "/images/women/landing/cat-sunglasses.jpg?v=r1016",
     alt: "A woman in tortoiseshell sunglasses, a cream knit and white shorts on black basalt rocks by the surf",
     caption: "Gris Gris · 16:20",
     pieces: ["riviera-hoodie-oat", "alize-sunglasses-olive"],
@@ -189,7 +189,7 @@ export const looks: Look[] = [
   },
   {
     slug: "waterfront",
-    image: "/images/women/landing/cat-caps.jpg",
+    image: "/images/women/landing/cat-caps.jpg?v=r1016",
     alt: "A woman walking along a palm-lined waterfront in a cream cap, a white tee and white linen trousers, a canvas tote on her shoulder",
     caption: "Waterfront · 12:00",
     pieces: ["cabana-cap-clementine"],

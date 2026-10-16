@@ -48,8 +48,8 @@ const KINDS: { label: string; garment: Garment }[] = [
 
 /** A kind's picture is its category's scene, except the hoodies, which share Knitwear's category. */
 const KIND_IMAGES: Record<AudienceSlug, Partial<Record<Garment, string>>> = {
-  men: { hoodie: "/images/men/edit-hoodie.jpg" },
-  women: { hoodie: "/images/women/riviera-hoodie.jpg" },
+  men: { hoodie: "/images/men/edit-hoodie.jpg?v=r1016" },
+  women: { hoodie: "/images/women/riviera-hoodie.jpg?v=r1016" },
 };
 
 /**
@@ -115,7 +115,7 @@ const IMG = {
   label: "/images/numbered-label.jpg?v=2",
   atelier: "/images/campaign-atelier.jpg",
   sizing: "/products/riviera-linen-shirt-navy-model.jpg?v=3",
-  about: "/images/about.jpg",
+  about: "/images/about.jpg?v=r1016",
 };
 const contact = {
   key: "contact",
@@ -181,8 +181,8 @@ export type WorldKey = "stories" | "members" | "conservation";
  * side by side, with the page's name over it.
  */
 export const worldPanels: Record<WorldKey, { image: string; position?: string }> = {
-  stories: { image: "/images/run-club.jpg" },
+  stories: { image: "/images/run-club.jpg?v=r1016" },
   members: { image: "/images/moments/home-for-dinner.jpg" },
   // The dolphins off the catamaran, framed so both faces stay in (Leo replaced the reef swimmer, 2026-10-16).
-  conservation: { image: "/images/day-catamaran.jpg", position: "60% 50%" },
+  conservation: { image: "/images/day-catamaran.jpg?v=r1016", position: "60% 50%" },
 };

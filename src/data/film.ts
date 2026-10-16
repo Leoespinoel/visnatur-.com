@@ -39,7 +39,7 @@ export const film = {
 export const atelierFilm = {
   title: "Made by hand",
   src: "/film/atelier-landscape.mp4",
-  poster: "/film/atelier-poster.jpg",
+  poster: "/film/atelier-poster.jpg?v=r1016",
 };
 
 export const hasFilm = film.sources.landscape.length > 0;

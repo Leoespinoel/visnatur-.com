@@ -15,10 +15,10 @@ import { CloseIcon, SearchIcon } from "./Icons";
 const POPULAR = ["Linen shirt", "Chinos", "Knitwear", "Cap", "Swim shorts", "Rugby"];
 
 const RECOMMENDED: MenuTile[] = [
-  { label: "Men", href: "/men", image: "/images/home/men-hero.jpg" },
-  { label: "Women", href: "/women", image: "/images/home/women-hero.jpg" },
-  { label: "New in", href: "/shop/all?filter=new", image: "/images/shop/hero.jpg" },
-  { label: "Accessories", href: "/shop/outerwear-accessories", image: "/images/caps-scene.jpg" },
+  { label: "Men", href: "/men", image: "/images/home/men-hero.jpg?v=r1016" },
+  { label: "Women", href: "/women", image: "/images/home/women-hero.jpg?v=r1016" },
+  { label: "New in", href: "/shop/all?filter=new", image: "/images/shop/hero.jpg?v=r1016" },
+  { label: "Accessories", href: "/shop/outerwear-accessories", image: "/images/caps-scene.jpg?v=r1016" },
 ];
 
 /** Everything a piece can be found by, lower-cased once. */

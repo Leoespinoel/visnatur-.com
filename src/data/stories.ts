@@ -150,7 +150,7 @@ export const articles: Article[] = [
     title: "Made by hand.",
     dek: "Every piece is cut and sewn by hand, to order, in a small workshop in Mauritius.",
     month: "2026-10",
-    image: "/film/atelier-poster.jpg",
+    image: "/film/atelier-poster.jpg?v=r1016",
     alt: "Hands guiding oat linen under the needle of a sewing machine",
     video: "/film/atelier-landscape.mp4",
     runtime: "0:23",
@@ -178,7 +178,7 @@ export const articles: Article[] = [
     title: `${tenPercent} of the price, not the profit.`,
     dek: "Why our pledge is on the sale price, and how we choose where it goes.",
     month: "2026-10",
-    image: "/images/sea-cliff-wide.jpg?v=2",
+    image: "/images/sea-cliff-wide.jpg?v=r1016",
     alt: "A man in a cream quarter-zip knit on a green sea cliff above the ocean at golden hour",
     body: [
       {
@@ -255,7 +255,7 @@ export const sponsorships: Sponsorship[] = [
     key: "artists",
     title: "Artists",
     text: "Painters, photographers, illustrators, filmmakers, musicians and makers: people whose work starts in the sea, the forest or the island, and who keep at it.",
-    image: "/images/sponsor-artist.jpg",
+    image: "/images/sponsor-artist.jpg?v=r1016",
     alt: "A painter at a wooden easel on the beach below Le Morne in an open sage linen shirt and white linen trousers",
     give: [
       "Pieces made for you, in your size, to work and live in",
@@ -275,7 +275,7 @@ export const sponsorships: Sponsorship[] = [
     key: "corporate",
     title: "Clubs, teams & events",
     text: "Golf and sailing clubs, rugby and surf clubs, regattas, tournaments and teams of every kind, in Mauritius and across Europe.",
-    image: "/images/campaign-golf.jpg",
+    image: "/images/campaign-golf.jpg?v=r1016",
     alt: "Two golfers on a seaside tee, one swinging in a white polo and white shorts, the other in a navy knit polo with a leather golf bag",
     give: [
       "Pieces for the whole team or event, each made to order in the wearer's size",
@@ -311,12 +311,12 @@ export const membersMailto = `mailto:${site.email}?subject=${encodeURIComponent(
 
 /** The Instagram grid on /stories: pictures from the site linking to the profile, not a live feed. */
 export const instagramTiles: { image: string; alt: string }[] = [
-  { image: "/images/campaign-linen.jpg", alt: "Two men in white and sky linen shirts at a long lunch on the sand by the lagoon" },
-  { image: "/images/beach-surfer.jpg?v=2", alt: "A surfer carrying his board along the beach at sunset in an open oat linen shirt and navy swim shorts" },
-  { image: "/images/golf-green.jpg?v=2", alt: "A golfer crouched on a green above the sea with his putter, in a navy polo and stone trousers" },
-  { image: "/images/caps-scene.jpg", alt: "A man with a coffee on a wooden jetty in a cream cap with a green peak, an oat linen shirt and cream trousers" },
-  { image: "/images/sunglasses-scene.jpg", alt: "A man in tortoiseshell sunglasses and a sky linen shirt leaning on the side of a wooden boat below Le Morne" },
-  { image: "/images/campaign-drop.jpg?v=3", alt: "Two men on a harbour wall, one in a cream cricket jumper, the other in a sand linen shirt over a navy knit vest" },
+  { image: "/images/campaign-linen.jpg?v=r1016", alt: "Two men in white and sky linen shirts at a long lunch on the sand by the lagoon" },
+  { image: "/images/beach-surfer.jpg?v=r1016", alt: "A surfer carrying his board along the beach at sunset in an open oat linen shirt and navy swim shorts" },
+  { image: "/images/golf-green.jpg?v=r1016", alt: "A golfer crouched on a green above the sea with his putter, in a navy polo and stone trousers" },
+  { image: "/images/caps-scene.jpg?v=r1016", alt: "A man with a coffee on a wooden jetty in a cream cap with a green peak, an oat linen shirt and cream trousers" },
+  { image: "/images/sunglasses-scene.jpg?v=r1016", alt: "A man in tortoiseshell sunglasses and a sky linen shirt leaning on the side of a wooden boat below Le Morne" },
+  { image: "/images/campaign-drop.jpg?v=r1016", alt: "Two men on a harbour wall, one in a cream cricket jumper, the other in a sand linen shirt over a navy knit vest" },
 ];
 
 /** The handle at the end of `site.instagram`, without the @. */

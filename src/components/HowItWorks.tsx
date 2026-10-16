@@ -14,7 +14,7 @@ export function HowItWorks({ compact = false }: { compact?: boolean }) {
       n: "02",
       title: "We make it",
       text: `Your piece is cut and sewn by hand in a small workshop in Mauritius, in your size. Allow ${leadTimeLabel()} from the day you order.`,
-      image: { src: "/film/atelier-poster.jpg", alt: "A seam being sewn on a workshop sewing machine", position: "object-center" },
+      image: { src: "/film/atelier-poster.jpg?v=r1016", alt: "A seam being sewn on a workshop sewing machine", position: "object-center" },
     },
     {
       n: "03",

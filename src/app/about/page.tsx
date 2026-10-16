@@ -70,7 +70,7 @@ export default function AboutPage() {
           <div className="xl:col-span-6">
             <div className="image-frame aspect-[16/9] xl:aspect-auto xl:h-full">
               <Image
-                src="/images/campaign-drop.jpg?v=3"
+                src="/images/campaign-drop.jpg?v=r1016"
                 alt="Two men on a basalt harbour wall with fishing boats behind, one in a cream cable-knit cricket jumper with navy and red tipping and cream trousers, the other in an open sand linen shirt over a navy knit vest and navy trousers"
                 fill
                 unoptimized
@@ -195,7 +195,7 @@ export default function AboutPage() {
         <div className="container-x grid gap-10 py-16 md:grid-cols-12 md:py-24">
           <div className="md:col-span-5">
             <div className="image-frame aspect-[4/5]">
-              <Image src="/images/about.jpg" alt="A man walking barefoot over basalt rocks by the breaking surf in a white linen shirt and navy linen trousers, his loafers in hand" fill unoptimized sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
+              <Image src="/images/about.jpg?v=r1016" alt="A man walking barefoot over basalt rocks by the breaking surf in a white linen shirt and navy linen trousers, his loafers in hand" fill unoptimized sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
             </div>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-ink-2 md:col-span-6 md:col-start-7 md:pt-10 md:text-lg">

@@ -81,7 +81,7 @@ export default function StoriesPage() {
       key: "sponsorship",
       title: "We back people who go all in.",
       dek: "Athletes and ambassadors, artists, clubs, teams and events. Tell us what you go all in at.",
-      image: "/images/campaign-golf.jpg",
+      image: "/images/campaign-golf.jpg?v=r1016",
       alt: "Two golfers on a seaside tee, one swinging in a white polo and white shorts, the other in a navy knit polo with a leather golf bag",
       position: "62% 50%",
       href: "/stories#sponsorship",
