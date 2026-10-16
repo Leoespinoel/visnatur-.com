@@ -1,0 +1,249 @@
+/* Vis Naturæ V2: the raw, graphic streetwear version of the site at /v2.
+   Everything is scoped under .v2 and every keyframe starts with v2-, so nothing here reaches the classic
+   site once this file has loaded. .v2 redefines the shared tokens, so token-based utilities (bg-paper,
+   text-ink, border-line…) re-skin inside it, and the palette stays fixed in system dark mode. */
+
+.v2 {
+  --paper: #efece4; /* newsprint */
+  --paper-2: #e3dfd3;
+  --surface: #ffffff;
+  --ink: #0d0d0d;
+  --ink-2: #2a2926;
+  --muted: #6f6a5f;
+  --line: #0d0d0d;
+  --red: #c8102e;
+  --red-2: #a30d25;
+  --rule: 1.5px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-v2), ui-sans-serif, system-ui, sans-serif;
+  font-stretch: 100%;
+}
+
+.v2 ::selection {
+  background: var(--red);
+  color: #fff;
+}
+
+.v2 :focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+/* ---------- Type ---------- */
+
+/* Giant condensed uppercase: the headline voice. */
+.v2 .v2-display {
+  font-family: var(--font-v2), ui-sans-serif, sans-serif;
+  font-weight: 900;
+  font-stretch: 62%;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.005em;
+}
+
+/* Wide black caps: stickers, buttons, small headers. */
+.v2 .v2-wide {
+  font-family: var(--font-v2), ui-sans-serif, sans-serif;
+  font-weight: 800;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* Numbers, prices, labels. */
+.v2 .v2-mono {
+  font-family: var(--font-v2-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Buttons ---------- */
+
+.v2 .v2-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0 1.4rem;
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 800;
+  font-stretch: 125%;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+.v2 .v2-btn:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.v2 .v2-btn:active {
+  transform: translate(2px, 2px);
+}
+.v2 .v2-btn:disabled {
+  cursor: not-allowed;
+  background: var(--paper-2);
+  border-color: var(--paper-2);
+  color: var(--muted);
+}
+.v2 .v2-btn-outline {
+  background: transparent;
+  color: var(--ink);
+}
+.v2 .v2-btn-light {
+  background: #fff;
+  border-color: #fff;
+  color: var(--ink);
+}
+.v2 .v2-btn-red {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.v2 .v2-btn-red:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+/* ---------- Stickers, tape, cut-outs ---------- */
+
+/* A rotated sticker with a hard offset shadow. Set --tilt to rotate it. */
+.v2 .v2-sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.45em 0.8em 0.4em;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 800;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: rotate(var(--tilt, -4deg));
+}
+.v2 .v2-sticker-red {
+  background: var(--red);
+  color: #fff;
+}
+.v2 .v2-sticker-black {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 3px 3px 0 var(--red);
+}
+.v2 .v2-sticker-round {
+  justify-content: center;
+  border-radius: 999px;
+  aspect-ratio: 1;
+  padding: 0.6em;
+  text-align: center;
+  white-space: normal;
+}
+
+/* Masking tape across a picture: "Coming soon". Torn ends from the clip-path. */
+.v2 .v2-tape {
+  display: inline-block;
+  padding: 0.55em 1.4em;
+  background: rgb(246 243 233 / 0.92);
+  color: var(--ink);
+  font-family: var(--font-v2-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
+  transform: rotate(var(--tilt, -3deg));
+  clip-path: polygon(0 8%, 3% 0, 6% 10%, 9% 0, 91% 4%, 94% 0, 97% 9%, 100% 2%, 100% 92%, 97% 100%, 94% 90%, 91% 100%, 9% 96%, 6% 100%, 3% 91%, 0 100%);
+}
+
+/* The red badger as a die-cut sticker: a white edge around the drawing. Never on a red ground. */
+.v2 .v2-cutout {
+  filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff)
+    drop-shadow(3px 4px 0 rgb(0 0 0 / 0.35));
+}
+
+/* ---------- Texture ---------- */
+
+/* Film grain over a picture or a band. The parent needs position: relative. */
+.v2 .v2-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+}
+.v2 .v2-grain-light::after {
+  mix-blend-mode: screen;
+  opacity: 0.12;
+}
+
+/* ---------- Ticker ---------- */
+
+@keyframes v2-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.v2 .v2-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: v2-ticker var(--ticker-duration, 38s) linear infinite;
+}
+.v2 .v2-ticker:hover .v2-ticker-track {
+  animation-play-state: paused;
+}
+.v2 .v2-ticker-reverse .v2-ticker-track {
+  animation-direction: reverse;
+}
+
+/* ---------- Product grid: a bordered contact sheet ---------- */
+
+.v2 .v2-cells {
+  border-top: var(--rule) solid var(--ink);
+  border-left: var(--rule) solid var(--ink);
+}
+.v2 .v2-cells > * {
+  border-right: var(--rule) solid var(--ink);
+  border-bottom: var(--rule) solid var(--ink);
+}
+
+/* Rows of the section index invert on hover. */
+.v2 .v2-invert {
+  transition:
+    background-color 0.12s,
+    color 0.12s;
+}
+.v2 .v2-invert:hover,
+.v2 .v2-invert:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2 .v2-ticker-track {
+    animation: none;
+  }
+  .v2 .v2-btn,
+  .v2 .v2-invert {
+    transition: none;
+  }
+}

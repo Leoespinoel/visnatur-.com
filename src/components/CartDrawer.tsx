@@ -8,7 +8,8 @@ import { formatPrice, leadTimeLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { site } from "@/data/site";
 import { designNumber, productImages } from "@/data/products";
-import { lineKey, rememberCheckout } from "@/lib/cart";
+import { lineKey } from "@/lib/cart";
+import { startCheckout } from "@/lib/checkout";
 import { CloseIcon, LeafIcon } from "./Icons";
 
 export function CartDrawer() {
@@ -40,20 +41,7 @@ export function CartDrawer() {
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: cart.lines.map(({ slug, size }) => ({ slug, size })) }),
-      });
-      const data = (await res.json()) as { url?: string; cartId?: string; error?: string; unavailable?: string[] };
-      if (!res.ok || !data.url) {
-        // A piece that can't be bought any more is removed so the rest can proceed.
-        if (data.unavailable?.length) cart.removeMany(data.unavailable);
-        throw new Error(data.error ?? "Checkout failed. Please try again.");
-      }
-      // Shopify's checkout doesn't come back here, so remember it and empty the bag once it becomes an order.
-      if (data.cartId) rememberCheckout(data.cartId);
-      window.location.assign(data.url);
+      await startCheckout(cart.lines, cart.removeMany);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Checkout failed. Please try again.");
       setBusy(false);

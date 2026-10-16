@@ -6,7 +6,7 @@ import { CartProvider } from "@/lib/cart";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
-import { IntroOverlay } from "@/components/IntroOverlay";
+import { ClassicIntro, ClassicOnly } from "@/components/SiteChrome";
 import { SiteMusic } from "@/components/SiteMusic";
 
 const cormorant = Cormorant_Garamond({
@@ -45,8 +45,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        {site.intro && <IntroOverlay />}
-        <SiteMusic />
+        {site.intro && <ClassicIntro />}
+        <ClassicOnly>
+          <SiteMusic />
+        </ClassicOnly>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
@@ -54,12 +56,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <CartProvider>
-          <Header />
+          {/* /v2 (the streetwear version) brings its own header, footer and bag: see src/app/v2/layout.tsx */}
+          <ClassicOnly>
+            <Header />
+          </ClassicOnly>
           <main id="main" className="flex-1">
             {children}
           </main>
-          <Footer />
-          <CartDrawer />
+          <ClassicOnly>
+            <Footer />
+            <CartDrawer />
+          </ClassicOnly>
         </CartProvider>
       </body>
     </html>

@@ -31,11 +31,11 @@ export function StoryTile({
 }
 
 /** Two stories side by side, ralphlauren.com's 50/50 slot; stacked on phones. */
-export function StoryPair({ stories }: { stories: [Story, Story] }) {
+export function StoryPair({ stories, aspect }: { stories: [Story, Story]; aspect?: string }) {
   return (
     <section className="grid gap-1.5 md:grid-cols-2 md:gap-2">
       {stories.map((s) => (
-        <StoryTile key={s.title} story={s} />
+        <StoryTile key={s.title} story={s} aspect={aspect} />
       ))}
     </section>
   );

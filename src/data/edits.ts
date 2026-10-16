@@ -22,8 +22,8 @@ export const edits: Edit[] = [
     eyebrow: "Tone on tone",
     title: "The Badger",
     dek: "Ours sleeps on its back, stitched in the colour of the cloth.",
-    image: "/images/shop/badger.jpg",
-    alt: "A man in the oat Corniche linen shirt and navy Sett cap coiling rope on a fishing pirogue",
+    image: "/images/shop/badger-edit.jpg",
+    alt: "A man on the steps of a colonial sugar-estate house in Mauritius in the oat Corniche Linen Shirt with its small badger, the navy Sett Cap and black Alizé Sunglasses",
     families: ["corniche-linen-shirt", "riviera-hoodie", "sett-cap", "burrow-sock"],
   },
   {

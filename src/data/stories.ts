@@ -297,6 +297,18 @@ export const sponsorships: Sponsorship[] = [
 export const sponsorshipMailto = (s: Sponsorship) =>
   `mailto:${site.email}?subject=${encodeURIComponent(s.subject)}&body=${encodeURIComponent(s.template.join("\n\n") + "\n")}`;
 
+/** Members Only on /stories#members: a paid subscription, every proceed to conservation, with discounts in return. */
+export const memberPerks: { title: string; text: string }[] = [
+  { title: "All of it to conservation", text: "Every subscription goes to our conservation partners in full. We keep none of it." },
+  { title: "Club discounts", text: "Member discounts at the clubs we partner with." },
+  { title: "Event discounts", text: "Member discounts on tickets to our events and the ones we back." },
+];
+
+/** Joining is an email for now, like a sponsorship application, until the shop has customer accounts. */
+export const membersMailto = `mailto:${site.email}?subject=${encodeURIComponent("Members Only")}&body=${encodeURIComponent(
+  ["Name:", "The email you order with:", "Where you are:"].join("\n\n") + "\n",
+)}`;
+
 /** The Instagram grid on /stories: pictures from the site linking to the profile, not a live feed. */
 export const instagramTiles: { image: string; alt: string }[] = [
   { image: "/images/campaign-linen.jpg", alt: "Two men in linen shirts at a long lunch by the lagoon" },

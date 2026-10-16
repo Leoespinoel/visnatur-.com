@@ -239,6 +239,14 @@ function stories(): MenuItem[] {
       note: `Tag @${instagramHandle} to be featured. We always ask before we share.`,
     },
     {
+      key: "members",
+      label: "Members Only",
+      href: "/stories#members",
+      heading: "For the people who come back",
+      tiles: [tile("Members Only", "members", "/images/campaign-linen.jpg?v=9")],
+      note: "A subscription that goes entirely to conservation, with member discounts at partner clubs and events.",
+    },
+    {
       key: "sponsorship",
       label: "Sponsorship",
       href: "/stories#sponsorship",

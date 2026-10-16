@@ -11,7 +11,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { EDITORIAL, GARMENT, REAL, SHOTS, STILL, STUDIO, STUDIO_FACE, STUDIO_LEGS, STUDIO_W } from "./stills-shots.mjs";
+import { CAMPAIGN, EDITORIAL, GARMENT, GROUP, MODEL_STANDARD, MOOD, REAL, SET, SHOTS, STILL, STREET, STUDIO, STUDIO_FACE, STUDIO_LEGS, STUDIO_W } from "./stills-shots.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const takesDir = join(root, "stills-src", "takes");
@@ -38,6 +38,12 @@ const face = shot.face
   ? [join(root, "stills-src", "images-orig", shot.face), join(root, "public", shot.face)].find((p) => existsSync(p))
   : shot.family && existsSync(join(modelsDir, `${shot.family}.png`)) ? join(modelsDir, `${shot.family}.png`) : null;
 if (face && existsSync(face)) refs.push(face);
+// Group shots: each listed design's model reference, in the order the prompt names them.
+for (const family of shot.faces ?? []) {
+  const p = join(modelsDir, `${family}.png`);
+  if (!existsSync(p)) throw new Error(`missing model reference ${p}`);
+  refs.push(p);
+}
 for (const slug of shot.wear) {
   for (const f of [`${slug}.jpg`, `${slug}-detail.jpg`]) {
     const p = join(root, "public", "products", f);
@@ -49,12 +55,22 @@ if (refs.length > 14) throw new Error(`${id}: ${refs.length} references, Nano Ba
 
 const keep = face && !shot.face ? `The ${shot.look === "studio-w" ? "woman" : "man"} in the first reference image, same face, same build, same skin and hair. ` : "";
 const keepLegs = face && !shot.face ? "The same legs, skin, shorts and sneakers as in the first reference image, same pose and framing. " : "";
+// A design's first approved take also fixes the setting, light and framing for its other colourways.
+const keepSet = face && !shot.face ? `The ${shot.look === "set-w" ? "woman" : "man"} in the first reference image, same face, same build, same skin and hair, in the same setting, light and framing. That image only shows who the model is and where: every piece must be exactly the colour of its own product reference image. ` : "";
 const prompt =
-  shot.look === "studio" ? `${keep}${STUDIO} The model is ${shot.prompt} ${GARMENT} ${REAL}`
+  shot.look === "set" || shot.look === "set-w" ? `${keepSet}${SET.replace("{setting}", shot.setting)} The model is ${shot.prompt} ${MODEL_STANDARD} ${GARMENT} ${REAL}`
+  : shot.look === "group" ? `${shot.prompt} ${MOOD} ${GROUP} ${CAMPAIGN} ${GARMENT} ${REAL}`
+  // Section tiles: the prompt carries its own mood, casting, place and eyewear lines.
+  : shot.look === "campaign" ? `${shot.prompt} ${CAMPAIGN} ${GARMENT} ${REAL}`
+  // Main images made in the 2026-10-15 casting session: the prompt is stored exactly as it was sent.
+  : shot.look === "full" ? shot.prompt
+  : shot.look === "studio" ? `${keep}${STUDIO} The model is ${shot.prompt} ${GARMENT} ${REAL}`
   : shot.look === "studio-w" ? `${keep}${STUDIO_W} The model is ${shot.prompt} ${GARMENT} ${REAL}`
   : shot.look === "legs" ? `${keepLegs}${STUDIO_LEGS} The model is ${shot.prompt} ${GARMENT} ${REAL}`
   : shot.look === "face" ? `${keep}${STUDIO_FACE} The model is ${shot.prompt} ${GARMENT} ${REAL}`
   : shot.look === "still" ? `${shot.prompt} ${STILL}${shot.wear.length ? ` ${GARMENT}` : ""}`
+  : shot.look === "street" ? `${shot.prompt} ${STREET} ${GARMENT} ${REAL}`
+  : shot.look === "street-still" ? `${shot.prompt} ${STREET} No people anywhere in the frame. ${GARMENT}`
   : `${shot.prompt} ${shot.look === "women" ? EDITORIAL.replace("menswear", "womenswear") : shot.look === "mixed" ? EDITORIAL.replace("menswear ", "") : EDITORIAL} ${GARMENT} ${REAL}`;
 
 const taken = readdirSync(takesDir)

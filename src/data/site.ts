@@ -63,7 +63,7 @@ export const categories = [
     description: "Swim shorts in solid colours and colour-block, cut for long days by the water.",
     image: "/products/tidal-swim-short-navy.jpg?v=2",
     /** Lifestyle image for category tiles on the shop landing. */
-    scene: "/images/beach-surfer.jpg?v=2",
+    scene: "/images/men/sections/swim.jpg",
   },
   {
     slug: "polo-shirts",
@@ -71,7 +71,7 @@ export const categories = [
     short: "Polo Shirts",
     description: "Short-sleeved polos in cotton piqué, linen jersey, fine-gauge knit and terry towelling, cut for the heat.",
     image: "/products/promenade-knit-polo-navy.jpg?v=3",
-    scene: "/community/w3.jpg",
+    scene: "/images/women/landing/sections/polo.jpg",
   },
   {
     slug: "rugby-shirts",
@@ -79,7 +79,7 @@ export const categories = [
     short: "Rugby Shirts",
     description: "Hooped and striped rugby shirts in heavy cotton jersey, with a woven twill collar and rubber buttons.",
     image: "/products/breakwater-rugby-shirt-navy-ecru.jpg?v=3",
-    scene: "/images/shop/rugby.jpg",
+    scene: "/images/men/sections/rugby.jpg",
   },
   {
     // The slug is from when polos and rugby shirts sat in here; kept so the links still work.
@@ -88,7 +88,7 @@ export const categories = [
     short: "Knitwear",
     description: "Cardigans, crew necks, vests, quarter zips and hoodies, knitted and sewn for the drive home.",
     image: "/products/harbour-quarter-zip-forest.jpg?v=2",
-    scene: "/images/golf-green.jpg?v=2",
+    scene: "/images/men/group-club.jpg",
   },
   {
     slug: "shirts-trousers",
@@ -96,7 +96,7 @@ export const categories = [
     short: "Shirts",
     description: "Linen shirts that are allowed to crease.",
     image: "/products/riviera-linen-shirt-sky.jpg?v=3",
-    scene: "/images/summit.jpg?v=2",
+    scene: "/images/men/sections/shirts.jpg",
   },
   {
     slug: "tees",
@@ -104,7 +104,7 @@ export const categories = [
     short: "Tees",
     description: "Plain and striped tees in dense cotton jersey, with the mark embroidered small on the chest.",
     image: "/products/mens-sandbar-tee-white.jpg?v=3",
-    scene: "/images/shop/grid-shorts-tees.jpg",
+    scene: "/images/men/sections/tees.jpg",
   },
   {
     slug: "shorts",
@@ -112,7 +112,7 @@ export const categories = [
     short: "Shorts",
     description: "Chino and linen shorts cut above the knee.",
     image: "/products/mens-quayside-chino-short-stone.jpg?v=3",
-    scene: "/images/shop/shorts-tees.jpg",
+    scene: "/images/men/sections/shorts.jpg",
   },
   {
     slug: "trousers",
@@ -120,7 +120,7 @@ export const categories = [
     short: "Trousers",
     description: "Chinos and linen trousers, cut clean and sized by the waist.",
     image: "/products/quayside-chino-stone.jpg?v=3",
-    scene: "/images/shop/trousers.jpg",
+    scene: "/images/men/sections/trousers.jpg",
   },
   {
     slug: "outerwear-accessories",
@@ -128,7 +128,7 @@ export const categories = [
     short: "Accessories",
     description: "Six-panel caps with the name embroidered in script, and ribbed cotton socks with the badger at the ankle.",
     image: "/products/marram-cap-ecru-pine.jpg?v=2",
-    scene: "/images/caps-scene.jpg",
+    scene: "/images/men/sections/accessories.jpg",
   },
   {
     slug: "sunglasses",
@@ -136,7 +136,7 @@ export const categories = [
     short: "Sunglasses",
     description: "Hand-polished acetate with a metal core through the arms and polarised lenses, cut for anyone.",
     image: "/products/alize-sunglasses-tortoise.jpg?v=3",
-    scene: "/images/sunglasses-scene.jpg",
+    scene: "/images/men/sections/sunglasses.jpg",
   },
 ] as const;
 
@@ -150,8 +150,8 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
   swim: {
     eyebrow: "Made to order",
     title: "Cut once you order it",
-    image: "/images/campaign-swim.jpg",
-    alt: "A man in navy swim shorts walking out of the lagoon at dawn",
+    image: "/images/men/swim-hero.jpg",
+    alt: "Three men on a rock platform above a deep blue cove, one diving in the red Tidal Swim Short, one in the navy Shore Swim Short and black Alizé Sunglasses",
     links: [{ label: "How it works", href: "/made-to-order" }],
   },
   "polo-shirts": {
@@ -172,8 +172,8 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
   "polos-knitwear": {
     eyebrow: "The Clubhouse",
     title: "Knits for the last nine",
-    image: "/images/campaign-golf.jpg",
-    alt: "Two golfers in Vis Naturæ knitwear on a seaside fairway at golden hour",
+    image: "/images/shop/feature-knitwear.jpg",
+    alt: "Three men in a wood-panelled club library in the navy Regatta Cardigan, the navy Harbour Quarter Zip and the oat Pavilion Cable Vest",
     links: [{ label: "Shop the edit", href: "/shop/edit/clubhouse" }],
   },
   "shirts-trousers": {
@@ -245,7 +245,7 @@ export const audiences: {
     explore: "Explore for him",
     lede: "Swim, polo shirts, rugby shirts, knitwear, shirts, tees, shorts, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
     // The category scene is the women's Promenade, so his polo tile shows his own.
-    scenes: { ...(Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>), "polo-shirts": "/images/men/cat-polo.jpg" },
+    scenes: { ...(Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>), "polo-shirts": "/images/men/sections/polo.jpg" },
   },
   {
     slug: "women",
@@ -253,17 +253,17 @@ export const audiences: {
     explore: "Explore for her",
     lede: "Swimsuits, shirts, polo shirts, tees, shorts, trousers and knitwear cut for women, with the caps, socks and sunglasses cut for anyone. Every piece is made to order in Mauritius, in your size.",
     scenes: {
-      swim: "/images/women/swim.jpg",
-      "polo-shirts": "/community/w3.jpg",
+      swim: "/images/women/landing/sections/swim.jpg",
+      "polo-shirts": "/images/women/landing/sections/polo.jpg",
       // No rugby shirt for her yet; never a man under Women, so the knitwear picture stands in.
-      "rugby-shirts": "/images/women/landing/cat-knitwear.jpg",
-      "polos-knitwear": "/images/women/landing/cat-knitwear.jpg",
-      "shirts-trousers": "/images/women/linen.jpg",
-      tees: "/community/w4.jpg",
-      shorts: "/images/women/landing/cat-caps.jpg",
-      trousers: "/images/women/trousers.jpg",
+      "rugby-shirts": "/images/women/landing/group-hall.jpg",
+      "polos-knitwear": "/images/women/landing/group-hall.jpg",
+      "shirts-trousers": "/images/women/landing/sections/shirts.jpg",
+      tees: "/images/women/landing/sections/tees.jpg",
+      shorts: "/images/women/landing/sections/shorts.jpg",
+      trousers: "/images/women/landing/sections/trousers.jpg",
       "outerwear-accessories": "/images/women/accessories.jpg",
-      sunglasses: "/images/women/sunglasses.jpg",
+      sunglasses: "/images/women/landing/group-pool.jpg",
     },
     looks: {
       "cabana-hoodie": "/images/women/knitwear.jpg",

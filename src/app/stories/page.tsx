@@ -13,6 +13,8 @@ import {
   instagramHandle,
   instagramTiles,
   kindLabels,
+  memberPerks,
+  membersMailto,
   readLabel,
   sponsorshipMailto,
   sponsorships,
@@ -27,7 +29,7 @@ import { EventsRail, type EventItem } from "@/components/EventsRail";
 
 export const metadata: Metadata = {
   title: "Community",
-  description: "Films, the journal, events, the community, sponsorship, conversations with our partners and the newsletter: the stories behind Vis Naturæ.",
+  description: "Films, the journal, events, the community, members, sponsorship, conversations with our partners and the newsletter: the stories behind Vis Naturæ.",
 };
 
 /** A section's label and heading on the left, a line of copy on the right. */
@@ -189,6 +191,30 @@ export default function StoriesPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Members Only: the subscription, on grey between the white community and the black sponsorship */}
+      <section id="members" className="scroll-mt-24 bg-surface py-16 md:py-24">
+        <div className="container-x">
+          <BandHeading eyebrow="Members Only · Subscription" title="For the people who come back.">
+            A subscription, and all of it goes to conservation: none of it stays with us. In return, members get discounts at the clubs and
+            events we partner with. Join before your first order or after it; write to us and we set it up within two working days.
+          </BandHeading>
+          <ul className="grid gap-6 md:grid-cols-3">
+            {memberPerks.map((p, i) => (
+              <li key={p.title} className="flex flex-col border border-line bg-paper p-6 md:p-8">
+                <p className="eyebrow">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="mt-8 font-serif text-2xl">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-2">{p.text}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10">
+            <a href={membersMailto} className="btn btn-primary">
+              Join now
+            </a>
+          </div>
         </div>
       </section>
 

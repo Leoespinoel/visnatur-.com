@@ -16,9 +16,9 @@ export const homeSlides: HeroSlide[] = [
     title: "Men",
     text: "Swim shorts, linen, tees and knitwear, cut for men.",
     cta: { label: "Explore now", href: "/men" },
-    image: "/images/campaign-drop.jpg?v=3",
-    alt: "Four friends on a basalt harbour wall in Mauritius in a navy quarter zip, oat linen shirt, red striped knit and saffron striped swim shorts",
-    plate: "/images/men/plate-collection.jpg",
+    image: "/images/home/men-hero.jpg",
+    alt: "Three men on the deck of a classic yacht below Le Morne in the clementine Riviera Linen Shirt with olive Alizé Sunglasses, the sky Mooring Stripe Crew and the saffron Lido Stripe Swim Short",
+    plate: "/images/home/plate-yacht.jpg",
     thumb: "/community/p10.jpg?v=3",
   },
   {
@@ -27,9 +27,10 @@ export const homeSlides: HeroSlide[] = [
     title: "Women",
     text: "Swimsuits, linen, tees and knitwear, cut for women.",
     cta: { label: "Explore now", href: "/women" },
-    image: "/images/women/landing/campaign-collection.jpg",
-    alt: "Two friends on the end of a jetty at Grand Baie in the navy Cabana Hoodie and cap and the sage Riviera Hoodie",
-    plate: "/images/women/landing/plate-collection.jpg",
+    image: "/images/home/women-hero.jpg",
+    alt: "Three women by a villa pool in the clementine Promenade Knit Polo with tortoiseshell Alizé Sunglasses, the pink Women’s Mooring Stripe Crew and the navy Women’s Cabana Linen Shirt",
+    position: "75% 50%",
+    plate: "/images/home/plate-pool.jpg",
     thumb: "/images/women/knitwear.jpg",
   },
   {
@@ -64,8 +65,8 @@ export const exploreStories: Story[] = [
   {
     eyebrow: "Swim",
     title: "Tidal, Shore & Lido",
-    image: "/community/p6.jpg?v=2",
-    alt: "A wakeboarder on a jetty in the red Lido stripe swim shorts",
+    image: "/images/home/explore-swim.jpg",
+    alt: "Three men by a villa pool above the sea in the navy Tidal Swim Short with black Alizé Sunglasses, the sky Lido Stripe Swim Short and the navy Shore Swim Short",
     links: [{ label: "Shop swim", href: "/shop/swim" }],
   },
   {
@@ -80,8 +81,8 @@ export const exploreStories: Story[] = [
   {
     eyebrow: "Sunglasses",
     title: "Alizé",
-    image: "/images/women/sunglasses.jpg",
-    alt: "A woman in the Alizé sunglasses sitting by a rock pool",
+    image: "/images/home/explore-sunglasses.jpg",
+    alt: "Three women in the long gallery of a villa in the Women’s Veranda Linen Trouser, the one in the centre in black Alizé Sunglasses",
     links: [{ label: "Shop sunglasses", href: "/shop/sunglasses" }],
   },
   {
@@ -90,6 +91,26 @@ export const exploreStories: Story[] = [
     image: "/images/cutting-table.jpg?v=2",
     alt: "Hands cutting sky blue linen on a workshop table",
     links: [{ label: "A closer look", href: "/made-to-order" }],
+  },
+];
+
+/** The homepage's community section, split in two: the people in the pieces, and the loyalty programme. */
+export const communityStories: [Story, Story] = [
+  {
+    eyebrow: "Stories",
+    title: "The Community",
+    dek: "The people in the pieces, out in the world.",
+    image: "/images/run-club.jpg",
+    alt: "A run club of seven on a stone seafront promenade at sunrise in the white Sandbar Tee, the navy Cabana Stripe Tee and navy Tidal Swim Shorts, the runner in front in black Alizé Sunglasses",
+    links: [{ label: "Discover more", href: "/stories#community" }],
+  },
+  {
+    eyebrow: "Subscription",
+    title: "Members Only",
+    dek: "A subscription that goes entirely to conservation. In return, members get discounts at partner clubs and events.",
+    image: "/images/women/landing/dj.jpg",
+    alt: "A DJ at the turntables in a villa courtyard in the clementine Cabana Hoodie and tortoiseshell Alizé Sunglasses, two friends apart in a linen shirt and a striped knit",
+    links: [{ label: "Join now", href: "/stories#members" }],
   },
 ];
 
@@ -145,8 +166,8 @@ export const campaigns: Campaign[] = [
     key: "men",
     title: "Men",
     text: "Swim shorts, linen, shorts, tees and knitwear, cut for men and made to order in Mauritius.",
-    image: "/images/campaign-swim.jpg?v=2",
-    alt: "A man walking out of the lagoon at Le Morne in navy swim shorts",
+    image: "/images/home/men-pair.jpg",
+    alt: "Three men on a villa boat landing in a white linen shirt with black Alizé Sunglasses, a white tee and a navy tee, in the Quayside Chino Short, Jetty Linen Short and Esplanade Linen Short",
     primary: { label: "Shop men", href: "/men" },
     secondary: { label: "All pieces", href: "/men/all" },
     row: {

@@ -20,9 +20,10 @@ export const heroSlides: HeroSlide[] = [
     title: "Collection I",
     text: "Made in Mauritius, in your size, once you order it.",
     cta: { label: "Explore now", href: "/men/all" },
-    image: "/images/campaign-drop.jpg?v=3",
-    alt: "Four friends on a basalt harbour wall in Mauritius in a navy quarter zip, oat linen shirt, red striped knit and saffron striped swim shorts",
-    plate: "/images/men/plate-collection.jpg",
+    image: "/images/men/group-forecourt.jpg",
+    alt: "Three men on the stone steps of a country house in the navy Mooring Stripe Crew, the navy Breakwater Rugby Shirt and the oat Riviera Linen Shirt",
+    position: "62% 50%",
+    plate: "/images/men/plate-forecourt.jpg",
     thumb: "/community/p10.jpg?v=3",
   },
   {
@@ -31,10 +32,10 @@ export const heroSlides: HeroSlide[] = [
     title: "Swim",
     text: "Cut for the lagoon, finished for the terrace after.",
     cta: { label: "Explore now", href: "/men/swim" },
-    image: "/images/campaign-swim.jpg?v=2",
-    alt: "A man walking out of the lagoon at Le Morne in navy swim shorts",
-    position: "50% 40%",
-    plate: "/images/men/plate-swim.jpg",
+    image: "/images/men/swim-hero.jpg",
+    alt: "Three men on a rock platform above a deep blue cove, one diving in the red Tidal Swim Short, one in the navy Shore Swim Short and black Alizé Sunglasses, one in the sky Lido Stripe Swim Short",
+    position: "45% 50%",
+    plate: "/images/men/plate-cove.jpg",
     thumb: "/community/p6.jpg?v=2",
   },
   {
@@ -43,10 +44,10 @@ export const heroSlides: HeroSlide[] = [
     title: "Shirts",
     text: "Washed linen that is allowed to crease.",
     cta: { label: "Explore now", href: "/men/shirts-trousers" },
-    image: "/images/campaign-linen.jpg?v=9",
-    alt: "Lunch on the sand under a sea almond tree by the lagoon, wine poured in sky and clementine linen shirts",
-    position: "62% 50%",
-    plate: "/images/men/plate-linen.jpg",
+    image: "/images/men/dj.jpg",
+    alt: "A DJ at the turntables on a villa terrace above the sea in the sky Cabana Linen Shirt, oat Veranda Linen Trousers and black Alizé Sunglasses, with friends in the navy Harbour Quarter Zip and the red Mooring Stripe Crew",
+    position: "50% 50%",
+    plate: "/images/men/plate-terrace.jpg",
     thumb: "/community/p12.jpg?v=2",
   },
   {
@@ -55,10 +56,10 @@ export const heroSlides: HeroSlide[] = [
     title: "Knitwear",
     text: "For the hour the breeze turns.",
     cta: { label: "Explore now", href: "/men/polos-knitwear" },
-    image: "/images/campaign-golf.jpg?v=2",
-    alt: "A golfer by the sea in a navy and ecru striped knit",
-    position: "60% 50%",
-    plate: "/images/men/plate-knit.jpg",
+    image: "/images/men/group-club.jpg",
+    alt: "Three men in a wood-panelled club library in the navy Harbour Quarter Zip, the navy Regatta Cardigan with tortoiseshell reading glasses, and the oat Pavilion Cable Vest",
+    position: "52% 50%",
+    plate: "/images/men/plate-library.jpg",
     thumb: "/community/p3.jpg?v=2",
   },
 ];
@@ -70,16 +71,16 @@ const cat = (slug: string) => categories.find((c) => c.slug === slug)!;
  * Accessories over Sunglasses.
  */
 export const categoryTiles: MosaicTile[] = [
-  { label: cat("swim").name, href: "/men/swim", image: "/images/beach-surfer.jpg?v=2", alt: "A surfer on the beach at sunset in sky striped swim shorts and an oat linen shirt" },
-  { label: cat("trousers").name, href: "/men/trousers", image: "/images/men/cat-trousers.jpg", alt: "A stack of folded chinos in seven colours on a teak table" },
-  { label: cat("shirts-trousers").name, href: "/men/shirts-trousers", image: "/images/men/cat-linen.jpg", alt: "A man on a wooden jetty in a clementine linen shirt and white linen trousers" },
-  { label: cat("polos-knitwear").name, href: "/men/polos-knitwear", image: "/images/men/cat-knitwear.jpg", alt: "A man in a plantation house doorway in a navy quarter zip and stone chinos" },
-  { label: cat("polo-shirts").name, href: "/men/polo-shirts", image: "/images/men/cat-polo.jpg", alt: "A man on a bench by a clay tennis court at Bel Ombre in the sky Cabana Stripe Polo and navy tailored shorts" },
-  { label: cat("rugby-shirts").name, href: "/men/rugby-shirts", image: "/images/shop/rugby.jpg", alt: "Friends playing touch rugby on the beach at dusk in the Breakwater and Touchline rugby shirts" },
-  { label: cat("tees").name, href: "/men/tees", image: "/images/shop/grid-shorts-tees.jpg", alt: "A man in the navy Cabana Stripe Tee peeling a mango on a harbour wall at Mahébourg" },
-  { label: cat("shorts").name, href: "/men/shorts", image: "/images/shop/shorts-tees.jpg", alt: "A man in the white Sandbar Tee and stone Quayside Chino Short by the lagoon" },
-  { label: cat("outerwear-accessories").name, href: "/men/outerwear-accessories", image: "/images/caps-scene.jpg", alt: "A man on a jetty in an ecru and pine cap and a navy quarter zip" },
-  { label: cat("sunglasses").name, href: "/men/sunglasses", image: "/images/sunglasses-scene.jpg", alt: "A man in sunglasses and a sky linen shirt in a boat below Le Morne" },
+  { label: cat("swim").name, href: "/men/swim", image: "/images/men/sections/swim.jpg", alt: "A man on the edge of a villa pool below Le Morne in the navy Tidal Swim Short and black Alizé Sunglasses while a friend dives in the sky Lido Stripe Swim Short" },
+  { label: cat("trousers").name, href: "/men/trousers", image: "/images/men/sections/trousers.jpg", alt: "Three men in the bar of a grand hotel in the stone Quayside Chino, the navy Esplanade Linen Trouser with reading glasses, and the oat Veranda Linen Trouser", position: "50% 25%" },
+  { label: cat("shirts-trousers").name, href: "/men/shirts-trousers", image: "/images/men/sections/shirts.jpg", alt: "Three men on a villa terrace in the sky Riviera Linen Shirt, the navy Cabana Linen Shirt with tortoiseshell Alizé Sunglasses, and the oat Corniche Linen Shirt", position: "50% 15%" },
+  { label: cat("polos-knitwear").name, href: "/men/polos-knitwear", image: "/images/men/group-club.jpg", alt: "Three men in a wood-panelled club library in the navy Harbour Quarter Zip, the navy Regatta Cardigan with tortoiseshell reading glasses, and the oat Pavilion Cable Vest", position: "52% 50%" },
+  { label: cat("polo-shirts").name, href: "/men/polo-shirts", image: "/images/men/sections/polo.jpg", alt: "A man serving on a clay court in the navy Sett Polo and black Alizé Sunglasses, friends on the bench in the ecru Boathouse Tipped Polo", position: "50% 30%" },
+  { label: cat("rugby-shirts").name, href: "/men/rugby-shirts", image: "/images/men/sections/rugby.jpg", alt: "Three men on the steps of a cricket pavilion in the red Touchline Rugby Shirt and the navy and red Breakwater Rugby Shirts", position: "50% 20%" },
+  { label: cat("tees").name, href: "/men/tees", image: "/images/men/sections/tees.jpg", alt: "A man on the bow of a classic yacht in the white Sandbar Tee and black Alizé Sunglasses", position: "50% 30%" },
+  { label: cat("shorts").name, href: "/men/shorts", image: "/images/men/sections/shorts.jpg", alt: "Two men stepping off a wooden speedboat onto a villa jetty at Grand Baie in the stone Quayside Chino Short with tortoiseshell Alizé Sunglasses and the oat Jetty Linen Short", position: "50% 25%" },
+  { label: cat("outerwear-accessories").name, href: "/men/outerwear-accessories", image: "/images/men/sections/accessories.jpg", alt: "A man on the running board of a vintage car in the navy Sett Cap, black Alizé Sunglasses and white Burrow Socks", position: "50% 35%" },
+  { label: cat("sunglasses").name, href: "/men/sunglasses", image: "/images/men/sections/sunglasses.jpg", alt: "A man in tortoiseshell Alizé Sunglasses and the navy Riviera Linen Shirt in the shade of a stone loggia" },
 ];
 
 /** Curated edits, RL's "The Stories". */
@@ -95,8 +96,8 @@ export const stories: { title: string; text: string; feature: StoryCard; cards: 
   },
   cards: [
     { eyebrow: "Tidal · Shore · Lido", title: "The swim shop", href: "/men/swim", image: "/community/surf-still.jpg", alt: "A surfer coming out of a barrel wave" },
-    { eyebrow: "Riviera · Cabana · Corniche", title: "The linen shop", href: "/men/shirts-trousers", image: "/images/summit.jpg?v=2", alt: "A man on a summit above the clouds in a navy linen shirt" },
-    { eyebrow: "Harbour · Mooring · Regatta", title: "The knitwear shop", href: "/men/polos-knitwear", image: "/images/golf-green.jpg?v=2", alt: "A golfer reading a putt in a forest quarter zip" },
+    { eyebrow: "Riviera · Cabana · Corniche", title: "The linen shop", href: "/men/shirts-trousers", image: "/images/men/story-linen.jpg", alt: "Three men in the stone loggia of a villa in linen shirts and the oat Harbour Quarter Zip, the one in the centre in black Alizé Sunglasses" },
+    { eyebrow: "Harbour · Mooring · Regatta", title: "The knitwear shop", href: "/men/polos-knitwear", image: "/images/men/story-knitwear.jpg", alt: "Two men in a wood-panelled club library in the navy Regatta Cardigan and the navy Harbour Quarter Zip" },
     { eyebrow: "Cabana Linen Shirt", title: "The stripe", href: "/product/cabana-linen-shirt-sky", image: "/images/day-catamaran.jpg", alt: "Friends on a catamaran net with dolphins at the bow, one in a sky striped linen shirt" },
   ],
 };
@@ -141,8 +142,8 @@ export const favourites: { title: string; text: string; feature: StoryCard; card
     eyebrow: "Cabana Hoodie",
     title: "The hoodie",
     href: "/product/cabana-hoodie-navy",
-    image: "/images/men/edit-hoodie.jpg",
-    alt: "A man on a harbour quay at dusk in the navy Cabana Hoodie",
+    image: "/images/men/favourite-hoodie.jpg",
+    alt: "A man on a stone terrace above the sea in the navy Cabana Hoodie, oat Veranda Linen Trousers and black Alizé Sunglasses",
   },
   cards: groupByFamily(favouriteSlugs.map(getProduct).filter((p): p is Product => !!p && isFor(p, "men")))
     .map((g) => g[0])
@@ -154,7 +155,7 @@ export const explore: { title: string; text: string; tiles: ExploreTile[] } = {
   title: "More to explore",
   text: "The workshop, the pledge, and the rest of the house.",
   tiles: [
-    { title: "New in", href: "/men/all?filter=new", image: "/community/p11.jpg?v=2", alt: "A man on a sea cliff in a navy cable knit vest", cta: "Shop now" },
+    { title: "New in", href: "/men/all?filter=new", image: "/images/men/new-in.jpg", alt: "Three men on a tennis club terrace in the navy Sett Polo with black Alizé Sunglasses, the ecru Boathouse Tipped Polo and the oat Sundeck Knit Polo", cta: "Shop now" },
     { title: "Made to order", href: "/made-to-order", image: "/images/cutting-table.jpg?v=2", alt: "Hands cutting sky linen on the workshop table", cta: "Discover" },
     { title: "Conservation", href: "/conservation", image: "/images/day-reef.jpg", alt: "A snorkeller over the reef", cta: "Discover" },
     { title: "Our story", href: "/about", image: "/images/about.jpg", alt: "A man walking barefoot on basalt rocks in a sage linen shirt", cta: "Discover" },
