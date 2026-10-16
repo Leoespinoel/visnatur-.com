@@ -9,6 +9,7 @@ import { formatPrice } from "@/lib/format";
 import { pledgeCents } from "@/lib/pledge";
 import { ChevronIcon } from "./Icons";
 import { ComingSoon } from "./ComingSoon";
+import { WishlistButton } from "./WishlistButton";
 
 /** Colour dots shown before the rest collapse into "+N". */
 const MAX_DOTS = 6;
@@ -126,6 +127,7 @@ export function ProductCard({
           </Link>
           {!isAvailable(shown) && <ComingSoon />}
           {shown.badge && <span className="pointer-events-none absolute left-2 top-2 bg-ink px-2 py-1.5 text-[11px] leading-none text-paper">{shown.badge}</span>}
+          <WishlistButton slug={shown.slug} name={`${shown.name} in ${shown.colour.name}`} size={18} className="absolute right-0.5 top-0.5 z-10 p-2 text-ink" />
           {gallery && n > 1 && (
             <>
               <button type="button" onClick={() => step(-1)} aria-label={`Previous image of ${shown.name}`} className={`${arrow} left-2`}>

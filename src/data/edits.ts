@@ -14,7 +14,7 @@ export const edits: Edit[] = [
     title: "The Cabana Stripe",
     dek: "One wide deckchair stripe on a washed linen shirt, a loopback hoodie and a six-panel cap.",
     image: "/images/shop/cabana.jpg",
-    alt: "A woman in the sky Cabana hoodie and cap on a sun lounger in front of striped beach cabanas",
+    alt: "A woman with a coffee on a sun lounger in front of striped beach cabanas, in a sky striped linen shirt and white shorts",
     families: ["cabana-linen-shirt", "cabana-hoodie", "cabana-cap"],
   },
   {
@@ -23,7 +23,7 @@ export const edits: Edit[] = [
     title: "The Badger",
     dek: "Ours sleeps on its back, stitched in the colour of the cloth.",
     image: "/images/shop/badger-edit.jpg",
-    alt: "A man on the steps of a colonial sugar-estate house in Mauritius in the oat Corniche Linen Shirt with its small badger, the navy Sett Cap and black Alizé Sunglasses",
+    alt: "A man on the stone steps of a colonial house with green shutters, in a sand linen shirt with a cursive VN and cream linen trousers",
     families: ["corniche-linen-shirt", "riviera-hoodie", "sett-cap", "burrow-sock"],
   },
   {
@@ -32,7 +32,7 @@ export const edits: Edit[] = [
     title: "The Clubhouse",
     dek: "Knits for the last nine holes and the long drink after.",
     image: "/images/shop/clubhouse.jpg",
-    alt: "A white-haired man in the navy Clubhouse knit jacket on a golf clubhouse veranda",
+    alt: "A young man and woman on a tennis club veranda at dusk, he in a cream cable-knit cricket jumper with navy and red tipping, she in a navy knit",
     families: ["harbour-quarter-zip", "mooring-stripe-crew", "clubhouse-knit-jacket", "pavilion-cable-vest", "regatta-cardigan"],
   },
   {
@@ -41,7 +41,7 @@ export const edits: Edit[] = [
     title: "Breakwater & Touchline",
     dek: "Two rugby shirts in heavy cotton, for a game on the sand at dusk.",
     image: "/images/shop/rugby.jpg",
-    alt: "Friends playing touch rugby on the beach at dusk in the Breakwater and Touchline rugby shirts",
+    alt: "Two young men walking off the beach after a game of touch rugby, in navy and cream and red and navy hooped rugby shirts, one with the ball",
     families: ["breakwater-rugby-shirt", "touchline-rugby-shirt"],
   },
 ];

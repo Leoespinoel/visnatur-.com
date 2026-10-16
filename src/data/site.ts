@@ -151,14 +151,14 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
     eyebrow: "Made to order",
     title: "Cut once you order it",
     image: "/images/men/swim-hero.jpg",
-    alt: "Three men on a rock platform above a deep blue cove, one diving in the red Tidal Swim Short, one in the navy Shore Swim Short and black Alizé Sunglasses",
+    alt: "Two men on a rock platform above the sea, one in sunglasses and an open cream linen shirt over navy and cream swim shorts, the other sitting on the rocks in sky striped swim shorts",
     links: [{ label: "How it works", href: "/made-to-order" }],
   },
   "polo-shirts": {
     eyebrow: "Sett · Promenade",
     title: "Lunch on the veranda",
     image: "/images/shop/polos.jpg",
-    alt: "Two friends laughing on the veranda of a beach house at Blue Bay, he in the navy Sett Polo and stone chinos, she in the sky Promenade Knit Polo and white chino shorts",
+    alt: "A man and a woman on the veranda of a beach house by a table laid for lunch, he in a navy knit polo and stone chinos, she in a cream polo and white shorts",
     links: [{ label: "How it works", href: "/made-to-order" }],
     women: true,
   },
@@ -166,49 +166,49 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
     eyebrow: "Breakwater & Touchline",
     title: "A game on the sand at dusk",
     image: "/images/shop/rugby.jpg",
-    alt: "Friends playing touch rugby on the beach at dusk in the Breakwater and Touchline rugby shirts",
+    alt: "Two young men walking off the beach after a game of touch rugby, in navy and cream and red and navy hooped rugby shirts, one with the ball",
     links: [{ label: "Shop the edit", href: "/shop/edit/rugby" }],
   },
   "polos-knitwear": {
     eyebrow: "The Clubhouse",
     title: "Knits for the last nine",
     image: "/images/shop/feature-knitwear.jpg",
-    alt: "Three men in a wood-panelled club library in the navy Regatta Cardigan, the navy Harbour Quarter Zip and the oat Pavilion Cable Vest",
+    alt: "Two men in a wood-panelled club library, one in a leather armchair in a cream cable-knit cricket jumper with navy and red tipping, the other in a cream quarter-zip knit, both in stone chinos",
     links: [{ label: "Shop the edit", href: "/shop/edit/clubhouse" }],
   },
   "shirts-trousers": {
     eyebrow: "The Cabana Stripe",
     title: "One stripe, three ways",
     image: "/images/campaign-linen.jpg?v=9",
-    alt: "Two men in linen shirts at the end of a long lunch by the lagoon",
+    alt: "Two men at a long lunch on the sand by the lagoon, one in a white linen shirt, the other pouring wine in a sky linen shirt",
     links: [{ label: "Shop the edit", href: "/shop/edit/cabana" }],
   },
   tees: {
     eyebrow: "Shorts",
     title: "For the walk up from the beach",
     image: "/images/shop/shorts-tees.jpg",
-    alt: "A man walking along the lagoon at Trou aux Biches in the white Sandbar Tee and stone Quayside Chino Short",
+    alt: "A man walking barefoot along the lagoon with his sandals in hand, in a white tee and stone chino shorts",
     links: [{ label: "Shop shorts", href: "/shop/shorts" }],
   },
   shorts: {
     eyebrow: "Tees",
     title: "A mango on the harbour wall",
     image: "/images/shop/grid-shorts-tees.jpg",
-    alt: "A man in the Cabana Stripe Tee and oat Jetty Linen Short on a harbour wall in Mauritius",
+    alt: "A man peeling a mango on a basalt harbour wall in a white linen shirt and oat linen shorts, fishing boats behind",
     links: [{ label: "Shop tees", href: "/shop/tees" }],
   },
   trousers: {
     eyebrow: "Shirts",
     title: "To go with them",
     image: "/images/shop/grid-trousers.jpg",
-    alt: "A man in navy tailored linen trousers and the oat linen shirt on a terrace at Grand Baie",
+    alt: "A man on a waterside restaurant terrace at dusk in a sand linen shirt and cream pleated trousers",
     links: [{ label: "Shop shirts", href: "/shop/shirts-trousers" }],
   },
   "outerwear-accessories": {
     eyebrow: "Tone on tone",
     title: "The Badger",
     image: "/images/shop/grid-accessories.jpg",
-    alt: "A woman in the ecru and navy cap and white ribbed socks on the steps of a veranda",
+    alt: "A woman in a grey cap, white ribbed socks and brown loafers on the steps of a veranda under pink bougainvillea",
     links: [{ label: "Shop the edit", href: "/shop/edit/badger" }],
     women: true,
   },
@@ -216,7 +216,7 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
     eyebrow: "Alizé",
     title: "Named for the trade wind",
     image: "/images/shop/grid-sunglasses.jpg",
-    alt: "A woman in the tortoiseshell Alizé sunglasses on the deck of a catamaran",
+    alt: "A woman on the deck of a catamaran in tortoiseshell sunglasses and an open sand linen shirt over a black swimsuit",
     links: [{ label: "How it works", href: "/made-to-order" }],
     women: true,
   },
@@ -362,27 +362,39 @@ export const impact = {
 };
 
 export const nav = {
-  /** Each opens its mega menu (built in menu.ts); Men and Women are the shop, the rest the brand pages. */
-  primary: [
-    { label: "Men", href: "/men", mega: "men" },
-    { label: "Women", href: "/women", mega: "women" },
-    { label: "Made to order", href: "/made-to-order", mega: "made-to-order" },
-    { label: "Conservation", href: "/conservation", mega: "conservation" },
-    { label: "Community", href: "/stories", mega: "stories" },
-    { label: "Origins", href: "/about", mega: "about" },
+  /**
+   * The header's two menus (Leo, 2026-10-16: no burger, "separated into the VN world and shop"). Each primary item
+   * belongs to one: under Shop it opens its own mega panel (built in menu.ts), under The VN World its picture.
+   */
+  groups: [
+    { key: "shop", label: "Shop", short: "Shop" },
+    { key: "world", label: "The VN World", short: "World" },
   ] as const,
+  primary: [
+    { label: "Men", href: "/men", mega: "men", group: "shop" },
+    { label: "Women", href: "/women", mega: "women", group: "shop" },
+    { label: "Made to order", href: "/made-to-order", mega: "made-to-order", group: "shop" },
+    { label: "Community", href: "/stories", mega: "stories", group: "world" },
+    { label: "The VN Club", href: "/members", mega: "members", group: "world" },
+    { label: "Conservation", href: "/conservation", mega: "conservation", group: "world" },
+  ] as const,
+  /** Plain links beside the two menus (Leo, 2026-10-16: Origins out of The VN World, next to Shop and The VN World). */
+  links: [{ label: "Origins", href: "/about" }] as const,
   footer: {
     shop: [
       { label: "Men", href: "/men" },
       { label: "Women", href: "/women" },
       { label: "All pieces", href: "/shop/all" },
       ...categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })),
-    ],
-    brand: [
-      { label: "Origins", href: "/about" },
       { label: "Made to order", href: "/made-to-order" },
-      { label: "Conservation", href: "/conservation" },
+    ],
+    /** The VN World column. */
+    brand: [
       { label: "Community", href: "/stories" },
+      { label: "The VN Club", href: "/members" },
+      { label: "Origins", href: "/about" },
+      { label: "Conservation", href: "/conservation" },
+      { label: "Stores", href: "/stores" },
       { label: "Contact", href: "/contact" },
       /** Static page in public/pitch.html, served at /pitch; `plain` renders an <a> instead of a Link. */
       { label: "Partners & press", href: "/pitch", plain: true },

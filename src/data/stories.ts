@@ -179,7 +179,7 @@ export const articles: Article[] = [
     dek: "Why our pledge is on the sale price, and how we choose where it goes.",
     month: "2026-10",
     image: "/images/sea-cliff-wide.jpg?v=2",
-    alt: "A man in a dark knit vest on a green sea cliff above the Indian Ocean",
+    alt: "A man in a cream quarter-zip knit on a green sea cliff above the ocean at golden hour",
     body: [
       {
         type: "p",
@@ -256,7 +256,7 @@ export const sponsorships: Sponsorship[] = [
     title: "Artists",
     text: "Painters, photographers, illustrators, filmmakers, musicians and makers: people whose work starts in the sea, the forest or the island, and who keep at it.",
     image: "/images/sponsor-artist.jpg",
-    alt: "A painter in an oat linen shirt at a wooden easel on the beach below Le Morne",
+    alt: "A painter at a wooden easel on the beach below Le Morne in an open sage linen shirt and white linen trousers",
     give: [
       "Pieces made for you, in your size, to work and live in",
       "Your work in our films and on these pages, credited by name",
@@ -276,7 +276,7 @@ export const sponsorships: Sponsorship[] = [
     title: "Clubs, teams & events",
     text: "Golf and sailing clubs, rugby and surf clubs, regattas, tournaments and teams of every kind, in Mauritius and across Europe.",
     image: "/images/campaign-golf.jpg",
-    alt: "Two golfers in Vis Naturæ knitwear on a seaside fairway at golden hour",
+    alt: "Two golfers on a seaside tee, one swinging in a white polo and white shorts, the other in a navy knit polo with a leather golf bag",
     give: [
       "Pieces for the whole team or event, each made to order in the wearer's size",
       `${tenPercent} of every piece to conservation, as on every order, reported each season`,
@@ -311,12 +311,12 @@ export const membersMailto = `mailto:${site.email}?subject=${encodeURIComponent(
 
 /** The Instagram grid on /stories: pictures from the site linking to the profile, not a live feed. */
 export const instagramTiles: { image: string; alt: string }[] = [
-  { image: "/images/campaign-linen.jpg", alt: "Two men in linen shirts at a long lunch by the lagoon" },
-  { image: "/images/beach-surfer.jpg?v=2", alt: "A surfer in striped swim shorts and an open linen shirt on the beach at sunset" },
-  { image: "/images/golf-green.jpg?v=2", alt: "A golfer in a green quarter zip crouched on the green" },
-  { image: "/images/caps-scene.jpg", alt: "A man in a navy quarter zip with a coffee on a jetty" },
-  { image: "/images/sunglasses-scene.jpg", alt: "A man in sunglasses and a pale blue linen shirt on a boat" },
-  { image: "/images/campaign-drop.jpg?v=3", alt: "Four friends on a harbour wall in knitwear, linen and swim shorts" },
+  { image: "/images/campaign-linen.jpg", alt: "Two men in white and sky linen shirts at a long lunch on the sand by the lagoon" },
+  { image: "/images/beach-surfer.jpg?v=2", alt: "A surfer carrying his board along the beach at sunset in an open oat linen shirt and navy swim shorts" },
+  { image: "/images/golf-green.jpg?v=2", alt: "A golfer crouched on a green above the sea with his putter, in a navy polo and stone trousers" },
+  { image: "/images/caps-scene.jpg", alt: "A man with a coffee on a wooden jetty in a cream cap with a green peak, an oat linen shirt and cream trousers" },
+  { image: "/images/sunglasses-scene.jpg", alt: "A man in tortoiseshell sunglasses and a sky linen shirt leaning on the side of a wooden boat below Le Morne" },
+  { image: "/images/campaign-drop.jpg?v=3", alt: "Two men on a harbour wall, one in a cream cricket jumper, the other in a sand linen shirt over a navy knit vest" },
 ];
 
 /** The handle at the end of `site.instagram`, without the @. */

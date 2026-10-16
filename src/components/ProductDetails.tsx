@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cart";
 import { formatPrice, leadTimeLabel } from "@/lib/format";
 import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
 import { CheckIcon, ChevronIcon, LeafIcon } from "./Icons";
+import { WishlistButton } from "./WishlistButton";
 
 export function ProductDetails({ product }: { product: Product }) {
   const { add, has, open } = useCart();
@@ -102,19 +103,23 @@ export function ProductDetails({ product }: { product: Product }) {
         {madeToMeasure && <p className="mt-2 text-xs text-muted">Tell us your inseam at checkout and we hem it for you at no extra cost.</p>}
       </div>
 
-      {!isAvailable(product) ? (
-        <button type="button" disabled className="btn btn-outline w-full">
-          Coming soon
-        </button>
-      ) : inBag ? (
-        <button type="button" onClick={open} className="btn btn-outline w-full">
-          In your bag · view
-        </button>
-      ) : (
-        <button type="button" onClick={addToBag} className="btn btn-primary w-full">
-          Add to bag · {formatPrice(product.price)}
-        </button>
-      )}
+      {/* The bag button, with the wishlist heart beside it */}
+      <div className="flex gap-2">
+        {!isAvailable(product) ? (
+          <button type="button" disabled className="btn btn-outline flex-1">
+            Coming soon
+          </button>
+        ) : inBag ? (
+          <button type="button" onClick={open} className="btn btn-outline flex-1">
+            In your bag · view
+          </button>
+        ) : (
+          <button type="button" onClick={addToBag} className="btn btn-primary flex-1">
+            Add to bag · {formatPrice(product.price)}
+          </button>
+        )}
+        <WishlistButton slug={product.slug} name={`${product.name} in ${product.colour.name}`} className="btn btn-outline w-12 !px-0" />
+      </div>
 
       {/* Made-to-order notes */}
       <ul className="space-y-2.5 border-y border-line py-5 text-xs text-ink-2">

@@ -82,6 +82,13 @@
   color: var(--ink);
 }
 
+/* The primary button turns red on hover, which would vanish on a red band, so there it turns black. */
+.theme-red .btn-primary:hover:not(:disabled) {
+  background: #0a0a0a;
+  border-color: #0a0a0a;
+  color: #ffffff;
+}
+
 @theme inline {
   --color-paper: var(--paper);
   --color-paper-2: var(--paper-2);
@@ -235,6 +242,25 @@ button {
   &:hover:not(:disabled) {
     background: #ffffff;
     color: var(--ink);
+  }
+}
+
+/* Outlined pill, as on the nudeproject.com account pages (/account, /wishlist). */
+@utility pill {
+  display: inline-flex;
+  align-items: center;
+  height: 2.75rem;
+  padding-inline: 1.5rem;
+  border: 1px solid var(--ink);
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  color: var(--ink);
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+  &:hover {
+    background: var(--ink);
+    color: var(--paper);
   }
 }
 

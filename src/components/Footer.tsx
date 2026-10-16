@@ -15,7 +15,7 @@ export function Footer() {
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-2">{site.tagline} {site.description.split(". ").slice(1).join(". ")}</p>
           </div>
           <FooterCol title="Shop" links={nav.footer.shop} />
-          <FooterCol title="Brand" links={nav.footer.brand} />
+          <FooterCol title="The VN World" links={nav.footer.brand} />
           <FooterCol title="Help" links={nav.footer.help} />
           <div className="md:col-span-2 md:col-start-11">
             <Newsletter compact />

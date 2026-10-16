@@ -55,7 +55,7 @@ export function SiteMusic() {
           data-site-music=""
           aria-pressed={playing}
           aria-label={playing ? "Turn music off" : "Turn music on"}
-          className="fixed bottom-6 left-6 z-50 flex h-[30px] w-[30px] items-center justify-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur transition-colors hover:bg-white hover:text-black"
+          className="fixed bottom-5 left-5 z-50 flex h-11 w-11 items-center md:bottom-6 md:left-6 md:h-12 md:w-12 justify-center rounded-full border border-white/40 bg-black/40 text-white backdrop-blur transition-colors hover:bg-white hover:text-black"
         >
           <SoundIcon on={playing} />
         </button>
@@ -66,7 +66,7 @@ export function SiteMusic() {
 
 function SoundIcon({ on }: { on: boolean }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M4 10v4h4l5 4V6L8 10H4z" />
       {on ? (
         <>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { site } from "@/data/site";
 import { communityPosts } from "@/data/community";
 import {
@@ -14,7 +15,6 @@ import {
   instagramTiles,
   kindLabels,
   memberPerks,
-  membersMailto,
   readLabel,
   sponsorshipMailto,
   sponsorships,
@@ -82,7 +82,7 @@ export default function StoriesPage() {
       title: "We back people who go all in.",
       dek: "Athletes and ambassadors, artists, clubs, teams and events. Tell us what you go all in at.",
       image: "/images/campaign-golf.jpg",
-      alt: "Two golfers in Vis Naturæ knitwear on a seaside fairway at golden hour",
+      alt: "Two golfers on a seaside tee, one swinging in a white polo and white shorts, the other in a navy knit polo with a leather golf bag",
       position: "62% 50%",
       href: "/stories#sponsorship",
       cta: "Apply",
@@ -197,9 +197,9 @@ export default function StoriesPage() {
       {/* Members Only: the subscription, on grey between the white community and the black sponsorship */}
       <section id="members" className="scroll-mt-24 bg-surface py-16 md:py-24">
         <div className="container-x">
-          <BandHeading eyebrow="Members Only · Subscription" title="For the people who come back.">
-            A subscription, and all of it goes to conservation: none of it stays with us. In return, members get discounts at the clubs and
-            events we partner with. Join before your first order or after it; write to us and we set it up within two working days.
+          <BandHeading eyebrow="The VN Club · Membership" title="For the people who come back.">
+            Free to join, with points, three rooms and rewards. Members Only goes further: a subscription that goes entirely to conservation,
+            with member discounts at the clubs and events we partner with.
           </BandHeading>
           <ul className="grid gap-6 md:grid-cols-3">
             {memberPerks.map((p, i) => (
@@ -211,9 +211,9 @@ export default function StoriesPage() {
             ))}
           </ul>
           <div className="mt-10">
-            <a href={membersMailto} className="btn btn-primary">
-              Join now
-            </a>
+            <Link href="/members" className="btn btn-primary">
+              The VN Club
+            </Link>
           </div>
         </div>
       </section>

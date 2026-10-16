@@ -30,7 +30,7 @@ export default function ShopLandingPage() {
     title: "Back to the reef",
     dek: "Of the price, not the profit: for the coral around Mauritius, its last native forest and its mangrove coast.",
     image: "/images/shop/reef.jpg",
-    alt: "A free-diver gliding over a coral garden in a Mauritian lagoon",
+    alt: "A free-diver in navy swim shorts gliding over a coral garden, sunlight falling through the water",
     links: [{ label: "Explore now", href: "/conservation" }],
   };
 

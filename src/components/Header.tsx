@@ -1,21 +1,27 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useSyncExternalStore, type CSSProperties } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
 import { audiences, nav } from "@/data/site";
-import { menus, type MenuKey } from "@/data/menu";
+import { menus, worldPanels, type MenuKey } from "@/data/menu";
 import { island } from "@/data/locations";
 import { useCart } from "@/lib/cart";
 import { useHeroCoords } from "@/lib/hero-location";
+import { useWishlist } from "@/lib/wishlist";
 import { Wordmark } from "./Wordmark";
 import { AnnouncementBar } from "./AnnouncementBar";
-import { BagIcon, CloseIcon, MenuIcon } from "./Icons";
+import { AccountIcon, BagIcon, HeartIcon, SearchIcon } from "./Icons";
+import { SearchOverlay } from "./SearchOverlay";
 import { Carousel } from "./Carousel";
 import { MegaTile } from "./MegaTile";
 
 const MENUS = menus();
-const isShop = (k: MenuKey) => k === "men" || k === "women";
+type Group = (typeof nav.groups)[number]["key"];
+type Item = (typeof nav.primary)[number];
+const SHOP = nav.primary.filter((i): i is Extract<Item, { group: "shop" }> => i.group === "shop");
+const WORLD = nav.primary.filter((i): i is Extract<Item, { group: "world" }> => i.group === "world");
 
 const subscribeNever = () => () => {};
 let todayCache = "";
@@ -34,44 +40,72 @@ const getTodayServer = () => "";
  */
 export function Header() {
   const { count, open, hydrated } = useCart();
+  const wishlist = useWishlist();
   const pathname = usePathname();
-  // The burger menu (every screen size). On desktop it opens on Men; hovering a section swaps the panel to it.
+  // Two menus instead of a burger (Leo, 2026-10-16): Shop and The VN World. Shop opens on its first section and
+  // hovering a section swaps the panel to it; The VN World is one row of pictures, one per page.
   const [menuOpen, setMenuOpen] = useState(false);
+  const [group, setGroup] = useState<Group>("shop");
   const [mega, setMega] = useState<MenuKey>("men");
+  const [searchOpen, setSearchOpen] = useState(false);
   // The side link whose tiles show; back to the section's "all" whenever a section opens.
   const [sub, setSub] = useState("all");
   const openMega = (m: MenuKey) => {
     if (m !== mega) setSub("all");
     setMega(m);
   };
-  const toggleMenu = () => {
-    if (!menuOpen) {
-      setMega("men");
-      setSub("all");
-    }
-    setMenuOpen((v) => !v);
+  // The button that opened the menu or the search; Esc and the search's close button hand focus back to it.
+  const trigger = useRef<HTMLButtonElement | null>(null);
+  const toggleGroup = (g: Group, button: HTMLButtonElement) => {
+    trigger.current = button;
+    setSearchOpen(false);
+    if (menuOpen && group === g) return setMenuOpen(false);
+    setGroup(g);
+    setMega(SHOP[0].mega);
+    setSub("all");
+    setMenuOpen(true);
+  };
+  const toggleSearch = (button: HTMLButtonElement) => {
+    trigger.current = button;
+    setMenuOpen(false);
+    setSearchOpen((v) => !v);
+  };
+  const closeSearch = () => {
+    setSearchOpen(false);
+    trigger.current?.focus();
+  };
+  const closeAll = () => {
+    setMenuOpen(false);
+    setSearchOpen(false);
   };
   const [scrolled, setScrolled] = useState(false);
   const [seenPath, setSeenPath] = useState(pathname);
 
   const hero = pathname === "/" || pathname === "/men" || pathname === "/women" || pathname === "/stories";
-  const overlay = hero && !scrolled && !menuOpen;
+  const overlay = hero && !scrolled && !menuOpen && !searchOpen;
 
   // Close any open menu when the route changes (state adjustment during render, per React docs).
   if (seenPath !== pathname) {
     setSeenPath(pathname);
     setMenuOpen(false);
+    setSearchOpen(false);
   }
 
+  const panelOpen = menuOpen || searchOpen;
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
-    if (menuOpen) window.addEventListener("keydown", onKey);
+    document.body.style.overflow = panelOpen ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setMenuOpen(false);
+      setSearchOpen(false);
+      trigger.current?.focus();
+    };
+    if (panelOpen) window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [menuOpen]);
+  }, [panelOpen]);
 
   // Today's date, client only (empty on the server so the markup matches on hydration).
   const today = useSyncExternalStore(subscribeNever, getToday, getTodayServer);
@@ -92,10 +126,10 @@ export function Header() {
 
   return (
     <>
-      {/* Dims the page under the open burger menu (desktop); a click outside the panel closes it. */}
+      {/* Dims the page under an open menu or the search (desktop); a click outside the panel closes it. */}
       <div
-        className={`hidden md:block fixed inset-0 z-30 bg-black/30 transition-opacity duration-200 ${menuOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
-        onClick={() => setMenuOpen(false)}
+        className={`hidden md:block fixed inset-0 z-30 bg-black/30 transition-opacity duration-200 ${panelOpen ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        onClick={closeAll}
         aria-hidden="true"
       />
     <header
@@ -115,17 +149,34 @@ export function Header() {
       {/* Full width, with container-x's side padding but not its 1440px cap, so on wide screens the menu keeps
           to the left edge and clear of the centred wordmark. */}
       <div className="relative flex h-16 w-full items-center justify-between px-4 md:h-[72px] md:px-8 xl:px-12">
-        {/* Left: the burger menu, on every screen size */}
-        <button
-          type="button"
-          className="-ml-2 flex items-center gap-3 p-2"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          onClick={toggleMenu}
-        >
-          {menuOpen ? <CloseIcon /> : <MenuIcon />}
-          <span className="eyebrow !text-(--hdr-fg) hidden md:inline">{menuOpen ? "Close" : "Menu"}</span>
-        </button>
+        {/* Left: the two menus, Shop and The VN World, then Origins (stacked on phones, beside the centred wordmark) */}
+        <nav className="-ml-2 flex flex-col items-start md:flex-row md:items-center md:gap-4" aria-label="Menus">
+          {nav.groups.map((g) => {
+            const active = menuOpen && group === g.key;
+            return (
+              <button
+                key={g.key}
+                type="button"
+                onClick={(e) => toggleGroup(g.key, e.currentTarget)}
+                aria-expanded={active}
+                className={`eyebrow !text-(--hdr-fg) link-underline px-2 py-0.5 md:py-2 ${active ? "after:[transform:none]" : ""}`}
+              >
+                <span className="md:hidden">{g.short}</span>
+                <span className="hidden md:inline">{g.label}</span>
+              </button>
+            );
+          })}
+          {nav.links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              aria-current={pathname === l.href ? "page" : undefined}
+              className={`eyebrow !text-(--hdr-fg) link-underline px-2 py-0.5 md:py-2 ${pathname === l.href ? "after:[transform:none]" : ""}`}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
 
         {/* Centre: wordmark, with the hero slide's coordinates (else the island's) and the date beneath it while over the hero */}
         <div className="absolute left-1/2 flex -translate-x-1/2 flex-col items-center">
@@ -140,15 +191,22 @@ export function Header() {
           </p>
         </div>
 
-        {/* Right: bag */}
-        <div className="flex items-center gap-6">
-          <Link href="/conservation" className="hidden lg:inline eyebrow !text-red link-underline">
-            10% to conservation
+        {/* Right: search, account, wishlist and bag. Phones only have room beside the wordmark for search and the bag,
+            so there the account and wishlist open from the Shop menu. */}
+        <div className="flex items-center md:gap-3">
+          <button type="button" onClick={(e) => toggleSearch(e.currentTarget)} className="p-1.5 md:p-2" aria-label={searchOpen ? "Close search" : "Search"} aria-expanded={searchOpen}>
+            <SearchIcon />
+          </button>
+          <Link href="/account" className="hidden p-1.5 sm:block md:p-2" aria-label="Account">
+            <AccountIcon />
+          </Link>
+          <Link href="/wishlist" className="hidden p-1.5 sm:block md:p-2" aria-label={`Wishlist, ${wishlist.slugs.length} saved`}>
+            <HeartIcon filled={wishlist.slugs.length > 0} />
           </Link>
           <button
             type="button"
             onClick={open}
-            className="-mr-2 flex items-center gap-2 p-2"
+            className="-mr-2 flex items-center gap-1.5 p-1.5 md:gap-2 md:p-2"
             aria-label={`Open bag, ${count} item${count === 1 ? "" : "s"}`}
           >
             <BagIcon />
@@ -159,142 +217,180 @@ export function Header() {
         </div>
       </div>
 
-      {/* Burger menu (desktop): the six sections down the left; the one hovered shows its own links down a grey side
-          panel and the tiles for the link hovered there, as in the ralphlauren.com mega menu. It covers the page down
-          to the bottom of the screen (100% is the header's height) and scrolls when the tiles run longer. */}
+      {/* Menu (desktop). It covers the page down to the bottom of the screen (100% is the header's height). The VN World
+          is one picture per page, side by side (nudeproject.com's Universe). Shop has its sections down the left; the one
+          hovered shows its own links down a grey side panel and the tiles for the link hovered there, as in the
+          ralphlauren.com mega menu, and scrolls when the tiles run longer. */}
       <div
         className={`hidden md:block absolute inset-x-0 top-full h-[calc(100svh-100%)] overflow-y-auto border-b border-line bg-paper text-ink transition-[opacity,visibility] duration-200 ${
           menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         aria-hidden={!menuOpen}
       >
-        {/* Fills the menu's full height, so the side columns run to the bottom of the screen. */}
-        <div className="grid min-h-full grid-cols-[minmax(190px,15%)_1fr]">
-          <nav className="border-r border-line py-12 pl-8 pr-6 xl:pl-12" aria-label="Primary">
-            <ul className="space-y-6">
-              {nav.primary.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onMouseEnter={() => openMega(item.mega)}
-                    onFocus={() => openMega(item.mega)}
-                    className={`eyebrow !text-[13px] link-underline ${mega === item.mega ? "!text-ink after:[transform:none]" : "!text-ink-2 hover:!text-ink"}`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link href="/contact" className="eyebrow !text-[13px] !text-ink-2 hover:!text-ink link-underline">
-                  Contact
-                </Link>
-              </li>
-            </ul>
+        {group === "world" ? (
+          <nav aria-label="The VN World" className="grid h-full gap-px" style={{ gridTemplateColumns: `repeat(${WORLD.length}, minmax(0, 1fr))` }}>
+            {WORLD.map((item) => (
+              <WorldPanel key={item.href} href={item.href} label={item.label} {...worldPanels[item.mega]} />
+            ))}
           </nav>
-          {(Object.keys(MENUS) as MenuKey[]).map((key) => {
-            const items = MENUS[key];
-            const item = items.find((i) => i.key === sub) ?? items.find((i) => i.key === "all")!;
-            return (
-              <div key={key} className={mega === key ? "grid min-w-0 grid-cols-[minmax(200px,24%)_1fr]" : "hidden"}>
-                <ul className="space-y-5 bg-surface py-12 pl-8 pr-6">
-                  {items.map((i) => (
-                    <li key={i.key}>
-                      <Link
-                        href={i.href}
-                        onMouseEnter={() => setSub(i.key)}
-                        onFocus={() => setSub(i.key)}
-                        className={`font-serif text-[21px] leading-none underline-offset-[6px] transition-colors hover:text-ink ${i.key === item.key ? "text-ink underline" : "text-ink-2"}`}
-                      >
-                        {i.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                <div className="min-w-0 py-12 pl-10 pr-8 xl:pr-12">
-                  <p className="eyebrow border-b border-ink pb-4 !text-ink">{item.heading}</p>
-                  <div className="mt-7">
-                    {item.note ? (
-                      <div className="flex items-end gap-10">
-                        <div className="w-[calc((100%-2.25rem)/4)] shrink-0">
-                          <MegaTile tile={item.tiles[0]} />
+        ) : (
+          /* Fills the menu's full height, so the side columns run to the bottom of the screen. */
+          <div className="grid min-h-full grid-cols-[minmax(190px,15%)_1fr]">
+            <nav className="border-r border-line py-12 pl-8 pr-6 xl:pl-12" aria-label="Shop">
+              <ul className="space-y-6">
+                {SHOP.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onMouseEnter={() => openMega(item.mega)}
+                      onFocus={() => openMega(item.mega)}
+                      className={`eyebrow !text-[13px] link-underline ${mega === item.mega ? "!text-ink after:[transform:none]" : "!text-ink-2 hover:!text-ink"}`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            {(Object.keys(MENUS) as MenuKey[]).map((key) => {
+              const items = MENUS[key];
+              const item = items.find((i) => i.key === sub) ?? items.find((i) => i.key === "all")!;
+              return (
+                <div key={key} className={mega === key ? "grid min-w-0 grid-cols-[minmax(200px,24%)_1fr]" : "hidden"}>
+                  <ul className="space-y-5 bg-surface py-12 pl-8 pr-6">
+                    {items.map((i) => (
+                      <li key={i.key}>
+                        <Link
+                          href={i.href}
+                          onMouseEnter={() => setSub(i.key)}
+                          onFocus={() => setSub(i.key)}
+                          className={`font-serif text-[21px] leading-none underline-offset-[6px] transition-colors hover:text-ink ${i.key === item.key ? "text-ink underline" : "text-ink-2"}`}
+                        >
+                          {i.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="min-w-0 py-12 pl-10 pr-8 xl:pr-12">
+                    <p className="eyebrow border-b border-ink pb-4 !text-ink">{item.heading}</p>
+                    <div className="mt-7">
+                      {item.note ? (
+                        <div className="flex items-end gap-10">
+                          <div className="w-[calc((100%-2.25rem)/4)] shrink-0">
+                            <MegaTile tile={item.tiles[0]} />
+                          </div>
+                          <p className="max-w-sm pb-2 font-serif text-xl leading-snug text-ink-2">{item.note}</p>
                         </div>
-                        <p className="max-w-sm pb-2 font-serif text-xl leading-snug text-ink-2">{item.note}</p>
-                      </div>
-                    ) : item.grid ? (
-                      <div className="grid grid-cols-4 gap-3">
-                        {item.tiles.map((t) => (
-                          <MegaTile key={t.label} tile={t} />
-                        ))}
-                      </div>
-                    ) : (
-                      <Carousel key={`${key}-${item.key}`} ariaLabel={item.heading} arrows={item.tiles.length > 4 ? "sides" : "none"} gap="gap-3" itemClassName="w-[calc((100%-2.25rem)/4)]">
-                        {item.tiles.map((t) => (
-                          <MegaTile key={t.label} tile={t} />
-                        ))}
-                      </Carousel>
-                    )}
+                      ) : item.grid ? (
+                        <div className="grid grid-cols-4 gap-3">
+                          {item.tiles.map((t) => (
+                            <MegaTile key={t.label} tile={t} />
+                          ))}
+                        </div>
+                      ) : (
+                        <Carousel key={`${key}-${item.key}`} ariaLabel={item.heading} arrows={item.tiles.length > 4 ? "sides" : "none"} gap="gap-3" itemClassName="w-[calc((100%-2.25rem)/4)]">
+                          {item.tiles.map((t) => (
+                            <MegaTile key={t.label} tile={t} />
+                          ))}
+                        </Carousel>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden absolute inset-x-0 top-full z-30 h-[calc(100svh-4rem)] bg-paper text-ink overflow-y-auto transition-[opacity,visibility] duration-200 ${
+        className={`md:hidden absolute inset-x-0 top-full z-30 h-[calc(100svh-100%)] bg-paper text-ink overflow-y-auto transition-[opacity,visibility] duration-200 ${
           menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         aria-hidden={!menuOpen}
       >
-        <nav className="container-x py-8" aria-label="Mobile">
-          {audiences.map((a) => (
-            <div key={a.slug} className="mb-10">
-              <p className="eyebrow mb-4">{a.name}</p>
-              <ul className="space-y-3.5">
-                {MENUS[a.slug].map((i) => (
-                  <li key={i.key}>
-                    <Link href={i.href} className="font-serif text-2xl">
-                      {i.label}
-                    </Link>
-                    {i.grid && (
-                      <ul className="mt-4 mb-2 grid grid-cols-2 gap-x-6 gap-y-3">
-                        {/* Skipping the ones that are their own line below (Accessories, Sunglasses); her Swim stays, as his Swim Shorts does. */}
-                        {i.tiles.filter((t) => !MENUS[a.slug].some((o) => o.key !== "swim" && o.label === t.label)).map((t) => (
-                          <li key={t.label}>
-                            <Link href={t.href} className="text-[13px] font-semibold tracking-[0.08em]">
-                              {t.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-          <p className="eyebrow mb-4">Brand</p>
-          <ul className="space-y-4">
-            {nav.primary
-              .filter((i) => !isShop(i.mega))
-              .map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="font-serif text-3xl">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            <li>
-              <Link href="/contact" className="font-serif text-3xl">
-                Contact
+        {group === "world" ? (
+          <nav aria-label="The VN World" className="grid gap-px">
+            {WORLD.map((item) => (
+              <WorldPanel key={item.href} href={item.href} label={item.label} {...worldPanels[item.mega]} className="h-[30svh] min-h-48" />
+            ))}
+          </nav>
+        ) : (
+          <nav className="container-x py-8" aria-label="Shop">
+            <div className="mb-10 flex gap-3 sm:hidden">
+              <Link href="/account" className="pill gap-2">
+                <AccountIcon width={16} height={16} />
+                Account
               </Link>
-            </li>
-          </ul>
-        </nav>
+              <Link href="/wishlist" className="pill gap-2">
+                <HeartIcon width={16} height={16} filled={wishlist.slugs.length > 0} />
+                Wishlist
+              </Link>
+            </div>
+            {audiences.map((a) => (
+              <div key={a.slug} className="mb-10">
+                <p className="eyebrow mb-4">{a.name}</p>
+                <ul className="space-y-3.5">
+                  {MENUS[a.slug].map((i) => (
+                    <li key={i.key}>
+                      <Link href={i.href} className="font-serif text-2xl">
+                        {i.label}
+                      </Link>
+                      {i.grid && (
+                        <ul className="mt-4 mb-2 grid grid-cols-2 gap-x-6 gap-y-3">
+                          {/* Skipping the ones that are their own line below (Accessories, Sunglasses); her Swim stays, as his Swim Shorts does. */}
+                          {i.tiles.filter((t) => !MENUS[a.slug].some((o) => o.key !== "swim" && o.label === t.label)).map((t) => (
+                            <li key={t.label}>
+                              <Link href={t.href} className="text-[13px] font-semibold tracking-[0.08em]">
+                                {t.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            {/* The rest of Shop: Made to order and its links. */}
+            {SHOP.filter((item) => item.mega !== "men" && item.mega !== "women").map((item) => (
+              <div key={item.href} className="mb-10">
+                <p className="eyebrow mb-4">{item.label}</p>
+                <ul className="space-y-3.5">
+                  {MENUS[item.mega]
+                    .filter((i) => i.key !== "contact")
+                    .map((i) => (
+                      <li key={i.key}>
+                        <Link href={i.href} className="font-serif text-2xl">
+                          {i.label}
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        )}
       </div>
+
+      <SearchOverlay open={searchOpen} onClose={closeSearch} />
     </header>
     </>
+  );
+}
+
+/**
+ * One page of The VN World: its picture, full bleed, with its name over the bottom. Side by side the name grows with
+ * the panel so the longest ("Conservation") stays on one line, and sits clear of the sound button bottom-left.
+ */
+function WorldPanel({ href, label, image, position, className = "" }: { href: string; label: string; image: string; position?: string; className?: string }) {
+  return (
+    <Link href={href} className={`group image-frame block ${className}`}>
+      <Image src={image} alt="" fill unoptimized sizes="(min-width: 768px) 34vw, 100vw" style={{ objectPosition: position }} className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+      <span className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/55 to-transparent" aria-hidden="true" />
+      <span className="display absolute inset-x-5 bottom-5 text-3xl text-white md:inset-x-6 md:bottom-24 md:text-[clamp(1.75rem,3.4vw,3.5rem)]">{label}</span>
+    </Link>
   );
 }

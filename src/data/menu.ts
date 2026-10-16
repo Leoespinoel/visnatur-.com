@@ -1,8 +1,6 @@
 import { audiences, categories, site, type AudienceSlug, type CategorySlug } from "./site";
 import { groupByFamily, isFor, productImages, products, type Garment, type Product } from "./products";
 import { formatPrice, leadTimeLabel } from "@/lib/format";
-import { pledgePercentLabel } from "@/lib/pledge";
-import { articleHref, articles, instagramHandle } from "./stories";
 import { outfitsFor } from "./outfits";
 
 /** `packshot` tiles show the garment on white with the label in ink; the rest are photos with the label over them. */
@@ -16,8 +14,8 @@ export type MenuTile = { label: string; href: string; image: string; packshot?: 
  */
 export type MenuItem = { key: string; label: string; href: string; heading: string; tiles: MenuTile[]; note?: string; grid?: boolean };
 
-/** The header items that open a mega menu, in nav order. */
-export type MenuKey = AudienceSlug | "made-to-order" | "conservation" | "stories" | "about";
+/** The Shop menu's sections, each opening a mega panel, in nav order. */
+export type MenuKey = AudienceSlug | "made-to-order";
 
 /**
  * One tile per design: the section's lookbook image for it if there is one, else its first colourway's
@@ -117,12 +115,8 @@ const IMG = {
   label: "/images/numbered-label.jpg?v=2",
   atelier: "/images/campaign-atelier.jpg",
   sizing: "/products/riviera-linen-shirt-navy-model.jpg?v=3",
-  cliff: "/images/sea-cliff-wide.jpg?v=2",
-  summit: "/images/summit.jpg?v=2",
-  swim: "/images/campaign-swim.jpg",
   about: "/images/about.jpg",
 };
-const badger: MenuTile = { label: "The badger", href: "/about#the-mark", image: "/brand/logo-badger.png", packshot: true };
 const contact = {
   key: "contact",
   label: "Contact",
@@ -170,127 +164,25 @@ function madeToOrder(): MenuItem[] {
   ];
 }
 
-function conservation(): MenuItem[] {
-  const tile = (label: string, hash: string, image: string): MenuTile => ({ label, href: `/conservation${hash}`, image });
-  return [
-    {
-      key: "all",
-      label: "The pledge",
-      href: "/conservation",
-      heading: `${pledgePercentLabel()} of every sale goes to conservation`,
-      tiles: [tile("The pledge", "", IMG.cliff), tile("How it is counted", "#how-it-works", IMG.summit), tile("Where it goes", "#partners", IMG.swim)],
-    },
-    {
-      key: "how-it-works",
-      label: "How it is counted",
-      href: "/conservation#how-it-works",
-      heading: "Simple on purpose",
-      tiles: [tile("How it is counted", "#how-it-works", IMG.summit)],
-      note: "Of the price, not the profit. Worked out on every order before shipping and tax, shown on every product page, reported every season.",
-    },
-    {
-      key: "partners",
-      label: "Where it goes",
-      href: "/conservation#partners",
-      heading: "Highest leverage, not highest profile",
-      tiles: [tile("Where it goes", "#partners", IMG.swim)],
-      note: "Where each euro changes the most: the reef around Mauritius, its last native forest, and its mangrove coast. Partnerships in progress.",
-    },
-  ];
-}
-
-function stories(): MenuItem[] {
-  const tile = (label: string, hash: string, image: string): MenuTile => ({ label, href: `/stories#${hash}`, image });
-  const toTile = (a: (typeof articles)[number]): MenuTile => ({ label: a.title.replace(/\.$/, ""), href: articleHref(a), image: a.image });
-  const interviews = tile("In conversation", "interviews", IMG.atelier);
-  const community = tile("Community", "community", "/community/p4.jpg?v=2");
-  const letters = tile("Newsletter", "letters", "/images/campaign-linen.jpg");
-  return [
-    {
-      key: "all",
-      label: "All stories",
-      href: "/stories",
-      heading: "Told, not sold",
-      tiles: [tile("Latest", "latest", articles[0].image), tile("Events", "events", "/images/campaign-drop.jpg?v=3"), community, interviews],
-    },
-    { key: "latest", label: "Latest", href: "/stories#latest", heading: "Latest stories", tiles: articles.slice(0, 4).map(toTile) },
-    {
-      key: "events",
-      label: "Events",
-      href: "/stories#events",
-      heading: "Events",
-      tiles: [tile("Events", "events", "/images/campaign-drop.jpg?v=3")],
-      note: "Days on the water, on the course and on the trail, hosted or backed by Vis Naturæ. The first are being planned.",
-    },
-    {
-      key: "interviews",
-      label: "Interviews",
-      href: "/stories#interviews",
-      heading: "In conversation",
-      tiles: [interviews],
-      note: "The workshop that makes every piece and the partners the ten percent goes to, in their own words. Each goes up once the agreement behind it is signed.",
-    },
-    {
-      key: "community",
-      label: "Community & Instagram",
-      href: "/stories#community",
-      heading: "In the pieces, out in the world",
-      tiles: [community],
-      note: `Tag @${instagramHandle} to be featured. We always ask before we share.`,
-    },
-    {
-      key: "members",
-      label: "Members Only",
-      href: "/stories#members",
-      heading: "For the people who come back",
-      tiles: [tile("Members Only", "members", "/images/campaign-linen.jpg?v=9")],
-      note: "A subscription that goes entirely to conservation, with member discounts at partner clubs and events.",
-    },
-    {
-      key: "sponsorship",
-      label: "Sponsorship",
-      href: "/stories#sponsorship",
-      heading: "We back people who go all in",
-      tiles: [tile("Sponsorship", "sponsorship", "/community/surf-still.jpg")],
-      note: "Athletes and ambassadors, artists, and clubs, teams and events. Tell us what you go all in at.",
-    },
-    {
-      key: "letters",
-      label: "Newsletter",
-      href: "/stories#letters",
-      heading: "First to know",
-      tiles: [letters],
-      note: "Behind the scenes, written rarely. Sign up and you hear first.",
-    },
-  ];
-}
-
-function about(): MenuItem[] {
-  return [
-    {
-      key: "all",
-      label: "Our story",
-      href: "/about",
-      heading: "Explore Vis Naturæ",
-      tiles: [
-        { label: "Our story", href: "/about", image: IMG.about },
-        badger,
-        { label: "Made in Mauritius", href: "/made-to-order", image: IMG.cutting },
-        { label: `${pledgePercentLabel()} to conservation`, href: "/conservation", image: IMG.cliff },
-      ],
-    },
-    {
-      key: "the-mark",
-      label: "The badger",
-      href: "/about#the-mark",
-      heading: "Most animals survive by knowing when to run",
-      tiles: [badger],
-      note: "The honey badger survives because it simply refuses to. Ours is caught asleep on its back: go all in, then rest like you mean it.",
-    },
-    contact,
-  ];
-}
-
+/** The Shop menu: each section and the mega panel it opens. */
 export function menus(): Record<MenuKey, MenuItem[]> {
-  return { men: menuFor("men"), women: menuFor("women"), "made-to-order": madeToOrder(), conservation: conservation(), stories: stories(), about: about() };
+  return {
+    men: menuFor("men"),
+    women: menuFor("women"),
+    "made-to-order": madeToOrder(),
+  };
 }
+
+/** The pages under The VN World. */
+export type WorldKey = "stories" | "members" | "conservation";
+
+/**
+ * The VN World menu (Leo, 2026-10-16, after nudeproject.com's Universe): no side links, one tall picture per page,
+ * side by side, with the page's name over it.
+ */
+export const worldPanels: Record<WorldKey, { image: string; position?: string }> = {
+  stories: { image: "/images/run-club.jpg" },
+  members: { image: "/images/moments/home-for-dinner.jpg" },
+  // The dolphins off the catamaran, framed so both faces stay in (Leo replaced the reef swimmer, 2026-10-16).
+  conservation: { image: "/images/day-catamaran.jpg", position: "60% 50%" },
+};

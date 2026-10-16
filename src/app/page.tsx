@@ -6,10 +6,9 @@ import { HeroSlider } from "@/components/landing/HeroSlider";
 import { StoryPair } from "@/components/StoryPair";
 import { StoryCarousel } from "@/components/StoryCarousel";
 import type { Story } from "@/components/StoryCopy";
-import { FilmBlock } from "@/components/FilmBlock";
+import { CampaignBlock } from "@/components/CampaignBlock";
 import { Newsletter } from "@/components/Newsletter";
 import { Playlist } from "@/components/Playlist";
-import { atelierFilm } from "@/data/film";
 
 /** A campaign as one half of a pair: its picture, title, line and both links. */
 function campaignStory(key: string): Story {
@@ -19,7 +18,7 @@ function campaignStory(key: string): Story {
 
 /**
  * Homepage, paced like /shop: the full-screen hero slider, the lines and edits, women and men side by side,
- * one row of pieces, the making-of film, then the community and members pair, the playlist and the newsletter.
+ * one row of pieces, the stylists at work, then the community and members pair, the playlist and the newsletter.
  * Pictures alternate with white space so no two full-bleed images sit back to back.
  */
 export default function HomePage() {
@@ -43,10 +42,16 @@ export default function HomePage() {
         <ProductCarousel title="Collection I" products={alternateAudiences(featuredProducts(Infinity)).slice(0, 16)} link={{ label: "Shop all", href: "/shop/all" }} />
       </div>
 
-      {/* 5. The making-of, full-bleed */}
-      <FilmBlock {...atelierFilm} text="Every piece is cut and sewn by hand, to order, in a small workshop in Mauritius." link={{ label: "A closer look", href: "/made-to-order" }} />
+      {/* 5. Behind the scenes: stylists at work on a model, full-bleed (Leo, 2026-10-16, in place of the Made by hand film) */}
+      <CampaignBlock
+        image="/images/atelier/stylists.jpg"
+        alt="Two stylists at work on a model on a villa terrace above the sea, one at the collar of her cricket jumper, one kneeling at the hem of her cream linen trousers"
+        title="Between takes"
+        text="Every piece is cut and sewn to order, then styled down to the last roll of the cuff."
+        primary={{ label: "A closer look", href: "/made-to-order" }}
+      />
 
-      {/* Community, split in two: the people in the pieces and the members' programme, wide on screens, with white space after the film */}
+      {/* Community, split in two: the people in the pieces and the members' programme, wide on screens, with white space after the picture */}
       <div className="py-14 md:py-20">
         <StoryPair stories={communityStories} aspect="aspect-[4/5] md:aspect-[4/3]" />
       </div>

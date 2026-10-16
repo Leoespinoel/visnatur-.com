@@ -9,6 +9,24 @@ export const BagIcon = (p: P) => (
     <path d="M9 8V6a3 3 0 0 1 6 0v2" />
   </svg>
 );
+export const SearchIcon = (p: P) => (
+  <svg {...base} {...p} aria-hidden="true">
+    <circle cx="11" cy="11" r="6.5" />
+    <path d="m16 16 4.5 4.5" />
+  </svg>
+);
+export const AccountIcon = (p: P) => (
+  <svg {...base} {...p} aria-hidden="true">
+    <circle cx="12" cy="8" r="3.5" />
+    <path d="M5 20c.8-3.4 3.6-5.5 7-5.5s6.2 2.1 7 5.5" />
+  </svg>
+);
+/** `filled` once the piece is saved (and in the header while the wishlist has anything in it). */
+export const HeartIcon = ({ filled = false, ...p }: P & { filled?: boolean }) => (
+  <svg {...base} {...p} fill={filled ? "currentColor" : "none"} aria-hidden="true">
+    <path d="M12 20 4.8 12.9a4.4 4.4 0 0 1 6.2-6.3l1 1 1-1a4.4 4.4 0 0 1 6.2 6.3Z" />
+  </svg>
+);
 export const MenuIcon = (p: P) => (
   <svg {...base} {...p} aria-hidden="true">
     <path d="M4 7h16M4 12h16M4 17h16" />

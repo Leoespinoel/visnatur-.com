@@ -26,7 +26,7 @@ export const heroSlides: HeroSlide[] = [
     text: "Swimsuits, linen, shorts, tees and knitwear, made in Mauritius once you order them.",
     cta: { label: "Explore now", href: "/women/all" },
     image: `${IMG}/group-hall.jpg`,
-    alt: "Three women in the marble hall of a villa in the navy Women’s Mooring Stripe Crew, the burgundy Women’s Regatta Cardigan and the sky Women’s Riviera Linen Shirt",
+    alt: "Three women in the chequered marble hall of a villa, in a navy and cream hooped rugby shirt with a white pleated skirt, a brown suede jacket with cream trousers, and a cream cricket jumper over a striped shirt",
     position: "45% 50%",
     plate: `${IMG}/plate-hall.jpg`,
     thumb: "/images/women/knitwear.jpg",
@@ -38,7 +38,7 @@ export const heroSlides: HeroSlide[] = [
     text: "Linen and cotton loopback, striped or plain, in nine colours.",
     cta: { label: "Explore now", href: "/women/polos-knitwear" },
     image: `${IMG}/dj.jpg`,
-    alt: "A DJ at the turntables in a villa courtyard in the clementine Cabana Hoodie, white Esplanade Linen Shorts and tortoiseshell Alizé Sunglasses, with friends in the sky Women’s Riviera Linen Shirt and the pink Women’s Mooring Stripe Crew",
+    alt: "A DJ at the decks on a terrace with green shutters, in a green and cream striped cardigan, pinstripe trousers and sunglasses, between a friend in a sky linen shirt and one in a navy cardigan and stone chinos",
     position: "53% 50%",
     plate: `${IMG}/plate-courtyard.jpg`,
     thumb: "/images/women/riviera-hoodie.jpg",
@@ -50,7 +50,7 @@ export const heroSlides: HeroSlide[] = [
     text: "Three six-panel caps: the script, the badger and the stripe.",
     cta: { label: "Explore now", href: "/women/outerwear-accessories" },
     image: "/images/shop/grid-accessories.jpg",
-    alt: "A woman on the steps of a veranda in the pink Sett Cap and white Burrow Socks",
+    alt: "A woman on the wooden steps of a veranda under pink bougainvillea in a grey cap, a cream linen shirt and shorts, white socks and brown loafers",
     position: "38% 50%",
     plate: `${IMG}/plate-caps.jpg`,
     thumb: "/images/women/accessories.jpg",
@@ -62,7 +62,7 @@ export const heroSlides: HeroSlide[] = [
     text: "Alizé, the slim oval, named after the island’s trade wind.",
     cta: { label: "Explore now", href: "/women/sunglasses" },
     image: `${IMG}/group-pool.jpg`,
-    alt: "Three women by a villa pool in the clementine Promenade Knit Polo, the pink Women’s Mooring Stripe Crew with olive Alizé Sunglasses, and the navy Women’s Cabana Linen Shirt",
+    alt: "Two women on a villa pool terrace, one standing in a cream cable-knit cricket jumper with navy and red tipping and white shorts, the other seated in a navy knit and cream trousers",
     position: "70% 50%",
     plate: `${IMG}/plate-pool.jpg`,
     thumb: "/images/women/sunglasses.jpg",
@@ -71,14 +71,14 @@ export const heroSlides: HeroSlide[] = [
 
 /** Column order: Swim over Shirts, Polo Shirts over Tees, Shorts over Sunglasses, Knitwear over Trousers. */
 export const categoryTiles: MosaicTile[] = [
-  { label: "Swim", href: "/women/swim", image: `${IMG}/sections/swim.jpg`, alt: "Three women on the sea steps of a villa in the turquoise Tidal Swimsuit with black Alizé Sunglasses, the red Lido Stripe Swimsuit and the oat Women’s Riviera Linen Shirt" },
-  { label: "Shirts", href: "/women/shirts-trousers", image: `${IMG}/sections/shirts.jpg`, alt: "A woman reading on the veranda of a colonial sugar-estate house in the pink Women’s Cabana Linen Shirt and reading glasses, a friend behind her in the sky Women’s Riviera Linen Shirt", position: "50% 30%" },
-  { label: "Polo Shirts", href: "/women/polo-shirts", image: `${IMG}/sections/polo.jpg`, alt: "A woman playing a forehand on a clay court in the navy Promenade Knit Polo, white Quayside Chino Shorts and tortoiseshell Alizé Sunglasses", position: "50% 30%" },
-  { label: "Tees", href: "/women/tees", image: `${IMG}/sections/tees.jpg`, alt: "Four women lounging on a catamaran below Le Morne in the Sandbar Tee and the red Cabana Stripe Tee, one in black Alizé Sunglasses", position: "50% 40%" },
-  { label: "Shorts", href: "/women/shorts", image: `${IMG}/sections/shorts.jpg`, alt: "Two women walking between yew hedges in the white Esplanade Linen Short with tortoiseshell Alizé Sunglasses and the navy Quayside Chino Short", position: "50% 30%" },
-  { label: "Sunglasses", href: "/women/sunglasses", image: `${IMG}/group-pool.jpg`, alt: "Three women by a villa pool in the clementine Promenade Knit Polo, the pink Women’s Mooring Stripe Crew with olive Alizé Sunglasses, and the navy Women’s Cabana Linen Shirt", position: "70% 50%" },
-  { label: "Knitwear", href: "/women/polos-knitwear", image: `${IMG}/group-hall.jpg`, alt: "Three women in the marble hall of a villa in the navy Women’s Mooring Stripe Crew, the burgundy Women’s Regatta Cardigan and the sky Women’s Riviera Linen Shirt", position: "45% 50%" },
-  { label: "Trousers", href: "/women/trousers", image: `${IMG}/sections/trousers.jpg`, alt: "A woman walking down a villa gallery in the oat Women’s Veranda Linen Trouser and black Alizé Sunglasses" },
+  { label: "Swim", href: "/women/swim", image: `${IMG}/sections/swim.jpg`, alt: "Two women on the stone sea steps of a villa, one in a navy swimsuit, the other in a cream swimsuit under an open pale pink linen shirt" },
+  { label: "Shirts", href: "/women/shirts-trousers", image: `${IMG}/sections/shirts.jpg`, alt: "A woman reading in a rattan chair on the veranda of a colonial house in reading glasses, a pink striped shirt and white linen trousers, a friend behind her in a sky linen shirt", position: "50% 30%" },
+  { label: "Polo Shirts", href: "/women/polo-shirts", image: `${IMG}/sections/polo.jpg`, alt: "A woman playing a forehand on a clay court in sunglasses, a navy knit polo with cream tipping and white shorts", position: "50% 30%" },
+  { label: "Tees", href: "/women/tees", image: `${IMG}/sections/tees.jpg`, alt: "Two women lounging on a catamaran below Le Morne, one in a navy tee and stone trousers, the other on the net in a cream tee and stone shorts", position: "50% 40%" },
+  { label: "Shorts", href: "/women/shorts", image: `${IMG}/sections/shorts.jpg`, alt: "Two women walking between yew hedges, one in tortoiseshell sunglasses, a white linen shirt and cream pleated shorts, the other in a white tee and navy shorts", position: "50% 30%" },
+  { label: "Sunglasses", href: "/women/sunglasses", image: `${IMG}/group-pool.jpg`, alt: "Two women on a villa pool terrace, one standing in a cream cable-knit cricket jumper with navy and red tipping and white shorts, the other seated in a navy knit and cream trousers", position: "70% 50%" },
+  { label: "Knitwear", href: "/women/polos-knitwear", image: `${IMG}/group-hall.jpg`, alt: "Three women in the chequered marble hall of a villa, in a navy and cream hooped rugby shirt with a white pleated skirt, a brown suede jacket with cream trousers, and a cream cricket jumper over a striped shirt", position: "45% 50%" },
+  { label: "Trousers", href: "/women/trousers", image: `${IMG}/sections/trousers.jpg`, alt: "A woman walking down a villa gallery in black sunglasses, a white tee and cream pleated trousers" },
 ];
 
 /** Curated edits, RL's "The Stories". */
@@ -90,12 +90,12 @@ export const stories: { title: string; text: string; feature: StoryCard; cards: 
     title: "The Cabana Stripe",
     href: designs("womens-cabana-linen-shirt", "cabana-stripe-tee", "cabana-hoodie", "cabana-cap"),
     image: "/images/shop/cabana.jpg",
-    alt: "A woman in the sky Cabana Hoodie and cap on a sun lounger in front of striped beach cabanas",
+    alt: "A woman with a coffee on a sun lounger in front of striped beach cabanas, in a sky striped linen shirt and white shorts",
   },
   cards: [
-    { eyebrow: "Tone on tone", title: "The Badger", href: designs("riviera-hoodie", "sett-cap", "burrow-sock"), image: `${IMG}/story-badger.jpg`, alt: "A woman by the water lily pond at Pamplemousses in the navy Riviera Hoodie, navy Sett Cap and white Burrow Socks" },
+    { eyebrow: "Tone on tone", title: "The Badger", href: designs("riviera-hoodie", "sett-cap", "burrow-sock"), image: `${IMG}/story-badger.jpg`, alt: "A woman walking by the giant water lily pond at Pamplemousses in a cream cable-knit cricket jumper with navy and red tipping and oat linen trousers" },
     { eyebrow: "Alizé", title: "After the trade wind", href: "/women/sunglasses", image: `${IMG}/story-alize.jpg`, alt: "Three women in a formal garden between yew hedges, the one in the centre in tortoiseshell Alizé Sunglasses and the white Esplanade Linen Short" },
-    { eyebrow: "Collection I", title: "A walk at Le Morne", href: "/shop", image: "/images/shop/hero.jpg", alt: "Two friends walking along a jetty at Le Morne in the Cabana Hoodie and the Riviera linen shirt" },
+    { eyebrow: "Collection I", title: "A walk at Le Morne", href: "/shop", image: "/images/shop/hero.jpg", alt: "Four friends, two men and two women, walking back along a jetty below Le Morne in linen shirts, a navy knit, a cream cricket jumper and cream trousers, one woman carrying her loafers" },
   ],
 };
 
@@ -104,7 +104,7 @@ export const bannerSlides: BannerSlide[] = [
   {
     key: "pledge",
     image: "/images/shop/reef.jpg",
-    alt: "A free-diver gliding over a coral garden in a Mauritian lagoon",
+    alt: "A free-diver in navy swim shorts gliding over a coral garden, sunlight falling through the water",
     lockup: { badger: true },
     text: "Ten percent of every sale price goes to the island’s reef and forests.",
     cta: { label: "Discover", href: "/conservation" },
@@ -147,10 +147,10 @@ export const explore: { title: string; text: string; tiles: ExploreTile[] } = {
   title: "More to explore",
   text: "The workshop, the pledge, and the rest of the house.",
   tiles: [
-    { title: "New in", href: "/women/all?filter=new", image: `${IMG}/new.jpg`, alt: "A woman laughing over coffee at Trou d’Eau Douce in the sky Riviera Hoodie and cap", cta: "Shop now" },
+    { title: "New in", href: "/women/all?filter=new", image: `${IMG}/new.jpg`, alt: "A woman with a coffee at a café table on the sand under the palms, in a cream cable-knit cricket jumper with navy and red tipping and stone trousers", cta: "Shop now" },
     { title: "Made to order", href: "/made-to-order", image: "/images/cutting-table.jpg?v=2", alt: "Hands cutting sky linen on the workshop table", cta: "Discover" },
-    { title: "Conservation", href: "/conservation", image: "/images/day-reef.jpg", alt: "A snorkeller over the reef", cta: "Discover" },
-    { title: "Our story", href: "/about", image: "/images/about.jpg", alt: "A man walking barefoot on basalt rocks in a sage linen shirt", cta: "Discover" },
+    { title: "Conservation", href: "/conservation", image: "/images/day-reef.jpg", alt: "A swimmer in red swim shorts over a coral reef", cta: "Discover" },
+    { title: "Our story", href: "/about", image: "/images/about.jpg", alt: "A man walking barefoot over basalt rocks by the surf in a white linen shirt and navy trousers", cta: "Discover" },
     { title: "Measurements", href: "/made-to-order#measurements", image: "/images/numbered-label.jpg?v=2", alt: "Hands boxing a red knit", cta: "See the sheets" },
     { title: "For him", href: "/men", image: `${IMG}/for-him.jpg`, alt: "Three men on the deck of a classic yacht in the white Sandbar Tee with black Alizé Sunglasses, the navy Cabana Stripe Tee and the navy Badger Tee", cta: "Shop now" },
   ],

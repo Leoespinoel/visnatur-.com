@@ -2,61 +2,33 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
-import { getProduct } from "@/data/products";
 import { pledgePercentLabel } from "@/lib/pledge";
-import { ArrowIcon } from "@/components/Icons";
 
 export const metadata: Metadata = {
   title: "Origins",
   description: "Vis Naturæ is a made-to-order clothing label for men and women, founded in 2026. Force of nature, taken seriously.",
 };
 
-/** A day on the island in four moments; each photo's pieces come from the stills shot list (scripts/stills-shots.mjs, day-*). */
-const day = [
-  {
-    time: "Morning",
-    title: "Kitesurfing with friends",
-    text: "The trade wind fills in over the lagoon at Le Morne, and the kites are up before anyone has had breakfast.",
-    image: "/images/day-kite.jpg",
-    alt: "Friends rigging kites on the beach at Le Morne, one already riding on the turquoise lagoon",
-    wears: "lido-stripe-swim-short-saffron",
-  },
-  {
-    time: "Midday",
-    title: "Out on the catamaran",
-    text: "Off the west coast, spinner dolphins come up to ride the bow while everyone crowds onto the net to watch.",
-    image: "/images/day-catamaran.jpg",
-    alt: "Friends on the net of a catamaran watching spinner dolphins leap off the bow",
-    wears: "cabana-linen-shirt-sky",
-  },
-  {
-    time: "Afternoon",
-    title: "Over the reef",
-    text: "Mask on, face down, drifting over coral and shoals of reef fish in water as clear as glass.",
-    image: "/images/day-reef.jpg",
-    alt: "A snorkeller floating over a coral reef in clear turquoise water, sunlight falling in rays",
-    wears: "tidal-swim-short-red",
-  },
-  {
-    time: "Sunset",
-    title: "The sundowner",
-    text: "The day ends barefoot at a beach bar, a local DJ on the decks and a cocktail in hand.",
-    image: "/images/day-sundowner.jpg",
-    alt: "Friends with cocktails at a beach bar at sunset while a local DJ plays under festoon lights",
-    wears: "cabana-hoodie-oat",
-  },
-];
+/**
+ * The mood board under the inspiration passage (Leo, 2026-10-16): every picture at its own shape, uncropped, flowing down three
+ * columns. Listed in column order, four, four and five, so the columns end level: 16:9 pictures are about half as tall as 4:5 ones.
+ */
+const moodBoard = [
+  { image: "/images/moments/first-light.jpg", wide: false, alt: "A surfer walking into the sea at first light while two friends in linen and a cricket jumper watch from the shore" },
+  { image: "/images/active/barrel.jpg", wide: true, alt: "A surfer crouched deep inside a hollow barrel, one hand trailing along the wave" },
+  { image: "/images/moments/courtyard.jpg", wide: false, alt: "Two friends on the stone steps of a Paris courtyard at night under festoon lights" },
+  { image: "/images/moments/rooftop.jpg", wide: true, alt: "Two friends on a London rooftop at blue hour among the chimney pots" },
 
-/** The inspiration passage in pictures, in its order: rows of a wide and a tall picture (Leo, 2026-10-16). */
-const moments = [
-  { image: "/images/moments/surf-lineup.jpg", wide: true, span: "md:col-span-8", alt: "Two friends on their longboards far apart in the sea at sunset, waiting for the next wave" },
-  { image: "/images/moments/first-light.jpg", wide: false, span: "md:col-span-4", alt: "A surfer walking into the sea at first light while two friends in linen and a cricket jumper watch from the shore" },
-  { image: "/images/moments/drinks-wall.jpg", wide: true, span: "md:col-span-6", alt: "Two friends on an old stone sea wall at golden hour, a bottle in hand" },
-  { image: "/images/moments/kitchen-party.jpg", wide: true, span: "md:col-span-6", alt: "Late in an Amsterdam canal house kitchen, one friend on the counter with a glass of wine, the other at the window over the canal" },
-  { image: "/images/moments/courtyard.jpg", wide: false, span: "md:col-span-4", alt: "Two friends on the stone steps of a Paris courtyard at night under festoon lights" },
-  { image: "/images/moments/rooftop.jpg", wide: true, span: "md:col-span-8", alt: "Two friends on a London rooftop at blue hour among the chimney pots" },
-  { image: "/images/moments/dj-night.jpg", wide: true, span: "md:col-span-8", alt: "A DJ alone at the decks on a stone terrace above the sea at night, candles along the balustrade" },
-  { image: "/images/moments/sunrise-walk.jpg", wide: false, span: "md:col-span-4", alt: "Two friends walking home along the seafront at sunrise, loafers in hand" },
+  { image: "/images/moments/surf-lineup.jpg", wide: true, alt: "Two friends on their longboards far apart in the sea at sunset, waiting for the next wave" },
+  { image: "/images/active/scooter-indonesia.jpg", wide: false, alt: "A surfer on an old scooter with a board in the side rack, riding past rice terraces above the sea in Indonesia" },
+  { image: "/images/moments/kitchen-party.jpg", wide: true, alt: "Late in an Amsterdam canal house kitchen, one friend on the counter with a glass of wine, the other at the window over the canal" },
+  { image: "/images/moments/sunrise-walk.jpg", wide: false, alt: "Two friends walking home along the seafront at sunrise, loafers in hand" },
+
+  { image: "/images/active/kitesurf.jpg", wide: true, alt: "A kitesurfer carving across a turquoise lagoon, throwing spray, a mountain behind" },
+  { image: "/images/moments/ready-again.jpg", wide: false, alt: "Friends getting ready to go out again in an old bedroom, one sitting on the bed doing up his loafers" },
+  { image: "/images/moments/drinks-wall.jpg", wide: true, alt: "Two friends on an old stone sea wall at golden hour, a bottle in hand" },
+  { image: "/images/moments/home-for-dinner.jpg", wide: true, alt: "Friends at a long candlelit table on the terrace of an old stone house, one pouring the wine" },
+  { image: "/images/moments/dj-night.jpg", wide: true, alt: "A DJ at the decks on a stone terrace above the sea at night, candles along the balustrade" },
 ];
 
 export default function AboutPage() {
@@ -99,7 +71,7 @@ export default function AboutPage() {
             <div className="image-frame aspect-[16/9] xl:aspect-auto xl:h-full">
               <Image
                 src="/images/campaign-drop.jpg?v=3"
-                alt="Four friends on a basalt harbour wall in Mauritius in a navy quarter zip, oat linen shirt, red striped knit and saffron striped swim shorts"
+                alt="Two men on a basalt harbour wall with fishing boats behind, one in a cream cable-knit cricket jumper with navy and red tipping and cream trousers, the other in an open sand linen shirt over a navy knit vest and navy trousers"
                 fill
                 unoptimized
                 priority
@@ -140,41 +112,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="story" className="theme-dark scroll-mt-24">
-        <div className="container-x grid gap-10 py-16 md:grid-cols-12 md:py-24">
-          <div className="md:col-span-5">
-            <div className="image-frame aspect-[4/5]">
-              <Image src="/images/about.jpg" alt="A man in a sage linen shirt walking barefoot over basalt rocks on the Mauritius coast" fill unoptimized priority sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
-            </div>
-          </div>
-          <div className="space-y-6 text-base leading-relaxed text-ink-2 md:col-span-6 md:col-start-7 md:pt-10 md:text-lg">
-            <p className="display text-3xl text-ink md:text-4xl">We started with a question: what would a clothing brand look like if it refused to make anything nobody wanted?</p>
-            <p>
-              The answer was slower, and better. No stock. No sales. No seasons thrown away. Every design in Collection I is a pattern and a bolt of
-              fabric until someone orders it, and then it is cut and sewn in their size in Mauritius, an island that has been making fine knitwear and tailoring for half a century.
-            </p>
-            <p>
-              The pieces are the ones we wanted and could not find. Swim shorts in a clean cut made from reclaimed fishing nets. A piqué polo heavy
-              enough to hold its collar. Linen that is allowed to crease. A quarter zip for the drive home.
-            </p>
-            <p>
-              And because the brand takes its name from the natural world, it pays rent. {pledgePercentLabel()} of every sale price goes to
-              conservation, counted on every page and reported every season.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Link href="/shop" className="btn btn-primary">
-                Collection I
-              </Link>
-              <Link href="/conservation" className="btn btn-outline">
-                The pledge
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* The inspiration: the culture behind the brand, in one passage (Leo, 2026-10-16). White, between the black story and the grey mark. */}
-      <section id="inspiration" className="scroll-mt-24">
+      {/* The inspiration: the culture behind the brand, in one passage, then a mood board (Leo, 2026-10-16). Black, under the name. */}
+      <section id="inspiration" className="theme-dark scroll-mt-24">
         <div className="container-x py-16 md:py-24">
           <p className="eyebrow mb-4">The inspiration</p>
           <h2 className="display max-w-4xl text-4xl md:text-6xl">
@@ -197,10 +136,18 @@ export default function AboutPage() {
             Lost in the sauce, found again at sunrise, and paddling out anyway, because the feeling of that wave and the stories to tell are what
             get you up in the morning and keep you up at night.
           </p>
-          <ul className="mt-12 grid gap-3 md:mt-16 md:grid-cols-12">
-            {moments.map((m) => (
-              <li key={m.image} className={`image-frame relative ${m.wide ? "aspect-[16/9]" : "aspect-[4/5]"} md:aspect-auto md:h-[30rem] ${m.span}`}>
-                <Image src={m.image} alt={m.alt} fill unoptimized sizes="(min-width: 768px) 66vw, 100vw" className="object-cover" />
+          <ul className="mt-12 columns-2 gap-3 md:mt-16 md:columns-3">
+            {moodBoard.map((m) => (
+              <li key={m.image} className="image-frame mb-3 break-inside-avoid">
+                <Image
+                  src={m.image}
+                  alt={m.alt}
+                  width={m.wide ? 2560 : 1200}
+                  height={m.wide ? 1440 : 1500}
+                  unoptimized
+                  sizes="(min-width: 768px) 33vw, 50vw"
+                  className="block h-auto w-full"
+                />
               </li>
             ))}
           </ul>
@@ -243,50 +190,37 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The life that made it: one day on the island, from first wind to last light. */}
-      <section id="the-life" className="theme-red scroll-mt-24">
-        <div className="container-x py-16 md:py-24">
-          <div className="grid gap-8 md:grid-cols-12 md:items-end">
-            <div className="md:col-span-6">
-              <p className="eyebrow mb-4">The life that made it</p>
-              <h2 className="display text-4xl md:text-6xl">
-                In Mauritius, the luxury is time <em className="italic">outside</em>.
-              </h2>
+      {/* The story: why nothing is made until it is ordered. Red, last before the footer. */}
+      <section id="story" className="theme-red scroll-mt-24">
+        <div className="container-x grid gap-10 py-16 md:grid-cols-12 md:py-24">
+          <div className="md:col-span-5">
+            <div className="image-frame aspect-[4/5]">
+              <Image src="/images/about.jpg" alt="A man walking barefoot over basalt rocks by the breaking surf in a white linen shirt and navy linen trousers, his loafers in hand" fill unoptimized sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
             </div>
-            <p className="text-base leading-relaxed text-ink-2 md:col-span-5 md:col-start-8 md:text-lg">
-              On an island ringed by reef, lagoon and mountain, the best days are the ones spent in it, with friends, from the first wind to
-              the last light. Vis Naturæ is made for that day: shorts that dry on the boat, linen for the deck, a hoodie for when the sun drops.
-            </p>
           </div>
-
-          {/* Each moment spans five rows of a shared subgrid, so photos, titles, text and links line up across the columns. */}
-          <ol className="mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-16 xl:grid-cols-4">
-            {day.map((m) => {
-              const worn = getProduct(m.wears);
-              return (
-                <li key={m.time} className="row-span-5 grid grid-rows-subgrid gap-y-0">
-                  <div className="image-frame aspect-[4/5]">
-                    <Image src={m.image} alt={m.alt} fill unoptimized sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
-                  </div>
-                  <p className="eyebrow mt-5">{m.time}</p>
-                  <h3 className="mt-2 font-serif text-2xl md:text-3xl">{m.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-2">{m.text}</p>
-                  {worn ? (
-                    <Link href={`/product/${worn.slug}`} className="eyebrow !text-ink link-underline mt-4 inline-flex items-center gap-2 self-start justify-self-start">
-                      Worn: {worn.name}
-                      <ArrowIcon width={14} height={14} />
-                    </Link>
-                  ) : (
-                    <span />
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-
-          <p className="eyebrow mt-14 border-t border-line pt-5">
-            Founded {site.foundedYear} · Made in Mauritius · {pledgePercentLabel()} of every sale to conservation
-          </p>
+          <div className="space-y-6 text-base leading-relaxed text-ink-2 md:col-span-6 md:col-start-7 md:pt-10 md:text-lg">
+            <p className="display text-3xl text-ink md:text-4xl">We started with a question: what would a clothing brand look like if it refused to make anything nobody wanted?</p>
+            <p>
+              The answer was slower, and better. No stock. No sales. No seasons thrown away. Every design in Collection I is a pattern and a bolt of
+              fabric until someone orders it, and then it is cut and sewn in their size in Mauritius, an island that has been making fine knitwear and tailoring for half a century.
+            </p>
+            <p>
+              The pieces are the ones we wanted and could not find. Swim shorts in a clean cut made from reclaimed fishing nets. A piqué polo heavy
+              enough to hold its collar. Linen that is allowed to crease. A quarter zip for the drive home.
+            </p>
+            <p>
+              And because the brand takes its name from the natural world, it pays rent. {pledgePercentLabel()} of every sale price goes to
+              conservation, counted on every page and reported every season.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link href="/shop" className="btn btn-primary">
+                Collection I
+              </Link>
+              <Link href="/conservation" className="btn btn-outline">
+                The pledge
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </>
