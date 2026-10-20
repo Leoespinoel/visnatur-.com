@@ -1,7 +1,8 @@
 import { audiences, categories, site, type AudienceSlug, type CategorySlug } from "./site";
 import { groupByFamily, isFor, productImages, products, type Garment, type Product } from "./products";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
 import { outfitsFor } from "./outfits";
+import { drops } from "./drops";
 
 /** `packshot` tiles show the garment on white with the label in ink; the rest are photos with the label over them. */
 export type MenuTile = { label: string; href: string; image: string; packshot?: boolean };
@@ -15,7 +16,7 @@ export type MenuTile = { label: string; href: string; image: string; packshot?: 
 export type MenuItem = { key: string; label: string; href: string; heading: string; tiles: MenuTile[]; note?: string; grid?: boolean };
 
 /** The Shop menu's sections, each opening a mega panel, in nav order. */
-export type MenuKey = AudienceSlug | "made-to-order";
+export type MenuKey = AudienceSlug | "signature" | "collections" | "made-to-order";
 
 /**
  * One tile per design: the section's lookbook image for it if there is one, else its first colourway's
@@ -126,23 +127,78 @@ const contact = {
   note: "Sizing questions, order updates, repairs, or just to say hello. We answer within two working days.",
 };
 
+/**
+ * Signature (Leo, 2026-10-20): the permanent line, always in stock. Men and Women sit inside it (Leo: "the men and women
+ * section inside the signature section"), each showing its garment grid; New in brings the latest pieces of both.
+ */
+function signature(): MenuItem[] {
+  const men = menuFor("men");
+  const women = menuFor("women");
+  const part = (items: MenuItem[], key: string) => items.find((i) => i.key === key)!;
+  return [
+    {
+      key: "all",
+      label: "All Signature",
+      href: "/shop/signature",
+      heading: "The permanent line, always in stock",
+      tiles: [
+        { label: "Signature", href: "/shop/signature", image: "/images/shop/hero.jpg?v=r1016" },
+        { label: "Men", href: "/men", image: "/images/home/men-hero.jpg?v=r1016" },
+        { label: "Women", href: "/women", image: "/images/home/women-hero.jpg?v=r1016" },
+        { label: "Made to order", href: "/made-to-order", image: "/images/atelier/hands.jpg" },
+      ],
+    },
+    { key: "men", label: "Men", href: "/men", heading: "Signature for him", tiles: part(men, "all").tiles, grid: true },
+    { key: "women", label: "Women", href: "/women", heading: "Signature for her", tiles: part(women, "all").tiles, grid: true },
+    {
+      key: "new",
+      label: "New in",
+      href: "/shop/all?filter=new",
+      heading: "New in",
+      tiles: [...part(men, "new").tiles.slice(0, 4), ...part(women, "new").tiles.slice(0, 4)],
+    },
+  ];
+}
+
+/** Collections (Leo, 2026-10-20: drops are called collections): limited units, then gone. One tile each once there are any. */
+function collections(): MenuItem[] {
+  const tiles: MenuTile[] = drops.length
+    ? drops.map((d) => ({ label: d.name, href: `/collections#${d.id}`, image: d.image ?? "/images/moments/dj-night.jpg" }))
+    : [{ label: "Collections", href: "/collections", image: "/images/moments/dj-night.jpg" }];
+  return [
+    {
+      key: "all",
+      label: "Collections",
+      href: "/collections",
+      heading: "Limited units, then gone",
+      tiles,
+      ...(drops.length ? {} : { note: "DIVA, the first collection, is on its way. Members of The VN Club hear first." }),
+    },
+  ];
+}
+
 function madeToOrder(): MenuItem[] {
   const tile = (label: string, hash: string, image: string): MenuTile => ({ label, href: `/made-to-order#${hash}`, image });
   return [
     {
       key: "all",
-      label: "How it works",
-      href: "/made-to-order#how-it-works",
-      heading: "Made once you order it.",
-      tiles: [tile("How it works", "how-it-works", IMG.cutting), tile("Shipping", "shipping", IMG.atelier), tile("Sizing", "sizing", IMG.sizing), tile("Questions", "questions", IMG.label)],
+      label: "Made to order",
+      href: "/made-to-order",
+      heading: "A Signature piece, made to fit",
+      tiles: [
+        tile("How it works", "how-it-works", "/images/atelier/hands.jpg"),
+        tile("What can be adjusted", "adjustments", "/images/atelier/press.jpg"),
+        tile("Shipping", "shipping", IMG.atelier),
+        tile("Sizing", "sizing", IMG.sizing),
+      ],
     },
     {
       key: "shipping",
-      label: "Shipping & lead times",
+      label: "Shipping & delivery",
       href: "/made-to-order#shipping",
-      heading: "Shipping & lead times",
+      heading: "Shipping & delivery",
       tiles: [tile("Shipping", "shipping", IMG.atelier)],
-      note: `Cut and sewn in Mauritius after you order, ready ${leadTimeLabel()} later, then express to Europe in 4–7 working days. Free over ${formatPrice(site.freeShippingThresholdCents)}.`,
+      note: `Signature and collection pieces leave Mauritius within ${dispatchLabel()}, then ${transitLabel()} express to Europe. Made to order takes ${madeToOrderLabel()}. Free shipping over ${formatPrice(site.freeShippingThresholdCents)}.`,
     },
     {
       key: "sizing",
@@ -150,7 +206,7 @@ function madeToOrder(): MenuItem[] {
       href: "/made-to-order#sizing",
       heading: "Sizing",
       tiles: [tile("Sizing", "sizing", IMG.sizing)],
-      note: "Measure a shirt you like and match it to the chart. Every piece is cut to the size you choose.",
+      note: "Measure a shirt you like and match it to the chart, or have a Signature piece made to order to your measurements.",
     },
     {
       key: "questions",
@@ -158,7 +214,7 @@ function madeToOrder(): MenuItem[] {
       href: "/made-to-order#questions",
       heading: "Asked often",
       tiles: [tile("Questions", "questions", IMG.label)],
-      note: "What happens after you order, when your piece is cut, cancelling, returns and repairs.",
+      note: "Made to order, delivery, cancelling, returns and repairs.",
     },
     contact,
   ];
@@ -169,6 +225,8 @@ export function menus(): Record<MenuKey, MenuItem[]> {
   return {
     men: menuFor("men"),
     women: menuFor("women"),
+    signature: signature(),
+    collections: collections(),
     "made-to-order": madeToOrder(),
   };
 }
@@ -183,6 +241,6 @@ export type WorldKey = "stories" | "members" | "conservation";
 export const worldPanels: Record<WorldKey, { image: string; position?: string }> = {
   stories: { image: "/images/run-club.jpg?v=r1016" },
   members: { image: "/images/moments/home-for-dinner.jpg" },
-  // The dolphins off the catamaran, framed so both faces stay in (Leo replaced the reef swimmer, 2026-10-16).
-  conservation: { image: "/images/day-catamaran.jpg?v=r1016", position: "60% 50%" },
+  // A surfer in the barrel at Teahupo'o, over the reef (Leo, 2026-10-16; it replaced the reef swimmer, then the catamaran).
+  conservation: { image: "/images/active/teahupoo.jpg" },
 };

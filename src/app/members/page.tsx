@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { club, clubFaqs, earn, rewards, rooms } from "@/data/members";
+import { clubFaqs, earn, rewards, rooms } from "@/data/members";
 import { memberPerks, membersMailto } from "@/data/stories";
 import { SectionHeading } from "@/components/SectionHeading";
 
@@ -49,15 +49,15 @@ export default function MembersPage() {
               step further: a subscription that goes entirely to conservation.
             </p>
             <div className="flex flex-wrap gap-3 md:col-span-5 md:col-start-8 md:justify-end">
-              <a href={club.joinMailto} className="btn btn-primary">
+              <Link href="/account/register" className="btn btn-primary">
                 Become a member
-              </a>
-              <a href={club.memberMailto} className="btn btn-outline">
+              </Link>
+              <Link href="/account" className="btn btn-outline">
                 I&rsquo;m a member
-              </a>
+              </Link>
             </div>
           </div>
-          <p className="mt-6 text-xs text-muted">Points start counting when member accounts open. Until then, joining is by email and the welcome points are credited then.</p>
+          <p className="mt-6 text-xs text-muted">Your account is your membership: an email and a code, no password. Points start counting the day they show in it; join before then and the welcome points are waiting.</p>
           <nav aria-label="On this page" className="mt-12 flex flex-wrap gap-x-8 gap-y-3 border-y border-line py-4">
             {tabs.map((t) => (
               <a key={t.id} href={`#${t.id}`} className="eyebrow !text-ink link-underline">

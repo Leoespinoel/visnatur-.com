@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice, madeToOrderLabel } from "@/lib/format";
+import { adjustSummary } from "@/lib/adjust";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { site } from "@/data/site";
 import { designNumber, productImages } from "@/data/products";
-import { lineKey } from "@/lib/cart";
+import { lineKey, lineSurcharge } from "@/lib/cart";
 import { startCheckout } from "@/lib/checkout";
 import { CloseIcon, LeafIcon } from "./Icons";
 
@@ -78,7 +79,7 @@ export function CartDrawer() {
         {cart.lines.length === 0 ? (
           <div className="flex flex-1 flex-col items-start justify-center gap-6 px-6">
             <p className="font-serif text-3xl">Your bag is empty.</p>
-            <p className="text-sm text-ink-2 max-w-xs">Nothing is made until you order it. Choose a piece and a size, and we make it for you.</p>
+            <p className="text-sm text-ink-2 max-w-xs">The Signature line is in stock and ships in days. Any Signature piece can be made to order, adjusted to fit.</p>
             <Link href="/shop" onClick={cart.close} className="btn btn-primary">
               Shop now
             </Link>
@@ -100,12 +101,17 @@ export function CartDrawer() {
                         <p className="mt-1 text-xs text-muted">
                           {designNumber(l.product)} · {l.product.colour.name} · Size {l.size}
                         </p>
+                        {l.adjust && (
+                          <p className="mt-1 text-xs text-ink-2">
+                            {adjustSummary(l.adjust) || "As cut"} · incl. {formatPrice(lineSurcharge(l))} made to order
+                          </p>
+                        )}
                       </div>
-                      <p className="text-sm tabular-nums">{formatPrice(l.product.price)}</p>
+                      <p className="text-sm tabular-nums">{formatPrice(l.product.price + lineSurcharge(l))}</p>
                     </div>
                     <div className="mt-auto flex items-center justify-between pt-3">
-                      <span className="eyebrow !text-red">Made to order</span>
-                      <button type="button" className="eyebrow link-underline" onClick={() => cart.remove({ slug: l.slug, size: l.size })}>
+                      <span className="eyebrow !text-red">{l.adjust ? `Made to order · ${madeToOrderLabel()}` : `Ships in ${dispatchLabel()}`}</span>
+                      <button type="button" className="eyebrow link-underline" onClick={() => cart.remove(l)}>
                         Remove
                       </button>
                     </div>
@@ -118,8 +124,8 @@ export function CartDrawer() {
               <div className="flex items-start gap-3 bg-surface border border-line p-3">
                 <LeafIcon className="text-red shrink-0 mt-0.5" width={18} height={18} />
                 <p className="text-xs text-ink-2 leading-relaxed">
-                  <span className="text-ink font-medium">{formatPrice(cart.pledge)}</span> of this order goes to conservation. Each piece is
-                  made in your size after you order and ships {leadTimeLabel()} later.
+                  <span className="text-ink font-medium">{formatPrice(cart.pledge)}</span> of this order goes to conservation. Signature and collection pieces
+                  leave Mauritius within {dispatchLabel()}; made to order pieces ship {madeToOrderLabel()} after the order.
                 </p>
               </div>
               <dl className="space-y-1.5 text-sm">

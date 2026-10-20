@@ -23,7 +23,7 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Vis Naturæ — Made when you order it",
+    default: "Vis Naturæ — Made by hand in Mauritius",
     template: "%s · Vis Naturæ",
   },
   // A preview of the next version of the site: kept out of search until it replaces the classic one.

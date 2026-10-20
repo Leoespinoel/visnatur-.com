@@ -1,17 +1,21 @@
 import { menuFor, type MenuTile } from "./menu";
 
-/**
- * Shopify's own customer accounts: sign in with an emailed code (no password), then orders and profile.
- * https://<store>.myshopify.com/account redirects here.
- */
-const SHOPIFY_ACCOUNT = "https://shopify.com/82438520983/account";
+/** The store's id at Shopify, in its customer account addresses. */
+export const SHOPIFY_SHOP_ID = "82438520983";
 
-export const signInHref = SHOPIFY_ACCOUNT;
+/**
+ * Sign-in on the site itself (src/lib/customer-account.ts): Shopify's customer accounts (an emailed code, no password),
+ * with the orders, profile, sizes and wishlist shown in the site's own pages and kept on Shopify.
+ */
+export const signInHref = "/account/login";
+export const ordersHref = "/account/orders";
+export const profileHref = "/account/profile";
 
 /** The menu across the top of the account pages (/account, /wishlist), as on nudeproject.com. */
 export const accountLinks = [
-  { label: "Orders", href: `${SHOPIFY_ACCOUNT}/orders` },
-  { label: "Profile", href: `${SHOPIFY_ACCOUNT}/profile` },
+  { label: "Orders", href: ordersHref },
+  { label: "Profile", href: profileHref },
+  { label: "My sizes", href: "/account/sizes" },
   { label: "The VN Club", href: "/members" },
   { label: "My Wishlist", href: "/wishlist" },
   { label: "Returns", href: "/legal/returns" },

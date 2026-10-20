@@ -45,7 +45,7 @@ export function AudienceShop({ audience, category, allHref }: { audience: Audien
     <>
       <PageIntro
         variant="listing"
-        eyebrow={`${a.name} · Made to order`}
+        eyebrow={`${a.name} · Signature`}
         crumbs={cat ? [{ label: a.name, href: `/${audience}` }] : undefined}
         title={cat ? cat.name : a.name}
         // Category copy is written for the men's range, so Women keeps to its own line.

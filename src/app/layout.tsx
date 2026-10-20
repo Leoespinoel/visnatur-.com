@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { ClassicIntro, ClassicOnly } from "@/components/SiteChrome";
 import { SiteMusic } from "@/components/SiteMusic";
+import { AccountSync } from "@/lib/account-sync";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -55,6 +56,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        {/* Signed in: keeps My sizes and the wishlist on the customer's account. */}
+        <AccountSync />
         <CartProvider>
           {/* /v2 (the streetwear version) brings its own header, footer and bag: see src/app/v2/layout.tsx */}
           <ClassicOnly>

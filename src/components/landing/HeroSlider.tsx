@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { comingSoon } from "@/data/availability";
 import { locationOf } from "@/data/locations";
 import { setHeroCoords } from "@/lib/hero-location";
@@ -26,6 +26,11 @@ export type HeroSlide = {
   plate: string;
   /** Portrait for the round chip thumbnail */
   thumb: string;
+  /**
+   * Chips of consecutive slides sharing a group sit behind one small label, with a divider after the run (the homepage:
+   * "Signature" over Men and Women, then "Collections" over DIVA, the first; Leo, 2026-10-20).
+   */
+  group?: string;
 };
 
 const MS = 7000;
@@ -96,12 +101,23 @@ export function HeroSlider({ slides, label }: { slides: HeroSlide[]; label: stri
         </div>
 
         <div role="tablist" aria-label="Choose a slide" className="no-scrollbar mt-3 flex max-w-full gap-1 overflow-x-auto rounded-full border border-white/25 bg-black/35 p-1 backdrop-blur md:mt-4">
-          {slides.map((s, i) => (
+          {slides.map((s, i) => {
+            const prev = slides[i - 1];
+            const startsGroup = s.group && s.group !== prev?.group;
+            const leavesGroup = prev?.group && prev.group !== s.group;
+            return (
+            <Fragment key={s.key}>
+            {leavesGroup && <span aria-hidden="true" className="mx-1.5 my-1.5 w-px shrink-0 bg-white/30" />}
+            {startsGroup && (
+              <span aria-hidden="true" className="flex shrink-0 items-center pl-3 pr-1.5 text-[9px] font-medium uppercase tracking-[0.24em] text-white/70 md:text-[10px]">
+                {s.group}
+              </span>
+            )}
             <button
-              key={s.key}
               type="button"
               role="tab"
               aria-selected={i === index}
+              aria-label={s.group ? `${s.group} ${s.label}` : undefined}
               onClick={() => setIndex(i)}
               className={`flex shrink-0 items-center gap-2 rounded-full py-1 pl-1 pr-4 font-serif text-[15px] transition-colors md:text-[17px] ${
                 i === index ? "bg-white text-black" : "text-white/85 hover:bg-white/10"
@@ -112,7 +128,9 @@ export function HeroSlider({ slides, label }: { slides: HeroSlide[]; label: stri
               </span>
               {s.label}
             </button>
-          ))}
+            </Fragment>
+            );
+          })}
         </div>
 
         <div className="container-x mt-2 w-full md:mt-3">

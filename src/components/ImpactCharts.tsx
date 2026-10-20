@@ -17,7 +17,7 @@ export function ImpactCharts() {
   const sentCents = impact.months.reduce((sum, m) => sum + m.cents, 0);
   const [coral, trees] = impact.targets;
   const counters = [
-    { label: "Pieces made", value: count(impact.piecesMade), note: "Since Drop I" },
+    { label: "Pieces made", value: count(impact.piecesMade), note: "Since launch" },
     { label: "Sent to the work", value: formatPrice(sentCents), note: "10% of sales" },
     { label: coral.label, value: count(coral.value), note: coral.partner },
     { label: trees.label, value: count(trees.value), note: trees.partner },

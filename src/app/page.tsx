@@ -39,7 +39,7 @@ export default function HomePage() {
 
       {/* 4. The featured pieces, alternating the women's line with the rest */}
       <div className="container-x py-14 md:py-20">
-        <ProductCarousel title="Collection I" products={alternateAudiences(featuredProducts(Infinity)).slice(0, 16)} link={{ label: "Shop all", href: "/shop/all" }} />
+        <ProductCarousel title="Signature" products={alternateAudiences(featuredProducts(Infinity)).slice(0, 16)} link={{ label: "Shop all", href: "/shop/all" }} />
       </div>
 
       {/* 5. Behind the scenes: stylists at work on a model, full-bleed (Leo, 2026-10-16, in place of the Made by hand film) */}
@@ -47,8 +47,8 @@ export default function HomePage() {
         image="/images/atelier/stylists.jpg"
         alt="Two stylists at work on a model on a villa terrace above the sea, one at the collar of her cricket jumper, one kneeling at the hem of her cream linen trousers"
         title="Between takes"
-        text="Every piece is cut and sewn to order, then styled down to the last roll of the cuff."
-        primary={{ label: "A closer look", href: "/made-to-order" }}
+        text="Made by hand in Mauritius, then styled down to the last roll of the cuff. Any Signature piece can be made to order."
+        primary={{ label: "Made to order", href: "/made-to-order" }}
       />
 
       {/* Community, split in two: the people in the pieces and the members' programme, wide on screens, with white space after the picture */}

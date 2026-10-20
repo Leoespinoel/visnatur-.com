@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { designNumber, getProduct, isFor, productImages, products, productsInCategory } from "@/data/products";
+import { designNumber, getProduct, isFor, lineOf, productImages, products, productsInCategory } from "@/data/products";
+import { getDrop } from "@/data/drops";
 import { isAvailable } from "@/data/availability";
 import { categories } from "@/data/site";
 import { formatPrice } from "@/lib/format";
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { ProductDetails } from "@/components/ProductDetails";
+import { soldOutSizes } from "@/lib/stock";
+import type { Product } from "@/data/products";
 import { ProductGrid } from "@/components/ProductGrid";
 import { SectionHeading } from "@/components/SectionHeading";
 
@@ -86,13 +91,17 @@ export default async function ProductPage({ params }: Props) {
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
             <p className="eyebrow mb-3">
-              {isAvailable(product) ? "" : "Coming soon · "}Made to order{product.badge ? ` · ${product.badge}` : ""}
+              {isAvailable(product) ? "" : "Coming soon · "}
+              {lineOf(product) === "drop" ? (getDrop(product.drop)?.name ?? "Collection") : "Signature"}
+              {product.badge ? ` · ${product.badge}` : ""}
             </p>
             <h1 className="display text-4xl md:text-5xl">{product.name}</h1>
             <p className="mt-3 text-lg tabular-nums">{formatPrice(product.price)}</p>
             <p className="mt-5 text-sm leading-relaxed text-ink-2">{product.description}</p>
             <div className="mt-8">
-              <ProductDetails product={product} />
+              <Suspense fallback={<ProductDetails product={product} />}>
+                <ProductDetailsWithStock product={product} />
+              </Suspense>
             </div>
           </div>
         </div>
@@ -106,4 +115,10 @@ export default async function ProductPage({ params }: Props) {
       )}
     </>
   );
+}
+
+/** The details with the sizes Shopify reports as sold out, read at request time (never during the build). */
+async function ProductDetailsWithStock({ product }: { product: Product }) {
+  await connection();
+  return <ProductDetails product={product} soldOut={await soldOutSizes(product.slug)} />;
 }

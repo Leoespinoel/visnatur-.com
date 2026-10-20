@@ -4,7 +4,7 @@ import Link from "next/link";
 import { productImages, products } from "@/data/products";
 import { partners, site } from "@/data/site";
 import { actionFilm, freshSlugs, hero, onNowFamily, piecesOf, v2Href } from "@/data/v2";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { LookCollage } from "@/components/v2/LookCollage";
 import { LoopVideo } from "@/components/v2/LoopVideo";
@@ -15,7 +15,7 @@ import { Sticker } from "@/components/v2/Sticker";
 import { V2Ticker } from "@/components/v2/Ticker";
 
 export const metadata: Metadata = {
-  title: { absolute: "Vis Naturæ — Made when you order it" },
+  title: { absolute: "Vis Naturæ — Signature, always. Collections, once." },
   description: site.description,
 };
 
@@ -46,13 +46,13 @@ export default function V2Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/20" />
         <Image src="/brand/badger-mark.png" alt="" width={852} height={300} priority className="v2-cutout absolute right-4 top-20 w-28 rotate-[8deg] md:right-10 md:top-10 md:w-56" />
         <Sticker tone="red" tilt={-7} className="absolute left-4 top-6 text-[0.75rem] md:left-6 md:top-10 md:text-[0.9rem]">
-          Made when you order it
+          Made by hand in Mauritius
         </Sticker>
         <div className="absolute inset-x-0 bottom-0 px-4 pb-6 md:px-6 md:pb-8">
           <h1 className="v2-display text-[21vw] md:text-[15vw] xl:text-[13.5rem]">
-            Nothing on
+            Signature,
             <br />
-            the shelf.
+            always.
           </h1>
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <Link href={v2Href.shop} className="v2-btn v2-btn-light">
@@ -62,7 +62,8 @@ export default function V2Home() {
               Lookbook
             </Link>
             <span className="v2-mono ml-auto hidden max-w-xs text-right text-white/80 md:block">
-              Hoodies, tees, caps, rugby shirts. Cut and sewn in Mauritius in your size. {pledgePercentLabel()} of every order to the wild.
+              Hoodies, tees, caps, rugby shirts. Cut and sewn by hand in Mauritius, in stock, out in {dispatchLabel()}. {pledgePercentLabel()} of every
+              order to the wild.
             </span>
           </div>
         </div>
@@ -82,7 +83,7 @@ export default function V2Home() {
                 </h2>
                 <p className="mt-6 max-w-sm text-base leading-relaxed">
                   The {cap.name}. {caps.length} colourways, {formatPrice(cap.price)}. Six panels of washed organic cotton, our name in script across the
-                  front. Made when you order it, with you in {leadTimeLabel()}.
+                  front. In stock, it leaves Mauritius within {dispatchLabel()}.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -128,23 +129,27 @@ export default function V2Home() {
         <V2Rail products={fresh} />
       </section>
 
-      {/* 6. How it works, as a statement */}
+      {/* 6. The three ways in (Signature, collections, made to order), as a statement */}
       <section className="relative overflow-hidden border-t-[1.5px] border-ink px-4 py-16 md:px-6 md:py-24">
         <p className="v2-display text-[15vw] md:text-[9.5vw] xl:text-[8.5rem]">
-          We cut it
+          Stocked.
           <br />
-          <span className="text-red">when you</span>
+          <span className="text-red">Limited.</span>
           <br />
-          order it.
+          Fitted.
         </p>
         <Sticker tone="black" tilt={9} round className="absolute right-6 top-10 w-28 text-[0.7rem] md:right-16 md:top-16 md:w-40 md:text-[0.95rem]">
-          Zero stock
+          Repairs for life
         </Sticker>
         <ol className="mt-12 grid border-l-[1.5px] border-t-[1.5px] border-ink md:grid-cols-3">
           {[
-            ["01", "You order", "Pick the piece, the colour and your size."],
-            ["02", "We make it", "Cut and sewn by hand in a small workshop in Mauritius."],
-            ["03", "It ships", `Express to your door, ${leadTimeLabel()} after you order. Free repairs for life.`],
+            ["01", "Signature", `The line, always on. In stock in Mauritius, out within ${dispatchLabel()}, then ${transitLabel()} express to Europe.`],
+            ["02", "Collections", "Limited units, out on a set day, then gone. Get on the list to hear first."],
+            [
+              "03",
+              "Made to order",
+              `Any Signature piece with the sleeves, length or fit adjusted. Cut and sewn by hand, ${formatPrice(site.delivery.madeToOrderSurchargeCents)} more, ready in ${madeToOrderLabel()}.`,
+            ],
           ].map(([n, t, d]) => (
             <li key={n} className="border-b-[1.5px] border-r-[1.5px] border-ink bg-white p-5 md:p-6">
               <span className="v2-mono text-red">{n}</span>
@@ -192,7 +197,7 @@ export default function V2Home() {
       {/* 9. Newsletter */}
       <section className="px-4 py-16 md:px-6 md:py-24">
         <h2 className="v2-display text-[17vw] md:text-[10vw] xl:text-[9rem]">Get on the list.</h2>
-        <p className="mt-4 max-w-md text-sm text-ink-2 md:text-base">New pieces the day they go on sale, the films, and where the money went. No spam, not often.</p>
+        <p className="mt-4 max-w-md text-sm text-ink-2 md:text-base">New pieces and collections the day they go on sale, the films, and where the money went. No spam, not often.</p>
         <div className="mt-8">
           <V2Newsletter />
         </div>

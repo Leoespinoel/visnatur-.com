@@ -1,5 +1,5 @@
 import { partners, site } from "./site";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
 import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
 
 /**
@@ -43,36 +43,36 @@ const tenPercent = pledgePercentLabel();
 
 export const articles: Article[] = [
   {
-    slug: "made-once-you-order-it",
+    slug: "signature-and-collections",
     kind: "journal",
-    title: "Made once you order it.",
-    dek: "No stock, no sale rail, no sizes left over. Why every piece starts with an order.",
+    title: "Signature, always. Collections, once.",
+    dek: "Three ways to buy: the Signature line in stock, collections in limited numbers, and any Signature piece made to order.",
     month: "2026-10",
-    image: "/images/cutting-table.jpg?v=2",
-    alt: "Hands cutting sky-blue linen with tailor's shears on a wooden worktable",
-    hero: { image: "/images/numbered-label.jpg?v=2", alt: "Hands folding a red knit into a tissue-lined box on a workshop bench", position: "62% 50%" },
+    image: "/images/atelier/cutting.jpg",
+    alt: "A tailor cutting cream linen along a chalk line in a stone workshop with tall windows",
+    hero: { image: "/images/atelier/press.jpg", alt: "A master tailor pressing a cricket jumper while an apprentice folds a linen shirt into tissue", position: "50% 50%" },
     body: [
       {
         type: "p",
-        text: "We hold no stock. Every design stays on sale, and none of it exists until somebody orders it. Then it is cut and sewn by hand, in Mauritius, in the size they chose.",
+        text: `The Signature line is the permanent collection: the pieces worn most, kept in stock in Mauritius and dispatched within ${dispatchLabel()}. They stay on the site, season after season.`,
       },
       {
         type: "p",
-        text: `Making takes ${leadTimeLabel()}, counted from the day of the order. Then the piece goes express from the island and reaches most of Europe in 4–7 working days, free over ${formatPrice(site.freeShippingThresholdCents)}.`,
+        text: "Collections are something else: a handful of designs, made once in limited numbers and released on a date. When they are gone, they are gone.",
       },
-      { type: "quote", text: "No overstock to discount, and no pressure to sell what nobody asked for." },
+      { type: "quote", text: "Signature for every day. Collections for the ones who were there." },
       {
         type: "p",
-        text: "Most clothing is made first and sold second, in guessed quantities and guessed sizes. Whatever doesn't sell is marked down, shipped somewhere else, then thrown away. Making to order turns that round: nothing is made that nobody wanted.",
+        text: `And any Signature piece can be made to order: the sleeves, the length or the fit adjusted, then cut and sewn by hand for ${formatPrice(site.delivery.madeToOrderSurchargeCents)} more, ready ${madeToOrderLabel()} after the order.`,
       },
-      { type: "image", src: "/images/numbered-label.jpg?v=2", alt: "Hands folding a red knit into a tissue-lined box on a workshop bench" },
+      { type: "image", src: "/images/atelier/hands.jpg", alt: "A tailor's hands checking the cuff of a pale-blue linen shirt" },
       {
         type: "p",
-        text: "It asks one thing of you, a few weeks of patience. In return the piece is cut for you, and if anything ever gives, we repair it for free, for life.",
+        text: `Whichever way, everything is made by hand in Mauritius, ${tenPercent} of every price goes to conservation, and if anything ever gives, it is repaired for free, for life.`,
       },
     ],
     links: [
-      { label: "How it works", href: "/made-to-order" },
+      { label: "Made to order", href: "/made-to-order" },
       { label: "Sizing", href: "/made-to-order#sizing" },
     ],
   },
@@ -148,7 +148,7 @@ export const articles: Article[] = [
     slug: "made-by-hand",
     kind: "film",
     title: "Made by hand.",
-    dek: "Every piece is cut and sewn by hand, to order, in a small workshop in Mauritius.",
+    dek: "Every piece is cut and sewn by hand in a small workshop in Mauritius.",
     month: "2026-10",
     image: "/film/atelier-poster.jpg?v=r1016",
     alt: "Hands guiding oat linen under the needle of a sewing machine",
@@ -157,7 +157,7 @@ export const articles: Article[] = [
     body: [
       {
         type: "p",
-        text: "Nothing we sell exists until somebody orders it. Then the cloth is cut in that person's size, sewn, pressed, folded and boxed, in a small workshop in Mauritius.",
+        text: "Every piece starts on a cutting table in a small workshop in Mauritius: the cloth cut, sewn, pressed, folded and boxed by hand.",
       },
       {
         type: "p",
@@ -167,10 +167,10 @@ export const articles: Article[] = [
       { type: "quote", text: "There is more inside each piece than the photographs show. We leave that for you to find." },
       {
         type: "p",
-        text: `From the order to the box takes ${leadTimeLabel()}. Then the piece flies express from Mauritius, and reaches most of Europe in 4–7 working days.`,
+        text: `From the workshop, Signature pieces leave within ${dispatchLabel()} and reach most of Europe in ${transitLabel()}. A piece made to order takes ${madeToOrderLabel()}.`,
       },
     ],
-    links: [{ label: "How made to order works", href: "/made-to-order" }],
+    links: [{ label: "Made to order", href: "/made-to-order" }],
   },
   {
     slug: "ten-percent-of-the-price",
@@ -278,7 +278,7 @@ export const sponsorships: Sponsorship[] = [
     image: "/images/campaign-golf.jpg?v=r1016",
     alt: "Two golfers on a seaside tee, one swinging in a white polo and white shorts, the other in a navy knit polo with a leather golf bag",
     give: [
-      "Pieces for the whole team or event, each made to order in the wearer's size",
+      "Pieces for the whole team or event, made to order to each wearer's measurements",
       `${tenPercent} of every piece to conservation, as on every order, reported each season`,
       "Your club or event in our films and on these pages",
     ],

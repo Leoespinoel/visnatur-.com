@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
 import { measurementGroups } from "@/lib/measurements";
 import { PageIntro } from "@/components/PageIntro";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -10,7 +10,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 
 export const metadata: Metadata = {
   title: "Made to order",
-  description: `How Vis Naturæ makes every piece after it is ordered: lead times, sizing, shipping and returns.`,
+  description: "Any Vis Naturæ Signature piece, made to order: the sleeves, the length or the fit adjusted to you, made by hand in Mauritius. Plus shipping, sizing and returns.",
 };
 
 const sizing = [
@@ -22,34 +22,48 @@ const sizing = [
   { size: "XXL", chest: "112–118", waist: "97–103" },
 ];
 
+const surcharge = formatPrice(site.delivery.madeToOrderSurchargeCents);
+
+/** What can be adjusted when a Signature piece is made to order. */
+const adjustments = [
+  { what: "Shirts, knits and tees", how: "Sleeve length and body length, up to 4 cm shorter or longer." },
+  { what: "Trousers and shorts", how: "Cut to your inseam, and the waist taken in or let out up to 2 cm." },
+  { what: "The fit", how: "As cut, a little slimmer, or a little more relaxed." },
+  { what: "Anything else", how: "A note with the order, answered before anything is cut." },
+];
+
 const faqs = [
   {
-    q: "How does made to order work?",
-    a: "You choose a design and a size and pay at checkout. Nothing is made in advance: your piece is cut and sewn in a small workshop in Mauritius after you order, in your size, and sent to you when it is finished. Every design stays on sale, so nothing sells out.",
+    q: "What is made to order?",
+    a: "A Signature piece adjusted to you: the sleeves, the length, the inseam, the waist or the fit. Choose Made to order on the piece, set the adjustments, and it is cut and sewn for you by hand in Mauritius.",
   },
   {
-    q: `Why does it take ${leadTimeLabel()}?`,
-    a: `Because your piece doesn't exist yet. It is cut and sewn after you order, and the ${leadTimeLabel()} run from that day. Making only what has been ordered is what lets us keep prices where they are.`,
+    q: "How long does it take?",
+    a: `Made to order takes ${madeToOrderLabel()} from the order, then ${transitLabel()} express to Europe. Signature and collection pieces as they are leave Mauritius within ${dispatchLabel()}.`,
   },
   {
-    q: "Can I cancel?",
-    a: "Yes, within 48 hours of ordering, for a full refund. After that, your fabric has been cut and we can offer an exchange or credit instead.",
+    q: "What does it cost?",
+    a: `${surcharge} per piece on top of its price, whatever is adjusted.`,
   },
   {
-    q: "What if the size is wrong?",
-    a: "Tell us within 14 days of delivery and we will remake it in the right size at no cost. Pieces must be unworn and unwashed.",
+    q: "Can a collection piece be made to order?",
+    a: "No. Collections come in limited units and sell as they are. Once they are gone, they are gone.",
   },
   {
-    q: "Do you ever run sales?",
-    a: "No. Nothing is overstocked, so nothing needs clearing. Prices are the same all year.",
+    q: "Can I cancel or return?",
+    a: "Signature and collection pieces can be returned within 14 days of delivery, unworn and unwashed. A made to order piece can be cancelled within 48 hours of the order for a full refund; after that its fabric has been cut.",
+  },
+  {
+    q: "What if it doesn't fit?",
+    a: "Signature and collection pieces can be exchanged for another size within 14 days of delivery. If a made to order piece doesn't match the measurements agreed, it is remade at no cost.",
   },
   {
     q: "Where are the pieces made?",
-    a: "In Mauritius, in small workshops we visit in person. The island has made knitwear and tailoring for the world's best-known labels for fifty years, and the Indian Ocean around it is part of why the pledge exists. We publish the workshop list as the partnerships are confirmed.",
+    a: "In Mauritius, in small workshops visited in person. The island has made knitwear and tailoring for the world's best-known labels for fifty years, and the Indian Ocean around it is part of why the pledge exists. The workshop list is published as the partnerships are confirmed.",
   },
   {
     q: "Repairs?",
-    a: "Free, for life. Send it back, we fix it, we send it home. You pay for postage to us, we pay for the return.",
+    a: "Free, for life. Send it back, it is mended and sent home. Postage to the workshop is yours; the return is ours.",
   },
 ];
 
@@ -58,32 +72,37 @@ export default function MadeToOrderPage() {
     <>
       <PageIntro
         eyebrow="Made to order"
-        title="Made once you order it."
-        lede={`Nothing at Vis Naturæ is made in advance. Every piece is cut and sewn in Mauritius after it is ordered, in the size you choose, and ships ${leadTimeLabel()} later. Here is what that means for you.`}
+        title="A Signature piece, made to fit."
+        lede={`Any piece from the Signature line can be made to order: the sleeves, the length or the fit adjusted to you, then cut and sewn by hand in Mauritius. ${surcharge} per piece, ready ${madeToOrderLabel()} after the order.`}
       />
 
       <section id="how-it-works" className="container-x scroll-mt-24 pb-16 md:pb-24">
         <HowItWorks />
       </section>
 
-      <section className="bg-black text-white">
+      {/* What can be adjusted. Black, between the steps and shipping. */}
+      <section id="adjustments" className="scroll-mt-24 bg-black text-white">
         <div className="container-x grid gap-10 py-16 md:grid-cols-2 md:items-center md:py-24">
           <div className="image-frame aspect-[4/5]">
-            <Image src="/images/cutting-table.jpg?v=2" alt="Sky blue linen being cut on the workshop table" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            <Image src="/images/atelier/press.jpg" alt="A master tailor pressing a cricket jumper in the workshop" fill unoptimized sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
           </div>
           <div className="md:pl-8 lg:pl-16">
-            <p className="eyebrow mb-4 !text-white/70">Why we work this way</p>
-            <h2 className="display text-4xl text-white md:text-6xl">Buy once, <em className="italic">wait</em> a little.</h2>
-            <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/80 md:text-base">
-              <p>
-                The fashion industry makes far more than it sells, then discounts, destroys or dumps the rest. We decided not to take part. By
-                making only what has been ordered, we carry no stock, hold no sales, and waste nothing.
-              </p>
-              <p>
-                It also means your piece is yours from the first cut. Trousers are hemmed to your inseam. Prints are placed by hand on each pair, so no two
-                are quite the same. And when something wears, we repair it.
-              </p>
-            </div>
+            <p className="eyebrow mb-4 !text-white/70">What can be adjusted</p>
+            <h2 className="display text-4xl text-white md:text-6xl">
+              Cut to <em className="italic">you</em>.
+            </h2>
+            <dl className="mt-8 divide-y divide-white/15 border-y border-white/15">
+              {adjustments.map((a) => (
+                <div key={a.what} className="grid gap-1 py-4 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6">
+                  <dt className="text-sm font-medium text-white">{a.what}</dt>
+                  <dd className="text-sm leading-relaxed text-white/80">{a.how}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-6 text-sm leading-relaxed text-white/70">
+              Made to order is for the Signature line. Collections come in limited units and sell as they are. {surcharge} per piece, ready {madeToOrderLabel()} after
+              the order.
+            </p>
           </div>
         </div>
       </section>
@@ -92,17 +111,21 @@ export default function MadeToOrderPage() {
       <section id="shipping" className="scroll-mt-24">
         <div className="container-x grid gap-10 py-16 md:grid-cols-12 md:py-24">
           <div className="md:col-span-4">
-            <p className="eyebrow mb-4">Shipping & lead times</p>
-            <h2 className="display text-4xl md:text-5xl">{leadTimeLabel()}, then a few days.</h2>
+            <p className="eyebrow mb-4">Shipping & delivery</p>
+            <h2 className="display text-4xl md:text-5xl">In days, or weeks when it is made for you.</h2>
           </div>
           <dl className="grid gap-6 text-sm md:col-span-7 md:col-start-6 md:grid-cols-2">
             <div>
-              <dt className="eyebrow mb-2">Making</dt>
-              <dd className="text-ink-2">{leadTimeLabel()} from the day you order. We email you when your piece is cut and when it ships.</dd>
+              <dt className="eyebrow mb-2">Signature & collections</dt>
+              <dd className="text-ink-2">In stock in Mauritius and dispatched within {dispatchLabel()}.</dd>
+            </div>
+            <div>
+              <dt className="eyebrow mb-2">Made to order</dt>
+              <dd className="text-ink-2">{madeToOrderLabel()} from the order, with an email when the piece is cut and when it ships.</dd>
             </div>
             <div>
               <dt className="eyebrow mb-2">Delivery</dt>
-              <dd className="text-ink-2">Shipped express from Mauritius, tracked, 4–7 working days to Europe. Free over {formatPrice(site.freeShippingThresholdCents)}, otherwise {formatPrice(site.flatShippingCents)}.</dd>
+              <dd className="text-ink-2">Shipped express from Mauritius, tracked, {transitLabel()} to Europe. Free over {formatPrice(site.freeShippingThresholdCents)}, otherwise {formatPrice(site.flatShippingCents)}.</dd>
             </div>
             <div>
               <dt className="eyebrow mb-2">Where we ship</dt>
@@ -140,16 +163,16 @@ export default function MadeToOrderPage() {
                   ))}
                 </tbody>
               </table>
-              <p className="mt-4 text-xs text-muted">Trousers and shorts are sized by waist in inches (28–38) and hemmed to your inseam. Socks come in EU 39–42 and 43–46.</p>
+              <p className="mt-4 text-xs text-muted">Trousers and shorts are sized by waist in inches (28–38); made to order, they are cut to your inseam. Socks come in EU 39–42 and 43–46.</p>
             </div>
             <div className="space-y-4 text-sm leading-relaxed text-ink-2 md:col-span-4 md:col-start-9">
               <p>
                 Our fits are relaxed but not oversized. If you are between sizes, go down for polos and knitwear and up for shirts and
-                outerwear. Still unsure? <Link href="/contact" className="underline">Write to us</Link> with the measurements of something
-                that fits you well and we will tell you which size to order.
+                outerwear. Still unsure? <Link href="/contact" className="underline">Write in</Link> with the measurements of something
+                that fits well, and the right size comes back by email. Or have the piece made to order.
               </p>
               <p>
-                Every style has one measurement sheet for all its colourways, so every piece comes out the same, whoever orders it. Garments
+                Every style has one measurement sheet for all its colourways, so every piece comes out the same. Garments
                 come in M, L and XL, sampled in L. The caps come in S, M and L, sampled in M; the socks in EU 39–42 and 43–46; the
                 sunglasses in one size.
               </p>

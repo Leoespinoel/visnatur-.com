@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { getProduct, type Product } from "@/data/products";
+import { signInHref } from "@/data/account";
+import { useAccount } from "@/lib/account-sync";
 import { useWishlist } from "@/lib/wishlist";
 import { AccountIcon } from "./Icons";
 import { ProductCard } from "./ProductCard";
@@ -9,6 +11,7 @@ import { ProductCard } from "./ProductCard";
 /** The wishlist page's body: what the hearts saved, or the empty state with a way into the shop. */
 export function WishlistView() {
   const { slugs, hydrated } = useWishlist();
+  const account = useAccount();
   const saved = slugs.map(getProduct).filter((p): p is Product => !!p);
 
   return (
@@ -47,7 +50,19 @@ export function WishlistView() {
               <ProductCard key={p.slug} product={p} />
             ))}
           </div>
-          <p className="mt-12 text-center text-xs text-muted">Saved in this browser.</p>
+          <p className="mt-12 text-center text-xs text-muted">
+            {account.status === "signed-in" ? (
+              "Saved to your account, so it is there on any device."
+            ) : (
+              <>
+                Saved in this browser.{" "}
+                <Link href={`${signInHref}?return=/wishlist`} className="underline">
+                  Sign in
+                </Link>{" "}
+                to keep it on your account.
+              </>
+            )}
+          </p>
         </>
       )}
     </section>

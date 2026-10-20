@@ -6,7 +6,7 @@ import { pledgePercentLabel } from "@/lib/pledge";
 
 export const metadata: Metadata = {
   title: "Origins",
-  description: "Vis Naturæ is a made-to-order clothing label for men and women, founded in 2026. Force of nature, taken seriously.",
+  description: "Vis Naturæ is a clothing label for men and women, founded in 2026 and made by hand in Mauritius. Force of nature, taken seriously.",
 };
 
 /**
@@ -56,7 +56,7 @@ export default function AboutPage() {
                 Of a person: an energy that cannot be argued with or held back. <span className="italic">&ldquo;She is a force of nature.&rdquo;</span>
               </li>
               <li>
-                A clothing label for men and women, founded in {site.foundedYear} and made to order in Mauritius.
+                A clothing label for men and women, founded in {site.foundedYear} and made by hand in Mauritius.
               </li>
             </ol>
             <p className="eyebrow mt-8">Synonyms</p>
@@ -105,8 +105,8 @@ export default function AboutPage() {
             <p>
               <span className="font-medium text-ink">Force.</span> Clothes for people who go all in, then rest like they mean it, like the
               badger on the label. <span className="font-medium text-ink">Nature.</span> {pledgePercentLabel()} of every sale price goes back
-              to the places they are made for. <span className="font-medium text-ink">Birth.</span> Nothing is made until someone asks for
-              it: each piece is born the day it is ordered. And the æ, two letters made one, is the red letter at the end of the name.
+              to the places they are made for. <span className="font-medium text-ink">Birth.</span> The character a thing is born with: made by hand, made
+              to last, and repaired for life. And the æ, two letters made one, is the red letter at the end of the name.
             </p>
           </div>
         </div>
@@ -190,7 +190,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* The story: why nothing is made until it is ordered. Red, last before the footer. */}
+      {/* The story: fewer things, made better. Red, last before the footer. */}
       <section id="story" className="theme-red scroll-mt-24">
         <div className="container-x grid gap-10 py-16 md:grid-cols-12 md:py-24">
           <div className="md:col-span-5">
@@ -199,10 +199,11 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-ink-2 md:col-span-6 md:col-start-7 md:pt-10 md:text-lg">
-            <p className="display text-3xl text-ink md:text-4xl">We started with a question: what would a clothing brand look like if it refused to make anything nobody wanted?</p>
+            <p className="display text-3xl text-ink md:text-4xl">We started with a question: what would a clothing brand look like if it made fewer things, made them better, and gave back?</p>
             <p>
-              The answer was slower, and better. No stock. No sales. No seasons thrown away. Every design in Collection I is a pattern and a bolt of
-              fabric until someone orders it, and then it is cut and sewn in their size in Mauritius, an island that has been making fine knitwear and tailoring for half a century.
+              The answer is three ways to buy. The Signature line, always in stock: the pieces worn most, made to last. Collections, made once in limited
+              numbers, then gone. And any Signature piece made to order, adjusted to fit. Everything is cut and sewn by hand in Mauritius, an island
+              that has been making fine knitwear and tailoring for half a century.
             </p>
             <p>
               The pieces are the ones we wanted and could not find. Swim shorts in a clean cut made from reclaimed fishing nets. A piqué polo heavy
@@ -214,7 +215,7 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link href="/shop" className="btn btn-primary">
-                Collection I
+                Signature
               </Link>
               <Link href="/conservation" className="btn btn-outline">
                 The pledge

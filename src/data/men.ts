@@ -16,15 +16,15 @@ import { categories } from "./site";
 export const heroSlides: HeroSlide[] = [
   {
     key: "collection",
-    label: "Collection I",
-    title: "Collection I",
-    text: "Made in Mauritius, in your size, once you order it.",
+    label: "Signature",
+    title: "Signature",
+    text: "The permanent line, made by hand in Mauritius.",
     cta: { label: "Explore now", href: "/men/all" },
     image: "/images/men/group-forecourt.jpg?v=r1016",
     alt: "Two men on the stone steps of a country house, one sitting in a cream cable-knit cricket jumper with navy and red tipping and stone chinos, the other standing in a sand linen shirt over a white tee and cream trousers",
     position: "62% 50%",
     plate: "/images/men/plate-forecourt.jpg",
-    thumb: "/community/p10.jpg?v=3",
+    thumb: "/images/thumbs/men-collection.jpg",
   },
   {
     key: "swim",
@@ -36,7 +36,7 @@ export const heroSlides: HeroSlide[] = [
     alt: "Two men on a rock platform above the sea, one in sunglasses and an open cream linen shirt over navy and cream swim shorts, the other sitting on the rocks in sky striped swim shorts",
     position: "45% 50%",
     plate: "/images/men/plate-cove.jpg",
-    thumb: "/community/p6.jpg?v=2",
+    thumb: "/images/thumbs/men-swim.jpg",
   },
   {
     key: "linen",
@@ -48,7 +48,7 @@ export const heroSlides: HeroSlide[] = [
     alt: "A man in black sunglasses and an open white linen shirt over a white tee with cream trousers beside the turntables on a terrace above the sea, a friend on the balustrade in a cream cable-knit cricket jumper and stone chinos",
     position: "50% 50%",
     plate: "/images/men/plate-terrace.jpg",
-    thumb: "/community/p12.jpg?v=2",
+    thumb: "/images/thumbs/men-shirts.jpg",
   },
   {
     key: "knitwear",
@@ -60,7 +60,7 @@ export const heroSlides: HeroSlide[] = [
     alt: "Three men in a wood-panelled club library, in a navy knit over a striped shirt with grey pinstripe trousers, an ecru quarter zip with stone chinos, and a navy and cream hooped rugby shirt",
     position: "52% 50%",
     plate: "/images/men/plate-library.jpg",
-    thumb: "/community/p3.jpg?v=2",
+    thumb: "/images/thumbs/men-knitwear.jpg",
   },
 ];
 
@@ -88,7 +88,7 @@ export const stories: { title: string; text: string; feature: StoryCard; cards: 
   title: "The stories",
   text: "Seasonal edits, and the island they are made on.",
   feature: {
-    eyebrow: "Collection I",
+    eyebrow: "Signature",
     title: "A day at Le Morne",
     href: "/men/all",
     image: "/images/day-kite.jpg?v=r1016",
@@ -98,7 +98,7 @@ export const stories: { title: string; text: string; feature: StoryCard; cards: 
     { eyebrow: "Tidal · Shore · Lido", title: "The swim shop", href: "/men/swim", image: "/community/surf-still.jpg", alt: "A surfer coming out of a barrel wave" },
     { eyebrow: "Riviera · Cabana · Corniche", title: "The linen shop", href: "/men/shirts-trousers", image: "/images/men/story-linen.jpg?v=r1016", alt: "Three men in the arched loggia of a villa, in a brown houndstooth jacket with cream trousers, a brown shirt with charcoal pinstripe trousers and sunglasses, and a green and cream striped cardigan with stone chinos" },
     { eyebrow: "Harbour · Mooring · Regatta", title: "The knitwear shop", href: "/men/polos-knitwear", image: "/images/men/story-knitwear.jpg?v=r1016", alt: "Two men in a wood-panelled club room, one in a leather armchair in a cream cable-knit cricket jumper with navy and red tipping, the other in a navy collared knit over a white shirt, both in stone chinos" },
-    { eyebrow: "Cabana Linen Shirt", title: "The stripe", href: "/product/cabana-linen-shirt-sky", image: "/images/day-catamaran.jpg?v=r1016", alt: "Two men on a catamaran net as dolphins leap off the bow, one in an open sky striped linen shirt and navy swim shorts" },
+    { eyebrow: "Cabana Linen Shirt", title: "The stripe", href: "/product/cabana-linen-shirt-sky", image: "/images/day-catamaran.jpg?v=r1016b", alt: "Two men on a catamaran net as dolphins leap off the bow, one in an open sky striped linen shirt and navy swim shorts" },
   ],
 };
 
@@ -117,7 +117,7 @@ export const bannerSlides: BannerSlide[] = [
     image: "/images/campaign-atelier.jpg?v=2",
     alt: "A seamstress beside a rail of finished pieces in the Port Louis workshop",
     lockup: { text: "Atelier" },
-    text: "Cut and sewn by hand in Mauritius, once you order it.",
+    text: "Cut and sewn by hand in Mauritius. Any Signature piece, made to order to fit.",
     cta: { label: "Made to order", href: "/made-to-order" },
   },
 ];

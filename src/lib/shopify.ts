@@ -1,8 +1,9 @@
 import "server-only";
+import { cacheLife } from "next/cache";
 
 /**
  * Shopify, server side only: the Storefront API (carts → Shopify checkout), with the token from
- * the Headless sales channel. Every piece is made to order, so the site never reads orders or stock.
+ * the Headless sales channel. Stock is read per variant (availableForSale, src/lib/stock.ts); orders are never read.
  *
  * Env: SHOPIFY_STORE_DOMAIN, SHOPIFY_STOREFRONT_TOKEN. Without them the site runs with checkout off.
  */
@@ -41,4 +42,20 @@ export function storefront<T>(query: string, variables?: Record<string, unknown>
   // Headless private tokens start with "shpat_"; public ones don't. Send whichever header fits.
   const header = token.startsWith("shpat_") ? "Shopify-Storefront-Private-Token" : "X-Shopify-Storefront-Access-Token";
   return graphql<T>(`https://${domain()}/api/${SHOPIFY_API_VERSION}/graphql.json`, { [header]: token }, query, variables);
+}
+
+/** The countries the store sells to (its Markets), for the address form on /account/profile. */
+export async function availableCountries(): Promise<{ code: string; name: string }[]> {
+  "use cache";
+  cacheLife("hours");
+  if (!storefrontConfigured()) return [];
+  try {
+    const data = await storefront<{ localization: { availableCountries: { isoCode: string; name: string }[] } }>(
+      `query Countries { localization { availableCountries { isoCode name } } }`,
+    );
+    return data.localization.availableCountries.map((c) => ({ code: c.isoCode, name: c.name })).sort((a, b) => a.name.localeCompare(b.name));
+  } catch (err) {
+    console.error("Country list failed", err);
+    return [];
+  }
 }

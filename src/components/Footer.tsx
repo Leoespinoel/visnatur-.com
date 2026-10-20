@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { nav, site } from "@/data/site";
+import { BadgerRows } from "./BadgerRows";
 import { Wordmark } from "./Wordmark";
 import { Newsletter } from "./Newsletter";
 import { TrustBar } from "./TrustBar";
@@ -9,22 +11,32 @@ export function Footer() {
     <footer>
       <TrustBar />
       <div className="theme-dark">
-        <div className="container-x grid gap-12 py-16 md:grid-cols-12">
-          <div className="md:col-span-4">
+        {/* The badger waits pinned to the bottom of the screen while the page slides up off it (.footer-reveal in globals.css). */}
+        <div className="footer-reveal">
+          <div className="relative overflow-hidden border-b border-line">
+            {/* The drifting badgers from /conservation, behind the big one */}
+            <BadgerRows />
+            <div className="container-x relative py-12 md:py-14">
+              <Image src="/brand/badger-mark.svg" alt="" width={852} height={300} unoptimized className="footer-badger mx-auto block h-auto" />
+            </div>
+          </div>
+        </div>
+        <div className="container-x grid grid-cols-2 gap-x-6 gap-y-12 py-12 md:grid-cols-12">
+          <div className="col-span-2 md:col-span-4">
             <Wordmark size="sm" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-2">{site.tagline} {site.description.split(". ").slice(1).join(". ")}</p>
           </div>
           <FooterCol title="Shop" links={nav.footer.shop} />
           <FooterCol title="The VN World" links={nav.footer.brand} />
           <FooterCol title="Help" links={nav.footer.help} />
-          <div className="md:col-span-2 md:col-start-11">
+          <div className="col-span-2 md:col-start-11">
             <Newsletter compact />
           </div>
         </div>
         <div className="border-t border-line">
           <div className="container-x flex flex-col gap-3 py-5 text-[11px] text-muted md:flex-row md:items-center md:justify-between">
             <p>
-              © {site.foundedYear} {site.name}. Made to order in Mauritius.
+              © {site.foundedYear} {site.name}. Made in Mauritius.
             </p>
             <p className="flex flex-wrap gap-x-5 gap-y-1">
               <span>EUR · Ships across Europe</span>

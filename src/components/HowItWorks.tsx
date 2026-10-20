@@ -1,26 +1,28 @@
 import Image from "next/image";
-import { leadTimeLabel } from "@/lib/format";
+import { site } from "@/data/site";
+import { formatPrice, madeToOrderLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 
+/** Made to order, the service (Leo, 2026-10-20): a Signature piece adjusted to fit, in three steps. */
 export function HowItWorks({ compact = false }: { compact?: boolean }) {
   const steps = [
     {
       n: "01",
-      title: "You order",
-      text: "Choose a design and your size. Nothing is made in advance, so nothing has been cut yet.",
-      image: { src: "/images/campaign-atelier.jpg?v=2", alt: "Linen shirts in red, green and yellow on a rail in the workshop", position: "object-right" },
+      title: "Choose your adjustments",
+      text: `On any Signature piece, choose Made to order and set the sleeve, the length or the fit. ${formatPrice(site.delivery.madeToOrderSurchargeCents)} per piece.`,
+      image: { src: "/images/atelier/hands.jpg", alt: "A tailor's hands checking the cuff of a pale-blue linen shirt on the workshop table", position: "object-center" },
     },
     {
       n: "02",
-      title: "We make it",
-      text: `Your piece is cut and sewn by hand in a small workshop in Mauritius, in your size. Allow ${leadTimeLabel()} from the day you order.`,
-      image: { src: "/film/atelier-poster.jpg?v=r1016", alt: "A seam being sewn on a workshop sewing machine", position: "object-center" },
+      title: "It is made for you",
+      text: `The measurements are confirmed by email, then the piece is cut and sewn by hand in Mauritius. Allow ${madeToOrderLabel()} from the order.`,
+      image: { src: "/images/atelier/cutting.jpg", alt: "A tailor cutting cream linen along a chalk line in the workshop", position: "object-center" },
     },
     {
       n: "03",
       title: "It arrives, and gives back",
-      text: `${pledgePercentLabel()} of what you paid goes straight to conservation. We report on it every season.`,
-      image: { src: "/images/numbered-label.jpg?v=2", alt: "Hands laying a red jumper into its box", position: "object-center" },
+      text: `${pledgePercentLabel()} of what you paid goes straight to conservation. Reported every season.`,
+      image: { src: "/images/atelier/press.jpg", alt: "A master tailor pressing a cricket jumper while an apprentice folds a linen shirt into tissue", position: "object-center" },
     },
   ];
   return (

@@ -14,7 +14,7 @@ import type { Story } from "@/components/StoryCopy";
 
 export const metadata: Metadata = {
   title: "Shop",
-  description: "Every Vis Naturæ piece is made to order in Mauritius, in your size. Swim, hoodies and knitwear, linen shirts, chinos, linen trousers, caps and socks.",
+  description: "Vis Naturæ: the Signature line, always in stock, and limited collections, made by hand in Mauritius. Swim, knitwear, linen shirts, chinos, linen trousers, caps and socks.",
 };
 
 /**

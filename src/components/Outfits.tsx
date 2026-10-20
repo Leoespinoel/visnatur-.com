@@ -9,7 +9,7 @@ import { formatPrice } from "@/lib/format";
 import { PageIntro } from "./PageIntro";
 import { ComingSoon } from "./ComingSoon";
 
-const LEDE = "Whole looks from the island, piece by piece. Every piece is made to order in Mauritius, in your size.";
+const LEDE = "Whole looks from the island, piece by piece. Every piece made by hand in Mauritius.";
 
 export function outfitsMetadata(audience: AudienceSlug): Metadata {
   return { title: `${audiences.find((a) => a.slug === audience)!.name} · Outfits`, description: LEDE };

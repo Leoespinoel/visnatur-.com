@@ -2,16 +2,18 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { designNumber, siblingsOf, type Product } from "@/data/products";
+import { canMadeToOrder, designNumber, siblingsOf, type Product } from "@/data/products";
 import { isAvailable } from "@/data/availability";
+import { site } from "@/data/site";
 import { v2Href } from "@/data/v2";
 import { useCart } from "@/lib/cart";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
 import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
 
 /**
  * The V2 buy box: colourways, square size boxes and one big button. Same rules as the classic ProductDetails:
- * pick a size first, one per design per size, and pieces that aren't on sale yet can't go in the bag.
+ * pick a size first, one per design per size, and pieces that aren't on sale yet can't go in the bag. Made to order
+ * (a Signature piece adjusted to fit) is chosen on the classic product page; here it is only pointed to.
  */
 export function V2BuyBox({ product }: { product: Product }) {
   const { add, has, open } = useCart();
@@ -20,6 +22,8 @@ export function V2BuyBox({ product }: { product: Product }) {
   const inBag = size ? has(product.slug, size) : false;
   const colours = siblingsOf(product);
   const available = isAvailable(product);
+  const madeToOrder = canMadeToOrder(product);
+  const surcharge = formatPrice(site.delivery.madeToOrderSurchargeCents);
 
   function addToBag() {
     if (!size) {
@@ -57,7 +61,7 @@ export function V2BuyBox({ product }: { product: Product }) {
 
       <div className="border-b-[1.5px] border-ink py-4">
         <div className="mb-3 flex items-baseline justify-between">
-          <p className="v2-mono">{product.sizes.length === 1 ? "Size" : "Size: cut to yours"}</p>
+          <p className="v2-mono">{product.sizes.length === 1 ? "Size" : "Size: pick yours"}</p>
           <a href="/made-to-order#sizing" className="v2-mono text-muted underline underline-offset-4 hover:text-ink">
             Size guide
           </a>
@@ -86,7 +90,15 @@ export function V2BuyBox({ product }: { product: Product }) {
             Pick a size first.
           </p>
         )}
-        {product.garment === "trouser" && <p className="v2-mono mt-2 text-muted">Tell us your inseam at checkout: we hem it for free.</p>}
+        {product.garment === "trouser" && madeToOrder && (
+          <p className="v2-mono mt-2 text-muted">
+            Another inseam?{" "}
+            <a href={`/product/${product.slug}`} className="underline underline-offset-4 hover:text-ink">
+              Made to order
+            </a>
+            , {surcharge} more.
+          </p>
+        )}
       </div>
 
       <div className="py-4">
@@ -109,7 +121,7 @@ export function V2BuyBox({ product }: { product: Product }) {
       <ul className="v2-mono grid grid-cols-2 border-l-[1.5px] border-t-[1.5px] border-ink">
         {[
           ["Design", designNumber(product)],
-          ["Ships in", leadTimeLabel()],
+          ["Ships in", dispatchLabel()],
           ["To the wild", `${formatPrice(pledgeCents(product.price))} (${pledgePercentLabel()})`],
           ["Repairs", "Free, for life"],
         ].map(([k, v]) => (
@@ -130,10 +142,24 @@ export function V2BuyBox({ product }: { product: Product }) {
         </Row>
         <Row title="Fabric">{product.fabric}.</Row>
         <Row title="Care">{product.care}</Row>
-        <Row title="Made to order & returns">
-          Nothing is made in advance. We cut and sew your piece in a small workshop in Mauritius after you order, in the size you choose, and ship it{" "}
-          {leadTimeLabel()} later. Because it&rsquo;s made for you, we remake it in the right size within 14 days of delivery and repair it free for the
-          life of the garment. Refunds if we made a mistake. Full{" "}
+        <Row title="Delivery & returns">
+          In stock in Mauritius. It leaves within {dispatchLabel()}, then {transitLabel()} express to Europe, free over{" "}
+          {formatPrice(site.freeShippingThresholdCents)}. Exchange or return it within 14 days of delivery, unworn and unwashed. Repairs free, for life.{" "}
+          {madeToOrder ? (
+            <>
+              <a href="/made-to-order" className="underline underline-offset-4">
+                Made to order
+              </a>
+              : the sleeves, length or fit adjusted, {surcharge} more, ready in {madeToOrderLabel()}. Choose it on the{" "}
+              <a href={`/product/${product.slug}`} className="underline underline-offset-4">
+                classic product page
+              </a>
+              .
+            </>
+          ) : (
+            "Collections sell as they are, so no made to order."
+          )}{" "}
+          Full{" "}
           <a href="/legal/returns" className="underline underline-offset-4">
             returns policy
           </a>

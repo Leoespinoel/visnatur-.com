@@ -28,7 +28,7 @@ export default async function OpenGraphImage() {
           <span style={{ color: "#c8102e", fontSize: 44, letterSpacing: 0, marginLeft: -12 }}>Æ</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 104, lineHeight: 1.0 }}>Made once you order it.</div>
+          <div style={{ fontSize: 104, lineHeight: 1.0 }}>{site.tagline}</div>
           <div style={{ fontSize: 34, marginTop: 28, color: "#c8102e" }}>
             For men and women · 10% of every sale to conservation
           </div>

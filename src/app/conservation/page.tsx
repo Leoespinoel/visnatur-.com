@@ -76,7 +76,7 @@ export default function ConservationPage() {
             </div>
             <p className="max-w-md text-sm leading-relaxed text-ink-2">
               What the ten percent has done so far, updated as the receipts come in.
-              {impact.placeholder && <strong className="font-medium text-ink"> Every figure here is a placeholder until the first drop ships and the first transfer clears.</strong>}
+              {impact.placeholder && <strong className="font-medium text-ink"> Every figure here is a placeholder until the first pieces ship and the first transfer clears.</strong>}
             </p>
           </div>
           <ImpactCharts />
@@ -176,11 +176,11 @@ export default function ConservationPage() {
               coastlines and forests that make them worth wearing.
             </p>
             <p>
-              Making to order is the other half of the same idea. There is no overstock to discount, no end-of-season landfill, and no pressure to
-              sell what nobody asked for.
+              Making carefully is the other half of the same idea: a Signature line kept in stock and made to last, collections made in limited numbers,
+              and anything adjusted made only once it has been ordered. No end-of-season landfill, and free repairs for life.
             </p>
             <Link href="/made-to-order" className="btn btn-light">
-              How made to order works
+              Made to order
             </Link>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, madeToOrderLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { PageIntro } from "@/components/PageIntro";
 import { LeafIcon } from "@/components/Icons";
@@ -16,7 +16,7 @@ export default function SuccessPage() {
       <PageIntro
         eyebrow="Thank you"
         title="Now we make it."
-        lede={`Your piece is cut and sewn in your size in Mauritius and ships ${leadTimeLabel()} after you ordered. We email you when it is cut and when it ships.`}
+        lede={`Signature and collection pieces leave Mauritius within ${dispatchLabel()}. A made to order piece is cut and sewn for you and ships ${madeToOrderLabel()} after the order. An email follows when it ships.`}
       />
       <section className="container-x pb-24">
         <Summary />

@@ -3,9 +3,10 @@ import type { Story } from "@/components/StoryCopy";
 export const site = {
   name: "Vis Naturæ",
   nameAscii: "Vis Naturae",
-  tagline: "Made once you order it.",
+  /** Draft (2026-10-20): Signature is always on, collections (first called drops) come once. */
+  tagline: "Signature, always. Collections, once.",
   description:
-    "Vis Naturæ is a made-to-order clothing label for men and women. Every piece is cut and sewn by hand in Mauritius, in the size you choose. 10% of every sale goes to conservation.",
+    "Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, collections in limited numbers, and any Signature piece made to order with adjustments. 10% of every sale goes to conservation.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   currency: "EUR",
   locale: "en-IE",
@@ -21,8 +22,17 @@ export const site = {
   freeShippingThresholdCents: 15000,
   /** Express from Mauritius costs us around €35 a parcel; €15 is the most a buyer will carry. */
   flatShippingCents: 1500,
-  /** Making time, counted from the day the piece is ordered. */
-  leadTime: { minWeeks: 3, maxWeeks: 4 },
+  /**
+   * Signature and collection pieces are held in stock in Mauritius: dispatched within `dispatchDays`, then express to Europe in
+   * `transitDays` (working days). Made to order (a Signature piece adjusted to fit) is made after the order, in `madeToOrder`,
+   * for a flat surcharge per piece (Leo, 2026-10-20; the amount is a draft).
+   */
+  delivery: {
+    dispatchDays: { min: 1, max: 2 },
+    transitDays: { min: 4, max: 7 },
+    madeToOrder: { minWeeks: 3, maxWeeks: 4 },
+    madeToOrderSurchargeCents: 2500,
+  },
   email: "hello@visnaturae.com",
   instagram: "https://instagram.com/visnaturae.world",
   foundedYear: 2026,
@@ -48,8 +58,8 @@ export const site = {
 } as const;
 
 export const announcements = [
-  "Made once you order it",
-  "Cut and sewn in your size in Mauritius",
+  "Signature, always in stock",
+  "Made to order: any Signature piece, adjusted to fit",
   "10% of every sale goes to conservation",
   "Free shipping across Europe over €150",
   "Free repairs for life",
@@ -148,18 +158,18 @@ export type CategorySlug = (typeof categories)[number]["slug"];
  */
 export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }> = {
   swim: {
-    eyebrow: "Made to order",
-    title: "Cut once you order it",
+    eyebrow: "Tidal · Lido · Shore",
+    title: "Out past the break",
     image: "/images/men/swim-hero.jpg?v=r1016",
     alt: "Two men on a rock platform above the sea, one in sunglasses and an open cream linen shirt over navy and cream swim shorts, the other sitting on the rocks in sky striped swim shorts",
-    links: [{ label: "How it works", href: "/made-to-order" }],
+    links: [{ label: "Made to order", href: "/made-to-order" }],
   },
   "polo-shirts": {
     eyebrow: "Sett · Promenade",
     title: "Lunch on the veranda",
     image: "/images/shop/polos.jpg?v=r1016",
     alt: "A man and a woman on the veranda of a beach house by a table laid for lunch, he in a navy knit polo and stone chinos, she in a cream polo and white shorts",
-    links: [{ label: "How it works", href: "/made-to-order" }],
+    links: [{ label: "Made to order", href: "/made-to-order" }],
     women: true,
   },
   "rugby-shirts": {
@@ -217,7 +227,7 @@ export const categoryFeatures: Record<CategorySlug, Story & { women?: boolean }>
     title: "Named for the trade wind",
     image: "/images/shop/grid-sunglasses.jpg?v=r1016",
     alt: "A woman on the deck of a catamaran in tortoiseshell sunglasses and an open sand linen shirt over a black swimsuit",
-    links: [{ label: "How it works", href: "/made-to-order" }],
+    links: [{ label: "Made to order", href: "/made-to-order" }],
     women: true,
   },
 };
@@ -243,7 +253,7 @@ export const audiences: {
     slug: "men",
     name: "Men",
     explore: "Explore for him",
-    lede: "Swim, polo shirts, rugby shirts, knitwear, shirts, tees, shorts, trousers, accessories and sunglasses. Every piece is made to order in Mauritius, in your size.",
+    lede: "Swim, polo shirts, rugby shirts, knitwear, shirts, tees, shorts, trousers, accessories and sunglasses. Made by hand in Mauritius; any Signature piece can be made to order.",
     // The category scene is the women's Promenade, so his polo tile shows his own.
     scenes: { ...(Object.fromEntries(categories.map((c) => [c.slug, c.scene])) as Record<CategorySlug, string>), "polo-shirts": "/images/men/sections/polo.jpg?v=r1016" },
   },
@@ -251,7 +261,7 @@ export const audiences: {
     slug: "women",
     name: "Women",
     explore: "Explore for her",
-    lede: "Swimsuits, shirts, polo shirts, tees, shorts, trousers and knitwear cut for women, with the caps, socks and sunglasses cut for anyone. Every piece is made to order in Mauritius, in your size.",
+    lede: "Swimsuits, shirts, polo shirts, tees, shorts, trousers and knitwear cut for women, with the caps, socks and sunglasses cut for anyone. Made by hand in Mauritius; any Signature piece can be made to order.",
     scenes: {
       swim: "/images/women/landing/sections/swim.jpg?v=r1016",
       "polo-shirts": "/images/women/landing/sections/polo.jpg?v=r1016",
@@ -300,10 +310,11 @@ export const partners: {
     },
   },
   {
-    name: "Forest partner",
+    name: "Mauritian Wildlife Foundation",
     focus: "Native forest restoration and endemic species recovery in Mauritius",
     status: "Partnership in progress",
     mark: "forest",
+    logo: "/partners/mauritian-wildlife-foundation.png",
     leverage: {
       figure: "2%",
       text: "of Mauritius is still native forest. Small sums here have already pulled the kestrel, the pink pigeon and the echo parakeet back from extinction.",
@@ -350,13 +361,13 @@ export const impact = {
   /** Euros transferred to each partner since the first transfer, in the order of `partners`; drawn as the pie. */
   invested: [
     { partner: "Ocean partner", cents: 0 },
-    { partner: "Forest partner", cents: 0 },
+    { partner: "Mauritian Wildlife Foundation", cents: 0 },
     { partner: "Coastlines partner", cents: 0 },
   ],
   /** Progress towards each partner's year-end goal. */
   targets: [
     { label: "Coral fragments planted", partner: "Ocean partner", value: 0, goal: 500, unit: "" },
-    { label: "Native trees planted", partner: "Forest partner", value: 0, goal: 1000, unit: "" },
+    { label: "Native trees planted", partner: "Mauritian Wildlife Foundation", value: 0, goal: 1000, unit: "" },
     { label: "Mangroves planted", partner: "Coastlines partner", value: 0, goal: 2000, unit: "" },
   ],
 };
@@ -371,8 +382,9 @@ export const nav = {
     { key: "world", label: "The VN World", short: "World" },
   ] as const,
   primary: [
-    { label: "Men", href: "/men", mega: "men", group: "shop" },
-    { label: "Women", href: "/women", mega: "women", group: "shop" },
+    /** Men and Women sit inside Signature (Leo, 2026-10-20); their panels stay in menus() for the mobile menu. */
+    { label: "Collections", href: "/collections", mega: "collections", group: "shop" },
+    { label: "Signature", href: "/shop/signature", mega: "signature", group: "shop" },
     { label: "Made to order", href: "/made-to-order", mega: "made-to-order", group: "shop" },
     { label: "Community", href: "/stories", mega: "stories", group: "world" },
     { label: "The VN Club", href: "/members", mega: "members", group: "world" },
@@ -381,12 +393,14 @@ export const nav = {
   /** Plain links beside the two menus (Leo, 2026-10-16: Origins out of The VN World, next to Shop and The VN World). */
   links: [{ label: "Origins", href: "/about" }] as const,
   footer: {
+    /** The three lines in header order, then the two audiences and everything; the categories live in the Shop menu. */
     shop: [
+      { label: "Collections", href: "/collections" },
+      { label: "Signature", href: "/shop/signature" },
+      { label: "Made to order", href: "/made-to-order" },
       { label: "Men", href: "/men" },
       { label: "Women", href: "/women" },
       { label: "All pieces", href: "/shop/all" },
-      ...categories.map((c) => ({ label: c.name, href: `/shop/${c.slug}` })),
-      { label: "Made to order", href: "/made-to-order" },
     ],
     /** The VN World column. */
     brand: [
@@ -395,16 +409,15 @@ export const nav = {
       { label: "Origins", href: "/about" },
       { label: "Conservation", href: "/conservation" },
       { label: "Stores", href: "/stores" },
-      { label: "Contact", href: "/contact" },
       /** Static page in public/pitch.html, served at /pitch; `plain` renders an <a> instead of a Link. */
       { label: "Partners & press", href: "/pitch", plain: true },
     ],
+    /** Terms and Privacy sit in the bottom bar only. */
     help: [
-      { label: "Shipping & lead times", href: "/made-to-order#shipping" },
+      { label: "Shipping & delivery", href: "/made-to-order#shipping" },
       { label: "Sizing", href: "/made-to-order#sizing" },
       { label: "Returns", href: "/legal/returns" },
-      { label: "Terms", href: "/legal/terms" },
-      { label: "Privacy", href: "/legal/privacy" },
+      { label: "Contact", href: "/contact" },
     ],
   },
 };

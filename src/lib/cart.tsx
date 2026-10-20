@@ -4,11 +4,18 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExte
 import { getProduct, type Product } from "@/data/products";
 import { site } from "@/data/site";
 import { pledgeCents } from "@/lib/pledge";
+import { adjustKey, cleanAdjustments, type Adjustments } from "@/lib/adjust";
 
-/** A bag line is one unit of a design in one size. The same design in two sizes is two lines. */
-export type CartLine = { slug: string; size: string };
+/**
+ * A bag line is one unit of a design in one size. The same design in two sizes is two lines. A line with `adjust` is
+ * made to order (a Signature piece adjusted to fit) and carries the flat surcharge.
+ */
+export type CartLine = { slug: string; size: string; adjust?: Adjustments };
 
-export const lineKey = (l: CartLine) => `${l.slug}:${l.size}`;
+export const lineKey = (l: CartLine) => `${l.slug}:${l.size}${l.adjust ? `:${adjustKey(l.adjust)}` : ""}`;
+
+/** The surcharge a line carries: the made to order fee when it is adjusted. */
+export const lineSurcharge = (l: CartLine) => (l.adjust ? site.delivery.madeToOrderSurchargeCents : 0);
 
 export type CartLineView = CartLine & { product: Product };
 
@@ -21,8 +28,8 @@ type CartContextValue = {
   total: number;
   isOpen: boolean;
   hydrated: boolean;
-  /** Is this design in the bag (in any size, or in the given size)? */
-  has: (slug: string, size?: string) => boolean;
+  /** Is this design in the bag (in any size, or in the given size, plain or with the given adjustments)? */
+  has: (slug: string, size?: string, adjust?: Adjustments) => boolean;
   add: (line: CartLine) => void;
   remove: (line: CartLine) => void;
   removeMany: (slugs: string[]) => void;
@@ -59,7 +66,13 @@ function load(): State {
     if (stored) {
       const parsed = JSON.parse(stored) as unknown;
       if (Array.isArray(parsed)) {
-        lines = (parsed as CartLine[]).filter((l) => l && typeof l.slug === "string" && getProduct(l.slug) && typeof l.size === "string");
+        lines = (parsed as CartLine[]).flatMap((l) => {
+          const product = l && typeof l.slug === "string" ? getProduct(l.slug) : undefined;
+          if (!product || typeof l.size !== "string") return [];
+          // An adjusted line keeps its adjustments only while they are still valid.
+          const adjust = l.adjust ? cleanAdjustments(product.garment, l.adjust) : null;
+          return [adjust ? { slug: l.slug, size: l.size, adjust } : { slug: l.slug, size: l.size }];
+        });
       }
     }
   } catch {
@@ -149,9 +162,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const product = getProduct(l.slug);
       if (product) lines.push({ ...l, product });
     }
-    const subtotal = lines.reduce((s, l) => s + l.product.price, 0);
+    const subtotal = lines.reduce((s, l) => s + l.product.price + lineSurcharge(l), 0);
     const shipping = subtotal === 0 || subtotal >= site.freeShippingThresholdCents ? 0 : site.flatShippingCents;
-    const pledge = lines.reduce((s, l) => s + pledgeCents(l.product.price), 0);
+    const pledge = lines.reduce((s, l) => s + pledgeCents(l.product.price + lineSurcharge(l)), 0);
     return {
       lines,
       count: lines.length,
@@ -161,7 +174,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
       total: subtotal + shipping,
       isOpen: snap.isOpen,
       hydrated,
-      has: (slug, size) => lines.some((l) => l.slug === slug && (size === undefined || l.size === size)),
+      has: (slug, size, adjust) =>
+        lines.some((l) => l.slug === slug && (size === undefined || (l.size === size && adjustKey(l.adjust) === adjustKey(adjust)))),
       add,
       remove,
       removeMany,

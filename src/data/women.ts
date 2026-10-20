@@ -21,9 +21,9 @@ const designs = (...families: string[]) => `/women/all?design=${families.join(",
 export const heroSlides: HeroSlide[] = [
   {
     key: "collection",
-    label: "Collection I",
-    title: "Collection I",
-    text: "Swimsuits, linen, shorts, tees and knitwear, made in Mauritius once you order them.",
+    label: "Signature",
+    title: "Signature",
+    text: "Swimsuits, linen, shorts, tees and knitwear: the permanent line, made by hand in Mauritius.",
     cta: { label: "Explore now", href: "/women/all" },
     image: `${IMG}/group-hall.jpg?v=r1016`,
     alt: "Three women in the chequered marble hall of a villa, in a navy and cream hooped rugby shirt with a white pleated skirt, a brown suede jacket with cream trousers, and a cream cricket jumper over a striped shirt",
@@ -95,7 +95,7 @@ export const stories: { title: string; text: string; feature: StoryCard; cards: 
   cards: [
     { eyebrow: "Tone on tone", title: "The Badger", href: designs("riviera-hoodie", "sett-cap", "burrow-sock"), image: `${IMG}/story-badger.jpg?v=r1016`, alt: "A woman walking by the giant water lily pond at Pamplemousses in a cream cable-knit cricket jumper with navy and red tipping and oat linen trousers" },
     { eyebrow: "Alizé", title: "After the trade wind", href: "/women/sunglasses", image: `${IMG}/story-alize.jpg`, alt: "Three women in a formal garden between yew hedges, the one in the centre in tortoiseshell Alizé Sunglasses and the white Esplanade Linen Short" },
-    { eyebrow: "Collection I", title: "A walk at Le Morne", href: "/shop", image: "/images/shop/hero.jpg?v=r1016", alt: "Four friends, two men and two women, walking back along a jetty below Le Morne in linen shirts, a navy knit, a cream cricket jumper and cream trousers, one woman carrying her loafers" },
+    { eyebrow: "Signature", title: "A walk at Le Morne", href: "/shop", image: "/images/shop/hero.jpg?v=r1016", alt: "Four friends, two men and two women, walking back along a jetty below Le Morne in linen shirts, a navy knit, a cream cricket jumper and cream trousers, one woman carrying her loafers" },
   ],
 };
 
@@ -114,7 +114,7 @@ export const bannerSlides: BannerSlide[] = [
     image: "/images/campaign-atelier.jpg?v=2",
     alt: "A seamstress beside a rail of finished pieces in the Port Louis workshop",
     lockup: { text: "Atelier" },
-    text: "Cut and sewn by hand in Mauritius, once you order it.",
+    text: "Cut and sewn by hand in Mauritius. Any Signature piece, made to order to fit.",
     cta: { label: "Made to order", href: "/made-to-order" },
   },
 ];

@@ -1,6 +1,6 @@
 import { getEdit, productsInEdit } from "./edits";
 import { outfitPieces, outfitsFor } from "./outfits";
-import { getProduct, isFor, products, type Product } from "./products";
+import { getProduct, isFor, lineOf, products, type Product } from "./products";
 
 /**
  * The designs that can be ordered now. Every other piece is shown, but under a grey veil marked
@@ -28,6 +28,8 @@ function piecesBehind(href: string): Product[] | null {
   } else if (sub === "outfits") {
     const looks = root === "shop" ? [] : outfitsFor(root).filter((o) => !url.hash || `#${o.slug}` === url.hash);
     list = looks.flatMap(outfitPieces);
+  } else if (sub === "signature") {
+    list = list.filter((p) => lineOf(p) === "signature");
   } else if (sub && sub !== "all") {
     list = list.filter((p) => p.category === sub);
   }

@@ -4,8 +4,8 @@ import { useCallback, useSyncExternalStore } from "react";
 import { getProduct } from "@/data/products";
 
 /**
- * The wishlist: the colourways saved with the heart, newest first. It lives in this browser only (the Shopify
- * account has nowhere to keep it), so it survives reloads but not another device.
+ * The wishlist: the colourways saved with the heart, newest first. It lives in this browser and, once the customer
+ * signs in, on their Shopify account too (src/lib/account-sync.tsx), so it follows them to another device.
  */
 const STORAGE_KEY = "vis-naturae-wishlist-v1";
 
@@ -25,7 +25,13 @@ function load(): string[] {
   return slugs;
 }
 
-function save(next: string[]) {
+/** The saved slugs, read outside React. */
+export function readWishlist(): string[] {
+  return typeof window === "undefined" ? EMPTY : load();
+}
+
+/** Replaces the browser copy, e.g. with the copy on the account (src/lib/account-sync.tsx). */
+export function writeWishlist(next: string[]) {
   slugs = next;
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
@@ -35,7 +41,7 @@ function save(next: string[]) {
   listeners.forEach((l) => l());
 }
 
-function subscribe(listener: () => void) {
+export function subscribeWishlist(listener: () => void) {
   listeners.add(listener);
   // A heart tapped in another tab.
   const onStorage = (e: StorageEvent) => {
@@ -51,7 +57,7 @@ function subscribe(listener: () => void) {
 }
 
 export function useWishlist() {
-  const list = useSyncExternalStore(subscribe, load, () => EMPTY);
+  const list = useSyncExternalStore(subscribeWishlist, load, () => EMPTY);
   const hydrated = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -59,7 +65,7 @@ export function useWishlist() {
   );
   const toggle = useCallback((slug: string) => {
     const now = load();
-    save(now.includes(slug) ? now.filter((s) => s !== slug) : [slug, ...now]);
+    writeWishlist(now.includes(slug) ? now.filter((s) => s !== slug) : [slug, ...now]);
   }, []);
   return { slugs: list, hydrated, has: (slug: string) => list.includes(slug), toggle };
 }

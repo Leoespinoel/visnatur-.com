@@ -15,7 +15,7 @@ const brand = [
 ];
 
 const help = [
-  { label: "Shipping & lead times", href: "/made-to-order#shipping" },
+  { label: "Shipping & delivery", href: "/made-to-order#shipping" },
   { label: "Sizing", href: "/made-to-order#sizing" },
   { label: "Returns", href: "/legal/returns" },
   { label: "Terms", href: "/legal/terms" },
@@ -47,7 +47,7 @@ export function V2Footer() {
         <div className="max-w-xs">
           <Image src="/brand/badger-mark.png" alt="" width={852} height={300} className="v2-cutout w-40 -rotate-6" />
           <p className="mt-6 text-sm leading-relaxed text-paper/75">
-            {site.name}. Made to order for men and women, cut and sewn in Mauritius. {pledgePercentLabel()} of every sale goes to
+            {site.name}. Clothing for men and women, cut and sewn by hand in Mauritius. {pledgePercentLabel()} of every sale goes to
             conservation.
           </p>
           <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="v2-mono mt-4 inline-block underline underline-offset-4 hover:text-red">

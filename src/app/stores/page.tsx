@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
 import { Newsletter } from "@/components/Newsletter";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function StoresPage() {
           Where to find <em className="italic">us</em>.
         </h1>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-2 md:text-lg">
-          Online only for now. Every piece is cut and sewn in the workshop in Mauritius once it is ordered, then sent across Europe.
+          Online only for now. Every piece is cut and sewn in the workshop in Mauritius and sent across Europe from there.
         </p>
       </section>
 
@@ -30,7 +30,7 @@ export default function StoresPage() {
             <p className="eyebrow mb-4">Online</p>
             <h2 className="display text-3xl md:text-4xl">Everywhere in Europe.</h2>
             <p className="mt-5 max-w-md text-base leading-relaxed text-ink-2">
-              Made to order and ready {leadTimeLabel()} after the order, then express from Mauritius in 4–7 working days. Free shipping over{" "}
+              Signature and collection pieces leave Mauritius within {dispatchLabel()}, then {transitLabel()} express to Europe; made to order takes {madeToOrderLabel()}. Free shipping over{" "}
               {formatPrice(site.freeShippingThresholdCents)}, free repairs for life.
             </p>
             <div className="mt-8">
@@ -45,7 +45,7 @@ export default function StoresPage() {
             </div>
             <p className="eyebrow mt-6 mb-3">The workshop</p>
             <h2 className="font-serif text-2xl md:text-3xl">Made in Mauritius.</h2>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-2">Cut and sewn by hand in a small workshop on the island, in the size chosen at checkout.</p>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-2">Cut and sewn by hand in a small workshop on the island, and made to order there when a piece is adjusted to fit.</p>
             <Link href="/made-to-order" className="eyebrow !text-ink link-underline mt-4 self-start">
               How it is made
             </Link>

@@ -1,4 +1,5 @@
 import { rememberCheckout, type CartLine } from "@/lib/cart";
+import { readSizes, sizesSummary } from "@/lib/sizes";
 
 /**
  * Sends the bag to /api/checkout and goes on to Shopify's checkout. Used by both bag drawers (the
@@ -9,7 +10,11 @@ export async function startCheckout(lines: CartLine[], removeUnavailable: (slugs
   const res = await fetch("/api/checkout", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ items: lines.map(({ slug, size }) => ({ slug, size })) }),
+    body: JSON.stringify({
+      items: lines.map(({ slug, size, adjust }) => ({ slug, size, adjust })),
+      // The customer's saved sizes (/account/sizes) go with an order that has a made to order piece.
+      measurements: lines.some((l) => l.adjust) ? sizesSummary(readSizes()) : undefined,
+    }),
   });
   const data = (await res.json()) as { url?: string; cartId?: string; error?: string; unavailable?: string[] };
   if (!res.ok || !data.url) {

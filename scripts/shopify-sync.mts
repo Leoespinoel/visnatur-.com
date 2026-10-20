@@ -1,7 +1,7 @@
 /**
  * Mirrors the catalogue in src/data/products.ts into Shopify.
  *
- *   npm run shopify:sync              create/update every product, publish it, drop the old order webhook
+ *   npm run shopify:sync              create/update every product and the made to order surcharge, publish them, drop the old order webhook
  *   npm run shopify:sync -- --dry-run print what would be sent, without calling Shopify
  *
  * Reads SHOPIFY_STORE_DOMAIN, SHOPIFY_CLIENT_ID, SHOPIFY_CLIENT_SECRET and NEXT_PUBLIC_SITE_URL
@@ -11,11 +11,36 @@
  * products.ts, then re-run this. A product with no photos in Shopify gets the site's (packshot, on
  * model, detail) fetched from NEXT_PUBLIC_SITE_URL, so deploy before syncing new products.
  */
-import { products, productImages, designNumber, type Product } from "../src/data/products.ts";
+import { products, productImages, designNumber, lineOf, type Product } from "../src/data/products.ts";
+import { getDrop } from "../src/data/drops.ts";
 import { categories, site } from "../src/data/site.ts";
 
 const API_VERSION = "2026-07";
 const DRY = process.argv.includes("--dry-run");
+/**
+ * `--track-stock` turns on Shopify inventory tracking for every Signature and drop variant. Only run it once the stock
+ * quantities are entered in Shopify (Products → Inventory): a tracked variant at 0 shows as sold out and can't be bought.
+ */
+const TRACK_STOCK = process.argv.includes("--track-stock");
+
+/** The made to order surcharge: one untracked product, one line per adjusted piece at checkout (src/app/api/checkout/route.ts). */
+const SURCHARGE = {
+  title: "Made to order",
+  handle: "made-to-order-adjustment",
+  descriptionHtml: "<p>A Signature piece adjusted to fit: sleeve, length, inseam, waist or fit. Added once per adjusted piece.</p>",
+  vendor: site.name,
+  productType: "Service",
+  tags: ["made-to-order"],
+  status: "ACTIVE",
+  productOptions: [{ name: "Title", position: 1, values: [{ name: "Default Title" }] }],
+  variants: [
+    {
+      optionValues: [{ optionName: "Title", name: "Default Title" }],
+      price: (site.delivery.madeToOrderSurchargeCents / 100).toFixed(2),
+      inventoryItem: { sku: "VN-MTO", tracked: false, requiresShipping: false },
+    },
+  ],
+};
 
 const domain = (process.env.SHOPIFY_STORE_DOMAIN ?? "").trim().replace(/^https?:\/\//, "").replace(/\/.*$/, "");
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "");
@@ -29,10 +54,13 @@ function fail(msg: string): never {
 
 const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+/** "Signature", or the collection's name ("Collection 01"). */
+const lineName = (p: Product) => (lineOf(p) === "drop" ? (getDrop(p.drop)?.name ?? "Collection") : "Signature");
+
 function descriptionHtml(p: Product): string {
   return [
     `<p>${escape(p.description)}</p>`,
-    `<p><strong>${escape(designNumber(p))} · Made to order</strong> · ${escape(p.colour.name)}</p>`,
+    `<p><strong>${escape(designNumber(p))} · ${escape(lineName(p))}</strong> · ${escape(p.colour.name)}</p>`,
     `<p>${escape(p.fabric)}</p>`,
     `<ul>${p.details.map((d) => `<li>${escape(d)}</li>`).join("")}</ul>`,
     `<p><em>${escape(p.care)}</em></p>`,
@@ -50,14 +78,18 @@ function productInput(p: Product) {
     tags: [
       `no-${String(p.number).padStart(3, "0")}`,
       p.garment,
+      lineOf(p) === "drop" ? (p.drop ?? "drop") : "signature",
     ],
     status: "ACTIVE",
     productOptions: [{ name: "Size", position: 1, values: p.sizes.map((name) => ({ name })) }],
     variants: p.sizes.map((size) => ({
       optionValues: [{ optionName: "Size", name: size }],
       price: (p.price / 100).toFixed(2),
-      // Every piece is made to order, so Shopify tracks no stock.
-      inventoryItem: { sku: `VN-${String(p.number).padStart(3, "0")}-${size.replace(/\s+/g, "").toUpperCase()}`, tracked: false, requiresShipping: true },
+      // Signature and drop pieces are held in stock (Leo, 2026-10-20): Shopify tracks it and won't oversell. Quantities are set in
+      // the Shopify admin; this sync never sends them, so a re-run leaves stock as it is. Untracked until stock is entered there,
+      // a tracked variant at 0 can't be bought, which is why TRACK_STOCK must be switched on deliberately.
+      inventoryPolicy: "DENY",
+      inventoryItem: { sku: `VN-${String(p.number).padStart(3, "0")}-${size.replace(/\s+/g, "").toUpperCase()}`, tracked: TRACK_STOCK, requiresShipping: true },
     })),
   };
 }
@@ -66,6 +98,8 @@ if (DRY) {
   const sample = productInput(products[0]);
   console.log(`Dry run: ${products.length} products would be synced. First one:\n`);
   console.log(JSON.stringify(sample, null, 2));
+  console.log(`\nMade to order surcharge product:\n${JSON.stringify(SURCHARGE, null, 2)}`);
+  console.log(`\nStock tracking: ${TRACK_STOCK ? "ON (--track-stock)" : "off (pass --track-stock once quantities are set in Shopify)"}`);
   console.log(`\nWould remove any webhook pointing at ${siteUrl || "<NEXT_PUBLIC_SITE_URL>"}/api/webhook`);
   process.exit(0);
 }
@@ -161,10 +195,31 @@ for (const p of products) {
   console.log(`✓ ${existing.productByIdentifier ? "updated" : "created"} ${p.slug} (${p.sizes.length} sizes, €${(p.price / 100).toFixed(2)})`);
 }
 
+/* ---------- Made to order surcharge ---------- */
+
+{
+  const existing = await gql<{ productByIdentifier: { id: string } | null }>(
+    `query Find($handle: String!) { productByIdentifier(identifier: { handle: $handle }) { id } }`,
+    { handle: SURCHARGE.handle },
+  );
+  const input = { ...SURCHARGE, ...(existing.productByIdentifier ? { id: existing.productByIdentifier.id } : {}) };
+  const set = await gql<{ productSet: UserErrors & { product: { id: string } | null } }>(
+    `mutation Set($input: ProductSetInput!) { productSet(input: $input, synchronous: true) { product { id } userErrors { field message } } }`,
+    { input },
+  );
+  check("productSet made to order", set.productSet);
+  const pub = await gql<{ publishablePublish: UserErrors }>(
+    `mutation Pub($id: ID!, $input: [PublicationInput!]!) { publishablePublish(id: $id, input: $input) { userErrors { field message } } }`,
+    { id: set.productSet.product!.id, input: targets.map((t) => ({ publicationId: t.id })) },
+  );
+  check("publish made to order", pub.publishablePublish);
+  console.log(`✓ ${existing.productByIdentifier ? "updated" : "created"} ${SURCHARGE.handle} (€${SURCHARGE.variants[0].price})`);
+}
+
 /* ---------- Old webhook ---------- */
 
-// The site used to count edition sales through an order webhook at /api/webhook. Every piece is now
-// made to order and that route is gone, so remove the subscriptions instead of letting them fail.
+// The site used to count edition sales through an order webhook at /api/webhook. That route is gone (stock now
+// lives in Shopify itself), so remove the subscriptions instead of letting them fail.
 const uri = `${siteUrl}/api/webhook`;
 const subs = await gql<{ webhookSubscriptions: { nodes: { id: string; topic: string; uri: string }[] } }>(
   `{ webhookSubscriptions(first: 50) { nodes { id topic uri } } }`,

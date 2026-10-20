@@ -342,6 +342,39 @@ button {
   animation-delay: -4.5s;
 }
 
+/* Footer reveal, after nude-project.com: the badger at the top of the footer waits pinned to the bottom of the screen
+   while the page slides up off it, then the links scroll in under it as usual. The badger keeps its place in the
+   flow; its inside starts one block-height up (clipped away) and reaches its place as the block fully enters.
+   Browsers without scroll-driven animations, and reduced motion, get the plain footer. */
+@keyframes footer-curtain {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .footer-reveal {
+      overflow: clip;
+      view-timeline: --footer-badger block;
+    }
+    .footer-reveal > * {
+      animation: footer-curtain linear both;
+      animation-timeline: --footer-badger;
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+/* Container-wide and at most 44% of the screen tall, but short enough that at the bottom of the page the badger,
+   its band and the links under it (~35rem with the header) all fit on the screen, so the header never covers it. */
+.footer-badger {
+  width: min(100%, calc(clamp(9rem, 100svh - 35rem, 44svh) * 852 / 300));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .badger-row {

@@ -1,19 +1,11 @@
-import { site } from "./site";
-
 /**
  * The membership on /members (Leo, 2026-10-16, modelled on nude-project.com/pages/reward-landing): a free club
  * with points and three rooms for everyone, plus Members Only, the paid subscription that goes entirely to
  * conservation (its perks are `memberPerks` in stories.ts). Every number here is a draft for Leo to confirm.
- * Points start counting once the shop has customer accounts; until then joining is an email.
+ * Joining is making a Shopify customer account (/account/register); points start counting once they show in it.
  */
 export const club = {
   name: "The VN Club",
-  joinMailto: `mailto:${site.email}?subject=${encodeURIComponent("Join The VN Club")}&body=${encodeURIComponent(
-    ["Name:", "The email you order with:", "Birthday (day and month):", "Where you are:"].join("\n\n") + "\n",
-  )}`,
-  memberMailto: `mailto:${site.email}?subject=${encodeURIComponent("The VN Club: my points")}&body=${encodeURIComponent(
-    ["Name:", "The email you joined with:", "Question:"].join("\n\n") + "\n",
-  )}`,
 };
 
 /** Each room is a part of the club; which one a member is in follows the points earned in the last twelve months. */
@@ -71,7 +63,7 @@ export const clubFaqs: { group: string; items: { q: string; a: string }[] }[] = 
     group: "The VN Club",
     items: [
       { q: "What is The VN Club?", a: "The membership. It is free: points on every order and on a few other things, three rooms to move up through, and rewards to spend the points on." },
-      { q: "How do I join?", a: "Write with the email you order with. Customer accounts are on their way; until then every membership is set up by hand within two working days." },
+      { q: "How do I join?", a: "Make an account with your email under Become a member. No password: a code comes by email, and the account is your membership." },
       { q: "Can I leave?", a: "Any time. Write and the membership is closed. The points go with it." },
     ],
   },
@@ -79,7 +71,7 @@ export const clubFaqs: { group: string; items: { q: string; a: string }[] }[] = 
     group: "Points",
     items: [
       { q: "How are points earned?", a: "On every order, and for everything under Level up: joining, the letters, Instagram, bringing a friend, your birthday and Members Only." },
-      { q: "When do points count?", a: "From the day member accounts open. Join before then and the welcome points are waiting." },
+      { q: "When do points count?", a: "From the day they show in your account. Join before then and the welcome points are waiting." },
       { q: "Do points expire?", a: "After twelve months without an order or a reward." },
       { q: "What about returns?", a: "Points from a returned order come off again. A remake in another size keeps them." },
     ],

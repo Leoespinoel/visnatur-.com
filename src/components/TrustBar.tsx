@@ -6,7 +6,7 @@ import { LeafIcon, LockIcon, NeedleIcon, TruckIcon } from "./Icons";
 /** Four reassurance points, icon over label, as on the reference site. */
 export function TrustBar() {
   const items = [
-    { icon: NeedleIcon, title: "Made to order" },
+    { icon: NeedleIcon, title: "Made by hand" },
     { icon: LeafIcon, title: `${pledgePercentLabel()} to conservation` },
     { icon: TruckIcon, title: `Free shipping over ${formatPrice(site.freeShippingThresholdCents)}` },
     { icon: LockIcon, title: "Secure payment" },

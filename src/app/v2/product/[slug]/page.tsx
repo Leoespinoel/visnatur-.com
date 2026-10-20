@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { designNumber, getProduct, isFor, productImages, products } from "@/data/products";
+import { designNumber, getProduct, isFor, lineOf, productImages, products } from "@/data/products";
 import { isAvailable } from "@/data/availability";
 import { productsIn, sectionOf, streetFamilies, v2Href } from "@/data/v2";
 import { formatPrice } from "@/lib/format";
@@ -92,7 +92,7 @@ export default async function V2ProductPage({ params }: Props) {
           <div className="px-4 pb-12 pt-6 md:px-6 lg:sticky lg:top-16 lg:pt-8">
             <p className="v2-mono text-muted">
               {designNumber(product)}
-              {section ? ` · ${section.one}` : ""} · Made to order
+              {section ? ` · ${section.one}` : ""} · {lineOf(product) === "drop" ? "Drop" : "Signature"}
             </p>
             <h1 className="v2-display mt-3 text-[16vw] sm:text-[10vw] lg:text-[5.4rem] xl:text-[6.4rem]">{product.name}</h1>
             <div className="mt-4 flex items-center gap-4">

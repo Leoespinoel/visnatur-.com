@@ -39,13 +39,19 @@ export type Product = {
   price: number;
   /** The single colourway this piece exists in. */
   colour: Colour;
-  /** Sizes it can be made in; the buyer picks one and their piece is cut to it. */
+  /** Sizes it comes in. */
   sizes: string[];
   fabric: string;
   description: string;
   details: string[];
   care: string;
-  badge?: "New" | "Collection I" | "Signature";
+  badge?: "New";
+  /**
+   * Which line it belongs to (Leo, 2026-10-20): "signature" (unset) is the permanent line, always in stock and open to
+   * made to order adjustments; "drop" pieces come in limited units with their `drop` (an id in src/data/drops.ts), then go.
+   */
+  line?: "signature" | "drop";
+  drop?: string;
   /** Hero / featured ordering; lower comes first. The women's line is ranked on its own, from 1, so the two lines alternate. */
   featured?: number;
   /** Who it is cut for. Unset: caps, socks, hoodies and sunglasses are for anyone, everything else is men's. See `isFor()`. */
@@ -73,7 +79,6 @@ export const products: Product[] = [
     description: "A six-panel cap with a soft, unstructured crown, a curved visor and a brass slider at the back. The name is embroidered in script across the front, tone on tone.",
     details: ["Six panel, unstructured crown", "Curved visor, four rows of stitching", "Brass slider and tuck strap", "Script embroidery, tone on tone", "Woven label inside the band"],
     care: "Spot clean. Reshape the crown by hand and dry away from direct heat.",
-    badge: "Signature",
     featured: 4,
   },
   {
@@ -505,7 +510,6 @@ export const products: Product[] = [
     description: "Our mid-length swim short. A clean, unfussy cut with a soft elasticated waist, a braided drawcord with metal tips, and a small VN monogram at the hem. Lined in recycled mesh so it dries on the walk back from the water.",
     details: ["Mid-length, 15 cm inseam", "Elasticated waist with braided drawcord", "Two side pockets and a back pocket with drain eyelet", "Recycled mesh lining", "VN monogram embroidered at the hem"],
     care: "Rinse in fresh water after swimming. Machine wash cold, line dry.",
-    badge: "Signature",
     featured: 2,
   },
   {
@@ -4810,6 +4814,16 @@ export function newProducts(): Product[] {
 }
 
 /** Design number, e.g. "No. 004". */
+/** The line a piece belongs to: Signature unless it is marked as part of a drop. */
+export function lineOf(p: Product): "signature" | "drop" {
+  return p.line ?? "signature";
+}
+
+/** Made to order (adjustments) is a Signature service; drops sell as they are. */
+export function canMadeToOrder(p: Product): boolean {
+  return lineOf(p) === "signature";
+}
+
 export function designNumber(p: Product): string {
   return `No. ${String(p.number).padStart(3, "0")}`;
 }

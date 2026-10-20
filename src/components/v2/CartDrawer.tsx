@@ -3,12 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { designNumber, productImages } from "@/data/products";
+import { designNumber, lineOf, productImages } from "@/data/products";
 import { site } from "@/data/site";
 import { v2Href } from "@/data/v2";
-import { lineKey, useCart } from "@/lib/cart";
+import { lineKey, lineSurcharge, useCart } from "@/lib/cart";
+import { adjustSummary } from "@/lib/adjust";
 import { startCheckout } from "@/lib/checkout";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice, transitLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 
 /** The V2 bag: same cart and checkout as the classic drawer, in the V2 look. */
@@ -78,7 +79,7 @@ export function V2CartDrawer() {
         {cart.lines.length === 0 ? (
           <div className="flex flex-1 flex-col items-start justify-center gap-6 px-6">
             <p className="v2-display text-[4.5rem]">Empty.</p>
-            <p className="max-w-xs text-sm text-ink-2">Nothing gets made until you order it. Pick a piece and a size and we cut it for you.</p>
+            <p className="max-w-xs text-sm text-ink-2">Nothing in it yet. Pick a piece, pick a size.</p>
             <Link href={v2Href.shop} onClick={cart.close} className="v2-btn">
               Shop everything
             </Link>
@@ -101,11 +102,11 @@ export function V2CartDrawer() {
                           {designNumber(l.product)} · {l.product.colour.name} · {l.size}
                         </p>
                       </div>
-                      <p className="v2-mono !text-sm">{formatPrice(l.product.price)}</p>
+                      <p className="v2-mono !text-sm">{formatPrice(l.product.price + lineSurcharge(l))}</p>
                     </div>
                     <div className="mt-auto flex items-center justify-between pt-3">
-                      <span className="v2-mono text-red">Made to order</span>
-                      <button type="button" className="v2-mono underline underline-offset-4 hover:text-red" onClick={() => cart.remove({ slug: l.slug, size: l.size })}>
+                      <span className="v2-mono text-red">{l.adjust ? `Made to order · ${adjustSummary(l.adjust) || "as cut"}` : lineOf(l.product) === "drop" ? "Drop" : "Signature"}</span>
+                      <button type="button" className="v2-mono underline underline-offset-4 hover:text-red" onClick={() => cart.remove(l)}>
                         Remove
                       </button>
                     </div>
@@ -116,8 +117,8 @@ export function V2CartDrawer() {
 
             <div className="space-y-4 border-t-[1.5px] border-ink p-4">
               <p className="bg-ink p-3 text-xs leading-relaxed text-paper">
-                <span className="font-bold text-red">{formatPrice(cart.pledge)}</span> of this order goes to the wild. We cut each piece in your size
-                after you order and ship it {leadTimeLabel()} later.
+                <span className="font-bold text-red">{formatPrice(cart.pledge)}</span> of this order goes to the wild. In stock in Mauritius: out within
+                {dispatchLabel()}, then {transitLabel()} express to Europe.
               </p>
               <dl className="v2-mono space-y-1.5 !text-[0.75rem]">
                 <div className="flex justify-between">

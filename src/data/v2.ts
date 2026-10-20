@@ -1,7 +1,7 @@
 import { isAvailable } from "./availability";
 import { getProduct, groupByFamily, isFor, products, type Garment, type Product } from "./products";
 import { site, type AudienceSlug } from "./site";
-import { formatPrice, leadTimeLabel } from "@/lib/format";
+import { dispatchLabel, formatPrice } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
 
 /**
@@ -38,7 +38,7 @@ const allSections: Section[] = [
   { slug: "caps", label: "Caps", one: "Cap", garments: ["cap"], line: "Six panels. Script, stripe or badger.", image: "/products/sett-cap-black-model.jpg?v=5" },
   { slug: "rugby", label: "Rugby", one: "Rugby", garments: ["rugby"], line: "Built for the pitch. Worn everywhere else.", image: "/products/touchline-rugby-shirt-red-navy-model.jpg?v=5" },
   { slug: "knits", label: "Knits", one: "Knit", garments: ["knit"], line: "Quarter zips, gilets, jackets, crews.", image: "/products/ridge-knit-gilet-black-model.jpg?v=5" },
-  { slug: "trousers", label: "Trousers", one: "Trouser", garments: ["trouser"], line: "Chinos and linen, cut to your size.", image: "/products/quayside-chino-black-model.jpg?v=5" },
+  { slug: "trousers", label: "Trousers", one: "Trouser", garments: ["trouser"], line: "Chinos and linen. Your inseam, made to order.", image: "/products/quayside-chino-black-model.jpg?v=5" },
   { slug: "shorts", label: "Shorts", one: "Short", garments: ["short"], line: "Chino and linen.", image: "/products/mens-quayside-chino-short-stone-model.jpg?v=5" },
   { slug: "polos", label: "Polos", one: "Polo", garments: ["polo"], line: "Piqué, terry, knit, tipped.", image: "/products/sett-polo-navy-model.jpg?v=5" },
   { slug: "socks", label: "Socks", one: "Sock", garments: ["sock"], line: "Thick rib, badger stitched tone on tone.", image: "/products/burrow-sock-black-model.jpg?v=5" },
@@ -78,12 +78,12 @@ export function streetFamilies(list: Product[], audience?: AudienceSlug): Produc
 /** The pieces behind a list of slugs, skipping any that no longer exist. */
 export const piecesOf = (slugs: string[]) => slugs.map(getProduct).filter((p): p is Product => !!p);
 
-/** The scrolling ticker over the header. Plain facts only: no drops, no scarcity. */
+/** The scrolling ticker over the header. Plain facts only: no drop is announced yet, so no drop lines and no scarcity. */
 export const tickerLines = [
-  "Made when you order it",
+  "Signature, always on",
   `${pledgePercentLabel()} of every order to the wild`,
   "Cut & sewn in Mauritius",
-  `Ships in ${leadTimeLabel()}`,
+  `Ships in ${dispatchLabel()}`,
   `Free shipping in Europe over ${formatPrice(site.freeShippingThresholdCents)}`,
   "Free repairs for life",
 ];

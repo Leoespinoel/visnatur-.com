@@ -328,9 +328,13 @@ export function Header() {
                 Wishlist
               </Link>
             </div>
+            {/* Signature holds Men and Women (Leo, 2026-10-20). */}
+            <Link href="/shop/signature" className="mb-6 block font-serif text-3xl">
+              Signature
+            </Link>
             {audiences.map((a) => (
               <div key={a.slug} className="mb-10">
-                <p className="eyebrow mb-4">{a.name}</p>
+                <p className="eyebrow mb-4">Signature · {a.name}</p>
                 <ul className="space-y-3.5">
                   {MENUS[a.slug].map((i) => (
                     <li key={i.key}>
@@ -354,8 +358,8 @@ export function Header() {
                 </ul>
               </div>
             ))}
-            {/* The rest of Shop: Made to order and its links. */}
-            {SHOP.filter((item) => item.mega !== "men" && item.mega !== "women").map((item) => (
+            {/* The rest of Shop: Collections and Made to order, with their links. */}
+            {SHOP.filter((item) => item.mega !== "signature").map((item) => (
               <div key={item.href} className="mb-10">
                 <p className="eyebrow mb-4">{item.label}</p>
                 <ul className="space-y-3.5">
