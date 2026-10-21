@@ -3,6 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    /**
+     * Hostinger's build machine reports 59 cores, so Next.js started 58 build workers and the machine ran out of
+     * threads ("OS can't spawn worker thread", 2026-10-20). Two workers build this site comfortably.
+     */
+    cpus: 2,
+  },
   /** The archive of closed editions is gone: every design now stays on sale. */
   async redirects() {
     return [
