@@ -175,7 +175,7 @@ export default function V2Home() {
 
       {/* 8. Where the fifth of profits goes */}
       <section className="bg-red text-white">
-        <BandHead title={`${pledgePercentLabel()} of profits to the wild`} link={{ label: "Where it goes", href: "/conservation", light: true }} />
+        <BandHead title={`${pledgePercentLabel()} of profits to the wild`} />
         <p className="max-w-2xl px-4 text-base leading-relaxed md:px-6 md:text-lg">
           {pledgePercentLabel()} of each year&apos;s profit goes to conservation around Mauritius: reefs, native forest and mangrove coast. Small
           places where a little money goes a long way.

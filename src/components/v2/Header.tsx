@@ -12,7 +12,6 @@ const links = [
   { label: "Men", href: `${v2Href.shop}?for=men` },
   { label: "Women", href: `${v2Href.shop}?for=women` },
   { label: "Lookbook", href: v2Href.lookbook },
-  { label: "Setting the scene", href: "/conservation" },
 ];
 
 /**

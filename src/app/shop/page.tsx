@@ -31,7 +31,7 @@ export default function ShopLandingPage() {
     dek: "A fifth of what the brand earns each year goes to creating and sustaining the environments we love wearing the pieces in: the coral around Mauritius, its last native forest and its mangrove coast.",
     image: "/images/shop/reef.jpg?v=r1016",
     alt: "A free-diver in navy swim shorts gliding over a coral garden, sunlight falling through the water",
-    links: [{ label: "Explore now", href: "/conservation" }],
+    links: [{ label: "Origins", href: "/about" }],
   };
 
   return (

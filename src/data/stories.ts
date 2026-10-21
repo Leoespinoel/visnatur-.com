@@ -194,10 +194,7 @@ export const articles: Article[] = [
         text: "Three places pass: the reef around Mauritius, the last of the island's native forest, and the mangrove shore. The agreements are being signed, and the names go up before the first payment is made. Then the people doing the work will be interviewed here.",
       },
     ],
-    links: [
-      { label: "The fifth", href: "/conservation" },
-      { label: "Where it goes", href: "/conservation#partners" },
-    ],
+    links: [],
   },
 ];
 

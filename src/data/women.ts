@@ -107,7 +107,7 @@ export const bannerSlides: BannerSlide[] = [
     alt: "A free-diver in navy swim shorts gliding over a coral garden, sunlight falling through the water",
     lockup: { badger: true },
     text: "1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in.",
-    cta: { label: "Discover", href: "/conservation" },
+    cta: { label: "Origins", href: "/about" },
   },
   {
     key: "atelier",
@@ -149,7 +149,6 @@ export const explore: { title: string; text: string; tiles: ExploreTile[] } = {
   tiles: [
     { title: "New in", href: "/women/all?filter=new", image: `${IMG}/new.jpg?v=r1016`, alt: "A woman with a coffee at a café table on the sand under the palms, in a cream cable-knit cricket jumper with navy and red tipping and stone trousers", cta: "Shop now" },
     { title: "Made to order", href: "/made-to-order", image: "/images/cutting-table.jpg?v=2", alt: "Hands cutting sky linen on the workshop table", cta: "Discover" },
-    { title: "On the ground", href: "/conservation", image: "/images/day-reef.jpg?v=r1016", alt: "A swimmer in red swim shorts over a coral reef", cta: "Discover" },
     { title: "Our story", href: "/about", image: "/images/about.jpg?v=r1016", alt: "A man walking barefoot over basalt rocks by the surf in a white linen shirt and navy trousers", cta: "Discover" },
     { title: "Measurements", href: "/made-to-order#measurements", image: "/images/numbered-label.jpg?v=2", alt: "Hands boxing a red knit", cta: "See the sheets" },
     { title: "For him", href: "/men", image: `${IMG}/for-him.jpg`, alt: "Three men on the deck of a classic yacht in the white Sandbar Tee with black Alizé Sunglasses, the navy Cabana Stripe Tee and the navy Badger Tee", cta: "Shop now" },

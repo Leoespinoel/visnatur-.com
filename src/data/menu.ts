@@ -232,7 +232,7 @@ export function menus(): Record<MenuKey, MenuItem[]> {
 }
 
 /** The pages under The VN World. */
-export type WorldKey = "stories" | "members" | "conservation";
+export type WorldKey = "stories" | "members";
 
 /**
  * The VN World menu (Leo, 2026-10-16, after nudeproject.com's Universe): no side links, one tall picture per page,
@@ -241,6 +241,4 @@ export type WorldKey = "stories" | "members" | "conservation";
 export const worldPanels: Record<WorldKey, { image: string; position?: string }> = {
   stories: { image: "/images/run-club.jpg?v=r1016" },
   members: { image: "/images/moments/home-for-dinner.jpg" },
-  // A surfer in the barrel at Teahupo'o, over the reef (Leo, 2026-10-16; it replaced the reef swimmer, then the catamaran).
-  conservation: { image: "/images/active/teahupoo.jpg" },
 };

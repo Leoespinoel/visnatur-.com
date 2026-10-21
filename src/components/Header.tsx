@@ -450,7 +450,7 @@ export function Header() {
 
 /**
  * One page of The VN World: its picture, full bleed, with its name over the bottom. Side by side the name grows with
- * the panel so the longest ("Conservation") stays on one line, and sits clear of the sound button bottom-left.
+ * the panel so the longest ("Members only") stays on one line, and sits clear of the sound button bottom-left.
  */
 function WorldPanel({ href, label, image, position, className = "" }: { href: string; label: string; image: string; position?: string; className?: string }) {
   return (

@@ -13,7 +13,7 @@ const field = "mt-6 w-full border-b border-paper/40 bg-transparent pb-3 text-bas
  * What the letters will hold, said for where the reader is (Leo, 2026-10-21: the strip and the line follow the page the
  * band sits on): the strip sliding along the band's edges and the line under the salutation.
  */
-export type LetterContext = "home" | "stories" | "collections" | "stores" | "members" | "origins" | "ground";
+export type LetterContext = "home" | "stories" | "collections" | "stores" | "members" | "origins";
 /** `ask` is the open question at the end of the form; `eyebrow` the small word over the salutation. Both default below. */
 const contexts: Record<LetterContext, { subjects: string[]; line: string; eyebrow?: string; ask?: { label: string; placeholder: string } }> = {
   home: {
@@ -40,21 +40,14 @@ const contexts: Record<LetterContext, { subjects: string[]; line: string; eyebro
     subjects: ["Member nights first", "Rewards before they're public", "The members' colour", "Your room, when it changes", "The fifth, with the accounts", "What we got wrong"],
     line: "You're in the club, so you read it first. We write rarely.",
   },
-  /* On the ground (/conservation), in place of the old "Where next" finale: the open question is the next place. */
-  ground: {
-    subjects: ["Where the fifth goes next", "When the first payment clears", "The reef, the forest, the shore", "Who counts what survives", "The accounts, yearly", "What we got wrong"],
-    line: "It goes where it does the most. We write when it lands. You read it first.",
-    eyebrow: "Where next",
-    ask: { label: "Where should the fifth go next?", placeholder: "A reef, a forest, a shore, and who counts there" },
-  },
 };
 const defaultAsk = { label: "What should we make next?", placeholder: "A piece, a colour, a place" };
 
-/** The kinds of letter, named like the world menu (In the wild, Members only, On the ground). */
+/** The kinds of letter, named after what we write about (drops, the workshop, the fifth). */
 const topics = [
   { id: "drops", label: "Drops" },
   { id: "behind-the-scenes", label: "Behind the scenes" },
-  { id: "on-the-ground", label: "On the ground" },
+  { id: "the-fifth", label: "The fifth" },
 ] as const;
 type TopicId = (typeof topics)[number]["id"];
 

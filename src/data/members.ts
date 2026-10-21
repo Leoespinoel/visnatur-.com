@@ -1,7 +1,7 @@
 /**
  * The membership on /members (Leo, 2026-10-16, modelled on nude-project.com/pages/reward-landing): a free club
  * with points and three rooms for everyone, plus Members Only, the paid subscription that goes entirely to
- * conservation (its perks are `memberPerks` in stories.ts). Every number here is a draft for Leo to confirm.
+ * the fifth (its perks are `memberPerks` in stories.ts). Every number here is a draft for Leo to confirm.
  * Joining is making a Shopify customer account (/account/register); points start counting once they show in it.
  */
 export const club = {

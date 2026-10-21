@@ -128,9 +128,6 @@ export function ClubPublic() {
             <a href={membersMailto} className="btn btn-primary">
               Join Members Only
             </a>
-            <Link href="/conservation" className="btn btn-outline">
-              Where it goes
-            </Link>
           </div>
         </div>
       </section>

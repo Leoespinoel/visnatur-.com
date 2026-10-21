@@ -6,7 +6,7 @@ import { editHref, edits } from "@/data/edits";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.url;
-  const statics = ["", "/shop", "/shop/all", "/men", "/men/all", "/men/outfits", "/women", "/women/all", "/women/outfits", "/shop/signature", "/collections", "/made-to-order", "/conservation", "/stories", "/about", "/members", "/stores", "/contact", "/legal/terms", "/legal/privacy", "/legal/returns", "/pitch"];
+  const statics = ["", "/shop", "/shop/all", "/men", "/men/all", "/men/outfits", "/women", "/women/all", "/women/outfits", "/shop/signature", "/collections", "/made-to-order", "/stories", "/about", "/members", "/stores", "/contact", "/legal/terms", "/legal/privacy", "/legal/returns", "/pitch"];
   return [
     ...statics.map((p) => ({ url: `${base}${p}`, changeFrequency: "monthly" as const, priority: p === "" ? 1 : 0.6 })),
     ...categories.map((c) => ({ url: `${base}/shop/${c.slug}`, changeFrequency: "weekly" as const, priority: 0.8 })),

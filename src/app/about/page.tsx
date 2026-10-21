@@ -371,9 +371,6 @@ export default function AboutPage() {
               <Link href="/made-to-order" className="btn btn-outline">
                 Made to order
               </Link>
-              <Link href="/conservation" className="btn btn-outline">
-                The fifth
-              </Link>
             </div>
           </div>
         </div>

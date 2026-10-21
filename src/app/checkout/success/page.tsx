@@ -21,11 +21,8 @@ export default function SuccessPage() {
       <section className="container-x pb-24">
         <Summary />
         <div className="mt-10 flex flex-wrap gap-3">
-          <Link href="/shop" className="btn btn-outline">
+          <Link href="/shop" className="btn btn-primary">
             Continue browsing
-          </Link>
-          <Link href="/conservation" className="btn btn-primary">
-            Where the fifth goes
           </Link>
         </div>
       </section>

@@ -8,7 +8,6 @@ import { V2Wordmark } from "./Wordmark";
 /** The brand pages are still the classic ones. */
 const brand = [
   { label: "Made to order", href: "/made-to-order" },
-  { label: "Setting the scene (conservation)", href: "/conservation" },
   { label: "In the wild", href: "/stories" },
   { label: "Origins", href: "/about" },
   { label: "Contact", href: "/contact" },

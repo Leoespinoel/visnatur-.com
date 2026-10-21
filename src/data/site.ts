@@ -15,14 +15,6 @@ export const site = {
    * 10%-of-sale-price pledge withdrawn earlier that day). Published with the accounts each year.
    */
   pledgeRate: 0.2,
-  /** Manually updated running total (in cents). PLACEHOLDER (Leo, 2026-10-21), a little above `impact`'s €19,180 sent, as if
-   *  the latest orders were pledged but not yet transferred; set from real orders once they come in. */
-  pledgeRaisedCents: 2146000,
-  /**
-   * Unused since 2026-10-21: the Support button beside the total on /conservation was removed (no charity language,
-   * no asking). Kept in case a payment link is wanted again.
-   */
-  donateUrl: "" as string,
   freeShippingThresholdCents: 15000,
   /** Express from Mauritius costs us around €35 a parcel; €15 is the most a buyer will carry. */
   flatShippingCents: 1500,
@@ -290,8 +282,8 @@ export const audiences: {
 ];
 
 /**
- * `logo` is the partner's own logo in public/partners/ (SVG or transparent PNG), shown in the partner band on /conservation.
- * Until it is set, the band draws a placeholder emblem from `mark`.
+ * `logo` is the partner's own logo in public/partners/ (SVG or transparent PNG); `mark` names the placeholder emblem
+ * drawn until it is set. Listed under "In conversation" on /stories as interviews to come.
  */
 export const partners: {
   name: string;
@@ -338,45 +330,6 @@ export const partners: {
   },
 ];
 
-/**
- * The impact charts on /conservation: four counters, money to the work by month, invested by partner, and partner targets.
- * Every figure is the real count (all zero until the first sale); set `placeholder` to true to label them as placeholders.
- * "Sent to the work" is the sum of `months`; the coral and tree counters read the first two targets.
- * "Invested to date" in the middle of the pie is the sum of `invested`.
- */
-export const impact = {
-  /** Placeholder figures so the section reads as it will once real transfers clear (Leo, 2026-10-21: "put placeholder numbers in
-   *  that section"); the flag puts the disclaimer on the page and tags every chart. Replace with receipts, then set it false. */
-  placeholder: true,
-  piecesMade: 1280,
-  /** Euros sent to the work, oldest month first. */
-  months: [
-    { month: "Oct", cents: 42000 },
-    { month: "Nov", cents: 68000 },
-    { month: "Dec", cents: 115000 },
-    { month: "Jan", cents: 96000 },
-    { month: "Feb", cents: 134000 },
-    { month: "Mar", cents: 172000 },
-    { month: "Apr", cents: 148000 },
-    { month: "May", cents: 191000 },
-    { month: "Jun", cents: 226000 },
-    { month: "Jul", cents: 205000 },
-    { month: "Aug", cents: 243000 },
-    { month: "Sep", cents: 278000 },
-  ],
-  /** Euros paid out to each place since the first payment, in the order of `partners`; drawn as the pie. */
-  invested: [
-    { partner: "On the reef", cents: 720000 },
-    { partner: "Mauritian Wildlife Foundation", cents: 648000 },
-    { partner: "On the shore", cents: 550000 },
-  ],
-  /** Progress towards each place's year-end goal. */
-  targets: [
-    { label: "Coral planted", partner: "On the reef", value: 212, goal: 500, unit: "" },
-    { label: "Trees planted", partner: "Mauritian Wildlife Foundation", value: 468, goal: 1000, unit: "" },
-    { label: "Mangroves planted", partner: "On the shore", value: 1140, goal: 2000, unit: "" },
-  ],
-};
 
 export const nav = {
   /**
@@ -394,7 +347,6 @@ export const nav = {
     { label: "Made to order", href: "/made-to-order", mega: "made-to-order", group: "shop" },
     { label: "In the wild", href: "/stories", mega: "stories", group: "world" },
     { label: "Members only", href: "/members", mega: "members", group: "world" },
-    { label: "On the ground", href: "/conservation", mega: "conservation", group: "world" },
   ] as const,
   /** Plain links beside the two menus (Leo, 2026-10-16: Origins out of The VN World, next to Shop and The VN World). */
   links: [{ label: "Origins", href: "/about" }] as const,
@@ -413,7 +365,6 @@ export const nav = {
       { label: "In the wild", href: "/stories" },
       { label: "Members only", href: "/members" },
       { label: "Origins", href: "/about" },
-      { label: "On the ground", href: "/conservation" },
       { label: "Stores", href: "/stores" },
       /** Static page in public/pitch.html, served at /pitch; `plain` renders an <a> instead of a Link. */
       { label: "Partners & press", href: "/pitch", plain: true },
