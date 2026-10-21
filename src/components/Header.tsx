@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type PointerEvent } from "react";
 import { audiences, nav } from "@/data/site";
 import { menus, worldPanels, type MenuKey } from "@/data/menu";
 import { island } from "@/data/locations";
@@ -12,7 +12,7 @@ import { useHeroCoords } from "@/lib/hero-location";
 import { useWishlist } from "@/lib/wishlist";
 import { Wordmark } from "./Wordmark";
 import { AnnouncementBar } from "./AnnouncementBar";
-import { AccountIcon, BagIcon, HeartIcon, SearchIcon } from "./Icons";
+import { AccountIcon, BagIcon, CloseIcon, HeartIcon, MenuIcon, SearchIcon } from "./Icons";
 import { SearchOverlay } from "./SearchOverlay";
 import { Carousel } from "./Carousel";
 import { MegaTile } from "./MegaTile";
@@ -34,7 +34,7 @@ const getToday = () => {
 const getTodayServer = () => "";
 
 /**
- * Site header. On the pages that open on a full-screen hero (the homepage, /men and /women sliders, the /stories slides)
+ * Site header. On the pages that open on a full-screen hero (the homepage, /men and /women sliders)
  * it floats transparent, in white, over the hero and turns solid (with the announcement bar)
  * once the hero has scrolled away. Everywhere else it is the usual sticky white bar.
  */
@@ -42,8 +42,11 @@ export function Header() {
   const { count, open, hydrated } = useCart();
   const wishlist = useWishlist();
   const pathname = usePathname();
-  // Two menus instead of a burger (Leo, 2026-10-16): Shop and The VN World. Shop opens on its first section and
-  // hovering a section swaps the panel to it; The VN World is one row of pictures, one per page.
+  // Two menus instead of a burger on desktop (Leo, 2026-10-16): Shop and The VN World. A menu opens as soon as the
+  // pointer rests on its label (Leo, 2026-10-20) and closes when it leaves the header. Shop opens on its first section
+  // and hovering a section swaps the panel to it; The VN World is one row of pictures, one per page. On phones the
+  // three labels (Shop, World, Origins) stacked badly beside the wordmark, so there a burger opens one sheet with
+  // all of it (Leo, 2026-10-21).
   const [menuOpen, setMenuOpen] = useState(false);
   const [group, setGroup] = useState<Group>("shop");
   const [mega, setMega] = useState<MenuKey>("men");
@@ -56,18 +59,46 @@ export function Header() {
   };
   // The button that opened the menu or the search; Esc and the search's close button hand focus back to it.
   const trigger = useRef<HTMLButtonElement | null>(null);
-  const toggleGroup = (g: Group, button: HTMLButtonElement) => {
+  // True while the open menu was opened by hovering, so a click on its label doesn't close it under the mouse.
+  const viaHover = useRef(false);
+  const openGroup = (g: Group, button: HTMLButtonElement) => {
     trigger.current = button;
     setSearchOpen(false);
-    if (menuOpen && group === g) return setMenuOpen(false);
     setGroup(g);
     setMega(SHOP[0].mega);
     setSub("all");
     setMenuOpen(true);
   };
+  const closeMenu = () => {
+    viaHover.current = false;
+    setMenuOpen(false);
+  };
+  const toggleGroup = (g: Group, button: HTMLButtonElement) => {
+    if (menuOpen && group === g) {
+      if (viaHover.current) return;
+      return closeMenu();
+    }
+    viaHover.current = false;
+    openGroup(g, button);
+  };
+  // Phones: the burger opens the one sheet (its group doesn't matter there) or closes it.
+  const toggleBurger = (button: HTMLButtonElement) => {
+    if (menuOpen) return closeMenu();
+    viaHover.current = false;
+    openGroup("shop", button);
+  };
+  // Hover only for a real mouse: a tap fires a synthetic enter and then a click, which would open and close at once.
+  const hoverGroup = (g: Group, e: PointerEvent<HTMLButtonElement>) => {
+    if (e.pointerType !== "mouse") return;
+    viaHover.current = true;
+    openGroup(g, e.currentTarget);
+  };
+  const hoverLink = (e: PointerEvent) => {
+    if (e.pointerType === "mouse") closeMenu();
+  };
   const toggleSearch = (button: HTMLButtonElement) => {
     trigger.current = button;
-    setMenuOpen(false);
+    closeMenu();
     setSearchOpen((v) => !v);
   };
   const closeSearch = () => {
@@ -75,13 +106,13 @@ export function Header() {
     trigger.current?.focus();
   };
   const closeAll = () => {
-    setMenuOpen(false);
+    closeMenu();
     setSearchOpen(false);
   };
   const [scrolled, setScrolled] = useState(false);
   const [seenPath, setSeenPath] = useState(pathname);
 
-  const hero = pathname === "/" || pathname === "/men" || pathname === "/women" || pathname === "/stories";
+  const hero = pathname === "/" || pathname === "/men" || pathname === "/women";
   const overlay = hero && !scrolled && !menuOpen && !searchOpen;
 
   // Close any open menu when the route changes (state adjustment during render, per React docs).
@@ -91,11 +122,16 @@ export function Header() {
     setSearchOpen(false);
   }
 
+  useEffect(() => {
+    if (!menuOpen) viaHover.current = false;
+  }, [menuOpen]);
+
   const panelOpen = menuOpen || searchOpen;
   useEffect(() => {
     document.body.style.overflow = panelOpen ? "hidden" : "";
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "Escape") return;
+      viaHover.current = false;
       setMenuOpen(false);
       setSearchOpen(false);
       trigger.current?.focus();
@@ -138,6 +174,9 @@ export function Header() {
       }`}
       style={{ "--hdr-fg": overlay ? "#ffffff" : "var(--ink)" } as CSSProperties}
       data-overlay={overlay ? "" : undefined}
+      onMouseLeave={() => {
+        if (menuOpen) closeMenu();
+      }}
     >
       {/* Announcement bar: hidden while floating over the hero, slides in with the solid header. */}
       <div className={`grid transition-[grid-template-rows] duration-300 ${overlay ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}>
@@ -149,8 +188,17 @@ export function Header() {
       {/* Full width, with container-x's side padding but not its 1440px cap, so on wide screens the menu keeps
           to the left edge and clear of the centred wordmark. */}
       <div className="relative flex h-16 w-full items-center justify-between px-4 md:h-[72px] md:px-8 xl:px-12">
-        {/* Left: the two menus, Shop and The VN World, then Origins (stacked on phones, beside the centred wordmark) */}
-        <nav className="-ml-2 flex flex-col items-start md:flex-row md:items-center md:gap-4" aria-label="Menus">
+        {/* Left. Phones: the burger. From md up: the two menus, Shop and The VN World, then Origins. */}
+        <button
+          type="button"
+          onClick={(e) => toggleBurger(e.currentTarget)}
+          className="-ml-1.5 p-1.5 md:hidden"
+          aria-label={menuOpen ? "Close menu" : "Menu"}
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? <CloseIcon /> : <MenuIcon />}
+        </button>
+        <nav className="-ml-2 hidden items-center gap-4 md:flex" aria-label="Menus">
           {nav.groups.map((g) => {
             const active = menuOpen && group === g.key;
             return (
@@ -158,11 +206,11 @@ export function Header() {
                 key={g.key}
                 type="button"
                 onClick={(e) => toggleGroup(g.key, e.currentTarget)}
+                onPointerEnter={(e) => hoverGroup(g.key, e)}
                 aria-expanded={active}
-                className={`eyebrow !text-(--hdr-fg) link-underline px-2 py-0.5 md:py-2 ${active ? "after:[transform:none]" : ""}`}
+                className={`eyebrow !text-(--hdr-fg) link-underline px-2 py-2 ${active ? "after:[transform:none]" : ""}`}
               >
-                <span className="md:hidden">{g.short}</span>
-                <span className="hidden md:inline">{g.label}</span>
+                {g.label}
               </button>
             );
           })}
@@ -171,7 +219,8 @@ export function Header() {
               key={l.href}
               href={l.href}
               aria-current={pathname === l.href ? "page" : undefined}
-              className={`eyebrow !text-(--hdr-fg) link-underline px-2 py-0.5 md:py-2 ${pathname === l.href ? "after:[transform:none]" : ""}`}
+              onPointerEnter={hoverLink}
+              className={`eyebrow !text-(--hdr-fg) link-underline px-2 py-2 ${pathname === l.href ? "after:[transform:none]" : ""}`}
             >
               {l.label}
             </Link>
@@ -303,20 +352,15 @@ export function Header() {
         )}
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile sheet, from the burger: Shop (with Account and Wishlist on the smallest phones), then The VN World's
+          three pictures, then Origins. */}
       <div
         className={`md:hidden absolute inset-x-0 top-full z-30 h-[calc(100svh-100%)] bg-paper text-ink overflow-y-auto transition-[opacity,visibility] duration-200 ${
           menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         aria-hidden={!menuOpen}
       >
-        {group === "world" ? (
-          <nav aria-label="The VN World" className="grid gap-px">
-            {WORLD.map((item) => (
-              <WorldPanel key={item.href} href={item.href} label={item.label} {...worldPanels[item.mega]} className="h-[30svh] min-h-48" />
-            ))}
-          </nav>
-        ) : (
+        <div>
           <nav className="container-x py-8" aria-label="Shop">
             <div className="mb-10 flex gap-3 sm:hidden">
               <Link href="/account" className="pill gap-2">
@@ -376,7 +420,26 @@ export function Header() {
               </div>
             ))}
           </nav>
-        )}
+          <nav aria-label="The VN World" className="border-t border-line">
+            <p className="eyebrow container-x py-5">The VN World</p>
+            <div className="grid gap-px">
+              {WORLD.map((item) => (
+                <WorldPanel key={item.href} href={item.href} label={item.label} {...worldPanels[item.mega]} className="h-[26svh] min-h-40" />
+              ))}
+            </div>
+          </nav>
+          <nav aria-label="Origins" className="container-x border-t border-line py-8">
+            <ul className="space-y-3.5">
+              {nav.links.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="font-serif text-2xl">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
 
       <SearchOverlay open={searchOpen} onClose={closeSearch} />

@@ -1,8 +1,8 @@
 import type { AudienceSlug, CategorySlug } from "./site";
 import type { LookbookImage } from "@/components/LookbookRow";
+import { pledgePercentLabel } from "@/lib/pledge";
 import type { Story } from "@/components/StoryCopy";
 import type { HeroSlide } from "@/components/landing/HeroSlider";
-import { pledgePercentLabel } from "@/lib/pledge";
 import { editStory } from "./edits";
 
 /**
@@ -53,7 +53,7 @@ export const homeSlides: HeroSlide[] = [
 export const heroStory: Story = {
   eyebrow: "Signature · Made in Mauritius",
   title: "Signature, always. Collections, once.",
-  dek: `The Signature line in stock, collections in limited numbers, and ${pledgePercentLabel()} of every price going to conservation.`,
+  dek: `The Signature line in stock, collections in limited numbers, and ${pledgePercentLabel()} of profits going to creating and sustaining the environments we love wearing the pieces in.`,
   image: "/images/shop/hero.jpg?v=r1016",
   alt: "Four friends, two men and two women, walking back along a jetty below Le Morne in linen shirts, a navy knit, a cream cricket jumper and cream trousers, one woman carrying her loafers",
   links: [
@@ -101,7 +101,7 @@ export const exploreStories: Story[] = [
 export const communityStories: [Story, Story] = [
   {
     eyebrow: "Stories",
-    title: "The Community",
+    title: "In the wild",
     dek: "The people in the pieces, out in the world.",
     image: "/images/moments/surf-lineup.jpg",
     alt: "Two friends sitting on their longboards far apart in the sea at sunset, waiting for the next wave, a headland behind",
@@ -109,8 +109,8 @@ export const communityStories: [Story, Story] = [
   },
   {
     eyebrow: "Membership",
-    title: "The VN Club",
-    dek: "Free to join: points, three rooms and rewards. Members Only adds a subscription that goes entirely to conservation.",
+    title: "Members only",
+    dek: "Free to join: points, three rooms and rewards. Members Only adds a subscription that goes entirely to the wild.",
     image: "/images/moments/rooftop.jpg",
     alt: "Two friends on a London rooftop at blue hour, one in a navy varsity jacket with a red cursive VN, the other in a cream half-zip and chinos",
     links: [{ label: "Join now", href: "/members" }],

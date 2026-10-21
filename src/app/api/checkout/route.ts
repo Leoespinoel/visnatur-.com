@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import { designNumber, getProduct } from "@/data/products";
 import { isAvailable } from "@/data/availability";
-import { site } from "@/data/site";
 import { dispatchLabel, madeToOrderLabel } from "@/lib/format";
 import { adjustSummary, cleanAdjustments, offersMadeToOrder, type Adjustments } from "@/lib/adjust";
-import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
 import { storefront, storefrontConfigured } from "@/lib/shopify";
 import { accessToken } from "@/lib/customer-account";
 
@@ -35,7 +33,6 @@ export async function POST(req: Request) {
 
   // A bag line is one piece of a design in one size, adjusted (made to order) or as it is.
   const units: Item[] = [];
-  let subtotal = 0;
 
   for (const item of items) {
     const product = getProduct(String(item.slug));
@@ -57,7 +54,6 @@ export async function POST(req: Request) {
       adjust = clean;
     }
     units.push({ slug: product.slug, size: item.size, adjust });
-    subtotal += product.price + (adjust ? site.delivery.madeToOrderSurchargeCents : 0);
   }
 
   // Shopify variant for each unit: the product's handle is the slug, the variant's Size option the size.
@@ -116,10 +112,8 @@ export async function POST(req: Request) {
     lines,
     attributes: [
       { key: "units", value: units.map((u) => `${u.slug}:${u.size}${u.adjust ? ":made-to-order" : ""}`).join(",") },
-      { key: "pledge_cents", value: String(pledgeCents(subtotal)) },
       ...(measurements && units.some((u) => u.adjust) ? [{ key: "Measurements", value: measurements }] : []),
     ],
-    note: `${pledgePercentLabel()} of this order goes to conservation.`,
   };
   // Signed in on the site: checkout opens with their details and the order goes on their account.
   const customerAccessToken = await accessToken().catch(() => null);

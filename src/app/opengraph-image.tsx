@@ -30,7 +30,7 @@ export default async function OpenGraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 104, lineHeight: 1.0 }}>{site.tagline}</div>
           <div style={{ fontSize: 34, marginTop: 28, color: "#c8102e" }}>
-            For men and women · 10% of every sale to conservation
+            For men and women · 1/5 of profits to the environments we love wearing the pieces in
           </div>
         </div>
       </div>

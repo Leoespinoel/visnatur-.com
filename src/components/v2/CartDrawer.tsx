@@ -117,7 +117,7 @@ export function V2CartDrawer() {
 
             <div className="space-y-4 border-t-[1.5px] border-ink p-4">
               <p className="bg-ink p-3 text-xs leading-relaxed text-paper">
-                <span className="font-bold text-red">{formatPrice(cart.pledge)}</span> of this order goes to the wild. In stock in Mauritius: out within
+                In stock in Mauritius: out within
                 {dispatchLabel()}, then {transitLabel()} express to Europe.
               </p>
               <dl className="v2-mono space-y-1.5 !text-[0.75rem]">
@@ -144,7 +144,7 @@ export function V2CartDrawer() {
                 {busy ? "Off to checkout…" : "Checkout"}
               </button>
               <p className="v2-mono text-center text-muted">
-                Secure checkout by Shopify · {pledgePercentLabel()} on every order
+                Secure checkout by Shopify · {pledgePercentLabel()} of profits to the wild
               </p>
             </div>
           </>

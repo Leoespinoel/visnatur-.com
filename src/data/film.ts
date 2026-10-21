@@ -42,4 +42,18 @@ export const atelierFilm = {
   poster: "/film/atelier-poster.jpg?v=r1016",
 };
 
+/**
+ * The kite film at the head of /stories (Leo, 2026-10-21). `loop` is the silent 80-second cut that plays on tablets and desktops
+ * (public/film/README.md); `youtubeId` is the full film with sound. Browsers only allow sound after a click, so the loop runs
+ * silently and a "Watch the film" button opens the YouTube player, with its own time bar, in its place. To embed: upload the
+ * film to YouTube (unlisted is fine), copy the ID from its link (the part after `v=` in youtube.com/watch?v=…, or after
+ * youtu.be/), paste it here and rebuild. Empty, no button is shown.
+ */
+export const kiteFilm = {
+  title: "The kite film",
+  loop: "/film/kite-landscape.mp4",
+  poster: "/film/kite-poster.jpg",
+  youtubeId: "Uoe7emlRM8Y",
+};
+
 export const hasFilm = film.sources.landscape.length > 0;

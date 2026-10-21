@@ -59,7 +59,7 @@ const faqs = [
   },
   {
     q: "Where are the pieces made?",
-    a: "In Mauritius, in small workshops visited in person. The island has made knitwear and tailoring for the world's best-known labels for fifty years, and the Indian Ocean around it is part of why the pledge exists. The workshop list is published as the partnerships are confirmed.",
+    a: "In Mauritius, in small workshops visited in person. The island has made knitwear and tailoring for the world's best-known labels for fifty years, and the Indian Ocean around it is part of why the fifth exists. The workshop list is published as the partnerships are confirmed.",
   },
   {
     q: "Repairs?",

@@ -83,3 +83,13 @@ next-env.d.ts
 
 # men's swimwear masters and takes (Higgsfield)
 /Swimwear/
+
+# DIVA (Drop 01) masters and takes (Higgsfield)
+/DIVA/
+
+# VN mascot (plush honey badger) masters and takes (Higgsfield)
+/Mascot/
+
+# Reference material, not part of the site (other brands' campaign screenshots; skill files)
+/Model examples/
+/Marketing Studio Skills Bank/

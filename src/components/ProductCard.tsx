@@ -6,7 +6,6 @@ import { useRef, useState } from "react";
 import { designNumber, productImages, type Product } from "@/data/products";
 import { isAvailable } from "@/data/availability";
 import { formatPrice } from "@/lib/format";
-import { pledgeCents } from "@/lib/pledge";
 import { ChevronIcon } from "./Icons";
 import { ComingSoon } from "./ComingSoon";
 import { WishlistButton } from "./WishlistButton";
@@ -161,7 +160,6 @@ export function ProductCard({
                   <span className="hidden sm:inline">{shown.colour.name}</span>
                 </span>
               )}
-              <span className="whitespace-nowrap text-[10px] text-red">{formatPrice(pledgeCents(shown.price))} to conservation</span>
             </div>
           </div>
         </Link>

@@ -172,7 +172,7 @@ function collections(): MenuItem[] {
       href: "/collections",
       heading: "Limited units, then gone",
       tiles,
-      ...(drops.length ? {} : { note: "DIVA, the first collection, is on its way. Members of The VN Club hear first." }),
+      ...(drops.length ? {} : { note: "DIVA, the first collection, is on its way. Members of the club hear first." }),
     },
   ];
 }

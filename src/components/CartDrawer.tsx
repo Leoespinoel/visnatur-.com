@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { dispatchLabel, formatPrice, madeToOrderLabel } from "@/lib/format";
-import { adjustSummary } from "@/lib/adjust";
 import { pledgePercentLabel } from "@/lib/pledge";
+import { adjustSummary } from "@/lib/adjust";
 import { site } from "@/data/site";
 import { designNumber, productImages } from "@/data/products";
 import { lineKey, lineSurcharge } from "@/lib/cart";
@@ -63,8 +63,9 @@ export function CartDrawer() {
         role="dialog"
         aria-modal="true"
         aria-label="Your bag"
-        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-paper shadow-2xl transition-transform duration-300 ease-out ${
-          cart.isOpen ? "translate-x-0" : "translate-x-full"
+        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-paper transition-transform duration-300 ease-out ${
+          // The shadow only while open: closed, the panel waits just off the right edge and its shadow greyed every page's edge.
+          cart.isOpen ? "translate-x-0 shadow-2xl" : "translate-x-full"
         }`}
       >
         <div className="flex items-center justify-between border-b border-line px-6 h-16">
@@ -124,8 +125,7 @@ export function CartDrawer() {
               <div className="flex items-start gap-3 bg-surface border border-line p-3">
                 <LeafIcon className="text-red shrink-0 mt-0.5" width={18} height={18} />
                 <p className="text-xs text-ink-2 leading-relaxed">
-                  <span className="text-ink font-medium">{formatPrice(cart.pledge)}</span> of this order goes to conservation. Signature and collection pieces
-                  leave Mauritius within {dispatchLabel()}; made to order pieces ship {madeToOrderLabel()} after the order.
+                  Signature and collection pieces leave Mauritius within {dispatchLabel()}; made to order pieces ship {madeToOrderLabel()} after the order.
                 </p>
               </div>
               <dl className="space-y-1.5 text-sm">
@@ -152,7 +152,7 @@ export function CartDrawer() {
                 {busy ? "Redirecting to checkout…" : "Checkout"}
               </button>
               <p className="text-center text-[11px] text-muted">
-                Secure checkout by Shopify · {pledgePercentLabel()} pledged on every order
+                Secure checkout by Shopify · {pledgePercentLabel()} of profits to the environments we love wearing the pieces in
               </p>
             </div>
           </>

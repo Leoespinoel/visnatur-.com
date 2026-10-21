@@ -7,7 +7,7 @@ import { LeafIcon, LockIcon, NeedleIcon, TruckIcon } from "./Icons";
 export function TrustBar() {
   const items = [
     { icon: NeedleIcon, title: "Made by hand" },
-    { icon: LeafIcon, title: `${pledgePercentLabel()} to conservation` },
+    { icon: LeafIcon, title: `${pledgePercentLabel()} of profits to the environments we love wearing the pieces in` },
     { icon: TruckIcon, title: `Free shipping over ${formatPrice(site.freeShippingThresholdCents)}` },
     { icon: LockIcon, title: "Secure payment" },
   ];

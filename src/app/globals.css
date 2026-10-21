@@ -82,6 +82,33 @@
   color: var(--ink);
 }
 
+/* A cork pinboard inside a light page (the inspiration on Origins, Leo, 2026-10-21: "like a mood board"): dark ink on tan.
+   The cork is drawn in CSS, three fractal-noise layers over a warm tan gradient: a fine brown grain, dark flecks and pale
+   flecks (the coarser noises thresholded into blobs), then a vignette at the edges and a dark wooden rail along the top and
+   bottom of the band. --surface is
+   the cream paper the passage sits on. --red is left alone: the brand red reads on tan. */
+.theme-cork {
+  --paper: #c69c6d;
+  --paper-2: #b4875a;
+  --surface: #f6f1e6;
+  --ink: #1b1410;
+  --ink-2: #3b2d22;
+  --muted: #6b5540;
+  --line: rgb(40 25 10 / 0.25);
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.17 0 0 0 0 0.05 0 0 0 0.3 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>")
+      0 0 / 240px 240px,
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='3' stitchTiles='stitch' seed='11'/><feColorMatrix values='0 0 0 0 0.33 0 0 0 0 0.19 0 0 0 0 0.06 0 0 0 1 0'/><feComponentTransfer><feFuncA type='discrete' tableValues='0 0 0 0 0 0.25 0.55 0.75'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>")
+      0 0 / 360px 360px,
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='l'><feTurbulence type='fractalNoise' baseFrequency='0.3' numOctaves='2' stitchTiles='stitch' seed='23'/><feColorMatrix values='0 0 0 0 0.98 0 0 0 0 0.9 0 0 0 0 0.75 0 0 0 1 0'/><feComponentTransfer><feFuncA type='discrete' tableValues='0 0 0 0 0 0 0.3 0.5'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23l)'/></svg>")
+      0 0 / 300px 300px,
+    linear-gradient(180deg, #cfa677, #c2946a 50%, #b8895e);
+  box-shadow: inset 0 0 140px rgb(60 35 10 / 0.45);
+  border-top: 12px solid #3b2a1d;
+  border-bottom: 12px solid #3b2a1d;
+  color: var(--ink);
+}
+
 /* The primary button turns red on hover, which would vanish on a red band, so there it turns black. */
 .theme-red .btn-primary:hover:not(:disabled) {
   background: #0a0a0a;
@@ -289,6 +316,53 @@ button {
   background: var(--paper-2);
 }
 
+/* Chapter covers (ChapterCover.tsx, Origins): a full-screen card under the header that sticks while its chapter slides over
+   it. --hdr is the header's height (announcement bar + bar), measured by the card once scripts run; these are the defaults.
+   --cover-p, set by the card, is the share of it already covered: its text sinks back and fades as it is. */
+:root {
+  --hdr: 92px;
+}
+@media (width >= 48rem) {
+  :root {
+    --hdr: 100px;
+  }
+}
+.chapter-cover {
+  top: var(--hdr);
+  height: calc(100svh - var(--hdr));
+}
+.chapter-cover-text {
+  opacity: calc(1 - var(--cover-p, 0) * 1.6);
+  transform: translateY(calc(var(--cover-p, 0) * -10vh)) scale(calc(1 - var(--cover-p, 0) * 0.08));
+  will-change: transform, opacity;
+}
+
+/* The wild's curtain (WildCurtain.tsx) over The fifth: a full-screen collage in normal flow that scrolls away with the
+   page, uncovering the section pinned beneath it. The stage is the section holding both; its bottom padding is the
+   curtain's height (a spacer after the pinned section), so it stays pinned until the curtain has fully left. --drift-p (0 → 1 as the
+   curtain travels its own height) gives each column its own extra lift (--speed). */
+.wild-stage {
+  isolation: isolate;
+}
+/* Room for the pinned section to stay while the curtain travels its own height (padding doesn't count for sticky). */
+.wild-runway {
+  height: calc(100svh - var(--hdr));
+}
+.wild-curtain {
+  height: calc(100svh - var(--hdr));
+}
+.wild-curtain-col {
+  transform: translateY(calc(var(--drift-p, 0) * var(--speed, 0vh) * -1));
+  will-change: transform;
+}
+.wild-under {
+  position: sticky;
+  top: var(--hdr);
+  z-index: 1;
+  margin-top: calc(-1 * (100svh - var(--hdr)));
+  min-height: calc(100svh - var(--hdr));
+}
+
 /* Marquee */
 @keyframes marquee {
   from {
@@ -309,8 +383,75 @@ button {
   animation-play-state: paused;
 }
 
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+/* Badger bands (BadgerBand.tsx): each frame floats up and down a little, on its own delay and duration set inline. */
+@keyframes badger-float {
+  from {
+    transform: translateY(-0.5rem);
+  }
+  to {
+    transform: translateY(0.5rem);
+  }
+}
+
+.badger-float {
+  animation: badger-float 7s ease-in-out infinite alternate;
+}
+
+/* Chapter heads and pull quotes (Chapter.tsx, PullQuote.tsx) rise into place the first time they scroll into view, via
+   useRevealOnce. Hidden only where scripts run, so the page reads in full without JavaScript. */
+.rise {
+  transition:
+    opacity 800ms ease,
+    transform 800ms cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+@media (scripting: enabled) {
+  .rise {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+.rise.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+/* Glitch (WordTicker.tsx): two copies of the text, red and white, each showing through one horizontal slice and shifted
+   sideways. The slices and shifts are the custom properties the script re-rolls every 40 ms while `is-glitch` is on. */
+.gl {
+  position: relative;
+}
+.gl::before,
+.gl::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+.gl::before {
+  color: var(--red);
+  clip-path: inset(var(--t1, 0) 0 var(--b1, 100%) 0);
+  transform: translateX(var(--x1, 0));
+}
+.gl::after {
+  color: #ffffff;
+  clip-path: inset(var(--t2, 0) 0 var(--b2, 100%) 0);
+  transform: translateX(var(--x2, 0));
+}
+.gl.is-glitch::before,
+.gl.is-glitch::after {
+  opacity: 1;
+}
+
 /* Badger rows: strips of badgers drifting sideways, alternate rows the other way. A badger is as tall as
-   the "10%" in the page headline (0.573 of its 3rem / 4.5rem size). The tile is 409×96 px, badger plus gap.
+   the figure in the page headline (0.573 of its 3rem / 4.5rem size). The tile is 409×96 px, badger plus gap.
    Each strip is one tile wider than its row and slides exactly one tile, so the loop is seamless. */
 @keyframes badger-drift {
   from {
@@ -342,43 +483,23 @@ button {
   animation-delay: -4.5s;
 }
 
-/* Footer reveal, after nude-project.com: the badger at the top of the footer waits pinned to the bottom of the screen
-   while the page slides up off it, then the links scroll in under it as usual. The badger keeps its place in the
-   flow; its inside starts one block-height up (clipped away) and reaches its place as the block fully enters.
-   Browsers without scroll-driven animations, and reduced motion, get the plain footer. */
-@keyframes footer-curtain {
-  from {
-    transform: translateY(-100%);
-  }
-  to {
-    transform: none;
-  }
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .footer-reveal {
-      overflow: clip;
-      view-timeline: --footer-badger block;
-    }
-    .footer-reveal > * {
-      animation: footer-curtain linear both;
-      animation-timeline: --footer-badger;
-      animation-range: entry 0% entry 100%;
-    }
-  }
-}
-
-/* Container-wide and at most 44% of the screen tall, but short enough that at the bottom of the page the badger,
-   its band and the links under it (~35rem with the header) all fit on the screen, so the header never covers it. */
-.footer-badger {
-  width: min(100%, calc(clamp(9rem, 100svh - 35rem, 44svh) * 852 / 300));
-}
-
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
-  .badger-row {
+  .badger-row,
+  .badger-float,
+  .env-in,
+  .env-flap,
+  .env-seal {
     animation: none;
+  }
+  .rise {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .gl::before,
+  .gl::after {
+    display: none;
   }
   html {
     scroll-behavior: auto;
@@ -548,5 +669,255 @@ details > summary::-webkit-details-marker {
   }
   to {
     transform: scaleX(1);
+  }
+}
+
+/* The VN Club member page (/members, signed in). The room picture's slow zoom while its film isn't in yet, the badger
+   breathing in its sleep with the z's drifting up, and the vouchers: a ticket with a half-round notch on each side at
+   the tear line, 4.75rem from the bottom. */
+@keyframes club-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes club-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.015, 1.045);
+  }
+}
+
+@keyframes club-zzz {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.8);
+  }
+  25% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(1.25rem, -2.5rem) scale(1.25);
+  }
+}
+
+@utility voucher {
+  --notch: 11px;
+  --tear: calc(100% - 4.75rem);
+  mask:
+    radial-gradient(circle var(--notch) at 0 var(--tear), #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% var(--tear), #0000 98%, #000) right / 51% 100% no-repeat;
+}
+
+/* Newsletter band (Newsletter.tsx): once you join, the form gives way to a cream envelope whose flap folds shut and is
+   sealed with the badger, in red wax. The colours are the envelope's own, not the theme's, so it reads as paper on any band. */
+.env-wrap {
+  perspective: 1200px;
+}
+.env {
+  --env-paper: #f3eee4;
+  --env-flap: #e8e1d2;
+  position: relative;
+  aspect-ratio: 3 / 2;
+  background: var(--env-paper);
+  color: #0a0a0a;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.45);
+  transform-style: preserve-3d;
+}
+.env-face {
+  position: absolute;
+  inset: 68% 1.25rem auto;
+  text-align: center;
+}
+.env-flap {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 55%;
+  background: var(--env-flap);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  animation: env-flap 700ms cubic-bezier(0.4, 0, 0.2, 1) 400ms both;
+}
+.env-seal {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: -1.875rem 0 0 -1.875rem;
+  border-radius: 9999px;
+  background: var(--red);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  animation: env-seal 450ms cubic-bezier(0.34, 1.56, 0.64, 1) 1100ms both;
+}
+.env-seal::after {
+  content: "";
+  position: absolute;
+  inset: 24% 12%;
+  background: var(--env-paper);
+  -webkit-mask: url(/brand/badger-mark-ink.png) center / contain no-repeat;
+  mask: url(/brand/badger-mark-ink.png) center / contain no-repeat;
+}
+.env-in {
+  animation: env-in 500ms ease both;
+}
+@keyframes env-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes env-flap {
+  from {
+    transform: rotateX(-180deg);
+  }
+  to {
+    transform: rotateX(0);
+  }
+}
+@keyframes env-seal {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* On the ground (/conservation) as a descent (components/ground/*, Leo, 2026-10-21: "something like junkbranding.com"): one
+   scene stuck under the header, the panels stepping over it with the page's own scroll, snapping near each panel's start.
+   --descent (set by the scene: 0 at the summit, 1 at the bottom) deepens the black wash over the scene's tinted light; --px / --py (the pointer's place,
+   -1…1) move the copy a little, by --depth on each block. Copy inside a panel rises in once the panel is in view
+   ([data-shown], set by GroundPanel); the title sweeps in from the left. Before scripts run the copy simply shows. */
+.ground-stage {
+  position: sticky;
+  top: var(--hdr);
+  z-index: 0;
+  height: calc(100svh - var(--hdr));
+}
+.ground-panels {
+  margin-top: calc(var(--hdr) - 100svh);
+}
+html[data-ground-snap] {
+  scroll-snap-type: y proximity;
+}
+.ground-panel {
+  min-height: calc(100svh - var(--hdr));
+  scroll-snap-align: start;
+  scroll-margin-top: var(--hdr);
+}
+.ground-tint {
+  transition: opacity 1.6s ease;
+}
+.ground-wash {
+  opacity: calc(var(--descent, 0) * 0.5);
+}
+.ground-depth {
+  transform: translate(calc(var(--px, 0) * var(--depth, 1) * 8px), calc(var(--py, 0) * var(--depth, 1) * 8px));
+  transition: transform 0.6s ease-out;
+}
+html[data-ground-snap] .ground-panel:not([data-shown]) :is(.ground-reveal, .ground-sweep) {
+  opacity: 0;
+}
+[data-shown] .ground-reveal {
+  animation: ground-rise 1s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  animation-delay: calc(var(--i, 0) * 140ms);
+}
+[data-shown] .ground-sweep {
+  animation: ground-sweep 1.3s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  animation-delay: calc(var(--i, 0) * 140ms);
+}
+@keyframes ground-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ground-sweep {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-ground-snap] {
+    scroll-snap-type: none;
+  }
+  .ground-tint {
+    transition: none;
+  }
+  .ground-depth {
+    transform: none;
+  }
+  html[data-ground-snap] .ground-panel:not([data-shown]) :is(.ground-reveal, .ground-sweep),
+  [data-shown] .ground-reveal,
+  [data-shown] .ground-sweep {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* The drawn scene behind the descent (GroundSea.tsx, GroundSilhouettes.tsx): the two wave strips slide by half their width
+   (two whole periods of the wave) so the surface rolls without a seam; the drawn scenes crossfade; the grain is a still
+   noise over everything. The summit's cue arrow nods. All still under reduced motion. */
+@keyframes ground-wave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ground-wave {
+  animation: ground-wave 16s linear infinite;
+}
+.ground-wave-back {
+  animation-duration: 26s;
+  animation-direction: reverse;
+}
+.ground-scene-art {
+  transition: opacity 1.6s ease;
+}
+@keyframes ground-nod {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+.ground-nod {
+  animation: ground-nod 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ground-wave,
+  .ground-wave-back,
+  .ground-nod {
+    animation: none;
+  }
+  .ground-scene-art {
+    transition: none;
   }
 }

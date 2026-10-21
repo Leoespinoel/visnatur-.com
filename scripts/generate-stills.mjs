@@ -11,7 +11,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { CAMPAIGN, EDITORIAL, GARMENT, GROUP, MODEL_STANDARD, MOOD, REAL, SET, SHOTS, STILL, STREET, STUDIO, STUDIO_FACE, STUDIO_LEGS, STUDIO_W } from "./stills-shots.mjs";
+import { CAMPAIGN, EDITORIAL, GARMENT, GROUP, MODEL_STANDARD, MOOD, REAL, SET, SHOTS, STILL, STREET, STUDIO, STUDIO_FACE, STUDIO_LEGS, STUDIO_W, WILD } from "./stills-shots.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const takesDir = join(root, "stills-src", "takes");
@@ -69,6 +69,8 @@ const prompt =
   : shot.look === "legs" ? `${keepLegs}${STUDIO_LEGS} The model is ${shot.prompt} ${GARMENT} ${REAL}`
   : shot.look === "face" ? `${keep}${STUDIO_FACE} The model is ${shot.prompt} ${GARMENT} ${REAL}`
   : shot.look === "still" ? `${shot.prompt} ${STILL}${shot.wear.length ? ` ${GARMENT}` : ""}`
+  : shot.look === "community" ? `${CAMPAIGN} ${shot.prompt} ${MOOD} ${GARMENT} ${REAL}`
+  : shot.look === "wild" ? `${shot.prompt} ${WILD}`
   : shot.look === "street" ? `${shot.prompt} ${STREET} ${GARMENT} ${REAL}`
   : shot.look === "street-still" ? `${shot.prompt} ${STREET} No people anywhere in the frame. ${GARMENT}`
   : `${shot.prompt} ${shot.look === "women" ? EDITORIAL.replace("menswear", "womenswear") : shot.look === "mixed" ? EDITORIAL.replace("menswear ", "") : EDITORIAL} ${GARMENT} ${REAL}`;

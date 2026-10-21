@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { dispatchLabel, madeToOrderLabel } from "@/lib/format";
-import { pledgePercentLabel } from "@/lib/pledge";
 import { PageIntro } from "@/components/PageIntro";
+import { pledgePercentLabel } from "@/lib/pledge";
 import { LeafIcon } from "@/components/Icons";
 import { ClearCart } from "./ClearCart";
 
@@ -25,7 +25,7 @@ export default function SuccessPage() {
             Continue browsing
           </Link>
           <Link href="/conservation" className="btn btn-primary">
-            Where the pledge goes
+            Where the fifth goes
           </Link>
         </div>
       </section>
@@ -38,7 +38,7 @@ function Summary() {
     <div className="max-w-lg border border-line bg-surface p-6">
       <div className="flex items-start gap-3">
         <LeafIcon className="mt-0.5 shrink-0 text-red" />
-        <p className="text-sm text-ink-2">{pledgePercentLabel()} of your order goes to conservation. A confirmation email is on its way.</p>
+        <p className="text-sm text-ink-2">Thank you. A confirmation email is on its way. {pledgePercentLabel()} of our profits goes to creating and sustaining the environments we love wearing the pieces in.</p>
       </div>
     </div>
   );

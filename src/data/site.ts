@@ -6,17 +6,21 @@ export const site = {
   /** Draft (2026-10-20): Signature is always on, collections (first called drops) come once. */
   tagline: "Signature, always. Collections, once.",
   description:
-    "Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, collections in limited numbers, and any Signature piece made to order with adjustments. 10% of every sale goes to conservation.",
+    "Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, collections in limited numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   currency: "EUR",
   locale: "en-IE",
-  /** Share of every sale price that goes to conservation. */
-  pledgeRate: 0.1,
-  /** Manually updated running total (in cents). Leave at 0 until the first orders come in. */
-  pledgeRaisedCents: 0,
   /**
-   * Where the Support button beside the total on /conservation goes: a payment link
-   * (Stripe, Shopify) or a partner's donation page. Empty: it opens an email to us.
+   * Share of each year's profit after tax that goes to conservation (Leo, 2026-10-21: "10% of profits", then "20% of profits, call it the fifth" the same day, replacing the
+   * 10%-of-sale-price pledge withdrawn earlier that day). Published with the accounts each year.
+   */
+  pledgeRate: 0.2,
+  /** Manually updated running total (in cents). PLACEHOLDER (Leo, 2026-10-21), a little above `impact`'s €19,180 sent, as if
+   *  the latest orders were pledged but not yet transferred; set from real orders once they come in. */
+  pledgeRaisedCents: 2146000,
+  /**
+   * Unused since 2026-10-21: the Support button beside the total on /conservation was removed (no charity language,
+   * no asking). Kept in case a payment link is wanted again.
    */
   donateUrl: "" as string,
   freeShippingThresholdCents: 15000,
@@ -60,7 +64,7 @@ export const site = {
 export const announcements = [
   "Signature, always in stock",
   "Made to order: any Signature piece, adjusted to fit",
-  "10% of every sale goes to conservation",
+  "1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in",
   "Free shipping across Europe over €150",
   "Free repairs for life",
 ];
@@ -299,9 +303,9 @@ export const partners: {
   leverage: { figure: string; text: string; source: { label: string; url: string } };
 }[] = [
   {
-    name: "Ocean partner",
-    focus: "Reef restoration and marine protection in the Indian Ocean around Mauritius",
-    status: "Partnership in progress",
+    name: "On the reef",
+    focus: "Coral put back on the reef around Mauritius, and the water over it kept clear",
+    status: "Being set up",
     mark: "ocean",
     leverage: {
       figure: "<1%",
@@ -311,8 +315,8 @@ export const partners: {
   },
   {
     name: "Mauritian Wildlife Foundation",
-    focus: "Native forest restoration and endemic species recovery in Mauritius",
-    status: "Partnership in progress",
+    focus: "Trees put back in the island's last native forest, and the birds that only live there",
+    status: "Being set up",
     mark: "forest",
     logo: "/partners/mauritian-wildlife-foundation.png",
     leverage: {
@@ -322,9 +326,9 @@ export const partners: {
     },
   },
   {
-    name: "Coastlines partner",
-    focus: "Mangrove restoration and coastal habitat around Mauritius",
-    status: "Partnership in progress",
+    name: "On the shore",
+    focus: "Mangroves put back along the shore, holding the sand where it is",
+    status: "Being set up",
     mark: "coast",
     leverage: {
       figure: "Up to 4×",
@@ -341,34 +345,36 @@ export const partners: {
  * "Invested to date" in the middle of the pie is the sum of `invested`.
  */
 export const impact = {
-  placeholder: false,
-  piecesMade: 0,
+  /** Placeholder figures so the section reads as it will once real transfers clear (Leo, 2026-10-21: "put placeholder numbers in
+   *  that section"); the flag puts the disclaimer on the page and tags every chart. Replace with receipts, then set it false. */
+  placeholder: true,
+  piecesMade: 1280,
   /** Euros sent to the work, oldest month first. */
   months: [
-    { month: "Oct", cents: 0 },
-    { month: "Nov", cents: 0 },
-    { month: "Dec", cents: 0 },
-    { month: "Jan", cents: 0 },
-    { month: "Feb", cents: 0 },
-    { month: "Mar", cents: 0 },
-    { month: "Apr", cents: 0 },
-    { month: "May", cents: 0 },
-    { month: "Jun", cents: 0 },
-    { month: "Jul", cents: 0 },
-    { month: "Aug", cents: 0 },
-    { month: "Sep", cents: 0 },
+    { month: "Oct", cents: 42000 },
+    { month: "Nov", cents: 68000 },
+    { month: "Dec", cents: 115000 },
+    { month: "Jan", cents: 96000 },
+    { month: "Feb", cents: 134000 },
+    { month: "Mar", cents: 172000 },
+    { month: "Apr", cents: 148000 },
+    { month: "May", cents: 191000 },
+    { month: "Jun", cents: 226000 },
+    { month: "Jul", cents: 205000 },
+    { month: "Aug", cents: 243000 },
+    { month: "Sep", cents: 278000 },
   ],
-  /** Euros transferred to each partner since the first transfer, in the order of `partners`; drawn as the pie. */
+  /** Euros paid out to each place since the first payment, in the order of `partners`; drawn as the pie. */
   invested: [
-    { partner: "Ocean partner", cents: 0 },
-    { partner: "Mauritian Wildlife Foundation", cents: 0 },
-    { partner: "Coastlines partner", cents: 0 },
+    { partner: "On the reef", cents: 720000 },
+    { partner: "Mauritian Wildlife Foundation", cents: 648000 },
+    { partner: "On the shore", cents: 550000 },
   ],
-  /** Progress towards each partner's year-end goal. */
+  /** Progress towards each place's year-end goal. */
   targets: [
-    { label: "Coral fragments planted", partner: "Ocean partner", value: 0, goal: 500, unit: "" },
-    { label: "Native trees planted", partner: "Mauritian Wildlife Foundation", value: 0, goal: 1000, unit: "" },
-    { label: "Mangroves planted", partner: "Coastlines partner", value: 0, goal: 2000, unit: "" },
+    { label: "Coral planted", partner: "On the reef", value: 212, goal: 500, unit: "" },
+    { label: "Trees planted", partner: "Mauritian Wildlife Foundation", value: 468, goal: 1000, unit: "" },
+    { label: "Mangroves planted", partner: "On the shore", value: 1140, goal: 2000, unit: "" },
   ],
 };
 
@@ -386,9 +392,9 @@ export const nav = {
     { label: "Collections", href: "/collections", mega: "collections", group: "shop" },
     { label: "Signature", href: "/shop/signature", mega: "signature", group: "shop" },
     { label: "Made to order", href: "/made-to-order", mega: "made-to-order", group: "shop" },
-    { label: "Community", href: "/stories", mega: "stories", group: "world" },
-    { label: "The VN Club", href: "/members", mega: "members", group: "world" },
-    { label: "Conservation", href: "/conservation", mega: "conservation", group: "world" },
+    { label: "In the wild", href: "/stories", mega: "stories", group: "world" },
+    { label: "Members only", href: "/members", mega: "members", group: "world" },
+    { label: "On the ground", href: "/conservation", mega: "conservation", group: "world" },
   ] as const,
   /** Plain links beside the two menus (Leo, 2026-10-16: Origins out of The VN World, next to Shop and The VN World). */
   links: [{ label: "Origins", href: "/about" }] as const,
@@ -404,10 +410,10 @@ export const nav = {
     ],
     /** The VN World column. */
     brand: [
-      { label: "Community", href: "/stories" },
-      { label: "The VN Club", href: "/members" },
+      { label: "In the wild", href: "/stories" },
+      { label: "Members only", href: "/members" },
       { label: "Origins", href: "/about" },
-      { label: "Conservation", href: "/conservation" },
+      { label: "On the ground", href: "/conservation" },
       { label: "Stores", href: "/stores" },
       /** Static page in public/pitch.html, served at /pitch; `plain` renders an <a> instead of a Link. */
       { label: "Partners & press", href: "/pitch", plain: true },

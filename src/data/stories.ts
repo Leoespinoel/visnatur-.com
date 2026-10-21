@@ -1,6 +1,6 @@
 import { partners, site } from "./site";
 import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
-import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
+import { pledgePercentLabel } from "@/lib/pledge";
 
 /**
  * Stories (/stories): films, journal pieces, interviews and past newsletters, each with its own page at
@@ -39,7 +39,6 @@ export type Article = {
   links: { label: string; href: string }[];
 };
 
-const tenPercent = pledgePercentLabel();
 
 export const articles: Article[] = [
   {
@@ -68,7 +67,7 @@ export const articles: Article[] = [
       { type: "image", src: "/images/atelier/hands.jpg", alt: "A tailor's hands checking the cuff of a pale-blue linen shirt" },
       {
         type: "p",
-        text: `Whichever way, everything is made by hand in Mauritius, ${tenPercent} of every price goes to conservation, and if anything ever gives, it is repaired for free, for life.`,
+        text: `Whichever way, everything is made by hand in Mauritius, ${pledgePercentLabel()} of profits goes to creating and sustaining the environments we love wearing the pieces in, and if anything ever gives, it is repaired for free, for life.`,
       },
     ],
     links: [
@@ -109,7 +108,7 @@ export const articles: Article[] = [
       },
     ],
     links: [
-      { label: "Community", href: "/stories#community" },
+      { label: "In the wild", href: "/stories#community" },
       { label: "Shop the pieces", href: "/shop" },
     ],
   },
@@ -173,31 +172,30 @@ export const articles: Article[] = [
     links: [{ label: "Made to order", href: "/made-to-order" }],
   },
   {
-    slug: "ten-percent-of-the-price",
+    slug: "highest-leverage-not-highest-profile",
     kind: "journal",
-    title: `${tenPercent} of the price, not the profit.`,
-    dek: "Why our pledge is on the sale price, and how we choose where it goes.",
+    title: "Where the fifth goes.",
+    dek: "1/5 of profits to creating and sustaining the environments we love wearing the pieces in, and how we choose where it goes.",
     month: "2026-10",
     image: "/images/sea-cliff-wide.jpg?v=r1016",
     alt: "A man in a cream quarter-zip knit on a green sea cliff above the ocean at golden hour",
     body: [
       {
         type: "p",
-        text: `Percent-of-profit pledges are easy to make and hard to check. Ours is on the sale price, so you can do the sum yourself: on a ${formatPrice(16500)} piece, ${formatPrice(pledgeCents(16500))} goes to conservation. Shipping and taxes are left out.`,
+        text: `${pledgePercentLabel()} of each year's profit after tax goes to creating and sustaining the environments we love wearing the pieces in. The figure is published with the accounts, the people we build with are named here before the first payment, and every payment is listed as the receipts come in.`,
       },
-      { type: "p", text: "It is worked out on every order, shown on every product page, and reported every season." },
-      { type: "quote", text: "Highest leverage, not highest profile." },
+      { type: "quote", text: "Where the fifth does the most." },
       {
         type: "p",
-        text: "We don't give it to the best-known name, or spread it so thin it changes nothing. Every partner has to pass three tests. Concentrated: small places that hold a lot of life. Close to the edge: habitats with the least left, where money now is worth more than money later. Counted: partners who measure outcomes, not activity, and publish them.",
+        text: "Not to the best-known name, and not spread so thin it changes nothing. Everyone we build with has to pass three tests. Concentrated: small places that hold a lot of life. Close to the edge: the places with the least left, where money now does more than money later. Counted: people who count what survived, not what was planted, and publish it.",
       },
       {
         type: "p",
-        text: "Three areas pass: the reef around Mauritius, the island's last native forest, and its mangrove coast. Agreements are being finalised, and the names will be published before the first transfer is made. Then the people doing the work will be interviewed here.",
+        text: "Three places pass: the reef around Mauritius, the last of the island's native forest, and the mangrove shore. The agreements are being signed, and the names go up before the first payment is made. Then the people doing the work will be interviewed here.",
       },
     ],
     links: [
-      { label: "The pledge", href: "/conservation" },
+      { label: "The fifth", href: "/conservation" },
       { label: "Where it goes", href: "/conservation#partners" },
     ],
   },
@@ -205,7 +203,7 @@ export const articles: Article[] = [
 
 /**
  * Interviews still to come, shown under "In conversation" until each one is published: the
- * conservation partners (named here once they are in site.ts) and the workshop that makes the pieces.
+ * people we build with (named here once they are in site.ts) and the workshop that makes the pieces.
  */
 export const forthcoming: { name: string; focus: string; mark: (typeof partners)[number]["mark"] | "workshop" }[] = [
   { name: "The workshop", focus: "The people who cut and sew every piece by hand in Mauritius", mark: "workshop" },
@@ -263,7 +261,7 @@ export const sponsorships: Sponsorship[] = [
       "A chance to make something with us: a print, a lining or a label",
     ],
     lookFor: [
-      "Work that comes from the places we protect",
+      "Work that comes from the places we build",
       "A practice you keep at, in any medium, at any stage",
       "Honesty: make what you mean, and tell us what you think",
     ],
@@ -279,11 +277,10 @@ export const sponsorships: Sponsorship[] = [
     alt: "Two golfers on a seaside tee, one swinging in a white polo and white shorts, the other in a navy knit polo with a leather golf bag",
     give: [
       "Pieces for the whole team or event, made to order to each wearer's measurements",
-      `${tenPercent} of every piece to conservation, as on every order, reported each season`,
       "Your club or event in our films and on these pages",
     ],
     lookFor: [
-      "Clubs and events rooted in a place worth protecting",
+      "Clubs and events rooted in a place worth keeping",
       "A shared interest in the reef, forest or water around you",
       "Room to tell the story honestly",
     ],
@@ -299,7 +296,7 @@ export const sponsorshipMailto = (s: Sponsorship) =>
 
 /** Members Only on /stories#members: a paid subscription, every proceed to conservation, with discounts in return. */
 export const memberPerks: { title: string; text: string }[] = [
-  { title: "All of it to conservation", text: "Every subscription goes to our conservation partners in full. We keep none of it." },
+  { title: "All of it to the wild", text: "Every subscription goes to the wild in full: the reef, the forest and the shore. We keep none of it." },
   { title: "Club discounts", text: "Member discounts at the clubs we partner with." },
   { title: "Event discounts", text: "Member discounts on tickets to our events and the ones we back." },
 ];
@@ -308,16 +305,6 @@ export const memberPerks: { title: string; text: string }[] = [
 export const membersMailto = `mailto:${site.email}?subject=${encodeURIComponent("Members Only")}&body=${encodeURIComponent(
   ["Name:", "The email you order with:", "Where you are:"].join("\n\n") + "\n",
 )}`;
-
-/** The Instagram grid on /stories: pictures from the site linking to the profile, not a live feed. */
-export const instagramTiles: { image: string; alt: string }[] = [
-  { image: "/images/campaign-linen.jpg?v=r1016", alt: "Two men in white and sky linen shirts at a long lunch on the sand by the lagoon" },
-  { image: "/images/beach-surfer.jpg?v=r1016", alt: "A surfer carrying his board along the beach at sunset in an open oat linen shirt and navy swim shorts" },
-  { image: "/images/golf-green.jpg?v=r1016", alt: "A golfer crouched on a green above the sea with his putter, in a navy polo and stone trousers" },
-  { image: "/images/caps-scene.jpg?v=r1016", alt: "A man with a coffee on a wooden jetty in a cream cap with a green peak, an oat linen shirt and cream trousers" },
-  { image: "/images/sunglasses-scene.jpg?v=r1016", alt: "A man in tortoiseshell sunglasses and a sky linen shirt leaning on the side of a wooden boat below Le Morne" },
-  { image: "/images/campaign-drop.jpg?v=r1016", alt: "Two men on a harbour wall, one in a cream cricket jumper, the other in a sand linen shirt over a navy knit vest" },
-];
 
 /** The handle at the end of `site.instagram`, without the @. */
 export const instagramHandle = site.instagram.split("/").filter(Boolean).pop() ?? "";
@@ -360,6 +347,46 @@ export const eventStatusLabels: Record<NonNullable<StoryEvent["status"]>, string
 };
 
 export const events: StoryEvent[] = [];
+
+/**
+ * Until the first event is agreed, the events stage on /stories turns through the kinds of day we mean to host or back,
+ * one picture each, every one ending in the call to propose an event (Leo, 2026-10-21). Replaced by the events themselves
+ * as soon as `events` has any.
+ */
+export const plannedDays: { key: string; eyebrow: string; title: string; dek: string; image: string; alt: string }[] = [
+  {
+    key: "water",
+    eyebrow: "On the water",
+    title: "Kite days and regattas.",
+    dek: "A lagoon, a course laid out in the morning and a day on the water.",
+    image: "/images/active/kitesurf.jpg",
+    alt: "A kitesurfer carving across a turquoise lagoon, throwing spray, a mountain behind",
+  },
+  {
+    key: "course",
+    eyebrow: "On the course",
+    title: "Golf days.",
+    dek: "Eighteen holes by the sea, then lunch at the clubhouse.",
+    image: "/images/campaign-golf.jpg?v=r1016",
+    alt: "A golfer teeing off by the sea in a white polo and white shorts, his partner in a navy knit polo and stone trousers holding a leather golf bag",
+  },
+  {
+    key: "run",
+    eyebrow: "On the road and the trail",
+    title: "Morning runs.",
+    dek: "Out early along the front or up the hill, before the heat, coffee after.",
+    image: "/images/run-club.jpg?v=r1016",
+    alt: "A run club out early along a seafront promenade, a group of friends in white tees and navy shorts",
+  },
+  {
+    key: "surf",
+    eyebrow: "In the water",
+    title: "Surf meets.",
+    dek: "A swell, a few boards and the people who got up for it.",
+    image: "/images/active/barrel.jpg",
+    alt: "A surfer crouched deep inside a hollow barrel, one hand trailing along the wave",
+  },
+];
 
 /** "17 October 2026", or "21 – 26 October 2026" across several days. */
 export function eventDates(e: StoryEvent): string {

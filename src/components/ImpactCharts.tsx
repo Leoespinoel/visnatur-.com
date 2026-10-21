@@ -7,7 +7,8 @@ import { useRevealOnce } from "@/lib/use-reveal";
 import { RollingNumber } from "./RollingNumber";
 
 // The impact block on /conservation, after forceofnature.org.in/bon-voyage: four counters roll in, twelve months of money
-// to the work rise as thin red columns, and each partner target draws its fill. One hue (red on black); text stays in ink.
+// to the work rise as thin red columns, and each partner target draws its fill. One hue (red on the band's paper, black or
+// white, so the charts follow the theme they sit in); text stays in ink.
 
 const EASE = "ease-[cubic-bezier(0.2,0.7,0.1,1)]";
 const count = (n: number) => n.toLocaleString(site.locale);
@@ -18,7 +19,7 @@ export function ImpactCharts() {
   const [coral, trees] = impact.targets;
   const counters = [
     { label: "Pieces made", value: count(impact.piecesMade), note: "Since launch" },
-    { label: "Sent to the work", value: formatPrice(sentCents), note: "10% of sales" },
+    { label: "Put in", value: formatPrice(sentCents), note: "Paid out to date" },
     { label: coral.label, value: count(coral.value), note: coral.partner },
     { label: trees.label, value: count(trees.value), note: trees.partner },
   ];
@@ -27,7 +28,7 @@ export function ImpactCharts() {
     <div>
       <ul className="grid grid-cols-2 gap-px border-y border-line bg-line lg:grid-cols-4">
         {counters.map((c, i) => (
-          <li key={c.label} className="flex min-h-44 flex-col justify-between gap-6 bg-black p-5 md:min-h-52 md:p-6">
+          <li key={c.label} className="flex min-h-44 flex-col justify-between gap-6 bg-paper p-5 md:min-h-52 md:p-6">
             <p className="eyebrow leading-snug">{c.label}</p>
             <p className="display text-[2.5rem] leading-none lining-nums sm:text-5xl lg:text-6xl">
               <RollingNumber value={c.value} delay={i * 120} />
@@ -41,17 +42,17 @@ export function ImpactCharts() {
       </ul>
 
       <div className="mt-16 md:mt-24">
-        <ChartHead title="Money to the work, by month." note={`Euros · last twelve months${tag}`} />
+        <ChartHead title="Put in, by month." note={`Euros · last twelve months${tag}`} />
         <MonthlyColumns />
       </div>
 
       <div className="mt-16 md:mt-24">
-        <ChartHead title="Where it went, by partner." note={`Invested to date${tag}`} />
+        <ChartHead title="Where it went, by place." note={`Put in to date${tag}`} />
         <InvestedPie />
       </div>
 
       <div className="mt-16 md:mt-24">
-        <ChartHead title="Where it should be by year end." note={`Partner targets${tag}`} />
+        <ChartHead title="Where it should be by year end." note={`Targets by place${tag}`} />
         <Targets />
       </div>
     </div>
@@ -90,7 +91,7 @@ function MonthlyColumns() {
       <div className="relative h-[clamp(11rem,24vw,16rem)]">
         {ticks.map((t) => (
           <div key={t} className="absolute inset-x-0 border-t border-line" style={{ bottom: `${(t / top) * 100}%` }} aria-hidden="true">
-            <span className="absolute left-0 -translate-y-1/2 bg-black pr-2 text-[10px] tabular-nums text-muted">{formatPrice(t)}</span>
+            <span className="absolute left-0 -translate-y-1/2 bg-paper pr-2 text-[10px] tabular-nums text-muted">{formatPrice(t)}</span>
           </div>
         ))}
         <div className="absolute inset-y-0 right-0 left-14 grid gap-[2px]" style={{ gridTemplateColumns: `repeat(${months.length}, minmax(0, 1fr))` }}>
@@ -107,7 +108,7 @@ function MonthlyColumns() {
                 onMouseLeave={() => setActive(null)}
                 onFocus={() => setActive(i)}
                 onBlur={() => setActive(null)}
-                className="relative flex h-full cursor-default items-end justify-center outline-none focus-visible:bg-white/5"
+                className="relative flex h-full cursor-default items-end justify-center outline-none focus-visible:bg-ink/5"
               >
                 <span
                   className={`block w-full max-w-6 origin-bottom transition-transform duration-[1400ms] motion-reduce:transition-none ${EASE}`}
@@ -181,7 +182,7 @@ function InvestedPie() {
           viewBox="0 0 120 120"
           className="h-full w-full -rotate-90"
           role="img"
-          aria-label={`Invested by partner: ${slices.map((s) => `${s.partner} ${formatPrice(s.cents)} (${share(s.cents)})`).join(", ")}`}
+          aria-label={`Put in by place: ${slices.map((s) => `${s.partner} ${formatPrice(s.cents)} (${share(s.cents)})`).join(", ")}`}
         >
           {/* Nothing has been sent yet: an empty ring rather than no chart. */}
           {total === 0 && <circle cx={60} cy={60} r={R} fill="none" stroke="var(--line)" strokeWidth={16} />}
@@ -203,7 +204,7 @@ function InvestedPie() {
           ))}
         </svg>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 text-center" aria-hidden="true">
-          <p className="eyebrow max-w-[9rem] leading-snug">{on ? on.partner : "Invested to date"}</p>
+          <p className="eyebrow max-w-[9rem] leading-snug">{on ? on.partner : "Put in to date"}</p>
           <p className="display text-4xl leading-none tabular-nums lining-nums md:text-5xl">{formatPrice(on ? on.cents : total)}</p>
           <p className={`eyebrow transition-opacity duration-200 ${on ? "opacity-100" : "opacity-0"}`}>{on ? share(on.cents) : "0%"}</p>
         </div>
@@ -217,7 +218,7 @@ function InvestedPie() {
             {...hover(i)}
             onFocus={() => setActive(i)}
             onBlur={() => setActive(null)}
-            className={`grid cursor-default grid-cols-[auto_1fr_auto] items-center gap-x-4 border-b border-line py-5 outline-none transition-opacity duration-200 focus-visible:bg-white/5 md:py-6 ${
+            className={`grid cursor-default grid-cols-[auto_1fr_auto] items-center gap-x-4 border-b border-line py-5 outline-none transition-opacity duration-200 focus-visible:bg-ink/5 md:py-6 ${
               active !== null && active !== i ? "opacity-40" : ""
             }`}
           >

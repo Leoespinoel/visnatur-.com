@@ -81,7 +81,7 @@ export const piecesOf = (slugs: string[]) => slugs.map(getProduct).filter((p): p
 /** The scrolling ticker over the header. Plain facts only: no drop is announced yet, so no drop lines and no scarcity. */
 export const tickerLines = [
   "Signature, always on",
-  `${pledgePercentLabel()} of every order to the wild`,
+  `${pledgePercentLabel()} of profits to the wild`,
   "Cut & sewn in Mauritius",
   `Ships in ${dispatchLabel()}`,
   `Free shipping in Europe over ${formatPrice(site.freeShippingThresholdCents)}`,

@@ -76,7 +76,7 @@ export default async function StoryPage({ params }: Props) {
         <ol className="eyebrow flex flex-wrap items-center gap-2">
           <li>
             <Link href="/stories" className="link-underline hover:text-ink">
-              Community
+              In the wild
             </Link>
           </li>
           <li aria-hidden="true">/</li>
@@ -149,7 +149,7 @@ export default async function StoryPage({ params }: Props) {
         </div>
       </section>
 
-      <Newsletter />
+      <Newsletter context="stories" />
     </>
   );
 }

@@ -28,7 +28,7 @@ export default function CollectionsPage() {
       <Suspense fallback={null}>
         <DropList />
       </Suspense>
-      <Newsletter />
+      <Newsletter context="collections" />
     </>
   );
 }
@@ -45,11 +45,11 @@ async function DropList() {
           <p className="eyebrow mb-3">Collection 01</p>
           <h2 className="display text-4xl md:text-5xl">DIVA is on its way.</h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-2">
-            The date, the designs and the number of pieces go up here first. Members of The VN Club and the letters hear before anyone else.
+            The date, the designs and the number of pieces go up here first. Members of the club and the letters hear before anyone else.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/members" className="btn btn-primary">
-              The VN Club
+              Members only
             </Link>
             <Link href="/shop/signature" className="btn btn-outline">
               Shop Signature

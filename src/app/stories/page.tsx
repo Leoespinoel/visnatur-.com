@@ -1,34 +1,30 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/data/site";
-import { communityPosts } from "@/data/community";
+import { communityWall } from "@/data/community";
 import {
-  articleHref,
-  articles,
-  articlesOf,
   eventDates,
   events,
   eventStatusLabels,
-  forthcoming,
   instagramHandle,
-  instagramTiles,
-  kindLabels,
-  memberPerks,
-  readLabel,
+  plannedDays,
   sponsorshipMailto,
   sponsorships,
 } from "@/data/stories";
-import { ArticleCard } from "@/components/ArticleCard";
-import { Carousel } from "@/components/Carousel";
-import { CommunityCard } from "@/components/CommunityCard";
+import { CommunityWall } from "@/components/CommunityWall";
 import { Newsletter } from "@/components/Newsletter";
-import { PartnerMark } from "@/components/PartnerBand";
-import { StoriesHero, type HeroStory } from "@/components/StoriesHero";
+import { StoryTile } from "@/components/StoryPair";
+import { RoomCard } from "@/components/club/RoomCard";
+import { rooms } from "@/data/members";
+import { FilmHero } from "@/components/FilmHero";
+import { MarqueeTrack } from "@/components/MarqueeTrack";
+import { kiteFilm } from "@/data/film";
+import { WordTicker } from "@/components/WordTicker";
 import { EventsRail, type EventItem } from "@/components/EventsRail";
+import { EventsOrbit, type OrbitSlide } from "@/components/EventsOrbit";
 
 export const metadata: Metadata = {
-  title: "Community",
+  title: "In the wild",
   description: "Films, the journal, events, the community, members, sponsorship, conversations with our partners and the newsletter: the stories behind Vis Naturæ.",
 };
 
@@ -61,35 +57,52 @@ function SponsorList({ title, items }: { title: string; items: string[] }) {
   );
 }
 
+/**
+ * The two bands: the name on a loop across a black strip, and the red follow line, both the height of the announcement bar above
+ * the menu (Leo, 2026-10-21). They frame the film at the head of the page: name then follow line above it, and the other way round
+ * below it with `flip` (Leo, 2026-10-21: "switch the order of the band only below the placeholder").
+ */
+function Bands({ flip = false }: { flip?: boolean }) {
+  const name = (
+    <div className="theme-dark overflow-hidden py-2">
+      {/* The name alone, over and over, like the follow line (Leo, 2026-10-21: "remove the text that is not Vis Naturæ");
+          enough copies that half the track is wider than any screen. */}
+      <WordTicker size="band" phrases={Array.from({ length: 16 }, () => site.name)} />
+    </div>
+  );
+  /* The follow line: a red band running the other way, the whole strip a link to the profile */
+  const follow = (
+    <a
+      href={site.instagram}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Follow @${instagramHandle} on Instagram`}
+      className="theme-red block overflow-hidden py-2 transition-colors hover:bg-red-2"
+    >
+      <MarqueeTrack as="span" aria-hidden="true" className="marquee-reverse">
+        {Array.from({ length: 16 }, (_, i) => (
+          <span key={i} className="flex shrink-0 items-center whitespace-nowrap text-[11px] leading-none font-medium uppercase tracking-[0.22em]">
+            Follow @{instagramHandle}
+            <span className="px-5 md:px-7">·</span>
+          </span>
+        ))}
+      </MarqueeTrack>
+    </a>
+  );
+  return flip ? (
+    <>
+      {follow}
+      {name}
+    </>
+  ) : (
+    <>
+      {name}
+      {follow}
+    </>
+  );
+}
+
 export default function StoriesPage() {
-  const interviews = articlesOf("interview");
-
-  // The slides at the top: every story, then the call for sponsorship.
-  const slides: HeroStory[] = [
-    ...articles.map((a) => ({
-      key: a.slug,
-      title: a.title,
-      dek: a.dek,
-      image: a.hero?.image ?? a.image,
-      alt: a.hero?.alt ?? a.alt,
-      position: a.hero?.position,
-      href: articleHref(a),
-      cta: a.video ? "Watch film" : "Read story",
-      meta: [kindLabels[a.kind], readLabel(a)],
-    })),
-    {
-      key: "sponsorship",
-      title: "We back people who go all in.",
-      dek: "Athletes and ambassadors, artists, clubs, teams and events. Tell us what you go all in at.",
-      image: "/images/campaign-golf.jpg?v=r1016",
-      alt: "Two golfers on a seaside tee, one swinging in a white polo and white shorts, the other in a navy knit polo with a leather golf bag",
-      position: "62% 50%",
-      href: "/stories#sponsorship",
-      cta: "Apply",
-      meta: ["Sponsorship", "Athletes, artists, clubs & events"],
-    },
-  ];
-
   const eventItems: EventItem[] = events.map((e) => ({
     title: e.title,
     dates: eventDates(e),
@@ -102,190 +115,125 @@ export default function StoriesPage() {
     href: e.href,
   }));
 
+  // The events stage (EventsOrbit.tsx): the events themselves once there are any, each leading to its page or to the rail
+  // below; until then the kinds of day we plan (data/stories.ts `plannedDays`), each ending in the call to propose one.
+  const orbitSlides: OrbitSlide[] =
+    events.length > 0
+      ? events.map((e) => ({
+          key: e.title + e.start,
+          eyebrow: e.sport,
+          title: e.title,
+          meta: `${eventDates(e)} · ${e.place}`,
+          dek: e.status && eventStatusLabels[e.status],
+          image: e.image,
+          alt: e.alt,
+          cta: e.href ? { label: e.status === "registrations-open" ? "Register" : "See the event", href: e.href } : { label: "See the events", href: "/stories#events" },
+        }))
+      : plannedDays.map((d) => ({ ...d, cta: { label: "Propose an event", href: "/stories#sponsorship" } }));
+
   return (
     <>
-      <h1 className="sr-only">Community</h1>
-      <StoriesHero slides={slides} />
+      <h1 className="sr-only">In the wild</h1>
 
-      {/* The page slides up over the foot of the pictures, as on redbull.com: the latest stories, then events */}
-      <div className="relative z-10 -mt-6 rounded-t-3xl bg-paper md:-mt-8 md:rounded-t-[2rem]">
-        <section id="latest" aria-labelledby="latest-title" className="container-x scroll-mt-24 pt-12 md:pt-16">
-          <h2 id="latest-title" className="display mb-8 text-4xl md:mb-10 md:text-5xl">
-            Latest
-          </h2>
-          <Carousel
-            ariaLabel="Latest stories"
-            arrows="sides"
-            gap="gap-4 md:gap-6"
-            itemClassName="w-[80%] sm:w-[45%] md:w-[calc((100%-3rem)/3.2)] lg:w-[calc((100%-4.5rem)/4.2)]"
-          >
-            {articles.map((a) => (
-              <ArticleCard key={a.slug} article={a} sizes="(min-width: 1024px) 24vw, (min-width: 768px) 31vw, (min-width: 640px) 45vw, 80vw" />
-            ))}
-          </Carousel>
-        </section>
+      {/* The two bands, then the film, then the two bands again (Leo, 2026-10-21). */}
+      <Bands />
 
-        <section id="events" aria-label="Events" className="container-x scroll-mt-24 py-16 md:py-24">
-          <EventsRail events={eventItems} />
-        </section>
-      </div>
-
-      {/* Press, on black */}
-      <section id="press" className="theme-dark scroll-mt-24">
-        <div className="container-x grid gap-8 py-16 md:grid-cols-12 md:py-24">
-          <div className="md:col-span-5">
-            <p className="eyebrow mb-3">Press</p>
-            <h2 className="display text-3xl md:text-4xl">Writing about us?</h2>
-          </div>
-          <div className="md:col-span-6 md:col-start-7">
-            <p className="text-sm leading-relaxed text-ink-2 md:text-base">
-              The partners and press deck tells the whole story in one place. For interviews, pictures or anything else, write to us. We answer
-              within two working days.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {/* Static page in public/pitch.html, so a plain link rather than a Link. */}
-              <a href="/pitch" className="btn btn-primary">
-                Partners &amp; press deck
-              </a>
-              <a href={`mailto:${site.email}?subject=${encodeURIComponent("Press")}`} className="btn btn-outline">
-                Press enquiries
-              </a>
-            </div>
-          </div>
-        </div>
+      {/* The film at the head of the page (FilmHero.tsx, data/film.ts `kiteFilm`): on tablets and desktops the silent 80-second kite loop,
+          on phones the play ring; with a YouTube ID set, a "Watch the film" button opens the full film with sound in the slot (Leo,
+          2026-10-21). Exactly as tall as the first screen leaves after the header (--hdr, globals.css) and the four bands (27px each:
+          11px type on 8px of padding), so the pair under it shows without scrolling (Leo, 2026-10-21). */}
+      <section aria-label="The film" className="theme-dark relative flex h-[calc(100svh-var(--hdr)-108px)] min-h-64 items-center justify-center overflow-hidden">
+        <FilmHero loop={kiteFilm.loop} poster={kiteFilm.poster} youtubeId={kiteFilm.youtubeId} title={kiteFilm.title} />
       </section>
 
-      {/* Community and Instagram */}
-      <section id="community" className="scroll-mt-24 py-16 md:py-24">
-        <div className="container-x">
-          <BandHeading eyebrow="Community" title="In the pieces, out in the world.">
-            Wearing Vis Naturæ somewhere worth seeing? Tag @{instagramHandle} or send the picture to{" "}
-            <a href={`mailto:${site.email}?subject=${encodeURIComponent("Community")}`} className="text-ink underline underline-offset-4">
-              {site.email}
-            </a>
-            . We always ask before we share.
-          </BandHeading>
-        </div>
-        <Carousel ariaLabel="Community" itemClassName="w-[62%] sm:w-[40%] md:w-[calc((100%-2rem)/4.3)] lg:w-[calc((100%-2.5rem)/5.3)]" gap="gap-1.5 md:gap-2">
-          {communityPosts.map((post, i) => (
-            <CommunityCard key={i} post={post} />
-          ))}
-        </Carousel>
-
-        <div className="container-x mt-16 md:mt-24">
-          <div className="mb-8 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
-            <div>
-              <p className="eyebrow mb-3">Instagram</p>
-              <h2 className="display text-4xl md:text-5xl">@{instagramHandle}</h2>
-            </div>
-            <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-fit">
-              Follow on Instagram
-            </a>
-          </div>
-          <ul className="grid grid-cols-3 gap-1.5 md:grid-cols-6 md:gap-2">
-            {instagramTiles.map((t) => (
-              <li key={t.image}>
-                <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="group image-frame block aspect-square" aria-label={`${t.alt}, on Instagram`}>
-                  <Image src={t.image} alt="" fill unoptimized sizes="(min-width: 768px) 16vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      {/* The wall: the two bands again under the film, follow line first, then the people in the pieces and the moments between them */}
+      <section id="community" aria-label="In the wild" className="scroll-mt-24 pb-16 md:pb-24">
+        <Bands flip />
+        <CommunityWall blocks={communityWall} instagram={site.instagram} handle={instagramHandle} />
       </section>
 
-      {/* Members Only: the subscription, on grey between the white community and the black sponsorship */}
-      <section id="members" className="scroll-mt-24 bg-surface py-16 md:py-24">
+      {/* Events (Leo, 2026-10-21: its own section, split from the club; no top padding, the wall above already leaves the space and
+          Leo asked for the white gap between the two to go): the stage with the call for events, then the rail of
+          upcoming ones once there are any. */}
+      {/* The heading keeps the page margin; the stage runs edge to edge (Leo, 2026-10-21: "make this fill the white space"). */}
+      <section id="events" aria-label="Events" className="scroll-mt-24 pb-16 md:pb-24">
         <div className="container-x">
-          <BandHeading eyebrow="The VN Club · Membership" title="For the people who come back.">
-            Free to join, with points, three rooms and rewards. Members Only goes further: a subscription that goes entirely to conservation,
-            with member discounts at the clubs and events we partner with.
+          <BandHeading eyebrow="Events" title={eventItems.length > 0 ? "Upcoming events." : "The first ones are being planned."}>
+            Days on the water, on the course and on the trail, hosted or backed by Vis Naturæ.
+            {eventItems.length === 0 && " Run a club, a regatta or a tournament? Propose one."}
           </BandHeading>
-          <ul className="grid gap-6 md:grid-cols-3">
-            {memberPerks.map((p, i) => (
-              <li key={p.title} className="flex flex-col border border-line bg-paper p-6 md:p-8">
-                <p className="eyebrow">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-8 font-serif text-2xl">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-2">{p.text}</p>
+        </div>
+        <EventsOrbit slides={orbitSlides} label={events.length > 0 ? "Upcoming events" : "The days we plan"} />
+        {eventItems.length > 0 && (
+          <div className="container-x pt-16 md:pt-24">
+            <EventsRail events={eventItems} />
+          </div>
+        )}
+      </section>
+
+      {/* The membership (Leo, 2026-10-21: a section of its own below events, advertising the club and its tiers): what joining gives,
+          the three rooms from the club page (data/members.ts, RoomCard.tsx), and the way in. Black. */}
+      <section id="members" aria-label="Members only" className="theme-dark scroll-mt-24 py-16 md:py-24">
+        <div className="container-x">
+          <BandHeading eyebrow="Members only" title="For the people who come back.">
+            Free to join. Points on every order, three rooms to move up through, and rewards worth spending them on. The room follows the
+            points earned in the last twelve months, and nobody moves down. Members Only goes further: a subscription that goes entirely to
+            the wild.
+          </BandHeading>
+          <ol className="grid gap-x-6 gap-y-12 md:grid-cols-3">
+            {rooms.map((r) => (
+              <li key={r.id}>
+                <RoomCard room={r} />
               </li>
             ))}
-          </ul>
-          <div className="mt-10">
-            <Link href="/members" className="btn btn-primary">
-              The VN Club
+          </ol>
+          <div className="mt-12 flex flex-wrap gap-3 md:mt-16">
+            <Link href="/account/register" className="btn btn-primary">
+              Join the club
+            </Link>
+            <Link href="/members" className="btn btn-outline">
+              How it works
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Sponsorship: the athletes, artists, clubs and events we back, on black */}
-      <section id="sponsorship" className="theme-dark scroll-mt-24 py-16 md:py-24">
+      {/* Sponsorship: one picture per kind of applicant, the details folded under it */}
+      <section id="sponsorship" className="scroll-mt-24 py-16 md:py-24">
         <div className="container-x">
           <BandHeading eyebrow="Sponsorship" title="We back people who go all in.">
             Vis Naturæ sponsors athletes and ambassadors, artists, and clubs, teams and events. Not the biggest names: the ones who go all in,
             then rest like they mean it. We read every application and answer within two working days.
           </BandHeading>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {sponsorships.map((s, i) => {
-              // An odd last card takes the whole row on tablets, under a wider picture.
-              const wide = sponsorships.length % 2 === 1 && i === sponsorships.length - 1;
-              return (
-                <article key={s.key} className={`flex flex-col border border-line ${wide ? "md:max-lg:col-span-2" : ""}`}>
-                  <div className={`image-frame aspect-[3/2] ${wide ? "md:max-lg:aspect-[2/1]" : ""}`}>
-                    <Image src={s.image} alt={s.alt} fill unoptimized sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
+          <div className="grid gap-y-10 md:grid-cols-3 md:gap-x-2">
+            {sponsorships.map((s) => (
+              <article key={s.key}>
+                <StoryTile
+                  story={{ title: s.title, dek: s.text, image: s.image, alt: s.alt, links: [{ label: s.cta, href: sponsorshipMailto(s) }] }}
+                  size="sm"
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                />
+                <details className="group border-b border-line">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-[11px] uppercase tracking-[0.18em] [&::-webkit-details-marker]:hidden">
+                    What we give &amp; what we look for
+                    <span aria-hidden="true" className="text-base leading-none transition-transform group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+                  <div className="grid gap-8 pb-8 pt-2 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
+                    <SponsorList title="What we give" items={s.give} />
+                    <SponsorList title="What we look for" items={s.lookFor} />
                   </div>
-                  <div className="flex flex-1 flex-col p-6 md:p-8">
-                    <h3 className="display text-3xl md:text-4xl">{s.title}</h3>
-                    <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink-2">{s.text}</p>
-                    <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
-                      <SponsorList title="What we give" items={s.give} />
-                      <SponsorList title="What we look for" items={s.lookFor} />
-                    </div>
-                    <div className="mt-auto pt-10">
-                      <a href={sponsorshipMailto(s)} className="btn btn-primary">
-                        {s.cta}
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Interviews: published ones first, then those still to come */}
-      <section id="interviews" className="scroll-mt-24 bg-surface py-16 md:py-24">
-        <div className="container-x">
-          <BandHeading eyebrow="Interviews" title="In conversation.">
-            The people we work with, in their own words: the workshop that makes every piece, and the partners the ten percent goes to. Each
-            conversation goes up once the agreement behind it is signed.
-          </BandHeading>
-          {interviews.length > 0 && (
-            <div className="mb-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-              {interviews.map((a) => (
-                <ArticleCard key={a.slug} article={a} />
-              ))}
-            </div>
-          )}
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {forthcoming.map((f) => (
-              <li key={f.name} className="flex flex-col border border-line bg-paper p-6">
-                <span className="text-ink-2">
-                  <PartnerMark mark={f.mark} />
-                </span>
-                <h3 className="mt-8 font-serif text-2xl">{f.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-2">{f.focus}</p>
-                <p className="eyebrow mt-auto pt-8">Interview to follow</p>
-              </li>
+                </details>
+              </article>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
       {/* Newsletter, red above the trust row */}
       <div id="letters" className="scroll-mt-24">
-        <Newsletter />
+        <Newsletter context="stories" />
       </div>
     </>
   );

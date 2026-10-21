@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { v2Href } from "@/data/v2";
-import { dispatchLabel } from "@/lib/format";
 import { pledgePercentLabel } from "@/lib/pledge";
+import { dispatchLabel } from "@/lib/format";
 import { Sticker } from "./Sticker";
 
 /** Listing header: a breadcrumb, the title as big as it goes, one line, and two stickers. */
@@ -23,7 +23,7 @@ export function ListingHead({ title, line, crumb = true }: { title: string; line
           Made by hand in Mauritius
         </Sticker>
         <Sticker tilt={-3} className="text-[0.72rem]">
-          {pledgePercentLabel()} to the wild
+          {pledgePercentLabel()} of profits to the wild
         </Sticker>
         <span className="v2-mono mt-1 text-muted">Ships in {dispatchLabel()}</span>
       </div>

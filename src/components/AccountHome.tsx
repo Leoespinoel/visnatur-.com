@@ -47,12 +47,15 @@ export function AccountHome() {
 
   return (
     <section className="container-x py-20 text-center md:py-28">
-      <p className="eyebrow mb-4">The VN Club</p>
+      <p className="eyebrow mb-4">Members only</p>
       <h1 className="display text-5xl md:text-7xl">{account.firstName ? `Hello, ${account.firstName}.` : "Your account"}</h1>
       <p className="mx-auto mt-5 max-w-md text-ink-2 md:text-lg">
         {account.email ? <>Signed in as {account.email}. </> : null}Your sizes and wishlist are saved to your account, so they are there on any device.
       </p>
       <div className="mt-9 flex flex-wrap justify-center gap-3">
+        <Link href="/members" className="pill">
+          Members only
+        </Link>
         <Link href={ordersHref} className="pill">
           Orders
         </Link>

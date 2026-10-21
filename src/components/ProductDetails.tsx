@@ -10,8 +10,7 @@ import { useCart } from "@/lib/cart";
 import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
 import { useMySizes } from "@/lib/sizes";
 import { adjustFields, cleanAdjustments, FIT_LABELS, NOTE_MAX, offersMadeToOrder, RANGES, type AdjustField, type Adjustments, type Fit } from "@/lib/adjust";
-import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
-import { CheckIcon, ChevronIcon, LeafIcon } from "./Icons";
+import { CheckIcon, ChevronIcon } from "./Icons";
 import { WishlistButton } from "./WishlistButton";
 
 export function ProductDetails({ product, soldOut = [] }: { product: Product; soldOut?: string[] }) {
@@ -249,10 +248,6 @@ export function ProductDetails({ product, soldOut = [] }: { product: Product; so
         <li className="flex gap-2.5">
           <CheckIcon width={14} height={14} className="mt-0.5 shrink-0 text-red" />
           {mto ? `Made to order: cut and sewn for you, ships ${madeToOrderLabel()} after the order.` : `Dispatched within ${dispatchLabel()}, then ${transitLabel()} to Europe.`}
-        </li>
-        <li className="flex gap-2.5">
-          <LeafIcon width={14} height={14} className="mt-0.5 shrink-0 text-red" />
-          {formatPrice(pledgeCents(product.price))} of this price ({pledgePercentLabel()}) goes to conservation.
         </li>
         <li className="flex gap-2.5">
           <CheckIcon width={14} height={14} className="mt-0.5 shrink-0 text-red" />

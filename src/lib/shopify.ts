@@ -10,7 +10,8 @@ import { cacheLife } from "next/cache";
 
 const SHOPIFY_API_VERSION = "2026-07";
 
-const domain = () =>
+/** The store's myshopify domain, however SHOPIFY_STORE_DOMAIN was written. */
+export const domain = () =>
   (process.env.SHOPIFY_STORE_DOMAIN ?? "")
     .trim()
     .replace(/^https?:\/\//, "")

@@ -1,7 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
 import { nav, site } from "@/data/site";
-import { BadgerRows } from "./BadgerRows";
 import { Wordmark } from "./Wordmark";
 import { Newsletter } from "./Newsletter";
 import { TrustBar } from "./TrustBar";
@@ -11,16 +9,6 @@ export function Footer() {
     <footer>
       <TrustBar />
       <div className="theme-dark">
-        {/* The badger waits pinned to the bottom of the screen while the page slides up off it (.footer-reveal in globals.css). */}
-        <div className="footer-reveal">
-          <div className="relative overflow-hidden border-b border-line">
-            {/* The drifting badgers from /conservation, behind the big one */}
-            <BadgerRows />
-            <div className="container-x relative py-12 md:py-14">
-              <Image src="/brand/badger-mark.svg" alt="" width={852} height={300} unoptimized className="footer-badger mx-auto block h-auto" />
-            </div>
-          </div>
-        </div>
         <div className="container-x grid grid-cols-2 gap-x-6 gap-y-12 py-12 md:grid-cols-12">
           <div className="col-span-2 md:col-span-4">
             <Wordmark size="sm" />

@@ -60,15 +60,15 @@ export default function StoresPage() {
             <h2 className="display text-3xl md:text-5xl">None confirmed yet.</h2>
           </div>
           <div className="space-y-5 text-base leading-relaxed text-ink-2 md:col-span-5 md:col-start-8">
-            <p>The first pop-ups and the clubs that carry Vis Naturæ are listed here the day they are confirmed. Members of The VN Club hear first.</p>
+            <p>The first pop-ups and the clubs that carry Vis Naturæ are listed here the day they are confirmed. Members of the club hear first.</p>
             <Link href="/members" className="btn btn-outline">
-              The VN Club
+              Members only
             </Link>
           </div>
         </div>
       </section>
 
-      <Newsletter />
+      <Newsletter context="stores" />
     </>
   );
 }

@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
+import { pledgePercentLabel } from "@/lib/pledge";
 import { site } from "@/data/site";
 import { sections, v2Href } from "@/data/v2";
-import { pledgePercentLabel } from "@/lib/pledge";
 import { V2Wordmark } from "./Wordmark";
 
 /** The brand pages are still the classic ones. */
 const brand = [
   { label: "Made to order", href: "/made-to-order" },
-  { label: "The wild (conservation)", href: "/conservation" },
-  { label: "Community", href: "/stories" },
+  { label: "Setting the scene (conservation)", href: "/conservation" },
+  { label: "In the wild", href: "/stories" },
   { label: "Origins", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -47,7 +47,7 @@ export function V2Footer() {
         <div className="max-w-xs">
           <Image src="/brand/badger-mark.png" alt="" width={852} height={300} className="v2-cutout w-40 -rotate-6" />
           <p className="mt-6 text-sm leading-relaxed text-paper/75">
-            {site.name}. Clothing for men and women, cut and sewn by hand in Mauritius. {pledgePercentLabel()} of every sale goes to
+            {site.name}. Clothing for men and women, cut and sewn by hand in Mauritius. {pledgePercentLabel()} of profits goes to
             conservation.
           </p>
           <a href={site.instagram} target="_blank" rel="noopener noreferrer" className="v2-mono mt-4 inline-block underline underline-offset-4 hover:text-red">

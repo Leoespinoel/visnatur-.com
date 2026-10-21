@@ -68,7 +68,7 @@ export function ProductCarousel({
   return (
     <div>
       <div className="mb-5 flex items-end justify-between gap-4 md:mb-6">
-        <h2 className="headline text-3xl md:text-5xl">{title}</h2>
+        <h2 className="display text-4xl md:text-5xl">{title}</h2>
         <div className="flex items-center gap-4">
           {link && (
             <Link href={link.href} className="eyebrow !text-ink link-underline hidden items-center gap-2 md:inline-flex">

@@ -19,7 +19,7 @@ export default function MenPage() {
       <HeroSlider slides={heroSlides} label="Men" />
       <CategoryMosaic title="Men’s categories" tiles={categoryTiles} />
       <StoryBand tone="dark" {...stories} />
-      <BannerSlider slides={bannerSlides} label="The pledge and the workshop" />
+      <BannerSlider slides={bannerSlides} label="The wild and the workshop" />
       <StoryBand tone="grey" {...favourites} />
       <ExploreCarousel className="theme-red" {...explore} />
     </>

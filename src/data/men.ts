@@ -102,14 +102,14 @@ export const stories: { title: string; text: string; feature: StoryCard; cards: 
   ],
 };
 
-/** RL's collaboration banner: the pledge and the workshop. */
+/** RL's collaboration banner: the wild and the workshop. */
 export const bannerSlides: BannerSlide[] = [
   {
-    key: "pledge",
+    key: "fifth",
     image: "/images/sea-cliff-wide.jpg?v=r1016",
     alt: "Green sea cliffs in golden light, a man in a cream quarter-zip knit looking out",
     lockup: { badger: true },
-    text: "Ten percent of every sale price goes to the island’s coast and forests.",
+    text: "1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in.",
     cta: { label: "Discover", href: "/conservation" },
   },
   {
@@ -153,11 +153,11 @@ export const favourites: { title: string; text: string; feature: StoryCard; card
 
 export const explore: { title: string; text: string; tiles: ExploreTile[] } = {
   title: "More to explore",
-  text: "The workshop, the pledge, and the rest of the house.",
+  text: "The workshop, the wild, and the rest of the house.",
   tiles: [
     { title: "New in", href: "/men/all?filter=new", image: "/images/men/new-in.jpg?v=r1016", alt: "Three men outside a tennis clubhouse, in a cream cricket jumper with white shorts, a navy varsity jacket with a red cursive VN and sunglasses, and a sage linen shirt", cta: "Shop now" },
     { title: "Made to order", href: "/made-to-order", image: "/images/cutting-table.jpg?v=2", alt: "Hands cutting sky linen on the workshop table", cta: "Discover" },
-    { title: "Conservation", href: "/conservation", image: "/images/day-reef.jpg?v=r1016", alt: "A swimmer in red swim shorts over a coral reef", cta: "Discover" },
+    { title: "On the ground", href: "/conservation", image: "/images/day-reef.jpg?v=r1016", alt: "A swimmer in red swim shorts over a coral reef", cta: "Discover" },
     { title: "Our story", href: "/about", image: "/images/about.jpg?v=r1016", alt: "A man walking barefoot over basalt rocks by the surf in a white linen shirt and navy trousers", cta: "Discover" },
     { title: "Measurements", href: "/made-to-order#measurements", image: "/images/numbered-label.jpg?v=2", alt: "Hands boxing a red knit", cta: "See the sheets" },
     { title: "For her", href: "/women", image: "/images/women/linen.jpg?v=r1016", alt: "Two friends on the teak deck of a sailing boat after a swim, in creased white and pale-blue linen shirts with linen trousers", cta: "Shop now" },

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { site } from "@/data/site";
 import { formatPrice, madeToOrderLabel } from "@/lib/format";
-import { pledgePercentLabel } from "@/lib/pledge";
 
 /** Made to order, the service (Leo, 2026-10-20): a Signature piece adjusted to fit, in three steps. */
 export function HowItWorks({ compact = false }: { compact?: boolean }) {
@@ -20,8 +19,8 @@ export function HowItWorks({ compact = false }: { compact?: boolean }) {
     },
     {
       n: "03",
-      title: "It arrives, and gives back",
-      text: `${pledgePercentLabel()} of what you paid goes straight to conservation. Reported every season.`,
+      title: "It arrives",
+      text: "Pressed, folded into tissue and sent express from the island. Repaired for free, for life.",
       image: { src: "/images/atelier/press.jpg", alt: "A master tailor pressing a cricket jumper while an apprentice folds a linen shirt into tissue", position: "object-center" },
     },
   ];

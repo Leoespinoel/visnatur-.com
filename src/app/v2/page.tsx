@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { productImages, products } from "@/data/products";
+import { pledgePercentLabel } from "@/lib/pledge";
 import { partners, site } from "@/data/site";
 import { actionFilm, freshSlugs, hero, onNowFamily, piecesOf, v2Href } from "@/data/v2";
 import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
-import { pledgePercentLabel } from "@/lib/pledge";
 import { LookCollage } from "@/components/v2/LookCollage";
-import { LoopVideo } from "@/components/v2/LoopVideo";
+import { LoopVideo } from "@/components/LoopVideo";
 import { V2Newsletter } from "@/components/v2/Newsletter";
 import { V2Rail } from "@/components/v2/Rail";
 import { SectionIndex } from "@/components/v2/SectionIndex";
@@ -62,8 +62,7 @@ export default function V2Home() {
               Lookbook
             </Link>
             <span className="v2-mono ml-auto hidden max-w-xs text-right text-white/80 md:block">
-              Hoodies, tees, caps, rugby shirts. Cut and sewn by hand in Mauritius, in stock, out in {dispatchLabel()}. {pledgePercentLabel()} of every
-              order to the wild.
+              Hoodies, tees, caps, rugby shirts. Cut and sewn by hand in Mauritius, in stock, out in {dispatchLabel()}.
             </span>
           </div>
         </div>
@@ -174,12 +173,12 @@ export default function V2Home() {
         <V2Ticker tone="red" reverse lines={["Rugby", "Skate", "Surf", "Snowboard", "Climb", "Ride", "Run", "Kite"]} className="absolute inset-x-0 top-0" />
       </section>
 
-      {/* 8. Where the 10% goes */}
+      {/* 8. Where the fifth of profits goes */}
       <section className="bg-red text-white">
-        <BandHead title={`${pledgePercentLabel()} to the wild`} link={{ label: "Where it goes", href: "/conservation", light: true }} />
+        <BandHead title={`${pledgePercentLabel()} of profits to the wild`} link={{ label: "Where it goes", href: "/conservation", light: true }} />
         <p className="max-w-2xl px-4 text-base leading-relaxed md:px-6 md:text-lg">
-          {pledgePercentLabel()} of the price of every piece, not the profit, goes to conservation around Mauritius: reefs, native forest and mangrove
-          coast. Small places where a little money goes a long way.
+          {pledgePercentLabel()} of each year&apos;s profit goes to conservation around Mauritius: reefs, native forest and mangrove coast. Small
+          places where a little money goes a long way.
         </p>
         <ul className="mt-10 grid border-t-[1.5px] border-ink md:grid-cols-3">
           {partners.map((p) => (

@@ -1,62 +1,27 @@
-"use client";
-
-import { useRef, useState } from "react";
 import type { CommunityPost } from "@/data/community";
+import { LoopVideo } from "./LoopVideo";
+import { StoryCopy } from "./StoryCopy";
 
-/** One tall community card: a photo, or a clip that plays (muted, looping) when clicked. */
-export function CommunityCard({ post }: { post: CommunityPost }) {
-  const ref = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
-  const caption = post.handle ? `@${post.handle}` : post.label;
-
-  const toggle = () => {
-    const v = ref.current;
-    if (!v) return;
-    if (v.paused) {
-      void v.play().then(() => setPlaying(true)).catch(() => undefined);
-    } else {
-      v.pause();
-      setPlaying(false);
-    }
-  };
+/**
+ * One community tile, laid out like the collection tiles: a photo, or a muted clip that loops while it is on screen, with the
+ * discipline in white bottom-left (and the handle above it, for real people). `className` sets its shape.
+ */
+export function CommunityCard({ post, className = "aspect-[4/5]" }: { post: CommunityPost; className?: string }) {
+  const handle = post.handle ? `@${post.handle}` : undefined;
+  const media = "absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]";
 
   return (
-    <figure className="relative">
-      <div className="image-frame aspect-[4/5]">
-        {post.video ? (
-          <>
-            <video
-              ref={ref}
-              src={post.video}
-              poster={post.image}
-              muted
-              loop
-              playsInline
-              preload="none"
-              className="absolute inset-0 h-full w-full object-cover"
-              aria-label={caption}
-            />
-            <button
-              type="button"
-              onClick={toggle}
-              aria-label={playing ? "Pause video" : "Play video"}
-              className="absolute inset-0 flex items-center justify-center"
-            >
-              {!playing && (
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/85 text-ink backdrop-blur transition-transform hover:scale-105">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </span>
-              )}
-            </button>
-          </>
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={post.image} alt={caption} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-        )}
-      </div>
-      <figcaption className="mt-2 px-2 text-[12px] font-medium tracking-[0.02em] text-ink">{caption}</figcaption>
+    <figure className={`group relative overflow-hidden bg-paper-2 text-white ${className}`}>
+      {post.video ? (
+        <LoopVideo src={post.video} poster={post.image} className={media} />
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={post.image} alt={handle ?? post.label} loading="lazy" className={media} />
+      )}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 p-4 md:p-5 xl:p-6">
+        <StoryCopy eyebrow={handle} title={post.label} links={[]} size="xs" />
+      </figcaption>
     </figure>
   );
 }

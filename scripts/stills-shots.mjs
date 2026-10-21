@@ -28,6 +28,9 @@ export const REAL = "Real people with natural skin texture and real hair, real f
 // People-free shots (`look: "still"`): empty landscapes and still lifes of the pieces.
 export const STILL =
   "Editorial photograph for a premium menswear label's seasonal lookbook, shot on a medium format film camera, natural warm daylight, rich true-to-life colour, gentle film grain, photographic realism, no CGI look. No people anywhere in the frame.";
+// Wildlife shots (`look: "wild"`): the real honey badger on Origins (Leo, 2026-10-21: "confronting predators and in the wild").
+export const WILD =
+  "Wildlife photograph taken on a long telephoto lens, nothing between the camera and the animal, natural light, true-to-life colour, fine detail in the fur, shallow depth of field, photographic realism, no CGI look, no illustration. A real honey badger (ratel): stocky, low to the ground, black below with a broad grey-white mantle from the crown of the head along the back to the tail, small eyes, short legs with long claws. No people anywhere in the frame.";
 // Product pages at the Ralph Lauren / Nude Project standard (Leo, 2026-10-15, references in "Model examples/"):
 // model-grade casting, posed and styled, in a high-end setting per design (`look: "set"` / `"set-w"`, SETTINGS below)
 // that could be southern Europe or Mauritius. `{setting}` is filled from the shot.
@@ -41,6 +44,79 @@ const T = "4:5"; // tiles, portraits, product pages
 
 /** @type {Record<string, {out: string, aspect: string, size: [number, number], wear: string[], face?: string, faces?: string[], family?: string, prompt: string, look?: string, setting?: string}>} */
 export const SHOTS = {
+  // On the ground (/conservation) as a descent (Leo, 2026-10-21): the scene behind each panel, 16:9 and quiet enough for copy
+  // to read over the lower half. One person, small in a wide frame, in the place the fifth goes to (data/ground.ts); until a
+  // take is approved the page uses stills already on the site. No sunglasses: these are shaded or dim.
+  "ground-summit": {
+    out: "images/ground/summit.jpg", aspect: C, size: [2560, 1440],
+    wear: ["harbour-quarter-zip-navy", "esplanade-linen-trouser-oat"],
+    prompt:
+      "A wide shot from the summit of Piton de la Petite Rivière Noire in Mauritius at sunrise, the whole island falling away below in green ridges, cloud lying in the valleys and the sea and the lagoon far off catching the first light. One man in his early thirties stands at the edge with his back half to the camera, small in the frame, in the navy quarter-zip knit and the oat linen trousers, looking out. Clean cold morning air, long soft light, no other people.",
+  },
+  "ground-forest": {
+    out: "images/ground/forest.jpg", aspect: C, size: [2560, 1440],
+    wear: ["harbour-quarter-zip-forest", "esplanade-linen-trouser-oat"],
+    prompt:
+      "A wide shot of the shaded footpath through the native forest of Black River Gorges in Mauritius, tall endemic trees and ferns closing over the path, soft green light coming down through the canopy, mist in the far gorge. One man in his late twenties walks away from the camera along the path, small in the frame, the forest green quarter-zip knit over his shoulders with the sleeves tied loosely at the chest and the oat linen trousers, hands in pockets. Quiet, cool, no sun on him.",
+  },
+  "ground-shore": {
+    out: "images/ground/shore.jpg", aspect: C, size: [2560, 1440],
+    wear: ["harbour-quarter-zip-navy", "veranda-linen-trouser-navy"],
+    prompt:
+      "A wide shot of a mangrove shore on the east coast of Mauritius at dusk, the tangled roots standing in still warm water, the sky pale rose and grey, the sea flat behind. One man in his early thirties stands calf-deep among the roots, small in the frame, the navy linen trousers rolled to the knee and the navy quarter-zip knit, looking out along the shore. Low soft light, no sun, nothing else on the water.",
+  },
+  "ground-reef": {
+    out: "images/ground/reef.jpg", aspect: C, size: [2560, 1440],
+    wear: ["lido-stripe-swim-short-navy"],
+    prompt:
+      "A wide shot taken just under the surface over the coral reef at Blue Bay, Mauritius, clear turquoise water, the coral garden spreading below with small bright fish, sunlight breaking into ripples across the sand. One man in his late twenties free-dives down over the reef, small in the frame and seen from behind, in the navy striped swim shorts and nothing else, a trail of bubbles rising from him. Calm, bright, the lower half of the frame open sand and water.",
+  },
+  "ground-deep": {
+    out: "images/ground/deep.jpg", aspect: C, size: [2560, 1440], wear: [], look: "still",
+    prompt:
+      "A wide shot of deep open ocean water seen from forty metres down off the reef wall at Blue Bay, Mauritius, almost dark navy blue fading to black at the bottom of the frame, the last of the daylight a faint pale glow high above, a few specks drifting in the water. Nothing else in the frame, no fish, no reef, no surface, no people.",
+  },
+  // Origins, chapter III: four wild honey badgers round the mark (public/images/about/).
+  "badger-lion": {
+    out: "images/about/badger-lion.jpg", aspect: "1:1", size: [1200, 1200], wear: [], look: "wild",
+    prompt:
+      "A honey badger standing its ground, hackles raised and teeth bared, facing a lioness crouched a few metres away in dry golden grass of the Kalahari at dawn, low warm side light, dust hanging in the air, the lioness hesitating. The badger small in front of the big cat but not backing off.",
+  },
+  "badger-cobra": {
+    out: "images/about/badger-cobra.jpg", aspect: "1:1", size: [1200, 1200], wear: [], look: "wild",
+    prompt:
+      "A honey badger confronting a cape cobra reared up with its hood spread, on red Kalahari sand with sparse dry grass, mid-morning light, the badger leaning in towards the snake, eye level with both animals.",
+  },
+  "badger-dig": {
+    out: "images/about/badger-dig.jpg", aspect: "1:1", size: [1200, 1200], wear: [], look: "wild",
+    prompt:
+      "A honey badger digging furiously into hard dry ground on an African savanna at midday, soil and dust flying behind its long front claws, head half buried in the hole, harsh bright light and a hard shadow.",
+  },
+  "badger-dusk": {
+    out: "images/about/badger-dusk.jpg", aspect: "1:1", size: [1200, 1200], wear: [], look: "wild",
+    prompt:
+      "A honey badger trotting alone across open savanna at dusk, the last orange light catching the pale stripe along its back, flat-topped acacia trees in silhouette behind, a wide empty sky.",
+  },
+  "badger-bees": {
+    out: "images/about/badger-bees.jpg", aspect: "1:1", size: [1200, 1200], wear: [], look: "wild",
+    prompt:
+      "A honey badger tearing into a wild beehive in the hollow of an old tree trunk, honeycomb in its jaws, a cloud of bees swarming round its head, late afternoon light through the branches, unbothered.",
+  },
+  "badger-hyena": {
+    out: "images/about/badger-hyena.jpg", aspect: "1:1", size: [1200, 1200], wear: [], look: "wild",
+    prompt:
+      "A honey badger standing over a carcass and facing down a spotted hyena twice its size on an open dusty plain, hackles up and mouth open, the hyena stopped a few metres away with its head low, flat grey morning light.",
+  },
+  "badger-jackals": {
+    out: "images/about/badger-jackals.jpg", aspect: "1:1", size: [1200, 1200], wear: [], look: "wild",
+    prompt:
+      "A honey badger charging at two black-backed jackals that are scattering away from it across short dry grass, dust kicked up, golden late light, the badger low and fast in the middle of the frame.",
+  },
+  "badger-tree": {
+    out: "images/about/badger-tree.jpg", aspect: "1:1", size: [1200, 1200], wear: [], look: "wild",
+    prompt:
+      "A honey badger climbing the rough trunk of a leaning camelthorn tree, claws dug into the bark, looking back down over its shoulder, bright midday sky and dry bush behind.",
+  },
   // ── Men landing page (/men, src/data/men.ts) ──────────────────────────────────────────────────
   // Hero plates: empty landscapes behind each slide's campaign card.
   "men-plate-collection": {
@@ -377,29 +453,29 @@ export const SHOTS = {
       "Morning at a small seaside café table on the sand at Trou d'Eau Douce, Mauritius, the lagoon pale turquoise behind. A woman in her fifties with grey-blonde shoulder-length hair and crow's feet laughs over a cup of coffee, wearing the plain sky blue hoodie with its small tone-on-tone embroidered badger and the ecru and sky blue cap. Three-quarter length, vertical frame.",
   },
 
-  // ── Community portraits (the film's athletes, now in the clothes) ───────────────────────────
+  // ── Community cards on /stories (Leo, 2026-10-21: "more unbothered models"): one person, sometimes two, cast to the model
+  //    standard, in a real moment after or between sessions, composed and in their own world, in a premium place. ────────────
   ...community([
-    ["p1", "rugby", ["breakwater-rugby-shirt-red-ecru"], "on a rugby pitch by the sea, a ball under his arm, in the red and ecru striped rugby shirt and navy shorts"],
-    ["p2", "cycling", ["harbour-quarter-zip-red"], "beside his road bike on a quiet coastal road, in the red half-zip knit with stone shorts"],
-    ["p3", "golf", ["mooring-stripe-crew-green-ecru"], "on a seaside fairway holding a club, in the green and ecru striped knit crewneck with cream trousers"],
-    ["p4", "surf", ["tidal-swim-short-lagoon", "riviera-linen-shirt-sky"], "on a beach holding a surfboard, in the lagoon blue swim shorts and the sky blue linen shirt worn open"],
-    ["p5", "kitesurf", ["shore-swim-short-pine-ecru", "riviera-linen-shirt-oat"], "on a windy beach with a kite on the sand behind him, in the pine and ecru swim shorts and the oat linen shirt worn open"],
-    ["p6", "wakeboard", ["lido-stripe-swim-short-red"], "on a wooden jetty with a wakeboard, bare-chested in the red and white striped swim shorts"],
-    ["p7", "skate", ["touchline-rugby-shirt-red-navy"], "at the lip of a concrete skate bowl, board at his feet, in the red, white and navy rugby shirt with cream trousers"],
-    ["p8", "snowboard", ["clubhouse-knit-jacket-red-ecru"], "outside a mountain hut in the snow, board leaning on the wall, in the red and ecru knitted jacket"],
-    ["p9", "downhill", ["harbour-quarter-zip-orange"], "on a forest trail beside his mountain bike, in the orange half-zip knit with olive trousers"],
-    ["p10", "freeride", ["regatta-cardigan-navy-ecru"], "on a wooden chalet terrace with skis behind him, in the navy knitted cardigan with ecru trim over a white tee"],
-    ["p11", "trail", ["pavilion-cable-vest-navy"], "on a mountain trail above the sea, in the navy cable knit vest over a white tee"],
-    ["p12", "climbing", ["riviera-linen-shirt-clementine"], "at the foot of a sea cliff with a chalk bag on his hip, in the clementine linen shirt with sleeves rolled and stone trousers"],
+    ["p1", "a Samoan man of about twenty-four with a strong jaw, short dark curls and broad shoulders", ["breakwater-rugby-shirt-red-ecru"], "under floodlights at dusk on the edge of a private school's rugby pitch after training, mud on his knees, standing side-on with the ball held loosely against one hip, looking flatly past the camera, in the red and ecru striped rugby shirt and navy shorts"],
+    ["p2", "a Black British man of about twenty-six with short twists, high cheekbones and a long neck", ["harbour-quarter-zip-red"], "at golden hour on a quiet coastal road, leaning back against a low stone wall with a steel road bike resting beside him, one hand on the bars, eyes on the road ahead, in the red half-zip knit and stone shorts"],
+    ["p3", "an East Asian man of about twenty-five with hair slicked back and a sharp jaw", ["mooring-stripe-crew-green-ecru"], "at blue hour on the last green of a seaside course, a club resting over one shoulder, standing with his weight on one leg looking out across the water, in the green and ecru striped knit crewneck with cream trousers"],
+    ["p4", "a man of about twenty-three with long sun-bleached hair, still wet, and a lean surfer's build", ["tidal-swim-short-lagoon", "riviera-linen-shirt-sky"], "at first light on the whitewashed steps of a private villa that lead down to the beach, a surfboard under one arm, eyes lowered, in the lagoon blue swim shorts and the sky blue linen shirt worn open"],
+    ["p5", "a South Asian man of about twenty-seven with thick wavy black hair and a close-cropped beard", ["shore-swim-short-pine-ecru", "riviera-linen-shirt-oat"], "late afternoon on a windy beach, sitting on the sand with his forearms on his knees and the kite bar beside him, looking out to sea, in the pine and ecru swim shorts and the oat linen shirt worn open"],
+    ["p6", "a Latino man of about twenty-five with dark hair slicked back wet", ["lido-stripe-swim-short-red"], "on the teak deck of a private motorboat moored in a glassy bay in the early evening, bare-chested, a towel over one shoulder, sitting on the gunwale with one foot up, looking down at the water, in the red and white striped swim shorts"],
+    ["p7", "a mixed-race man of about twenty-two with shaggy dark hair falling over his brow", ["touchline-rugby-shirt-red-navy"], "at dusk at the lip of a smooth concrete bowl in a private garden, one foot on his board, hands in his pockets, looking down into the bowl, in the red, white and navy rugby shirt with cream trousers"],
+    ["p8", "a Scandinavian man of about twenty-six with long blond hair tucked behind his ears", ["clubhouse-knit-jacket-red-ecru"], "at dusk on the snowy terrace of a wooden chalet, the board leaning on the rail beside him, standing with one shoulder against a post and his hands in his pockets, looking at the mountains, in the red and ecru knitted jacket"],
+    ["p9", "an Afro-Caribbean man of about twenty-five with tight curls and a strong brow", ["harbour-quarter-zip-orange"], "in soft rain on a forest trail, the mountain bike leaning on a mossy stone wall behind him, mud sprayed up his legs, wiping his face with the back of his forearm, eyes down, in the orange half-zip knit and olive trousers"],
+    ["p10", "a Mediterranean man of about twenty-eight with dark stubble and hair pushed back", ["regatta-cardigan-navy-ecru"], "after the last run, on the wooden terrace of a mountain chalet with skis stood against the wall behind him, sitting on a bench with a hot drink in both hands, looking at the peaks, in the navy knitted cardigan with ecru trim over a white tee"],
+    ["p11", "a Japanese man of about twenty-four with longish hair tied in a low knot", ["pavilion-cable-vest-navy"], "at first light on a mountain trail high above the sea, standing on a rock with his hands on his hips, catching his breath and looking at the water far below, in the navy cable knit vest over a white tee"],
+    ["p12", "a Black man of about twenty-six with a shaved head and a long neck", ["riviera-linen-shirt-clementine"], "at the foot of a sea cliff in the late afternoon, sitting on a boulder taping his fingers with chalk on his hands, eyes on his hands, in the clementine linen shirt with the sleeves rolled and stone trousers"],
   ]),
-  // Sportswomen in the women's line (2026-10-15): new people, not from the film, one per sport.
-  ...communityWomen([
-    ["w1", "a surfer in her early thirties with long sun-bleached sandy hair, salty and tangled, and tanned freckled skin", ["tidal-swimsuit-navy", "womens-riviera-linen-shirt-sky"], "on the sand with a white surfboard under one arm, waves breaking on the reef at Tamarin behind her, in the navy one-piece swimsuit with the sky blue linen shirt worn open over it"],
-    ["w2", "a kitesurfer, a Mauritian Creole woman in her mid twenties with short natural curls and an athletic build", ["lido-stripe-swimsuit-red"], "on a windy beach at Le Morne with her kite lying on the sand behind her, in the red and white striped one-piece swimsuit"],
-    ["w3", "a golfer, a Korean woman in her late thirties with a sleek low ponytail", ["promenade-knit-polo-navy", "quayside-chino-short-white"], "on a seaside fairway holding a club, in the navy short-sleeved knitted collared top tucked into the white cotton chino shorts, white golf shoes"],
-    ["w4", "a trail runner, a lean woman in her early forties with a short grey-streaked crop and sun lines around her eyes", ["cabana-stripe-tee-red", "quayside-chino-short-stone"], "on a ridge trail in the Black River Gorges, green forested hills and the sea far below, in the red and white striped t-shirt with the stone cotton chino shorts and trail shoes, a light sheen of sweat"],
-    ["w5", "a sailor in her mid fifties with a weathered tan and grey-blonde hair in a loose ponytail", ["womens-mooring-stripe-crew-navy-ecru", "esplanade-linen-short-white"], "on the wooden pontoon of a sailing club at Grand Baie, small dinghies with white sails moored behind her, in the cropped navy and ecru striped knit crewneck with the white tailored linen shorts"],
-    ["w6", "a freediver, a Mauritian woman of Indian heritage in her late twenties with long black hair slicked back and wet", ["lido-stripe-swimsuit-sky"], "on the deck of a small wooden boat over the reef at Blue Bay, a mask in one hand and long freediving fins under her arm, in the sky blue and white striped one-piece swimsuit, water drops on her skin"],
+  ...community([
+    ["w1", "a woman of about twenty-six with long sun-bleached sandy hair, salty and tangled, and tanned freckled skin", ["tidal-swimsuit-navy", "womens-riviera-linen-shirt-sky"], "at first light on the sand, a white surfboard stood upright beside her with one arm hooked over it, looking out at the reef, in the navy one-piece swimsuit with the sky blue linen shirt worn open over it"],
+    ["w2", "a Mauritian Creole woman of about twenty-four with short natural curls and an athletic build", ["lido-stripe-swimsuit-red"], "late afternoon on a windy beach, sitting on the sand with her back against the kite bag and her knees up, looking along the shore, in the red and white striped one-piece swimsuit"],
+    ["w3", "a Korean woman of about twenty-five with a sleek low ponytail and high cheekbones", ["promenade-knit-polo-navy", "quayside-chino-short-white"], "at blue hour on a seaside course, a club over one shoulder, standing on the green with her weight on one leg looking across the water, in the navy short-sleeved knitted collared top tucked into the white cotton chino shorts"],
+    ["w4", "a lean woman of about twenty-seven with a short dark crop", ["cabana-stripe-tee-red", "quayside-chino-short-stone"], "at first light on a coastal trail above the sea, sitting on a rock with her elbows on her knees catching her breath, looking at the water, in the red and white striped tee and the stone chino shorts"],
+    ["w5", "a Black woman of about twenty-six with long braids tied back", ["womens-mooring-stripe-crew-navy-ecru", "esplanade-linen-short-white"], "in the early evening on the teak deck of a sailing yacht at anchor, sitting on the cabin top with one knee up and her back against the mast, looking at the horizon, in the navy and ecru striped knit crewneck and the white linen shorts"],
+    ["w6", "a Mediterranean woman of about twenty-five with dark hair slicked back wet", ["lido-stripe-swimsuit-sky"], "at the edge of a natural rock pool by the sea in the late afternoon, sitting on the warm rock with her feet in the water and a towel beside her, looking down at the water, in the sky blue and white striped one-piece swimsuit"],
   ]),
 
   // ── On-model product shots (one model per design, kept across its colourways) ──────────────
@@ -954,26 +1030,14 @@ Object.assign(SHOTS, {
   },
 });
 
+/** The community cards (look "community", composed in generate-stills.mjs): a model-standard casting in a real moment, in the moody unbothered mood of the moments pictures. */
 function community(rows) {
-  return Object.fromEntries(
-    rows.map(([id, sport, wear, scene]) => [
-      id,
-      {
-        out: `community/${id}.jpg`, aspect: T, size: [1080, 1350], wear,
-        face: `community/${id}.jpg`,
-        prompt: `Portrait of the ${sport} athlete from the first reference image, same face, same build, same skin and hair, standing still and looking calmly into the lens after a session, ${scene}. Natural light outdoors in Mauritius, waist-up to three-quarter length.`,
-      },
-    ]),
-  );
-}
-
-function communityWomen(rows) {
   return Object.fromEntries(
     rows.map(([id, who, wear, scene]) => [
       id,
       {
-        out: `community/${id}.jpg`, aspect: T, size: [1080, 1350], wear, look: "women",
-        prompt: `Portrait of ${who}, standing still and looking calmly into the lens after a session, ${scene}. Natural light outdoors in Mauritius, waist-up to three-quarter length.`,
+        out: `community/${id}.jpg`, aspect: T, size: [1080, 1350], wear, look: "community",
+        prompt: `One person only: ${who}, ${scene}. Cast like a top-agency model in a luxury fashion house's campaign: genuinely striking and photogenic, tall and lean with model proportions, hair styled as part of the look, not a stock-photo or catalogue model. Posed like a model, never centred with the arms at the sides: weight on one leg, leaning, sitting, or caught mid-moment. The place is premium and immaculately kept, never touristy or rustic; no palm trees. No sunglasses or glasses. Waist-up to three-quarter length, vertical frame.`,
       },
     ]),
   );

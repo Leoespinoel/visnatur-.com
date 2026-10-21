@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "placeholders": "node --import ./scripts/ts-resolve.mjs scripts/generate-placeholders.mts",
-    "shopify:sync": "node --env-file-if-exists=.env.local --import ./scripts/ts-resolve.mjs scripts/shopify-sync.mts"
+    "shopify:sync": "node --env-file-if-exists=.env.local --import ./scripts/ts-resolve.mjs scripts/shopify-sync.mts",
+    "club:setup": "node --env-file-if-exists=.env.local --import ./scripts/ts-resolve.mjs scripts/club-setup.mts",
+    "club:adjust": "node --env-file-if-exists=.env.local --import ./scripts/ts-resolve.mjs scripts/club-adjust.mts"
   },
   "dependencies": {
     "next": "16.4.0",

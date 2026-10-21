@@ -8,7 +8,6 @@ import { site } from "@/data/site";
 import { v2Href } from "@/data/v2";
 import { useCart } from "@/lib/cart";
 import { dispatchLabel, formatPrice, madeToOrderLabel, transitLabel } from "@/lib/format";
-import { pledgeCents, pledgePercentLabel } from "@/lib/pledge";
 
 /**
  * The V2 buy box: colourways, square size boxes and one big button. Same rules as the classic ProductDetails:
@@ -122,7 +121,6 @@ export function V2BuyBox({ product }: { product: Product }) {
         {[
           ["Design", designNumber(product)],
           ["Ships in", dispatchLabel()],
-          ["To the wild", `${formatPrice(pledgeCents(product.price))} (${pledgePercentLabel()})`],
           ["Repairs", "Free, for life"],
         ].map(([k, v]) => (
           <li key={k} className="border-b-[1.5px] border-r-[1.5px] border-ink p-3">

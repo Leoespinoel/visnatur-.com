@@ -3,7 +3,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore, type ReactNode } from "react";
 import { getProduct, type Product } from "@/data/products";
 import { site } from "@/data/site";
-import { pledgeCents } from "@/lib/pledge";
 import { adjustKey, cleanAdjustments, type Adjustments } from "@/lib/adjust";
 
 /**
@@ -24,7 +23,6 @@ type CartContextValue = {
   count: number;
   subtotal: number;
   shipping: number;
-  pledge: number;
   total: number;
   isOpen: boolean;
   hydrated: boolean;
@@ -164,13 +162,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
     const subtotal = lines.reduce((s, l) => s + l.product.price + lineSurcharge(l), 0);
     const shipping = subtotal === 0 || subtotal >= site.freeShippingThresholdCents ? 0 : site.flatShippingCents;
-    const pledge = lines.reduce((s, l) => s + pledgeCents(l.product.price + lineSurcharge(l)), 0);
     return {
       lines,
       count: lines.length,
       subtotal,
       shipping,
-      pledge,
       total: subtotal + shipping,
       isOpen: snap.isOpen,
       hydrated,

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { categories } from "@/data/site";
+import { pledgePercentLabel } from "@/lib/pledge";
 import { getProduct, type Product } from "@/data/products";
 import { favouriteSlugs } from "@/data/favourites";
 import { editStory } from "@/data/edits";
 import { exploreStories, heroStory } from "@/data/campaigns";
-import { pledgePercentLabel } from "@/lib/pledge";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { StoryBanner } from "@/components/StoryBanner";
 import { StoryPair } from "@/components/StoryPair";
@@ -26,9 +26,9 @@ export default function ShopLandingPage() {
   const picks = favouriteSlugs.map(getProduct).filter((p): p is Product => Boolean(p));
 
   const conservation: Story = {
-    eyebrow: `${pledgePercentLabel()} of every sale`,
+    eyebrow: `${pledgePercentLabel()} of profits`,
     title: "Back to the reef",
-    dek: "Of the price, not the profit: for the coral around Mauritius, its last native forest and its mangrove coast.",
+    dek: "A fifth of what the brand earns each year goes to creating and sustaining the environments we love wearing the pieces in: the coral around Mauritius, its last native forest and its mangrove coast.",
     image: "/images/shop/reef.jpg?v=r1016",
     alt: "A free-diver in navy swim shorts gliding over a coral garden, sunlight falling through the water",
     links: [{ label: "Explore now", href: "/conservation" }],

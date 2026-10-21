@@ -18,7 +18,7 @@ export default function WomenPage() {
       <HeroSlider slides={heroSlides} label="Women" />
       <CategoryMosaic title="Women’s pieces" tiles={categoryTiles} />
       <StoryBand tone="dark" {...stories} />
-      <BannerSlider slides={bannerSlides} label="The pledge and the workshop" />
+      <BannerSlider slides={bannerSlides} label="The wild and the workshop" />
       <StoryBand tone="grey" {...favourites} />
       <ExploreCarousel className="theme-red" {...explore} />
     </>

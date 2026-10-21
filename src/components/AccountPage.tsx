@@ -3,6 +3,27 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { accountLinks, accountTiles } from "@/data/account";
 
+/** The account menu under the header, as on nudeproject.com. Also on the signed-in /members. */
+export function AccountNav({ current }: { current: string }) {
+  return (
+    <nav aria-label="Account" className="border-b border-line">
+      <ul className="no-scrollbar flex gap-7 overflow-x-auto px-4 md:justify-center md:gap-10 md:px-8">
+        {accountLinks.map((l) => (
+          <li key={l.label} className="shrink-0">
+            <Link
+              href={l.href}
+              aria-current={l.href === current ? "page" : undefined}
+              className={`eyebrow link-underline block py-4 ${l.href === current ? "!text-ink after:[transform:none]" : "hover:!text-ink"}`}
+            >
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
 /**
  * The account pages (/account, /wishlist), after nudeproject.com's: their own menu under the header, the page,
  * then five studio pictures into the shop.
@@ -10,21 +31,7 @@ import { accountLinks, accountTiles } from "@/data/account";
 export function AccountPage({ current, children }: { current: string; children: ReactNode }) {
   return (
     <>
-      <nav aria-label="Account" className="border-b border-line">
-        <ul className="no-scrollbar flex gap-7 overflow-x-auto px-4 md:justify-center md:gap-10 md:px-8">
-          {accountLinks.map((l) => (
-            <li key={l.label} className="shrink-0">
-              <Link
-                href={l.href}
-                aria-current={l.href === current ? "page" : undefined}
-                className={`eyebrow link-underline block py-4 ${l.href === current ? "!text-ink after:[transform:none]" : "hover:!text-ink"}`}
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <AccountNav current={current} />
 
       {children}
 

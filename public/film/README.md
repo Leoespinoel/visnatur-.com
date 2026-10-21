@@ -10,6 +10,8 @@ Drop the encoded film here and point `src/data/film.ts` at it. The hero switches
 | `hero-portrait.mp4` | Phones (optional, falls back to landscape) | 1080×1920, about 1.2 Mbps, under 10 MB |
 | `poster-landscape.jpg` | First frame while the video loads, and the reduced-motion still | 1920×1080, under 300 KB |
 | `poster-portrait.jpg` | Same, phones | 1080×1920, under 300 KB |
+| `kite-landscape.mp4` | The film at the head of /stories, tablets and desktops (phones keep the placeholder) | 1280×720 (the source's size), 1 Mbps, 80 s: 04:00–04:40 and 12:05–12:45 of the 13-minute kite film, cross-faded, cut with `node_modules/ffmpeg-static/ffmpeg` on 2026-10-21 |
+| `kite-poster.jpg` | Its first frame | 1280×720 |
 
 ## Encoding
 

@@ -5,7 +5,7 @@ export type StoryLink = { label: string; href: string };
 /** One editorial story: what a banner, a half of a pair or a carousel tile says, and where it leads. */
 export type Story = { eyebrow?: string; title: string; dek?: string; image: string; alt: string; links: StoryLink[] };
 
-const titleSize = { sm: "text-3xl md:text-4xl", md: "text-4xl md:text-5xl", lg: "text-5xl md:text-7xl" };
+const titleSize = { xs: "text-2xl md:text-3xl", sm: "text-3xl md:text-4xl", md: "text-4xl md:text-5xl", lg: "text-5xl md:text-7xl" };
 
 /**
  * The copy on a story image, laid out as on ralphlauren.com: a small label, the title, one line,

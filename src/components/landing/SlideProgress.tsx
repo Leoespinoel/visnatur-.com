@@ -27,6 +27,7 @@ export function SlideProgress({
   reduced,
   onDone,
   onToggle,
+  tone = "white",
 }: {
   index: number;
   count: number;
@@ -35,21 +36,24 @@ export function SlideProgress({
   reduced: boolean;
   onDone: () => void;
   onToggle: () => void;
+  /** White over photographs (the default); ink on a page's own background (the events stage on /stories). */
+  tone?: "white" | "ink";
 }) {
+  const c = tone === "ink" ? { text: "text-ink", bar: "bg-ink", faint: "bg-ink/25" } : { text: "text-white", bar: "bg-white", faint: "bg-white/30" };
   return (
-    <div className="flex items-center gap-4 text-white">
+    <div className={`flex items-center gap-4 ${c.text}`}>
       <p className="flex shrink-0 items-center gap-2.5 text-[11px] font-semibold tabular-nums" aria-label={`Slide ${index + 1} of ${count}`}>
         <span>{index + 1}</span>
-        <span className="h-3 w-px bg-white/60" aria-hidden />
+        <span className={`h-3 w-px ${tone === "ink" ? "bg-ink/50" : "bg-white/60"}`} aria-hidden />
         <span>{count}</span>
       </p>
-      <div className="relative h-px flex-1 bg-white/30" aria-hidden>
+      <div className={`relative h-px flex-1 ${c.faint}`} aria-hidden>
         {reduced ? (
-          <div className="absolute inset-0 origin-left bg-white" style={{ transform: `scaleX(${(index + 1) / count})` }} />
+          <div className={`absolute inset-0 origin-left ${c.bar}`} style={{ transform: `scaleX(${(index + 1) / count})` }} />
         ) : (
           <div
             key={index}
-            className="absolute inset-0 origin-left bg-white"
+            className={`absolute inset-0 origin-left ${c.bar}`}
             style={{ animation: `slide-progress ${ms}ms linear forwards`, animationPlayState: paused ? "paused" : "running" }}
             onAnimationEnd={onDone}
           />

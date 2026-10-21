@@ -1,5 +1,6 @@
 import { partners } from "@/data/site";
 import { LeafIcon, NeedleIcon } from "./Icons";
+import { MarqueeTrack } from "./MarqueeTrack";
 
 type Partner = (typeof partners)[number];
 
@@ -25,37 +26,40 @@ const marks: Record<Partner["mark"] | "workshop", React.ReactNode> = {
   workshop: <NeedleIcon width={22} height={22} />,
 };
 
-/** A partner's placeholder emblem in its ring. */
-export function PartnerMark({ mark }: { mark: keyof typeof marks }) {
-  return <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-current">{marks[mark]}</span>;
+/** A partner's placeholder emblem in its ring; `className` sets the ring's size (the band draws it larger than the rows on /stories). */
+export function PartnerMark({ mark, className = "h-11 w-11" }: { mark: keyof typeof marks; className?: string }) {
+  return <span className={`flex shrink-0 items-center justify-center rounded-full border border-current ${className}`}>{marks[mark]}</span>;
 }
 
 function Logo({ partner }: { partner: Partner }) {
   if (partner.logo) {
-    return <img src={partner.logo} alt={partner.name} className="h-10 w-auto max-w-48 object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 md:h-12" />;
+    return <img src={partner.logo} alt={partner.name} className="h-12 w-auto max-w-56 object-contain opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 md:h-16" />;
   }
   return (
-    <span className="flex items-center gap-3 text-ink-2">
-      <PartnerMark mark={partner.mark} />
-      <span className="text-xs font-medium uppercase tracking-label whitespace-nowrap md:text-sm">{partner.name}</span>
+    <span className="flex items-center gap-4 text-ink-2">
+      <PartnerMark mark={partner.mark} className="h-12 w-12 md:h-14 md:w-14" />
+      <span className="text-sm font-medium uppercase tracking-label whitespace-nowrap md:text-base">{partner.name}</span>
     </span>
   );
 }
 
-/** Partner logos running edge to edge across the page, on the site's marquee. */
+/**
+ * Partner logos running edge to edge across the page, on the site's marquee. A tall band (Leo, 2026-10-21: "make the logo band
+ * wider"): deeper padding, larger marks and names, and more room between them.
+ */
 export function PartnerBand() {
   // The track slides by half its width, so each half must be wider than the widest screen: the three partners repeat four times per half.
   const half = Array.from({ length: 4 }, () => partners).flat();
   const items = [...half, ...half];
   return (
     <div className="overflow-hidden border-y border-line bg-paper">
-      <ul className="marquee-track marquee-hover-pause py-7 md:py-9 [--marquee-duration:60s]" aria-label="Conservation partners">
+      <MarqueeTrack as="ul" className="marquee-hover-pause py-12 md:py-16" aria-label="Who we build with">
         {items.map((p, i) => (
-          <li key={i} className="flex shrink-0 items-center px-8 md:px-14" aria-hidden={i >= partners.length}>
+          <li key={i} className="flex shrink-0 items-center px-10 md:px-20" aria-hidden={i >= partners.length}>
             <Logo partner={p} />
           </li>
         ))}
-      </ul>
+      </MarqueeTrack>
     </div>
   );
 }
