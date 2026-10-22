@@ -28,13 +28,16 @@ export const metadata: Metadata = {
  * The last chapter, The Result, is the sum of the two before it (Leo, 2026-10-21: "everything the brand stands for in every
  * sense", combining the inspiration and the badger; then "about creating value and being intentional about everything with
  * integrity"): The Life + The Attitude = The Result, then "value" in three senses (worth, intent, integrity), set as the
- * name is in chapter I. It sits on white (Leo, 2026-10-21: "make the last chapter background white"); the red band before the
- * footer is the letter (Newsletter.tsx), which Leo put on Origins the same evening.
+ * name is in chapter I. Every chapter now sits on black under a white cover (Leo, 2026-10-22; chapter IV was white since
+ * 2026-10-21); the red band before the footer is the letter (Newsletter.tsx), which Leo put on Origins the same evening.
  */
 const grid = "grid gap-x-3 gap-y-0 md:grid-cols-12";
 const text = "md:col-span-8";
-/** A chapter's content: an opaque sheet that slides up over the chapter's cover (ChapterCover.tsx), with a shadow on its leading edge. */
-const sheet = "relative z-[1] bg-paper shadow-[0_-24px_60px_rgb(0_0_0/0.35)]";
+/**
+ * A chapter's content: an opaque sheet that slides up over the chapter's cover (ChapterCover.tsx), with a shadow on its leading edge.
+ * Black over the white covers (Leo, 2026-10-22: "the chapter title sections have a white background and the chapter themselves a black one").
+ */
+const sheet = "theme-dark relative z-[1] shadow-[0_-24px_60px_rgb(0_0_0/0.35)]";
 
 /**
  * The real animal in chapter III, in a row of tiles under the text like the homepage Collections row (Leo, 2026-10-21; before
@@ -58,7 +61,7 @@ const passage = "font-serif text-2xl leading-snug text-ink md:text-3xl";
 
 /**
  * Senses as a dictionary sets them: numbered down the left, one line each, ruled between (chapters I and IV). The numerals
- * are red on paper (white on a red card, where red would vanish).
+ * are red on the chapter's black (white on a red card, where red would vanish).
  */
 function Senses({ senses, numeralClassName = "text-red" }: { senses: React.ReactNode[]; numeralClassName?: string }) {
   return (
@@ -93,10 +96,22 @@ export default function AboutPage() {
   return (
     <div>
       {/* Origins: the brand's birth before the first chapter, in the Nude Project shape (born where and when, why not just clothes, who it is
-          for, the mission, a belief, a question) and in "we" (Leo, 2026-10-22: "many people helped me along the way"). White, no cover card:
-          the black Chapter I cover follows it as the chapters follow each other. */}
-      <section id="origins" className="scroll-mt-(--hdr)">
-        <div className="container-x pt-10 pb-14 md:pt-14 md:pb-20">
+          for, the mission, a belief, a question) and in "we" (Leo, 2026-10-22: "many people helped me along the way"). No cover card:
+          the white Chapter I cover follows it as the chapters follow each other. Behind the text, surfers crossing a city street past a
+          man in a suit, under a black filter so the text reads in white (Leo, 2026-10-22). At least a full screen under the header, like a
+          chapter cover, so the picture fills it on tall screens (Leo: "make sure the picture covers the whole page"), the text centred in it. */}
+      <section id="origins" className="theme-dark relative flex min-h-[calc(100svh-var(--hdr))] scroll-mt-(--hdr) items-center overflow-hidden">
+        <Image
+          src="/images/about/origins-crossing.jpg"
+          alt=""
+          fill
+          unoptimized
+          preload
+          sizes="100vw"
+          className="object-cover object-[60%_center] grayscale-[35%]"
+        />
+        <div aria-hidden="true" className="absolute inset-0 bg-black/65" />
+        <div className="container-x relative w-full pt-10 pb-14 md:pt-14 md:pb-20">
           {/* Centred, like the Nude Project statement it is shaped after (Leo, 2026-10-22: "center the text"). */}
           <div className="mx-auto max-w-4xl text-center">
             <div>
@@ -305,8 +320,8 @@ export default function AboutPage() {
       </section>
 
       {/* IV. The result: value created with intent and integrity, as the sum of the life (II) and the attitude (III), then
-          "value" in three senses like the name in chapter I (Leo, 2026-10-21: not a question any more). On white like the other chapters, so the
-          signs and numerals are red as in chapter I; the letter's red band follows. */}
+          "value" in three senses like the name in chapter I (Leo, 2026-10-21: not a question any more). On black like the other chapters, the
+          signs and numerals red as in chapter I; the letter's red band follows. */}
       <section id="the-result" className="scroll-mt-(--hdr)">
         <ChapterCover numeral="IV" name="The Result" />
         <div className={sheet}>

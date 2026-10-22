@@ -69,6 +69,23 @@
   color: var(--ink);
 }
 
+/* A white island that stays white in dark mode too (the chapter covers on Origins): the light tokens, scoped to one element. */
+.theme-light {
+  --paper: #ffffff;
+  --paper-2: #f2f2f2;
+  --surface: #f7f7f7;
+  --ink: #0a0a0a;
+  --ink-2: #3d3d3d;
+  --muted: #7a7a7a;
+  --line: #dcdcdc;
+  --red: #c8102e;
+  --red-2: #a30d25;
+  --charcoal: #1c1c1c;
+  --grey: #bdbdbd;
+  background: #fff;
+  color: var(--ink);
+}
+
 /* A red band inside a light page: white text tokens on the brand red. --red is left alone so the band follows the theme's red. */
 .theme-red {
   --paper: var(--red);

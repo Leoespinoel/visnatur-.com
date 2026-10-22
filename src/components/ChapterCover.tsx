@@ -7,7 +7,7 @@ import { BadgerRows } from "./BadgerRows";
 
 /**
  * A chapter's title card on Origins (Leo, 2026-10-21: "a transition animation by section, so it is told like a story"): a
- * full-screen black card under the header with "Chapter", then the numeral in red and the chapter's name beside it on one line, over the footer's drifting badger rows. It sticks in place
+ * full-screen white card under the header (Leo, 2026-10-22: white covers, black chapters; it was black) with "Chapter", then the numeral in red and the chapter's name beside it on one line, over the footer's drifting badger rows. It sticks in place
  * while the chapter's own content slides up over it; as it is covered, its text sinks back and fades (`--cover-p`, the share
  * covered, read by `.chapter-cover-text` in globals.css). The text rises in the first time the card is seen. Under reduced
  * motion the card still sticks (that is layout, not motion) but its text stays put.
@@ -23,7 +23,7 @@ export function ChapterCover({ numeral, name, as: Heading = "h2" }: { numeral: s
   useCoverProgress(ref);
 
   return (
-    <div ref={ref} className="chapter-cover theme-dark sticky flex items-center overflow-hidden">
+    <div ref={ref} className="chapter-cover theme-light sticky flex items-center overflow-hidden">
       {/* The drifting badgers from the footer, behind the title (Leo, 2026-10-21). Enough rows to fill a tall screen; the rest is clipped. */}
       <BadgerRows rows={24} />
       <div className="chapter-cover-text container-x relative w-full">
