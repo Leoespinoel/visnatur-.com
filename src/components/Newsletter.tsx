@@ -16,7 +16,7 @@ const field = "mt-6 w-full border-b border-paper/40 bg-transparent pb-3 text-bas
  */
 const letters = {
   subjects: ["Drop dates, before anyone", "The cutting table", "Mauritius", "New colours first", "The fifth, with the accounts", "Member nights", "What we got wrong"],
-  line: "We write when there is a story worth telling, a voice worth hearing or a piece worth wearing. So that you experience them first.",
+  line: "We write when there is a story worth telling, a voice worth hearing or a piece worth wearing. So you can experience them first.",
   ask: { label: "What should we make next?", placeholder: "A piece, a colour, a place" },
 };
 
