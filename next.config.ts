@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
   /** The archive of closed editions is gone: every design now stays on sale. */
   async redirects() {
     return [
+      /**
+       * The site opens on Origins (Leo, 2026-10-22). Temporary (307), so browsers don't cache it and the homepage in
+       * src/app/page.tsx comes back the moment this line goes.
+       */
+      { source: "/", destination: "/about", permanent: false },
       { source: "/archive", destination: "/shop/all", permanent: false },
       /** The journal piece on made to order became the one on Signature and drops (2026-10-20). */
       { source: "/stories/made-once-you-order-it", destination: "/stories/signature-and-collections", permanent: true },

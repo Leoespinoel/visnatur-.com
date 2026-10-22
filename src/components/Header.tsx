@@ -103,10 +103,10 @@ export function Header() {
     setMega(m);
   };
   // The button that opened the menu or the search; Esc and the search's close button hand focus back to it.
-  const trigger = useRef<HTMLButtonElement | null>(null);
+  const trigger = useRef<HTMLElement | null>(null);
   // True while the open menu was opened by hovering, so a click on its label doesn't close it under the mouse.
   const viaHover = useRef(false);
-  const openGroup = (g: Group, button: HTMLButtonElement) => {
+  const openGroup = (g: Group, button: HTMLElement) => {
     trigger.current = button;
     setSearchOpen(false);
     setGroup(g);
@@ -135,7 +135,7 @@ export function Header() {
     openGroup("shop", button);
   };
   // Hover only for a real mouse: a tap fires a synthetic enter and then a click, which would open and close at once.
-  const hoverGroup = (g: Group, e: PointerEvent<HTMLButtonElement>) => {
+  const hoverGroup = (g: Group, e: PointerEvent<HTMLElement>) => {
     if (e.pointerType !== "mouse") return;
     viaHover.current = true;
     openGroup(g, e.currentTarget);
@@ -159,7 +159,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [seenPath, setSeenPath] = useState(pathname);
 
-  const hero = pathname === "/" || pathname === "/men" || pathname === "/women";
+  // The old homepage lives at /home since the site opens on Origins (Leo, 2026-10-22), full-screen hero and all.
+  const hero = pathname === "/" || pathname === "/home" || pathname === "/men" || pathname === "/women";
   const overlay = hero && !scrolled && !menuOpen && !searchOpen;
 
   // Close any open menu when the route changes (state adjustment during render, per React docs).
@@ -261,6 +262,25 @@ export function Header() {
             >
               {nav.groups.map((g) => {
                 const active = menuOpen && group === g.key;
+                // Collections opens its panel on hover as before, and a click goes to the old homepage (Leo, 2026-10-22).
+                if (g.key === "shop")
+                  return (
+                    <Link
+                      key={g.key}
+                      href="/home"
+                      // Next would skip past the full-screen hero and land on the section under it, so open at the very top.
+                      scroll={false}
+                      onClick={() => {
+                        closeMenu();
+                        window.scrollTo({ top: 0, behavior: "instant" });
+                      }}
+                      onPointerEnter={(e) => hoverGroup(g.key, e)}
+                      aria-current={pathname === "/home" ? "page" : undefined}
+                      className={`eyebrow !text-(--hdr-fg) link-underline px-2 py-2 ${active || pathname === "/home" ? "after:[transform:none]" : ""}`}
+                    >
+                      {g.label}
+                    </Link>
+                  );
                 return (
                   <button
                     key={g.key}
