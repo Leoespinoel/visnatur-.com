@@ -8,27 +8,27 @@ import { ProductGrid } from "@/components/ProductGrid";
 import { Newsletter } from "@/components/Newsletter";
 
 export const metadata: Metadata = {
-  title: "Collections",
-  description: "Vis Naturæ collections: a handful of designs, made once in limited numbers and released on a date. When they are gone, they are gone.",
+  title: "Limited edition",
+  description: "Vis Naturæ Limited edition: a handful of designs, made once in small numbers and released on a date. When they are gone, they are gone.",
 };
 
 /**
- * Collections (Leo, 2026-10-20; first called drops): limited units, then gone. The list lives in src/data/drops.ts and is
- * empty until the first collection.
+ * Limited edition (Leo, 2026-10-20; first called drops, then collections, off menu, reserve and Hors série; Limited edition since 2026-10-22): limited units, then gone. The list
+ * lives in src/data/drops.ts and is empty until the first one.
  */
 export default function CollectionsPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Shop · Collections"
-        title="Collections."
-        lede="A handful of designs, made once in limited numbers and released on a date. When they are gone, they are gone."
+        eyebrow="Collections · Limited edition"
+        title="Limited edition."
+        lede="A handful of designs, made once in small numbers and released on a date. When they are gone, they are gone."
       />
-      {/* Which collections are out depends on today's date, so this part renders at request time. */}
+      {/* Which releases are out depends on today's date, so this part renders at request time. */}
       <Suspense fallback={null}>
         <DropList />
       </Suspense>
-      <Newsletter context="collections" />
+      <Newsletter />
     </>
   );
 }
@@ -49,7 +49,7 @@ async function DropList() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/members" className="btn btn-primary">
-              Members only
+              Join the lineup
             </Link>
             <Link href="/shop/signature" className="btn btn-outline">
               Shop Signature

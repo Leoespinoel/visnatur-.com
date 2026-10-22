@@ -15,7 +15,7 @@ import { Sticker } from "@/components/v2/Sticker";
 import { V2Ticker } from "@/components/v2/Ticker";
 
 export const metadata: Metadata = {
-  title: { absolute: "Vis Naturæ — Signature, always. Collections, once." },
+  title: { absolute: "Vis Naturæ — Signature, always. Limited edition, once." },
   description: site.description,
 };
 
@@ -143,7 +143,7 @@ export default function V2Home() {
         <ol className="mt-12 grid border-l-[1.5px] border-t-[1.5px] border-ink md:grid-cols-3">
           {[
             ["01", "Signature", `The line, always on. In stock in Mauritius, out within ${dispatchLabel()}, then ${transitLabel()} express to Europe.`],
-            ["02", "Collections", "Limited units, out on a set day, then gone. Get on the list to hear first."],
+            ["02", "Limited edition", "Small numbers, out on a set day, then gone. Get on the list to hear first."],
             [
               "03",
               "Made to order",

@@ -10,6 +10,7 @@ import type { ClubView } from "@/lib/club-ledger";
 import { BandHeading } from "./BandHeading";
 import { dayMonth, roomOf } from "./format";
 import type { ClubAct } from "./ClubMember";
+import { ClubSocials } from "./ClubSocials";
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const action = "eyebrow link-underline !text-ink disabled:opacity-50";
@@ -148,6 +149,8 @@ export function ClubLevelUp({ view, act }: { view: ClubView; act: ClubAct }) {
             </li>
           ))}
         </ul>
+        {/* The member's socials, for the search bar on /stories (Leo, 2026-10-22). */}
+        <ClubSocials view={view} act={act} />
       </div>
     </section>
   );

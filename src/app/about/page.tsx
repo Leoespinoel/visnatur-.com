@@ -13,6 +13,7 @@ import { Newsletter } from "@/components/Newsletter";
 import { pledgePercentLabel } from "@/lib/pledge";
 import { PullQuote } from "@/components/PullQuote";
 import { StoryCopy } from "@/components/StoryCopy";
+import { WordReveal } from "@/components/WordReveal";
 
 export const metadata: Metadata = {
   title: "Origins",
@@ -91,6 +92,36 @@ const sumTerms = [
 export default function AboutPage() {
   return (
     <div>
+      {/* Origins: the brand's birth before the first chapter, in the Nude Project shape (born where and when, why not just clothes, who it is
+          for, the mission, a belief, a question) and in "we" (Leo, 2026-10-22: "many people helped me along the way"). White, no cover card:
+          the black Chapter I cover follows it as the chapters follow each other. */}
+      <section id="origins" className="scroll-mt-(--hdr)">
+        <div className="container-x pt-10 pb-14 md:pt-14 md:pb-20">
+          {/* Centred, like the Nude Project statement it is shaped after (Leo, 2026-10-22: "center the text"). */}
+          <div className="mx-auto max-w-4xl text-center">
+            <div>
+              <p className="eyebrow">Origins</p>
+              {/* Every paragraph the same width (Leo, 2026-10-22: "make each paragraph the same width"): text-pretty, not text-balance,
+                  which narrowed the shorter paragraphs to even out their lines; from md the lines are justified, each last line centred. */}
+              <WordReveal
+                className={`mt-6 space-y-6 text-pretty md:text-justify md:[text-align-last:center] ${passage}`}
+                paragraphs={[
+                  `Vis Naturæ was born in ${site.foundedYear}, in Mauritius, between years spent in Europe and an island that kept calling us home. ` +
+                    "There was no brand plan at first, just a way of living: a wave before breakfast, a match in the afternoon, a dinner that turned " +
+                    "into a night out, and nothing in the wardrobe that could keep up.",
+                  "We didn’t start Vis Naturæ simply to make clothes. We wanted the things we love, nature, style, music and sport, to be one " +
+                    "life instead of four, and to make the pieces for it properly, at home, with people who care.",
+                  "This label is for those who go all in and rest like they mean it. Those who find out the time from the colour of the sky. " +
+                    "Those who let the tide, not the clock, decide when it’s over. And those who do not let a camera get in the way of the moment. " +
+                    "A lot has changed since the first sketch, but the mission remains the same: to make clothes we love for the people and places we love.",
+                  "Inspired by nature, to live life, not to understand, but simply to experience.",
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* I. The name, set as a dictionary entry: the headword as the chapter name, pronunciation, senses, then origin, history and what it asks of the brand. */}
       <section id="the-name" className="scroll-mt-(--hdr)">
         <ChapterCover numeral="I" name="The Label" as="h1" />
@@ -338,7 +369,7 @@ export default function AboutPage() {
                 <p>
                   Cut and sewn by hand in Mauritius, an island that has made fine knitwear and tailoring for half a century. Cloth chosen to last: a
                   piqué heavy enough to hold its collar, linen that is allowed to crease, a knit for the drive home. Signature, always in stock.
-                  Collections, made once in limited numbers, then gone. Any Signature piece made to order, adjusted to fit. Repaired for life, so
+                  Limited edition, made once in small numbers, then gone. Any Signature piece made to order, adjusted to fit. Repaired for life, so
                   the price is paid once.
                 </p>
               </div>
@@ -377,7 +408,7 @@ export default function AboutPage() {
       </section>
 
       {/* The letter, red, last before the footer as on every editorial page (Leo, 2026-10-21: "put the newsletter on the origins section"). */}
-      <Newsletter context="origins" />
+      <Newsletter />
     </div>
   );
 }

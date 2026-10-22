@@ -15,7 +15,7 @@ function Table({ table }: { table: LeagueTable }) {
     <table className="w-full border-t border-line text-sm md:max-w-5xl">
       <thead className="sr-only md:not-sr-only">
         <tr className="border-b border-line text-left">
-          {["Position", "Member", "Room", "Points"].map((h, i) => (
+          {["Position", "Member", "Spot", "Points"].map((h, i) => (
             <th key={h} scope="col" className={`eyebrow py-4 font-normal ${i === 3 ? "text-right" : ""} ${i === 2 ? "pl-8" : ""}`}>
               {h}
             </th>

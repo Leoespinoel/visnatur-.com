@@ -1,7 +1,7 @@
 import { products, type Product } from "./products";
 
 /**
- * Collections, first called drops (Leo, 2026-10-20): limited units, released on a date, then gone. Internally still "drops". A piece joins a drop with
+ * Limited edition (Leo, 2026-10-22; first called drops, then collections on 2026-10-20, then off menu, reserve and Hors série on 2026-10-21): limited units, released on a date, then gone. Internally still "drops". A piece joins a drop with
  * `line: "drop"` and `drop: <id>` in products.ts. The list stays empty until the first drop's designs are set;
  * /collections shows an empty state until then.
  */

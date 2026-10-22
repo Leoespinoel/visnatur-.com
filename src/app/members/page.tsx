@@ -6,8 +6,8 @@ import { ClubMember } from "@/components/club/ClubMember";
 import { ClubPublic } from "@/components/club/ClubPublic";
 
 export const metadata: Metadata = {
-  title: "Members only",
-  description: "The Vis Naturæ membership: free to join, points on every order, three rooms and rewards. Members Only, the subscription, goes entirely to the wild.",
+  title: "The lineup",
+  description: "The lineup, the Vis Naturæ membership: free to join, points on every order, three spots and rewards. Members Only, the subscription, goes entirely to the wild.",
 };
 
 /**

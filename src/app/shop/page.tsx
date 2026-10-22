@@ -13,7 +13,7 @@ import { CategoryTiles } from "@/components/CategoryTiles";
 import type { Story } from "@/components/StoryCopy";
 
 export const metadata: Metadata = {
-  title: "Shop",
+  title: "Collections",
   description: "Vis Naturæ: the Signature line, always in stock, and limited collections, made by hand in Mauritius. Swim, knitwear, linen shirts, chinos, linen trousers, caps and socks.",
 };
 
@@ -36,7 +36,7 @@ export default function ShopLandingPage() {
 
   return (
     <>
-      <h1 className="sr-only">Shop</h1>
+      <h1 className="sr-only">Collections</h1>
 
       {/* 1. Full-bleed campaign with the way in for men and women */}
       <StoryBanner story={heroStory} hero preload />

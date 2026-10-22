@@ -68,7 +68,7 @@ export default function HomePage() {
         <StoryPair stories={communityStories} aspect="aspect-[4/5] md:aspect-[4/3]" />
       </div>
 
-      {/* The playlist, on black between the community and the red newsletter */}
+      {/* The playlists, a slideshow on black between the community and the red newsletter */}
       <Playlist />
 
       {/* White between the black playlist and the red letters, as thick as the other gaps on the page (Leo, 2026-10-21). */}

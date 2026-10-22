@@ -393,6 +393,27 @@ button {
   transform: none;
 }
 
+/* Origins (WordReveal.tsx): each word fades up out of a soft blur, a beat after the one before it (the delay is set per word). */
+.word {
+  display: inline-block;
+  transition:
+    opacity 700ms ease,
+    filter 700ms ease,
+    transform 700ms cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+@media (scripting: enabled) {
+  .word {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(0.3em);
+  }
+}
+.is-shown .word {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
 /* Glitch (WordTicker.tsx): two copies of the text, red and white, each showing through one horizontal slice and shifted
    sideways. The slices and shifts are the custom properties the script re-rolls every 40 ms while `is-glitch` is on. */
 .gl {
@@ -465,6 +486,12 @@ button {
   .env-flap,
   .env-seal {
     animation: none;
+  }
+  .word {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
   }
   .rise {
     opacity: 1;

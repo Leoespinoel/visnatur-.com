@@ -5,13 +5,13 @@ import { clubSignInHref } from "@/data/account";
 export const metadata: Metadata = { title: "Become a member", robots: { index: false } };
 
 /** Joining the club is making a Shopify customer account: an email and a code, so the same sign-in also makes new accounts. */
-const steps = ["Enter your email on the next page", "Type in the code that comes by email", "You are in the Terrace, with 100 welcome points"];
+const steps = ["Enter your email on the next page", "Type in the code that comes by email", "You start as a Regular, with 100 welcome points"];
 
 export default function Register() {
   return (
     <AccountPage current="/members">
       <section className="container-x py-20 text-center md:py-28">
-        <p className="eyebrow mb-4">Members only</p>
+        <p className="eyebrow mb-4">The lineup</p>
         <h1 className="display text-5xl md:text-7xl">Become a member</h1>
         <p className="mx-auto mt-5 max-w-md text-ink-2 md:text-lg">
           Free to join. Your account is your membership: orders, details and points in one place. No password needed: you get a code by email.

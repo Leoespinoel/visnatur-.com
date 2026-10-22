@@ -125,7 +125,7 @@ export function CartDrawer() {
               <div className="flex items-start gap-3 bg-surface border border-line p-3">
                 <LeafIcon className="text-red shrink-0 mt-0.5" width={18} height={18} />
                 <p className="text-xs text-ink-2 leading-relaxed">
-                  Signature and collection pieces leave Mauritius within {dispatchLabel()}; made to order pieces ship {madeToOrderLabel()} after the order.
+                  Signature and Limited edition pieces leave Mauritius within {dispatchLabel()}; made to order pieces ship {madeToOrderLabel()} after the order.
                 </p>
               </div>
               <dl className="space-y-1.5 text-sm">

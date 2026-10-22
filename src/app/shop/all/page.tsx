@@ -16,7 +16,7 @@ export default function ShopPage() {
     <>
       <PageIntro
         variant="listing"
-        crumbs={[{ label: "Shop", href: "/shop" }]}
+        crumbs={[{ label: "Collections", href: "/shop" }]}
         title="All pieces"
         lede={`The Signature line, in stock in Mauritius and dispatched within ${dispatchLabel()}. Any piece can be made to order, adjusted to fit.`}
       />

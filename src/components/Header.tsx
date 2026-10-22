@@ -45,13 +45,16 @@ const WORLD = nav.primary.filter(
 
 type SheetKey = (typeof SHOP)[number]["mega"];
 type AudienceSlug = (typeof audiences)[number]["slug"];
-/** The phone menu's four headlines (Leo, 2026-10-21, after nudeproject.com): the places people tap most. */
-const headlines = () => [
-  { label: "New in", href: "/shop/all?filter=new" },
-  { label: "Men", href: "/men" },
-  { label: "Women", href: "/women" },
+/**
+ * The four headlines (Leo, 2026-10-21, after nudeproject.com): the places people tap most. On phones they open the menu; on
+ * desktop they are the Collections column, each opening its own panel (`mega`, from menus()) (Leo, 2026-10-22).
+ */
+const headlines = (): { label: string; href: string; mega: MenuKey; tag?: string }[] => [
+  { label: "New in", href: "/shop/all?filter=new", mega: "new" },
+  { label: "Men", href: "/men", mega: "men" },
+  { label: "Women", href: "/women", mega: "women" },
   /* Collection 01, named here until it is a drop in data/drops.ts; "New" once released. */
-  { label: "DIVA", href: "/collections", tag: releasedDrops().length ? "New" : "Soon" },
+  { label: "DIVA", href: "/collections", mega: "collections", tag: releasedDrops().length ? "New" : "Soon" },
 ];
 
 const subscribeNever = () => () => {};
@@ -89,7 +92,7 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   // The side link whose tiles show; back to the section's "all" whenever a section opens.
   const [sub, setSub] = useState("all");
-  // Phones: the second level of the sheet (Signature, Hors série or Made to order) and, under Signature, whose list.
+  // Phones: the second level of the sheet (Signature, Limited edition or Made to order) and, under Signature, whose list.
   // The level stays set while its panel slides out, so the content doesn't vanish mid-slide.
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetLevel, setSheetLevel] = useState<SheetKey>("signature");
@@ -110,7 +113,7 @@ export function Header() {
     trigger.current = button;
     setSearchOpen(false);
     setGroup(g);
-    setMega(SHOP[0].mega);
+    setMega(headlines()[0].mega);
     setSub("all");
     setMenuOpen(true);
   };
@@ -394,8 +397,10 @@ export function Header() {
                 className="border-r border-line py-12 pl-8 pr-6 xl:pl-12"
                 aria-label="Collections"
               >
+                {/* New in, Men, Women, DIVA (Leo, 2026-10-22): the phone menu's headlines. Signature, Limited edition and Made to
+                    order stay the phone menu's rows and the footer's links. */}
                 <ul className="space-y-6">
-                  {SHOP.map((item) => (
+                  {headlines().map((item) => (
                     <li key={item.href}>
                       <Link
                         href={item.href}
@@ -405,6 +410,7 @@ export function Header() {
                       >
                         {item.label}
                       </Link>
+                      {item.tag && <span className="eyebrow ml-3 !text-red">{item.tag}</span>}
                     </li>
                   ))}
                 </ul>
@@ -567,7 +573,7 @@ export function Header() {
 
 /**
  * One page of The VN World: its picture, full bleed, with its name over the bottom. Side by side the name grows with
- * the panel so the longest ("Members only") stays on one line, and sits clear of the sound button bottom-left.
+ * the panel so the longest ("In the wild") stays on one line, and sits clear of the sound button bottom-left.
  */
 function WorldPanel({
   href,

@@ -242,7 +242,7 @@ export function ProductDetails({ product, soldOut = [] }: { product: Product; so
           {drop
             ? `${drop.name}: ${drop.units} pieces in all. When they are gone, they are gone.`
             : lineOf(product) === "drop"
-              ? "A collection piece: limited units, then gone."
+              ? "A Limited edition piece: small numbers, then gone."
               : "Signature: in stock in Mauritius, made by hand."}
         </li>
         <li className="flex gap-2.5">
@@ -267,7 +267,7 @@ export function ProductDetails({ product, soldOut = [] }: { product: Product; so
         <Row title="Fabric">{product.fabric}.</Row>
         <Row title="Care">{product.care}</Row>
         <Row title="Delivery & returns">
-          Signature and collection pieces are held in stock in Mauritius, dispatched within {dispatchLabel()} and delivered in {transitLabel()}. They can be
+          Signature and Limited edition pieces are held in stock in Mauritius, dispatched within {dispatchLabel()} and delivered in {transitLabel()}. They can be
           returned or exchanged within 14 days of delivery.{" "}
           {mtoOffered &&
             `Made to order, the piece is adjusted to your measurements and made for you in ${madeToOrderLabel()}; it can be cancelled within 48 hours and is remade if it doesn't match what was agreed. `}

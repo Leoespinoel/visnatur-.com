@@ -62,7 +62,7 @@ export function ClubCard({ view }: { view: ClubView }) {
         <div className="flex items-start justify-between">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/badger-mark.svg" alt="" className="h-auto w-24 md:w-28" />
-          <span className={`text-[10px] uppercase tracking-[0.28em] ${f.muted}`}>Members only</span>
+          <span className={`text-[10px] uppercase tracking-[0.28em] ${f.muted}`}>The lineup</span>
         </div>
         <p className="font-serif text-4xl leading-none md:text-5xl">{view.firstName || "Member"}</p>
         <div className={`flex items-end justify-between text-[10px] uppercase tracking-[0.22em] ${f.muted}`}>

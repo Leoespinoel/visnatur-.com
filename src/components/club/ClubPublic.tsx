@@ -10,7 +10,7 @@ import { RoomCard } from "./RoomCard";
 
 /** The in-page tabs, as on nude-project.com/pages/reward-landing: anchors to each section below. */
 const tabs = [
-  { id: "rooms", label: "Rooms" },
+  { id: "rooms", label: "Spots" },
   { id: "level-up", label: "Level up" },
   { id: "rewards", label: "Rewards" },
   { id: "members-only", label: "Members Only" },
@@ -29,11 +29,11 @@ export function ClubPublic() {
         <div className="container-x pt-14 pb-12 md:pt-20 md:pb-16">
           <p className="eyebrow mb-4">The VN World · Membership</p>
           <h1 className="display max-w-4xl text-5xl md:text-7xl">
-            The VN <em className="italic">Club</em>.
+            The <em className="italic">lineup</em>.
           </h1>
           <div className="mt-8 grid gap-8 md:grid-cols-12 md:items-end">
             <p className="text-base leading-relaxed text-ink-2 md:col-span-6 md:text-lg">
-              Free to join. Points on every order, three rooms to move up through, and rewards worth spending them on. Members Only goes one
+              Free to join. Points on every order, three spots to move up through, and rewards worth spending them on. Members Only goes one
               step further: a subscription that goes entirely to the wild.
             </p>
             <div className="flex flex-wrap gap-3 md:col-span-5 md:col-start-8 md:justify-end">
@@ -59,9 +59,8 @@ export function ClubPublic() {
       {/* Rooms: the three parts of the club, each with its perks. Black. */}
       <section id="rooms" className="theme-dark scroll-mt-24 py-16 md:py-24">
         <div className="container-x">
-          <BandHeading eyebrow="Rooms" title="Three rooms, one club.">
-            Each room is its own part of the club, with its own perks. The room follows the points earned in the last twelve months, and nobody
-            moves down.
+          <BandHeading eyebrow="Spots" title="Three spots, one lineup.">
+            Each spot comes with its own perks. Your spot follows the points earned in the last twelve months, and nobody moves down.
           </BandHeading>
           <ol className="grid gap-x-6 gap-y-12 md:grid-cols-3">
             {rooms.map((r) => (
@@ -135,7 +134,7 @@ export function ClubPublic() {
       {/* FAQ, grouped as on the reference page. Red, above the footer. */}
       <ClubFaq />
       {/* The letters, red, last, said for the club. */}
-      <Newsletter context="members" />
+      <Newsletter />
     </>
   );
 }

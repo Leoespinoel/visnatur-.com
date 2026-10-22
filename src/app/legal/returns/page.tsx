@@ -12,7 +12,7 @@ export default function ReturnsPage() {
         {
           heading: "Signature and collections",
           body: [
-            "Signature and collection pieces can be returned for a refund, or exchanged for another size, within 14 days of delivery. Pieces must be unworn, unwashed and in their original packaging. Write to us first and we will arrange the return; once it arrives, the refund follows within 14 days. Collection pieces can only be exchanged while their size is still in stock.",
+            "Signature and Limited edition pieces can be returned for a refund, or exchanged for another size, within 14 days of delivery. Pieces must be unworn, unwashed and in their original packaging. Write to us first and we will arrange the return; once it arrives, the refund follows within 14 days. Limited edition pieces can only be exchanged while their size is still in stock.",
           ],
         },
         {
@@ -29,7 +29,7 @@ export default function ReturnsPage() {
         {
           heading: "Your statutory rights",
           body: [
-            "Under EU consumer law you have 14 days from delivery to withdraw from a purchase of Signature or collection pieces. Goods made to the consumer's specifications or clearly personalised, such as made to order pieces, are exempt from that right. Nothing in this policy limits your statutory rights regarding faulty goods.",
+            "Under EU consumer law you have 14 days from delivery to withdraw from a purchase of Signature or Limited edition pieces. Goods made to the consumer's specifications or clearly personalised, such as made to order pieces, are exempt from that right. Nothing in this policy limits your statutory rights regarding faulty goods.",
           ],
         },
         {

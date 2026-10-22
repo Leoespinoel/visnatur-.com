@@ -1,13 +1,14 @@
 import { currentDrop } from "@/data/drops";
 import { club, rewards } from "@/data/members";
-import { buildLeague, computeClub, emptyStore, leagueName, validBirthday, type ClubStore, type ClubView, type League } from "@/lib/club-ledger";
+import { buildLeague, cleanSocials, computeClub, emptyStore, leagueName, validBirthday, type ClubStore, type ClubView, type League } from "@/lib/club-ledger";
 import { createCode, findCode, loadClub, loadLeagueMembers, saveClub, tagCustomer, type Loaded } from "@/lib/club-store";
 import { asCustomer, customerApi } from "@/lib/customer-account";
 import { adminConfigured } from "@/lib/shopify-admin";
 
 /**
  * The signed-in member's club page (/members): GET is their points, room, rewards and history; POST is something they
- * do there: { action: "claim", reward } | { action: "letters" } | { action: "birthday", md: "MM-DD" } | { action: "instagram" }.
+ * do there: { action: "claim", reward } | { action: "letters" } | { action: "birthday", md: "MM-DD" } | { action: "instagram" }
+ * | { action: "socials", socials: { instagram?, tiktok?, strava? } } (the handles other members can find them by on /stories).
  * Who they are comes from their own sign-in (Customer Account API); their orders and club record come from the Admin API,
  * which only this server can reach. Every answer carries the page's new numbers, so it never needs to ask again.
  * Each live answer also carries the leaderboard (every member in order), from a cached read of all members with this member's
@@ -142,6 +143,16 @@ export async function POST(req: Request) {
     switch (body.action) {
       case "instagram": {
         const loaded = await mutate(me.id, (s) => void (s.instagram ??= now));
+        return json({ view: await withLeague(me, loaded) });
+      }
+
+      case "socials": {
+        // Sharing is the member's choice: what they send replaces what was there, and sending nothing takes them off the search.
+        const socials = cleanSocials(body.socials);
+        const loaded = await mutate(me.id, (s) => {
+          if (socials) s.socials = socials;
+          else delete s.socials;
+        });
         return json({ view: await withLeague(me, loaded) });
       }
 

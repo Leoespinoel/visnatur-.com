@@ -2,22 +2,71 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const TRACK = "/audio/where-you-really-come-from.mp4"; // .mp4, not .m4a: Hostinger serves .m4a as text/plain // Tobiahs, VV-Ace – Where You Really Come From
+// .mp4, not .m4a: Hostinger serves .m4a as text/plain. Harry Styles – Sign of the Times (Leo, 2026-10-22; before that
+// Tobiahs, VV-Ace – Where You Really Come From, still in public/audio).
+const TRACK = "/audio/sign-of-the-times.mp4";
+
+/** Set once the visitor pauses the song or it finishes, so later page loads in the same visit don't start it again. */
+const QUIET_KEY = "vn-music-quiet";
+function isQuiet() {
+  try {
+    return window.sessionStorage.getItem(QUIET_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+function setQuiet() {
+  try {
+    window.sessionStorage.setItem(QUIET_KEY, "1");
+  } catch {
+    // Storage unavailable: the song may start again on the next full page load, nothing worse.
+  }
+}
+
+/** The first touches of the page that let a browser start sound. */
+const GESTURES = ["pointerdown", "keydown", "touchend"] as const;
 
 /**
- * Site soundtrack. Silent until the visitor clicks the small button bottom-left, then plays once,
- * start to finish; the same button pauses and resumes it. It lives in the root layout, so it keeps
- * playing while visitors move between pages. The button disappears when the song has finished.
+ * Site soundtrack. It starts as the page first loads (Leo, 2026-10-22); browsers refuse sound before the visitor has touched
+ * the page, so where they do it starts on the first click, tap or key press instead. It plays once, start to finish; the
+ * small button bottom-left pauses and resumes it, and a pause (or the end of the song) keeps it quiet for the rest of the
+ * visit. It lives in the root layout, so it keeps playing while visitors move between pages. The button disappears when
+ * the song has finished.
  */
 export function SiteMusic() {
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [ended, setEnded] = useState(false);
+  // True while the song is still waiting for the visitor's first touch; the music button switches it off.
+  const armed = useRef(false);
+
+  useEffect(() => {
+    const audio = ref.current;
+    if (!audio || isQuiet()) return;
+    const start = (e: Event) => {
+      // The music button handles its own clicks.
+      if ((e.target as Element | null)?.closest?.("[data-site-music]")) return;
+      disarm();
+      if (armed.current) void audio.play().catch(() => undefined);
+      armed.current = false;
+    };
+    const disarm = () => GESTURES.forEach((t) => window.removeEventListener(t, start, true));
+    audio.play().catch(() => {
+      armed.current = true;
+      GESTURES.forEach((t) => window.addEventListener(t, start, true));
+    });
+    return disarm;
+  }, []);
 
   // The Spotify players on the homepage (Playlist) and the soundtrack never play together: they ask it
   // to stop with "vn:music-stop", and it tells them it has started with "vn:music-play".
   useEffect(() => {
-    const stop = () => ref.current?.pause();
+    // A Spotify track started is a choice of music: the soundtrack stays quiet, and doesn't wait for a touch to start any more.
+    const stop = () => {
+      armed.current = false;
+      ref.current?.pause();
+      setQuiet();
+    };
     window.addEventListener("vn:music-stop", stop);
     return () => window.removeEventListener("vn:music-stop", stop);
   }, []);
@@ -25,8 +74,12 @@ export function SiteMusic() {
   const toggle = () => {
     const audio = ref.current;
     if (!audio) return;
+    armed.current = false;
     if (audio.paused) void audio.play().catch(() => undefined);
-    else audio.pause();
+    else {
+      audio.pause();
+      setQuiet();
+    }
   };
 
   return (
@@ -43,6 +96,7 @@ export function SiteMusic() {
         onEnded={() => {
           setPlaying(false);
           setEnded(true);
+          setQuiet();
         }}
       />
       {!ended && (

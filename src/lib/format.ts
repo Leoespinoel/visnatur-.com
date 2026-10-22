@@ -22,7 +22,7 @@ export function formatPriceExact(cents: number): string {
   return eur.format(cents / 100);
 }
 
-/** Signature and collection pieces: how soon an order leaves Mauritius, e.g. "1–2 working days". */
+/** Signature and Limited edition pieces: how soon an order leaves Mauritius, e.g. "1–2 working days". */
 export function dispatchLabel(): string {
   const d = site.delivery.dispatchDays;
   return `${d.min}–${d.max} working days`;

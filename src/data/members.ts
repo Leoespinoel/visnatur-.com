@@ -1,11 +1,11 @@
 /**
  * The membership on /members (Leo, 2026-10-16, modelled on nude-project.com/pages/reward-landing): a free club
- * with points and three rooms for everyone, plus Members Only, the paid subscription that goes entirely to
+ * with points and three spots for everyone, plus Members Only, the paid subscription that goes entirely to
  * the fifth (its perks are `memberPerks` in stories.ts). Every number here is a draft for Leo to confirm.
  * Joining is making a Shopify customer account (/account/register); points start counting once they show in it.
  */
 export const club = {
-  name: "Members only",
+  name: "The lineup",
   /** Points count from this day: orders and sign-ups before it earn nothing (draft, Leo to confirm). */
   startsAt: "2026-10-20T00:00:00Z",
   /** The room follows the points earned in the last twelve months. */
@@ -51,11 +51,13 @@ export type Room = {
   film?: RoomFilm;
 };
 
-// The Terrace first, then the Clubhouse (Leo, 2026-10-20), then the Rooftop. Each room's picture goes with its name.
+// Regular, VIP, Backstage: the three spots in the lineup (Leo, 2026-10-22, after Rookie read as insulting; surf names were too
+// niche; before that the Terrace, the Clubhouse and the Rooftop). The ids keep the old names: the ledger, its fixtures and the
+// room films key on them.
 const roomList: Omit<Room, "points" | "rate">[] = [
   {
     id: "terrace",
-    name: "The Terrace",
+    name: "Regular",
     min: 0,
     multiplier: 1,
     image: "/images/moments/drinks-wall.jpg",
@@ -64,21 +66,21 @@ const roomList: Omit<Room, "points" | "rate">[] = [
   },
   {
     id: "clubhouse",
-    name: "The Clubhouse",
+    name: "VIP",
     min: 1000,
     multiplier: 1.25,
     image: "/images/moments/home-for-dinner.jpg",
     alt: "Friends at a long candlelit table in the courtyard of an old stone house at dusk, wine being poured",
-    perks: ["Everything in the Terrace", "Invitations to VN nights", "Repairs to the front of the queue"],
+    perks: ["Everything a Regular gets", "Invitations to VN nights", "Repairs to the front of the queue"],
   },
   {
     id: "rooftop",
-    name: "The Rooftop",
+    name: "Backstage",
     min: 3000,
     multiplier: 1.5,
     image: "/images/moments/rooftop.jpg",
     alt: "Two friends on a London rooftop at blue hour among the chimney pots",
-    perks: ["Everything in the Clubhouse", "A welcome gift, made for Rooftop members only", "A say in what is made next", "A seat at the members' dinner"],
+    perks: ["Everything a VIP gets", "A welcome gift, made only for Backstage", "A say in what is made next", "A seat at the members' dinner"],
   },
 ];
 
@@ -90,6 +92,17 @@ export const rooms: Room[] = roomList.map((r, i) => {
     rate: `${r.multiplier} point${r.multiplier === 1 ? "" : "s"} for every €1`,
   };
 });
+
+/**
+ * The networks a member can share on /members so other members can find them from the search bar on /stories (Leo, 2026-10-22).
+ * `url` makes the profile link from the handle (kept without the @).
+ */
+export const socialNetworks = [
+  { id: "instagram", name: "Instagram", url: (h: string) => `https://instagram.com/${h}` },
+  { id: "tiktok", name: "TikTok", url: (h: string) => `https://www.tiktok.com/@${h}` },
+  { id: "strava", name: "Strava", url: (h: string) => `https://www.strava.com/athletes/${h}` },
+] as const;
+export type SocialId = (typeof socialNetworks)[number]["id"];
 
 export type EarnId = "join" | "order" | "letters" | "instagram" | "friend" | "birthday" | "members-only";
 
@@ -181,9 +194,9 @@ export const rewards: Reward[] = (
 
 export const clubFaqs: { group: string; items: { q: string; a: string }[] }[] = [
   {
-    group: "Members only",
+    group: "The lineup",
     items: [
-      { q: "What is the club?", a: "The membership. It is free: points on every order and on a few other things, three rooms to move up through, and rewards to spend the points on." },
+      { q: "What is the club?", a: "The membership. It is free: points on every order and on a few other things, three spots to move up through, and rewards to spend the points on." },
       { q: "How do I join?", a: "Make an account with your email under Become a member. No password: a code comes by email, and the account is your membership." },
       { q: "Can I leave?", a: "Any time. Write and the membership is closed. The points go with it." },
     ],
@@ -199,16 +212,16 @@ export const clubFaqs: { group: string; items: { q: string; a: string }[] }[] = 
     ],
   },
   {
-    group: "Rooms",
+    group: "Spots",
     items: [
-      { q: "How many rooms are there?", a: "Three: the Terrace, the Clubhouse and the Rooftop. The room follows the points earned in the last twelve months." },
-      { q: "Can I move down a room?", a: "No. Once in a room, it stays yours." },
+      { q: "How many spots are there?", a: "Three: Regular, VIP and Backstage. Your spot follows the points earned in the last twelve months." },
+      { q: "Can I lose my spot?", a: "No. Once it's yours, it stays yours." },
     ],
   },
   {
     group: "Members Only",
     items: [
-      { q: "What is Members Only?", a: "A paid subscription on top of any room. All of it goes to the wild; none of it stays with the brand. Members get discounts at the clubs and events Vis Naturæ partners with." },
+      { q: "What is Members Only?", a: "A paid subscription on top of any spot. All of it goes to the wild; none of it stays with the brand. Members get discounts at the clubs and events Vis Naturæ partners with." },
       { q: "What does it cost?", a: "The price is announced with the first partner clubs. Write in to hear it first." },
     ],
   },

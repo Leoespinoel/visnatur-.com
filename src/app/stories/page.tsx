@@ -12,6 +12,7 @@ import {
   sponsorships,
 } from "@/data/stories";
 import { CommunityWall } from "@/components/CommunityWall";
+import { MemberFinder } from "@/components/MemberFinder";
 import { Newsletter } from "@/components/Newsletter";
 import { StoryTile } from "@/components/StoryPair";
 import { RoomCard } from "@/components/club/RoomCard";
@@ -146,9 +147,11 @@ export default function StoriesPage() {
         <FilmHero loop={kiteFilm.loop} poster={kiteFilm.poster} youtubeId={kiteFilm.youtubeId} title={kiteFilm.title} />
       </section>
 
-      {/* The wall: the two bands again under the film, follow line first, then the people in the pieces and the moments between them */}
+      {/* The wall: the two bands again under the film, follow line first, then the search bar for members' socials (Leo, 2026-10-22:
+          "above the picture collage and under the main video"; MemberFinder.tsx), then the people in the pieces and the moments between them */}
       <section id="community" aria-label="In the wild" className="scroll-mt-24 pb-16 md:pb-24">
         <Bands flip />
+        <MemberFinder />
         <CommunityWall blocks={communityWall} instagram={site.instagram} handle={instagramHandle} />
       </section>
 
@@ -173,10 +176,10 @@ export default function StoriesPage() {
 
       {/* The membership (Leo, 2026-10-21: a section of its own below events, advertising the club and its tiers): what joining gives,
           the three rooms from the club page (data/members.ts, RoomCard.tsx), and the way in. Black. */}
-      <section id="members" aria-label="Members only" className="theme-dark scroll-mt-24 py-16 md:py-24">
+      <section id="members" aria-label="The lineup" className="theme-dark scroll-mt-24 py-16 md:py-24">
         <div className="container-x">
-          <BandHeading eyebrow="Members only" title="For the people who come back.">
-            Free to join. Points on every order, three rooms to move up through, and rewards worth spending them on. The room follows the
+          <BandHeading eyebrow="The lineup" title="For the people who come back.">
+            Free to join. Points on every order, three spots to move up through, and rewards worth spending them on. Your spot follows the
             points earned in the last twelve months, and nobody moves down. Members Only goes further: a subscription that goes entirely to
             the wild.
           </BandHeading>
@@ -233,7 +236,7 @@ export default function StoriesPage() {
 
       {/* Newsletter, red above the trust row */}
       <div id="letters" className="scroll-mt-24">
-        <Newsletter context="stories" />
+        <Newsletter />
       </div>
     </>
   );

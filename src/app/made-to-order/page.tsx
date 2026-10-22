@@ -39,23 +39,23 @@ const faqs = [
   },
   {
     q: "How long does it take?",
-    a: `Made to order takes ${madeToOrderLabel()} from the order, then ${transitLabel()} express to Europe. Signature and collection pieces as they are leave Mauritius within ${dispatchLabel()}.`,
+    a: `Made to order takes ${madeToOrderLabel()} from the order, then ${transitLabel()} express to Europe. Signature and Limited edition pieces as they are leave Mauritius within ${dispatchLabel()}.`,
   },
   {
     q: "What does it cost?",
     a: `${surcharge} per piece on top of its price, whatever is adjusted.`,
   },
   {
-    q: "Can a collection piece be made to order?",
-    a: "No. Collections come in limited units and sell as they are. Once they are gone, they are gone.",
+    q: "Can a Limited edition piece be made to order?",
+    a: "No. Limited edition pieces come in small numbers and sell as they are. Once they are gone, they are gone.",
   },
   {
     q: "Can I cancel or return?",
-    a: "Signature and collection pieces can be returned within 14 days of delivery, unworn and unwashed. A made to order piece can be cancelled within 48 hours of the order for a full refund; after that its fabric has been cut.",
+    a: "Signature and Limited edition pieces can be returned within 14 days of delivery, unworn and unwashed. A made to order piece can be cancelled within 48 hours of the order for a full refund; after that its fabric has been cut.",
   },
   {
     q: "What if it doesn't fit?",
-    a: "Signature and collection pieces can be exchanged for another size within 14 days of delivery. If a made to order piece doesn't match the measurements agreed, it is remade at no cost.",
+    a: "Signature and Limited edition pieces can be exchanged for another size within 14 days of delivery. If a made to order piece doesn't match the measurements agreed, it is remade at no cost.",
   },
   {
     q: "Where are the pieces made?",
@@ -100,7 +100,7 @@ export default function MadeToOrderPage() {
               ))}
             </dl>
             <p className="mt-6 text-sm leading-relaxed text-white/70">
-              Made to order is for the Signature line. Collections come in limited units and sell as they are. {surcharge} per piece, ready {madeToOrderLabel()} after
+              Made to order is for the Signature line. Limited edition pieces come in small numbers and sell as they are. {surcharge} per piece, ready {madeToOrderLabel()} after
               the order.
             </p>
           </div>

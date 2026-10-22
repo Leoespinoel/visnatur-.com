@@ -130,7 +130,7 @@ const MEMBERS_QUERY = /* GraphQL */ `
       pageInfo { hasNextPage endCursor }
       nodes {
         id firstName lastName createdAt
-        emailAddress { marketingState }
+        defaultEmailAddress { marketingState }
         club: metafield(namespace: "${NAMESPACE}", key: "${KEY}") { jsonValue }
       }
     }
@@ -139,7 +139,7 @@ const MEMBERS_QUERY = /* GraphQL */ `
 type MembersData = {
   customers: {
     pageInfo: { hasNextPage: boolean; endCursor: string | null };
-    nodes: { id: string; firstName: string | null; lastName: string | null; createdAt: string; emailAddress: { marketingState: string } | null; club: { jsonValue: unknown } | null }[];
+    nodes: { id: string; firstName: string | null; lastName: string | null; createdAt: string; defaultEmailAddress: { marketingState: string } | null; club: { jsonValue: unknown } | null }[];
   };
 };
 
@@ -191,7 +191,7 @@ async function readLeagueMembers(): Promise<LeagueMember[]> {
         input: {
           firstName: c.firstName ?? "",
           createdAt: c.createdAt,
-          lettersLive: c.emailAddress?.marketingState === "SUBSCRIBED",
+          lettersLive: c.defaultEmailAddress?.marketingState === "SUBSCRIBED",
           orders: byCustomer.get(c.id) ?? [],
           store: c.club ? parseStore(c.club.jsonValue) : emptyStore(),
         },

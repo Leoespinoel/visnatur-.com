@@ -44,8 +44,8 @@ export const articles: Article[] = [
   {
     slug: "signature-and-collections",
     kind: "journal",
-    title: "Signature, always. Collections, once.",
-    dek: "Three ways to buy: the Signature line in stock, collections in limited numbers, and any Signature piece made to order.",
+    title: "Signature, always. Limited edition, once.",
+    dek: "Three ways to buy: the Signature line in stock, Limited edition pieces in small numbers, and any Signature piece made to order.",
     month: "2026-10",
     image: "/images/atelier/cutting.jpg",
     alt: "A tailor cutting cream linen along a chalk line in a stone workshop with tall windows",
@@ -57,9 +57,9 @@ export const articles: Article[] = [
       },
       {
         type: "p",
-        text: "Collections are something else: a handful of designs, made once in limited numbers and released on a date. When they are gone, they are gone.",
+        text: "Limited edition is something else: a handful of designs, made once in small numbers and released on a date. When they are gone, they are gone.",
       },
-      { type: "quote", text: "Signature for every day. Collections for the ones who were there." },
+      { type: "quote", text: "Signature for every day. Limited edition for the ones who were there." },
       {
         type: "p",
         text: `And any Signature piece can be made to order: the sleeves, the length or the fit adjusted, then cut and sewn by hand for ${formatPrice(site.delivery.madeToOrderSurchargeCents)} more, ready ${madeToOrderLabel()} after the order.`,

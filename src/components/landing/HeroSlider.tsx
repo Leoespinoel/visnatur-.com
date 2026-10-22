@@ -28,7 +28,7 @@ export type HeroSlide = {
   thumb: string;
   /**
    * Chips of consecutive slides sharing a group sit behind one small label, with a divider after the run (the homepage:
-   * "Signature" over Men and Women, then "Collections" over DIVA, the first; Leo, 2026-10-20).
+   * "Signature" over Men and Women, then "Limited edition" over DIVA, the first; Leo, 2026-10-20, Hors série 2026-10-21, Limited edition 2026-10-22).
    */
   group?: string;
 };

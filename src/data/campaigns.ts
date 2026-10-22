@@ -37,10 +37,10 @@ export const homeSlides: HeroSlide[] = [
   },
   {
     key: "diva",
-    group: "Collections",
+    group: "Limited edition",
     label: "DIVA",
-    title: "Collections · DIVA",
-    text: "The first collection: limited units, released on a date, then gone. On its way.",
+    title: "Limited edition · DIVA",
+    text: "The first Limited edition: small numbers, released on a date, then gone. On its way.",
     cta: { label: "Be first to know", href: "/collections" },
     image: "/images/moments/dj-night.jpg",
     alt: "A DJ alone at the decks on a stone terrace above the sea at night, candles along the balustrade and a friend in the background",
@@ -52,8 +52,8 @@ export const homeSlides: HeroSlide[] = [
 /** The full-bleed campaign that opens /shop, with the way in for men and women. */
 export const heroStory: Story = {
   eyebrow: "Signature · Made in Mauritius",
-  title: "Signature, always. Collections, once.",
-  dek: `The Signature line in stock, collections in limited numbers, and ${pledgePercentLabel()} of profits going to creating and sustaining the environments we love wearing the pieces in.`,
+  title: "Signature, always. Limited edition, once.",
+  dek: `The Signature line in stock, Limited edition pieces in small numbers, and ${pledgePercentLabel()} of profits going to creating and sustaining the environments we love wearing the pieces in.`,
   image: "/images/shop/hero.jpg?v=r1016",
   alt: "Four friends, two men and two women, walking back along a jetty below Le Morne in linen shirts, a navy knit, a cream cricket jumper and cream trousers, one woman carrying her loafers",
   links: [
@@ -109,8 +109,8 @@ export const communityStories: [Story, Story] = [
   },
   {
     eyebrow: "Membership",
-    title: "Members only",
-    dek: "Free to join: points, three rooms and rewards. Members Only adds a subscription that goes entirely to the wild.",
+    title: "The lineup",
+    dek: "Free to join: points, three spots and rewards. Members Only adds a subscription that goes entirely to the wild.",
     image: "/images/moments/rooftop.jpg",
     alt: "Two friends on a London rooftop at blue hour, one in a navy varsity jacket with a red cursive VN, the other in a cream half-zip and chinos",
     links: [{ label: "Join now", href: "/members" }],

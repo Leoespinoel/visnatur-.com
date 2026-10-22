@@ -10,48 +10,31 @@ const label = "eyebrow block !text-paper/85";
 const field = "mt-6 w-full border-b border-paper/40 bg-transparent pb-3 text-base placeholder:text-paper/55 focus:border-paper focus:outline-none";
 
 /**
- * What the letters will hold, said for where the reader is (Leo, 2026-10-21: the strip and the line follow the page the
- * band sits on): the strip sliding along the band's edges and the line under the salutation.
+ * What the letters hold: the strip sliding along the band's edges, the line under the salutation and the open question at the
+ * end of the form. One set for every page the band sits on (Leo, 2026-10-22: "make this the same for all newsletter
+ * sections"; from 2026-10-21 each page had its own).
  */
-export type LetterContext = "home" | "stories" | "collections" | "stores" | "members" | "origins";
-/** `ask` is the open question at the end of the form; `eyebrow` the small word over the salutation. Both default below. */
-const contexts: Record<LetterContext, { subjects: string[]; line: string; eyebrow?: string; ask?: { label: string; placeholder: string } }> = {
-  home: {
-    subjects: ["Drop dates, before anyone", "The cutting table", "Mauritius", "New colours first", "The fifth, with the accounts", "Member nights", "What we got wrong"],
-    line: "We write when there is something to show. You read it first.",
-  },
-  stories: {
-    subjects: ["The next story, before it's up", "Who is in the pictures", "Where we shot it", "Events, before they fill", "Member nights", "What we got wrong"],
-    line: "We write when there is a story to tell. You read it first.",
-  },
-  collections: {
-    subjects: ["Drop dates, before anyone", "DIVA, piece by piece", "How many we make", "New colours first", "The cutting table", "When it's gone, it's gone"],
-    line: "We write when a collection is coming. You read it first.",
-  },
-  stores: {
-    subjects: ["Pop-ups, the day they're confirmed", "Partner clubs first", "New cities", "Where to try the pieces on", "Made in Mauritius, shown", "What we got wrong"],
-    line: "We write when we land somewhere new. You read it first.",
-  },
-  origins: {
-    subjects: ["Where the name came from", "The cutting table", "Mauritius, as it is", "The badger, off the label", "The fifth, with the accounts", "What we got wrong"],
-    line: "We write when there is more to tell. You read it first.",
-  },
-  members: {
-    subjects: ["Member nights first", "Rewards before they're public", "The members' colour", "Your room, when it changes", "The fifth, with the accounts", "What we got wrong"],
-    line: "You're in the club, so you read it first. We write rarely.",
-  },
+const letters = {
+  subjects: ["Drop dates, before anyone", "The cutting table", "Mauritius", "New colours first", "The fifth, with the accounts", "Member nights", "What we got wrong"],
+  line: "We write when there is a story worth telling, a voice worth hearing or a piece worth wearing. So that you experience them first.",
+  ask: { label: "What should we make next?", placeholder: "A piece, a colour, a place" },
 };
-const defaultAsk = { label: "What should we make next?", placeholder: "A piece, a colour, a place" };
 
-/** The kinds of letter, named after what we write about (drops, the workshop, the fifth). */
+/**
+ * The kinds of letter, named after what we write about. The first three follow the homepage line (Leo, 2026-10-22: "a story worth
+ * telling, a voice worth hearing or a piece worth wearing"); then drops, the workshop and the fifth.
+ */
 const topics = [
+  { id: "stories", label: "Stories" },
+  { id: "voices", label: "Voices" },
+  { id: "new-pieces", label: "New pieces" },
   { id: "drops", label: "Drops" },
   { id: "behind-the-scenes", label: "Behind the scenes" },
   { id: "the-fifth", label: "The fifth" },
 ] as const;
 type TopicId = (typeof topics)[number]["id"];
 
-export function Newsletter({ compact = false, context = "home", defaultName }: { compact?: boolean; context?: LetterContext; defaultName?: string }) {
+export function Newsletter({ compact = false, defaultName }: { compact?: boolean; defaultName?: string }) {
   /* The name typed here, or until then the account's (the member page passes it), so a member is greeted by name. */
   const [typed, setTyped] = useState<string | null>(null);
   const name = typed ?? defaultName ?? "";
@@ -61,9 +44,9 @@ export function Newsletter({ compact = false, context = "home", defaultName }: {
   const [wish, setWish] = useState("");
   const [done, setDone] = useState(false);
 
-  /* The headline is the letter's opening line: the first name typed, or "Badger" (the club's word for its people, Leo 2026-10-21) until then. */
+  /* The headline is the letter's opening line: the first name typed, or "Legend" (Leo, 2026-10-22; "Badger" before that) until then. */
   const first = name.trim().split(/\s+/)[0];
-  const dear = first || "Badger";
+  const dear = first || "Legend";
 
   function toggle(id: TopicId) {
     setChosen((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]));
@@ -112,23 +95,23 @@ export function Newsletter({ compact = false, context = "home", defaultName }: {
      badger brings the post in the corner. */
   return (
     <section className="relative overflow-hidden bg-red text-paper md:flex md:min-h-[41rem] md:flex-col">
-      <Strip subjects={contexts[context].subjects} className="border-b border-paper/20" />
+      <Strip subjects={letters.subjects} className="border-b border-paper/20" />
 
       {/* The postman: the plush badger bringing the letter, drifting in the band's bottom-left corner on wide screens. */}
       {/* He stands on the bottom strip (its height: the eyebrow line plus py-2.5 and the border). */}
       <div className="pointer-events-none absolute bottom-[2.1rem] left-[4%] hidden h-[280px] md:block" aria-hidden="true">
-        <Image src="/images/club/mascot/postman.png" alt="" width={960} height={1200} unoptimized className="badger-float h-full w-auto" />
+        <Image src="/images/club/mascot/postman-chair-glint.png" alt="" width={883} height={1200} unoptimized className="badger-float h-full w-auto" />
       </div>
 
       <div className="container-x grid gap-14 py-20 md:grid-cols-[5fr_7fr] md:grow md:items-start md:gap-10 md:py-28">
         <div className="relative pr-28 md:pl-[8%] md:pr-0">
-          <p className={label}>{contexts[context].eyebrow ?? "Letters"}</p>
+          <p className={label}>Letters</p>
           <h2 className="display mt-4 break-words text-5xl md:text-7xl">
             Dear <em className="italic">{dear}</em>,
           </h2>
-          <p className="mt-6 max-w-xs text-base text-paper/85">{contexts[context].line}</p>
+          <p className="mt-6 max-w-xs text-base text-paper/85">{letters.line}</p>
           {/* The same badger, small, beside the title on phones. */}
-          <Image src="/images/club/mascot/postman.png" alt="" width={960} height={1200} unoptimized aria-hidden="true" className="badger-float pointer-events-none absolute right-0 top-0 h-36 w-auto md:hidden" />
+          <Image src="/images/club/mascot/postman-chair-glint.png" alt="" width={883} height={1200} unoptimized aria-hidden="true" className="badger-float pointer-events-none absolute right-0 top-0 h-36 w-auto md:hidden" />
         </div>
 
         {done ? (
@@ -183,9 +166,9 @@ export function Newsletter({ compact = false, context = "home", defaultName }: {
 
             <div>
               <label htmlFor="newsletter-wish" className={label}>
-                {(contexts[context].ask ?? defaultAsk).label}
+                {letters.ask.label}
               </label>
-              <input id="newsletter-wish" type="text" value={wish} onChange={(e) => setWish(e.target.value)} placeholder={(contexts[context].ask ?? defaultAsk).placeholder} className={field} />
+              <input id="newsletter-wish" type="text" value={wish} onChange={(e) => setWish(e.target.value)} placeholder={letters.ask.placeholder} className={field} />
             </div>
 
             <div className="flex sm:justify-end">
@@ -197,7 +180,7 @@ export function Newsletter({ compact = false, context = "home", defaultName }: {
         )}
       </div>
 
-      <Strip subjects={contexts[context].subjects} className="border-t border-paper/20" reverse />
+      <Strip subjects={letters.subjects} className="border-t border-paper/20" reverse />
     </section>
   );
 }

@@ -111,9 +111,8 @@ export function ClubMember({ initial, preview = false }: { initial?: ClubView; p
       {/* Rooms: where the member stands. Black. */}
       <section id="rooms" className="theme-dark scroll-mt-40 py-16 md:py-24">
         <div className="container-x">
-          <BandHeading eyebrow="Rooms" title="Where you stand.">
-            Each room is its own part of the club, with its own perks. The room follows the points earned in the last twelve months, and
-            nobody moves down.
+          <BandHeading eyebrow="Spots" title="Where you stand.">
+            Each spot comes with its own perks. Your spot follows the points earned in the last twelve months, and nobody moves down.
           </BandHeading>
           <ol className="grid gap-x-6 gap-y-12 md:grid-cols-3">
             {rooms.map((r, i) => (
@@ -128,7 +127,7 @@ export function ClubMember({ initial, preview = false }: { initial?: ClubView; p
       <ClubLeague view={view} />
       <ClubFaq />
       {/* The letters, red, last: the member is greeted by the name on the account. */}
-      <Newsletter context="members" defaultName={view.firstName || undefined} />
+      <Newsletter defaultName={view.firstName || undefined} />
     </>
   );
 }

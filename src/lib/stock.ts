@@ -3,7 +3,7 @@ import { cacheLife } from "next/cache";
 import { storefront, storefrontConfigured } from "./shopify";
 
 /**
- * Stock (Leo, 2026-10-20): Signature and collection pieces are held in stock, tracked in Shopify. A size is sold out when
+ * Stock (Leo, 2026-10-20): Signature and Limited edition pieces are held in stock, tracked in Shopify. A size is sold out when
  * Shopify reports its variant as not available for sale (tracked stock at 0). Untracked variants are always available,
  * so until `npm run shopify:sync -- --track-stock` is run, nothing shows as sold out. Cached for a few minutes.
  */

@@ -16,7 +16,7 @@ export default function SuccessPage() {
       <PageIntro
         eyebrow="Thank you"
         title="Now we make it."
-        lede={`Signature and collection pieces leave Mauritius within ${dispatchLabel()}. A made to order piece is cut and sewn for you and ships ${madeToOrderLabel()} after the order. An email follows when it ships.`}
+        lede={`Signature and Limited edition pieces leave Mauritius within ${dispatchLabel()}. A made to order piece is cut and sewn for you and ships ${madeToOrderLabel()} after the order. An email follows when it ships.`}
       />
       <section className="container-x pb-24">
         <Summary />

@@ -13,7 +13,7 @@
  */
 
 // Relative, not "@/…", so the scripts (scripts/ts-resolve.mjs) can import this file as well as the site.
-import { club, earnValue, rewards, rooms, type RewardId, type RoomId } from "../data/members";
+import { club, earnValue, rewards, rooms, socialNetworks, type RewardId, type RoomId, type SocialId } from "../data/members";
 
 /** An order as the ledger needs it, in euros (normalised from the Admin API in src/lib/club-store.ts). */
 export type LedgerOrder = {
@@ -51,6 +51,8 @@ export type Claim = {
   discount?: string;
 };
 export type Adjustment = { at: string; points: number; note: string };
+/** The handles a member chose to share, without the @; a network left out is not shared. */
+export type Socials = Partial<Record<SocialId, string>>;
 
 /** The club record on the customer (metafield custom.club, JSON). */
 export type ClubStore = {
@@ -59,6 +61,8 @@ export type ClubStore = {
   instagram?: string;
   membersOnly?: string;
   birthday?: { md: string; set: string };
+  /** Set from /members (action "socials"): sharing a handle is agreeing to be found on /stories. Absent: not shared. */
+  socials?: Socials;
   claims: Claim[];
   adjust: Adjustment[];
 };
@@ -109,6 +113,8 @@ export type ClubView = {
   wallet: WalletItem[];
   history: HistoryRow[];
   done: { letters: boolean; instagram: boolean; membersOnly: boolean; birthday: string | null };
+  /** The handles the member shares, for the form on /members. */
+  socials: Socials;
   /** False until the shop's Admin access is set up: points from orders and claiming are off. */
   live: boolean;
   /** The club's members in order (buildLeague); absent on the sign-in-only view. */
@@ -129,11 +135,38 @@ const isDate = (v: unknown): v is string => typeof v === "string" && !Number.isN
 const REWARD_IDS = new Set<string>(rewards.map((r) => r.id));
 const STATUSES = new Set<string>(["pending", "issued", "requested", "void"]);
 
+/**
+ * A handle as a member typed it (with or without the @, or the whole profile link) to the bare handle, or null when it
+ * isn't one. Letters, figures, dots, underscores and dashes, up to 40, which covers Instagram, TikTok and Strava's ids.
+ */
+export function cleanHandle(raw: unknown): string | null {
+  if (typeof raw !== "string") return null;
+  const h = raw
+    .trim()
+    .replace(/^https?:\/\/(www\.)?[a-z0-9.-]+\/(athletes\/)?/i, "")
+    .replace(/^@/, "")
+    .replace(/[/?#].*$/, "");
+  return /^[A-Za-z0-9._-]{1,40}$/.test(h) ? h : null;
+}
+
+/** The socials a form or a record gives, kept to the known networks and valid handles; undefined when none is left. */
+export function cleanSocials(raw: unknown): Socials | undefined {
+  const o = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
+  const socials: Socials = {};
+  for (const n of socialNetworks) {
+    const h = cleanHandle(o[n.id]);
+    if (h) socials[n.id] = h;
+  }
+  return Object.keys(socials).length ? socials : undefined;
+}
+
 /** The club record from Shopify, defensively: anything malformed is dropped rather than trusted. */
 export function parseStore(raw: unknown): ClubStore {
   const o = raw && typeof raw === "object" ? (raw as Record<string, unknown>) : {};
   const store = emptyStore();
   for (const k of ["letters", "instagram", "membersOnly"] as const) if (isDate(o[k])) store[k] = o[k];
+  const socials = cleanSocials(o.socials);
+  if (socials) store.socials = socials;
   const b = o.birthday as Record<string, unknown> | undefined;
   if (b && typeof b.md === "string" && validBirthday(b.md) && isDate(b.set)) store.birthday = { md: b.md, set: b.set };
   if (Array.isArray(o.claims)) {
@@ -344,6 +377,7 @@ export function computeClub(input: ClubInput, now = Date.now(), live = true): Cl
     wallet,
     history: history.sort((a, b) => ms(b.at) - ms(a.at)),
     done: { letters: letters !== null, instagram: Boolean(store.instagram), membersOnly: Boolean(store.membersOnly), birthday: store.birthday?.md ?? null },
+    socials: store.socials ?? {},
     live,
   };
 }

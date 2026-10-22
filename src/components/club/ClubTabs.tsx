@@ -6,7 +6,7 @@ export const clubTabs = [
   { id: "your-rewards", label: "Your rewards" },
   { id: "rewards", label: "Rewards" },
   { id: "level-up", label: "Level up" },
-  { id: "rooms", label: "Rooms" },
+  { id: "rooms", label: "Spots" },
   { id: "leaderboard", label: "Leaderboard" },
   { id: "faq", label: "FAQ" },
 ];
@@ -44,7 +44,7 @@ export function ClubTabs() {
   }, []);
 
   return (
-    <nav aria-label="Members only" className="sticky z-30 border-b border-line bg-paper/90 backdrop-blur" style={{ top }}>
+    <nav aria-label="The lineup" className="sticky z-30 border-b border-line bg-paper/90 backdrop-blur" style={{ top }}>
       <ul className="no-scrollbar container-x flex gap-8 overflow-x-auto md:justify-between">
         {clubTabs.map((t) => (
           <li key={t.id} className="shrink-0">

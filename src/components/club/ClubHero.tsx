@@ -47,9 +47,9 @@ export function ClubHero({ view }: { view: ClubView }) {
   return (
     <section aria-labelledby="club-room" className="overflow-hidden">
       <div className="container-x pt-12 text-center md:pt-16">
-        <p className="eyebrow">Members only · Member since {monthYear(view.memberSince)}</p>
+        <p className="eyebrow">Welcome to the lineup · Since {monthYear(view.memberSince)}</p>
         <p className="mt-5 font-serif text-2xl md:text-3xl">
-          {view.firstName ? `Hello, ${view.firstName}.` : "Hello."} <em className="italic">You&rsquo;re in</em>
+          {view.firstName ? `Hello, ${view.firstName}.` : "Hello."} <em className="italic">Your spot</em>
         </p>
         <h1 id="club-room" className="display mt-3 pb-[0.06em] text-[15.5vw] leading-none md:text-[10.5vw]">
           {room.name}

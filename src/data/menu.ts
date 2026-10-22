@@ -16,7 +16,7 @@ export type MenuTile = { label: string; href: string; image: string; packshot?: 
 export type MenuItem = { key: string; label: string; href: string; heading: string; tiles: MenuTile[]; note?: string; grid?: boolean };
 
 /** The Shop menu's sections, each opening a mega panel, in nav order. */
-export type MenuKey = AudienceSlug | "signature" | "collections" | "made-to-order";
+export type MenuKey = "new" | AudienceSlug | "signature" | "collections" | "made-to-order";
 
 /**
  * One tile per design: the section's lookbook image for it if there is one, else its first colourway's
@@ -160,19 +160,34 @@ function signature(): MenuItem[] {
   ];
 }
 
-/** Collections (Leo, 2026-10-20: drops are called collections): limited units, then gone. One tile each once there are any. */
+/**
+ * New in, the first section of the desktop Collections menu (Leo, 2026-10-22: "New in, Men, Women, DIVA soon"): the latest
+ * pieces of both, then his and hers, each the "new" panel of that audience's menu.
+ */
+function newIn(): MenuItem[] {
+  const latest = (audience: AudienceSlug) => menuFor(audience).find((i) => i.key === "new")!;
+  const men = latest("men");
+  const women = latest("women");
+  return [
+    { key: "all", label: "All new", href: "/shop/all?filter=new", heading: "New in", tiles: [...men.tiles.slice(0, 4), ...women.tiles.slice(0, 4)] },
+    { ...men, key: "men", label: "For him" },
+    { ...women, key: "women", label: "For her" },
+  ];
+}
+
+/** Limited edition (Leo, 2026-10-20: drops are called collections; 2026-10-21: off menu, reserve, then hors série; 2026-10-22: limited edition): limited units, then gone. One tile each once there are any. */
 function collections(): MenuItem[] {
   const tiles: MenuTile[] = drops.length
     ? drops.map((d) => ({ label: d.name, href: `/collections#${d.id}`, image: d.image ?? "/images/moments/dj-night.jpg" }))
-    : [{ label: "Collections", href: "/collections", image: "/images/moments/dj-night.jpg" }];
+    : [{ label: "Limited edition", href: "/collections", image: "/images/moments/dj-night.jpg" }];
   return [
     {
       key: "all",
-      label: "Collections",
+      label: "Limited edition",
       href: "/collections",
       heading: "Limited units, then gone",
       tiles,
-      ...(drops.length ? {} : { note: "DIVA, the first collection, is on its way. Members of the club hear first." }),
+      ...(drops.length ? {} : { note: "DIVA, the first Limited edition, is on its way. Members of the club hear first." }),
     },
   ];
 }
@@ -198,7 +213,7 @@ function madeToOrder(): MenuItem[] {
       href: "/made-to-order#shipping",
       heading: "Shipping & delivery",
       tiles: [tile("Shipping", "shipping", IMG.atelier)],
-      note: `Signature and collection pieces leave Mauritius within ${dispatchLabel()}, then ${transitLabel()} express to Europe. Made to order takes ${madeToOrderLabel()}. Free shipping over ${formatPrice(site.freeShippingThresholdCents)}.`,
+      note: `Signature and Limited edition pieces leave Mauritius within ${dispatchLabel()}, then ${transitLabel()} express to Europe. Made to order takes ${madeToOrderLabel()}. Free shipping over ${formatPrice(site.freeShippingThresholdCents)}.`,
     },
     {
       key: "sizing",
@@ -223,6 +238,7 @@ function madeToOrder(): MenuItem[] {
 /** The Shop menu: each section and the mega panel it opens. */
 export function menus(): Record<MenuKey, MenuItem[]> {
   return {
+    new: newIn(),
     men: menuFor("men"),
     women: menuFor("women"),
     signature: signature(),

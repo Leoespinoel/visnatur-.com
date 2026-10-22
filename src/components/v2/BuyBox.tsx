@@ -155,7 +155,7 @@ export function V2BuyBox({ product }: { product: Product }) {
               .
             </>
           ) : (
-            "Collections sell as they are, so no made to order."
+            "Limited edition pieces sell as they are, so no made to order."
           )}{" "}
           Full{" "}
           <a href="/legal/returns" className="underline underline-offset-4">

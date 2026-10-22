@@ -138,7 +138,7 @@ export function ClubRewards({ view, act }: { view: ClubView; act: ClubAct }) {
                   {/* Out of reach for now: the ticket stays white, its face fades. */}
                   <div className={`relative flex-1 p-6 transition-opacity md:p-7 ${short > 0 ? "opacity-40" : ""}`}>
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-[0.22em] text-[#7a7a7a]">Members only · No. {String(i + 1).padStart(2, "0")}</span>
+                      <span className="text-[10px] uppercase tracking-[0.22em] text-[#7a7a7a]">The lineup · No. {String(i + 1).padStart(2, "0")}</span>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src="/brand/badger-mark.svg" alt="" className="w-12 opacity-80" />
                     </div>

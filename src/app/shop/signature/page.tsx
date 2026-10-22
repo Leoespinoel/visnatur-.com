@@ -18,7 +18,7 @@ export default function SignaturePage() {
     <>
       <PageIntro
         variant="listing"
-        crumbs={[{ label: "Shop", href: "/shop" }]}
+        crumbs={[{ label: "Collections", href: "/shop" }]}
         title="Signature"
         lede={`The permanent line, always on the site. In stock in Mauritius and dispatched within ${dispatchLabel()}; any piece can be made to order, adjusted to fit.`}
       />

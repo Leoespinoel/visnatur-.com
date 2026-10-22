@@ -18,7 +18,7 @@ export const accountLinks = [
   { label: "Orders", href: ordersHref },
   { label: "Profile", href: profileHref },
   { label: "My sizes", href: "/account/sizes" },
-  { label: "Members only", href: "/members" },
+  { label: "The lineup", href: "/members" },
   { label: "My Wishlist", href: "/wishlist" },
   { label: "Returns", href: "/legal/returns" },
   // The homepage, as on Nude Project (Leo, 2026-10-20).

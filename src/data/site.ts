@@ -3,10 +3,10 @@ import type { Story } from "@/components/StoryCopy";
 export const site = {
   name: "Vis Naturæ",
   nameAscii: "Vis Naturae",
-  /** Draft (2026-10-20): Signature is always on, collections (first called drops) come once. */
-  tagline: "Signature, always. Collections, once.",
+  /** Draft (2026-10-20): Signature is always on, Limited edition (first called drops, then collections, off menu, reserve and Hors série; Leo, 2026-10-22) comes once. */
+  tagline: "Signature, always. Limited edition, once.",
   description:
-    "Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, collections in limited numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in.",
+    "Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   currency: "EUR",
   locale: "en-IE",
@@ -19,7 +19,7 @@ export const site = {
   /** Express from Mauritius costs us around €35 a parcel; €15 is the most a buyer will carry. */
   flatShippingCents: 1500,
   /**
-   * Signature and collection pieces are held in stock in Mauritius: dispatched within `dispatchDays`, then express to Europe in
+   * Signature and Limited edition pieces are held in stock in Mauritius: dispatched within `dispatchDays`, then express to Europe in
    * `transitDays` (working days). Made to order (a Signature piece adjusted to fit) is made after the order, in `madeToOrder`,
    * for a flat surcharge per piece (Leo, 2026-10-20; the amount is a draft).
    */
@@ -35,12 +35,17 @@ export const site = {
   /** Play the red-wipe intro on every full page load. */
   intro: true,
   /**
-   * The Spotify playlist band on the homepage, above the newsletter. url: Spotify → Share → Copy link to playlist.
-   * Empty: the band is hidden.
+   * The Spotify playlist band on the homepage, above the newsletter: a slideshow of playlists, the first in front (Leo,
+   * 2026-10-22: Windows Down and First Light added). title: the playlist's name on Spotify, which the band shows beside the
+   * player. url: Spotify → Share → Copy link to playlist. Empty: the band is hidden.
    */
   playlist: {
-    title: "Vis Naturæ",
-    url: "https://open.spotify.com/playlist/2KTVrBS5RpvW0tPy6zW5OZ" as string,
+    lists: [
+      { title: "First Light", url: "https://open.spotify.com/playlist/3CPDaKZ1uwL3clZgxb5VsD" },
+      { title: "Windows Down", url: "https://open.spotify.com/playlist/1C3dMwAZ11gnw2E7O8MQtx" },
+      { title: "Sunsets", url: "https://open.spotify.com/playlist/0QQTJA0qaPdzkJ1FdtWGcu" },
+      { title: "Dusk till Dawn", url: "https://open.spotify.com/playlist/2KTVrBS5RpvW0tPy6zW5OZ" },
+    ] as readonly { title: string; url: string }[],
     /** Songs with their own small player under the playlist. url: Spotify → a song → Share → Copy song link. */
     tracks: [
       { title: "Give It To Me 2025, Adriatique, Notre Dame, Timbaland and Nelly Furtado", url: "https://open.spotify.com/track/2SXIxc92q42M6lMCfQ8hKL" },
@@ -333,27 +338,30 @@ export const partners: {
 
 export const nav = {
   /**
-   * The header's two menus (Leo, 2026-10-16: no burger, "separated into the VN world and shop"). Each primary item
-   * belongs to one: under Shop it opens its own mega panel (built in menu.ts), under The VN World its picture.
+   * The header's two menus (Leo, 2026-10-16: no burger, "separated into the VN world and shop"; the shop one is called
+   * Collections since 2026-10-21, and the drops under it Limited edition). Each primary item belongs to one: under Collections it opens its own mega panel (built in menu.ts), under The VN World its picture.
    */
   groups: [
-    { key: "shop", label: "Shop", short: "Shop" },
+    { key: "shop", label: "Collections", short: "Collections" },
     { key: "world", label: "The VN World", short: "World" },
   ] as const,
   primary: [
-    /** Men and Women sit inside Signature (Leo, 2026-10-20); their panels stay in menus() for the mobile menu. */
-    { label: "Collections", href: "/collections", mega: "collections", group: "shop" },
+    /**
+     * The phone menu's rows. On desktop the Collections column is New in, Men, Women, DIVA instead (Leo, 2026-10-22;
+     * `headlines` in Header.tsx).
+     */
+    { label: "Limited edition", href: "/collections", mega: "collections", group: "shop" },
     { label: "Signature", href: "/shop/signature", mega: "signature", group: "shop" },
     { label: "Made to order", href: "/made-to-order", mega: "made-to-order", group: "shop" },
     { label: "In the wild", href: "/stories", mega: "stories", group: "world" },
-    { label: "Members only", href: "/members", mega: "members", group: "world" },
+    { label: "The lineup", href: "/members", mega: "members", group: "world" },
   ] as const,
   /** Plain links beside the two menus (Leo, 2026-10-16: Origins out of The VN World, next to Shop and The VN World). */
   links: [{ label: "Origins", href: "/about" }] as const,
   footer: {
     /** The three lines in header order, then the two audiences and everything; the categories live in the Shop menu. */
     shop: [
-      { label: "Collections", href: "/collections" },
+      { label: "Limited edition", href: "/collections" },
       { label: "Signature", href: "/shop/signature" },
       { label: "Made to order", href: "/made-to-order" },
       { label: "Men", href: "/men" },
@@ -363,7 +371,7 @@ export const nav = {
     /** The VN World column. */
     brand: [
       { label: "In the wild", href: "/stories" },
-      { label: "Members only", href: "/members" },
+      { label: "The lineup", href: "/members" },
       { label: "Origins", href: "/about" },
       { label: "Stores", href: "/stores" },
       /** Static page in public/pitch.html, served at /pitch; `plain` renders an <a> instead of a Link. */
