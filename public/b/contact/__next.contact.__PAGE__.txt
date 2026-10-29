@@ -1,0 +1,45 @@
+1:"$Sreact.fragment"
+2:"static/chunks/7164-672faa37e38feec1.js"
+3:"static/chunks/1085-bebff9fd3cd45e8e.js"
+4:"static/chunks/9691-29af36b0e829ae24.js"
+5:"static/chunks/8551-aec0607bf1623653.js"
+6:"static/chunks/9628-8d4d32a55aa5af07.js"
+7:"static/chunks/2043-08f416aac861d070.js"
+8:"static/chunks/2314-4bdcdaa5a55694a4.js"
+9:"static/chunks/app/layout-c80ae78354c9e2cb.js"
+a:I[9724,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"AccountSync"]
+b:I[4981,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"CartProvider"]
+c:I[4929,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"ClassicOnly"]
+d:I[9305,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"Header"]
+e:I[8633,[],""]
+f:I[557,[],""]
+10:"static/chunks/app/contact/page-6a9a6fbdb8bcea0d.js"
+11:I[7164,["7164","$2","977","$10"],""]
+12:I[5290,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"Footer"]
+13:I[2591,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"CartDrawer"]
+1d:"ViewportBoundary"
+1e:I[2332,[],"$1d"]
+1f:"MetadataBoundary"
+20:I[2332,[],"$1f"]
+21:"$Sreact.suspense"
+22:I[7469,[],"IconMark"]
+:HL["/b/_next/static/css/0431707fc202bc71.css","style"]
+:HL["/b/_next/static/css/24d1d4fe5d08de0b.css","style"]
+15:X
+18:X
+18:C
+19:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","div",null,{"className":"container-x pt-14 pb-10 md:pt-20 md:pb-14","children":[["$","p",null,{"className":"eyebrow mb-4","children":"Contact"}],["$","h1",null,{"className":"display max-w-4xl text-5xl md:text-7xl","children":"Write to us."}],["$","p",null,{"className":"mt-6 max-w-xl text-base leading-relaxed text-ink-2 md:text-lg","children":"Sizing questions, order updates, repairs, or just to say hello. We answer within two working days."}]]}],["$","section",null,{"className":"container-x grid gap-12 pb-24 md:grid-cols-12","children":[["$","form",null,{"action":"mailto:hello@visnaturae.com","method":"post","encType":"text/plain","className":"space-y-5 md:col-span-6","children":[["$","div",null,{"children":[["$","label",null,{"htmlFor":"name","className":"eyebrow mb-2 block","children":"Name"}],["$","input",null,{"id":"name","name":"name","type":"text","required":true,"className":"h-12 w-full border border-line bg-transparent px-4 text-sm focus:border-ink focus:outline-none"}]]}],["$","div",null,{"children":[["$","label",null,{"htmlFor":"email","className":"eyebrow mb-2 block","children":"Email"}],["$","input",null,{"id":"email","name":"email","type":"email","required":true,"className":"h-12 w-full border border-line bg-transparent px-4 text-sm focus:border-ink focus:outline-none"}]]}],["$","div",null,{"children":[["$","label",null,{"htmlFor":"order","className":"eyebrow mb-2 block","children":"Order number (optional)"}],["$","input",null,{"id":"order","name":"order","type":"text","required":false,"className":"h-12 w-full border border-line bg-transparent px-4 text-sm focus:border-ink focus:outline-none"}]]}],["$","div",null,{"children":[["$","label",null,{"htmlFor":"message","className":"eyebrow mb-2 block","children":"Message"}],["$","textarea",null,{"id":"message","name":"message","required":true,"rows":6,"className":"w-full border border-line bg-transparent px-4 py-3 text-sm focus:border-ink focus:outline-none"}]]}],["$","button",null,{"type":"submit","className":"btn btn-primary","children":"Send"}],["$","p",null,{"className":"text-xs text-muted","children":["This opens your email app addressed to ","hello@visnaturae.com","."]}]]}],["$","div",null,{"className":"space-y-8 text-sm text-ink-2 md:col-span-4 md:col-start-8","children":[["$","div",null,{"children":[["$","p",null,{"className":"eyebrow mb-2","children":"Email"}],["$","a",null,{"href":"mailto:hello@visnaturae.com","className":"font-serif text-2xl text-ink link-underline","children":"hello@visnaturae.com"}]]}],["$","div",null,{"children":[["$","p",null,{"className":"eyebrow mb-2","children":"Instagram"}],["$","a",null,{"href":"https://instagram.com/visnaturae.world","target":"_blank","rel":"noreferrer","className":"font-serif text-2xl text-ink link-underline","children":["@","visnaturae.world"]}]]}],"$L1a"]}]]}]],null,"$L1b"]}],"p":"$@1c","v":null,"s":"$15"}}]]
+16:[["children",{"s":"contact","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@17","v":"$18","s":"$15"},"c":"$Q19"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/b/_next/static/css/0431707fc202bc71.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/b/_next/static/css/24d1d4fe5d08de0b.css","precedence":"next"}]],["$","html",null,{"lang":"en","className":"__variable_fc2463 h-full antialiased","children":["$","body",null,{"className":"min-h-full flex flex-col","children":[false,["$","a",null,{"href":"#main","className":"sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper","children":"Skip to content"}],["$","$La",null,{}],["$","$Lb",null,{"children":[["$","$Lc",null,{"children":["$","$Ld",null,{}]}],["$","main",null,{"id":"main","className":"flex-1","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}],"notFound":[[["$","div",null,{"className":"container-x pt-14 pb-10 md:pt-20 md:pb-14","children":[["$","p",null,{"className":"eyebrow mb-4","children":"404"}],["$","h1",null,{"className":"display max-w-4xl text-5xl md:text-7xl","children":"Not made yet."}],["$","p",null,{"className":"mt-6 max-w-xl text-base leading-relaxed text-ink-2 md:text-lg","children":"That page doesn't exist. Everything that does is in the shop."}]]}],["$","div",null,{"className":"container-x pb-24","children":["$","$L11",null,{"href":"/shop","className":"btn btn-primary","children":"Shop Signature"}]}]],[]]}]}],["$","$Lc",null,{"children":[["$","$L12",null,{}],["$","$L13",null,{}]]}]]}]]}]}]]}],"p":"$@14","v":null,"s":"$15"},"c":"$Q16"},"h":{"r":["$","$1","h",{"children":[null,["$","$L1e",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L20",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$21",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Contact · Vis Naturæ"}],["$","meta","1",{"name":"description","content":"Write to Vis Naturæ about sizing, orders or anything else."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","meta","3",{"property":"og:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","4",{"property":"og:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","meta","5",{"property":"og:site_name","content":"Vis Naturæ"}],["$","meta","6",{"property":"og:locale","content":"en_IE"}],["$","meta","7",{"property":"og:type","content":"website"}],["$","meta","8",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","9",{"name":"twitter:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","10",{"name":"twitter:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","link","11",{"rel":"icon","href":"/b/favicon.ico?6273870fb0baceee","type":"image/x-icon","sizes":"16x16"}],["$","link","12",{"rel":"icon","href":"/b/icon.png?18605edf135859f3","type":"image/png","sizes":"512x512"}],["$","link","13",{"rel":"apple-touch-icon","href":"/b/apple-icon.png?c587fe86a4bb8519","type":"image/png","sizes":"180x180"}],["$","$L22","14",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@23","v":null,"s":"$15"}},"a":"$@24","u":"$@25","b":"UJrWaIZUHTlAoptI1cL1s"}
+26:I[2332,[],"OutletBoundary"]
+1a:["$","div",null,{"children":[["$","p",null,{"className":"eyebrow mb-2","children":"Hours"}],["$","p",null,{"children":"Monday to Friday, 9:00–17:00 CET."}]]}]
+1b:["$","$L26",null,{"children":["$","$21",null,{"name":"Next.MetadataOutlet","children":"$@27"}]}]
+15:300
+27:null
+25:true
+15:C
+24:0
+17:"$undefined"
+14:"$undefined"
+23:"$undefined"
+1c:"$undefined"

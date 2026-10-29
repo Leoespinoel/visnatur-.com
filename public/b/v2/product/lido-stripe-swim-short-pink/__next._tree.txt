@@ -1,0 +1,11 @@
+:HL["/b/_next/static/media/c214ffb7f5362987-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/b/_next/static/media/da522a9b642f99ae-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/b/_next/static/css/0431707fc202bc71.css","style"]
+:HL["/b/_next/static/css/24d1d4fe5d08de0b.css","style"]
+:HL["/b/_next/static/media/bb3ef058b751a6ad-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/b/_next/static/css/f3a0dc56ca1a00e4.css","style"]
+4:[["children",{"s":"__PAGE__","h":160}]]
+3:[["children",{"s":{"n":"slug","t":"d","k":"lido-stripe-swim-short-pink","s":[]},"h":96,"c":"$Q4"}]]
+2:[["children",{"s":"product","h":64,"c":"$Q3"}]]
+1:[["children",{"s":"v2","h":32,"c":"$Q2"}]]
+0:{"b":"UJrWaIZUHTlAoptI1cL1s","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

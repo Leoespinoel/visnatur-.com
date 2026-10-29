@@ -1,0 +1,49 @@
+1:"$Sreact.fragment"
+2:"static/chunks/4002-14abdb819e277d42.js"
+3:"static/chunks/6479-ef9e67a7cc66b031.js"
+4:"static/chunks/4195-71f41f883aaff5ec.js"
+5:"static/chunks/1724-406cb7090877e400.js"
+6:"static/chunks/4746-bccd00501f1cde2b.js"
+7:"static/chunks/6291-2d50fabb9ac9dc6b.js"
+8:"static/chunks/4570-fcdd63a1f124dead.js"
+9:"static/chunks/app/layout-3130753464e9c039.js"
+a:I[2788,["4002","$2","6479","$3","4195","$4","1724","$5","4746","$6","6291","$7","4570","$8","7177","$9"],"AccountSync"]
+b:I[9773,["4002","$2","6479","$3","4195","$4","1724","$5","4746","$6","6291","$7","4570","$8","7177","$9"],"CartProvider"]
+c:I[7897,["4002","$2","6479","$3","4195","$4","1724","$5","4746","$6","6291","$7","4570","$8","7177","$9"],"ClassicOnly"]
+d:I[6219,["4002","$2","6479","$3","4195","$4","1724","$5","4746","$6","6291","$7","4570","$8","7177","$9"],"RepresentHeader"]
+e:I[1899,[],""]
+f:I[9527,[],""]
+10:"static/chunks/app/legal/returns/page-036ad848a72ad143.js"
+11:I[4002,["4002","$2","6856","$10"],""]
+12:I[2417,["4002","$2","6479","$3","4195","$4","1724","$5","4746","$6","6291","$7","4570","$8","7177","$9"],"RepresentFooter"]
+13:I[9767,["4002","$2","6479","$3","4195","$4","1724","$5","4746","$6","6291","$7","4570","$8","7177","$9"],"CartDrawer"]
+21:"ViewportBoundary"
+22:I[1442,[],"$21"]
+23:"MetadataBoundary"
+24:I[1442,[],"$23"]
+25:"$Sreact.suspense"
+26:I[5575,[],"IconMark"]
+:HL["/c/_next/static/css/83c63fdb5e2097bb.css","style"]
+:HL["/c/_next/static/css/bdd2f348a86430e9.css","style"]
+15:X
+18:X
+18:C
+1b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","div",null,{"className":"container-x pt-14 pb-10 md:pt-20 md:pb-14","children":[["$","p",null,{"className":"eyebrow mb-4","children":"Last updated October 2026"}],["$","h1",null,{"className":"display max-w-4xl text-5xl md:text-7xl","children":"Returns & exchanges."}],"$undefined"]}],["$","section",null,{"className":"container-x pb-24","children":["$","div",null,{"className":"max-w-3xl space-y-10","children":[[["$","div","Signature and collections",{"children":[["$","h2",null,{"className":"font-serif text-2xl md:text-3xl","children":"Signature and collections"}],["$","div",null,{"className":"mt-3 space-y-3 text-sm leading-relaxed text-ink-2 md:text-base","children":[["$","p","0",{"children":"Signature and Limited edition pieces can be returned for a refund, or exchanged for another size, within 14 days of delivery. Pieces must be unworn, unwashed and in their original packaging. Write to us first and we will arrange the return; once it arrives, the refund follows within 14 days. Limited edition pieces can only be exchanged while their size is still in stock."}]]}]]}],["$","div","Made to order",{"children":[["$","h2",null,{"className":"font-serif text-2xl md:text-3xl","children":"Made to order"}],["$","div",null,{"className":"mt-3 space-y-3 text-sm leading-relaxed text-ink-2 md:text-base","children":[["$","p","0",{"children":"A made to order piece is a Signature piece adjusted to your measurements and made for you alone, so it cannot go back on a shelf. You can cancel within 48 hours of ordering for a full refund. After that its fabric has been cut."}],["$","p","1",{"children":"If a made to order piece does not match the measurements agreed, contact us within 14 days of delivery and we will remake it at no cost."}]]}]]}],["$","div","Faults",{"children":[["$","h2",null,{"className":"font-serif text-2xl md:text-3xl","children":"Faults"}],["$","div",null,{"className":"mt-3 space-y-3 text-sm leading-relaxed text-ink-2 md:text-base","children":[["$","p","0",{"children":"If we have made a mistake or the piece is faulty, we will repair, remake or refund it, your choice, and cover all shipping."}]]}]]}],["$","div","Your statutory rights",{"children":[["$","h2",null,{"className":"font-serif text-2xl md:text-3xl","children":"Your statutory rights"}],["$","div",null,{"className":"mt-3 space-y-3 text-sm leading-relaxed text-ink-2 md:text-base","children":["$L1c"]}]]}],"$L1d"],"$L1e"]}]}]],null,"$L1f"]}],"p":"$@20","v":null,"s":"$15"}}]]
+19:[["children",{"s":"returns","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@1a","v":"$18","s":"$15"},"c":"$Q1b"}]]
+16:[["children",{"s":"legal","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}]}]]}],"p":"$@17","v":"$18","s":"$15"},"c":"$Q19"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/c/_next/static/css/83c63fdb5e2097bb.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/c/_next/static/css/bdd2f348a86430e9.css","precedence":"next"}]],["$","html",null,{"lang":"en","className":"__variable_12e3e4 h-full antialiased","children":["$","body",null,{"className":"min-h-full flex flex-col","children":[false,["$","a",null,{"href":"#main","className":"sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper","children":"Skip to content"}],["$","$La",null,{}],["$","$Lb",null,{"children":[["$","$Lc",null,{"children":["$","$Ld",null,{}]}],["$","main",null,{"id":"main","className":"flex-1","children":["$","$Le",null,{"parallelRouterKey":"children","template":["$","$Lf",null,{}],"notFound":[[["$","div",null,{"className":"container-x pt-14 pb-10 md:pt-20 md:pb-14","children":[["$","p",null,{"className":"eyebrow mb-4","children":"404"}],["$","h1",null,{"className":"display max-w-4xl text-5xl md:text-7xl","children":"Not made yet."}],["$","p",null,{"className":"mt-6 max-w-xl text-base leading-relaxed text-ink-2 md:text-lg","children":"That page doesn't exist. Everything that does is in the shop."}]]}],["$","div",null,{"className":"container-x pb-24","children":["$","$L11",null,{"href":"/shop","className":"btn btn-primary","children":"Shop Signature"}]}]],[]]}]}],["$","$Lc",null,{"children":[["$","$L12",null,{}],["$","$L13",null,{}]]}]]}]]}]}]]}],"p":"$@14","v":null,"s":"$15"},"c":"$Q16"},"h":{"r":["$","$1","h",{"children":[null,["$","$L22",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L24",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$25",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Returns & exchanges · Vis Naturæ"}],["$","meta","1",{"name":"description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","meta","3",{"property":"og:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","4",{"property":"og:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","meta","5",{"property":"og:site_name","content":"Vis Naturæ"}],["$","meta","6",{"property":"og:locale","content":"en_IE"}],["$","meta","7",{"property":"og:type","content":"website"}],["$","meta","8",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","9",{"name":"twitter:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","10",{"name":"twitter:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","link","11",{"rel":"icon","href":"/c/favicon.ico?6273870fb0baceee","type":"image/x-icon","sizes":"16x16"}],["$","link","12",{"rel":"icon","href":"/c/icon.png?18605edf135859f3","type":"image/png","sizes":"512x512"}],["$","link","13",{"rel":"apple-touch-icon","href":"/c/apple-icon.png?c587fe86a4bb8519","type":"image/png","sizes":"180x180"}],["$","$L26","14",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@27","v":null,"s":"$15"}},"a":"$@28","u":"$@29","b":"L8W65-gvqh4qeqMpJru9N"}
+2a:I[1442,[],"OutletBoundary"]
+1c:["$","p","0",{"children":"Under EU consumer law you have 14 days from delivery to withdraw from a purchase of Signature or Limited edition pieces. Goods made to the consumer's specifications or clearly personalised, such as made to order pieces, are exempt from that right. Nothing in this policy limits your statutory rights regarding faulty goods."}]
+1d:["$","div","Repairs",{"children":[["$","h2",null,{"className":"font-serif text-2xl md:text-3xl","children":"Repairs"}],["$","div",null,{"className":"mt-3 space-y-3 text-sm leading-relaxed text-ink-2 md:text-base","children":[["$","p","0",{"children":"Repairs are free for the life of the garment. Write to us and we will arrange it."}]]}]]}]
+1e:["$","p",null,{"className":"text-xs text-muted","children":"This is a starting template, not legal advice. Have it reviewed before launch and adapt it to the laws of the country the business is registered in."}]
+1f:["$","$L2a",null,{"children":["$","$25",null,{"name":"Next.MetadataOutlet","children":"$@2b"}]}]
+15:300
+2b:null
+29:true
+15:C
+28:0
+1a:"$undefined"
+17:"$undefined"
+14:"$undefined"
+27:"$undefined"
+20:"$undefined"

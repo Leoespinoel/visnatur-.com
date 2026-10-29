@@ -7,18 +7,24 @@ import { INTRO_DONE_EVENT, IntroOverlay } from "./IntroOverlay";
 /** The streetwear version of the site lives under /v2 with its own header, footer and bag. */
 export const isV2Path = (pathname: string) => pathname === "/v2" || pathname.startsWith("/v2/");
 
-/** The classic site's chrome (header, footer, bag, music): hidden on /v2 pages, which bring their own. */
+/**
+ * Pages without the classic chrome: /v2, which brings its own, and /versions, the page that shows every version of the site
+ * side by side (Leo, 2026-10-29), which stays plain so it doesn't lean towards one of them.
+ */
+const ownChrome = (pathname: string) => isV2Path(pathname) || pathname === "/versions";
+
+/** The classic site's chrome (header, footer, bag, music): hidden on /v2 and /versions. */
 export function ClassicOnly({ children }: { children: ReactNode }) {
-  return isV2Path(usePathname()) ? null : children;
+  return ownChrome(usePathname()) ? null : children;
 }
 
 /**
- * The red-wipe intro, on a full load of a classic page only. A visit that starts on /v2 never plays it, and
+ * The red-wipe intro, on a full load of a classic page only. A visit that starts on /v2 (or /versions) never plays it, and
  * marks it done so the reveal animations and the wordmark on classic pages don't wait for it; once it has
  * played it doesn't come back when the visitor returns from /v2.
  */
 export function ClassicIntro() {
-  const v2 = isV2Path(usePathname());
+  const v2 = ownChrome(usePathname());
   const [eligible] = useState(!v2);
   const [done, setDone] = useState(false);
 

@@ -1,0 +1,8 @@
+:HL["/b/_next/static/media/c214ffb7f5362987-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/b/_next/static/media/da522a9b642f99ae-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/b/_next/static/css/0431707fc202bc71.css","style"]
+:HL["/b/_next/static/css/24d1d4fe5d08de0b.css","style"]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"quayside-chino-short-forest","s":[]},"h":96,"c":"$Q3"}]]
+1:[["children",{"s":"product","h":96,"c":"$Q2"}]]
+0:{"b":"UJrWaIZUHTlAoptI1cL1s","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

@@ -1,0 +1,39 @@
+1:"$Sreact.fragment"
+2:"static/chunks/7164-672faa37e38feec1.js"
+3:"static/chunks/1085-bebff9fd3cd45e8e.js"
+4:"static/chunks/9691-29af36b0e829ae24.js"
+5:"static/chunks/8551-aec0607bf1623653.js"
+6:"static/chunks/9628-8d4d32a55aa5af07.js"
+7:"static/chunks/2043-08f416aac861d070.js"
+8:"static/chunks/2314-4bdcdaa5a55694a4.js"
+9:"static/chunks/app/layout-c80ae78354c9e2cb.js"
+a:I[9724,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"AccountSync"]
+b:I[4981,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"CartProvider"]
+c:I[4929,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"ClassicOnly"]
+d:I[9305,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"Header"]
+e:I[8633,[],""]
+f:I[557,[],""]
+10:"static/chunks/app/page-4b90618ea3aedff2.js"
+11:I[7164,["7164","$2","1085","$3","9691","$4","2043","$7","8974","$10"],""]
+12:I[5290,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"Footer"]
+13:I[2591,["7164","$2","1085","$3","9691","$4","8551","$5","9628","$6","2043","$7","2314","$8","7177","$9"],"CartDrawer"]
+17:I[2332,[],"OutletBoundary"]
+18:"$Sreact.suspense"
+1a:"ViewportBoundary"
+1b:I[2332,[],"$1a"]
+1d:"MetadataBoundary"
+1e:I[2332,[],"$1d"]
+20:I[1739,[],"default",1]
+:HL["/b/_next/static/media/c214ffb7f5362987-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/b/_next/static/media/da522a9b642f99ae-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/b/_next/static/css/0431707fc202bc71.css","style"]
+:HL["/b/_next/static/css/24d1d4fe5d08de0b.css","style"]
+15:X
+16:[["children",{"s":"__PAGE__","h":512,"d":{"r":["$","$1","c",{"children":[[["$","div",null,{"className":"container-x pt-14 pb-10 md:pt-20 md:pb-14","children":[["$","p",null,{"className":"eyebrow mb-4","children":"404"}],["$","h1",null,{"className":"display max-w-4xl text-5xl md:text-7xl","children":"Not made yet."}],["$","p",null,{"className":"mt-6 max-w-xl text-base leading-relaxed text-ink-2 md:text-lg","children":"That page doesn't exist. Everything that does is in the shop."}]]}],["$","div",null,{"className":"container-x pb-24","children":["$","$L11",null,{"href":"/shop","className":"btn btn-primary","children":"Shop Signature"}]}]],null,["$","$L17",null,{"children":["$","$18",null,{"name":"Next.MetadataOutlet","children":"$@19"}]}]]}],"p":false,"v":null}}]]
+14:[["children",{"s":"_not-found","h":512,"d":{"r":["$","$1","c",{"children":[null,["$","$Le",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lf",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$15"},"c":"$Q16"}]]
+0:{"P":null,"c":["","_not-found"],"q":"","i":false,"t":{"t":{"s":"","h":528,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/b/_next/static/css/0431707fc202bc71.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","link","1",{"rel":"stylesheet","href":"/b/_next/static/css/24d1d4fe5d08de0b.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"__variable_fc2463 h-full antialiased","children":["$","body",null,{"className":"min-h-full flex flex-col","children":[false,["$","a",null,{"href":"#main","className":"sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper","children":"Skip to content"}],["$","$La",null,{}],["$","$Lb",null,{"children":[["$","$Lc",null,{"children":["$","$Ld",null,{}]}],["$","main",null,{"id":"main","className":"flex-1","children":["$","$Le",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lf",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","div",null,{"className":"container-x pt-14 pb-10 md:pt-20 md:pb-14","children":[["$","p",null,{"className":"eyebrow mb-4","children":"404"}],["$","h1",null,{"className":"display max-w-4xl text-5xl md:text-7xl","children":"Not made yet."}],["$","p",null,{"className":"mt-6 max-w-xl text-base leading-relaxed text-ink-2 md:text-lg","children":"That page doesn't exist. Everything that does is in the shop."}]]}],["$","div",null,{"className":"container-x pb-24","children":["$","$L11",null,{"href":"/shop","className":"btn btn-primary","children":"Shop Signature"}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","$Lc",null,{"children":[["$","$L12",null,{}],["$","$L13",null,{}]]}]]}]]}]}]]}],"p":false,"v":null},"c":"$Q14"},"h":{"r":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L1b",null,{"children":"$L1c"}],["$","$L1e",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$18",null,{"name":"Next.Metadata","children":"$L1f"}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":false,"v":null}},"m":"$undefined","G":["$20",[]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"UJrWaIZUHTlAoptI1cL1s"}
+15:C
+1c:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+21:I[7469,[],"IconMark"]
+19:null
+1f:[["$","title","0",{"children":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","1",{"name":"description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","meta","3",{"property":"og:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","4",{"property":"og:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","meta","5",{"property":"og:site_name","content":"Vis Naturæ"}],["$","meta","6",{"property":"og:locale","content":"en_IE"}],["$","meta","7",{"property":"og:type","content":"website"}],["$","meta","8",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","9",{"name":"twitter:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","10",{"name":"twitter:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","link","11",{"rel":"icon","href":"/b/favicon.ico?6273870fb0baceee","type":"image/x-icon","sizes":"16x16"}],["$","link","12",{"rel":"icon","href":"/b/icon.png?18605edf135859f3","type":"image/png","sizes":"512x512"}],["$","link","13",{"rel":"apple-touch-icon","href":"/b/apple-icon.png?c587fe86a4bb8519","type":"image/png","sizes":"180x180"}],["$","$L21","14",{}]]

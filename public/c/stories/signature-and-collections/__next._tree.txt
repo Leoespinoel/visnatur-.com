@@ -1,0 +1,8 @@
+:HL["/c/_next/static/media/c214ffb7f5362987-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/c/_next/static/media/da522a9b642f99ae-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/c/_next/static/css/83c63fdb5e2097bb.css","style"]
+:HL["/c/_next/static/css/bdd2f348a86430e9.css","style"]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"signature-and-collections","s":[]},"h":96,"c":"$Q3"}]]
+1:[["children",{"s":"stories","h":96,"c":"$Q2"}]]
+0:{"b":"L8W65-gvqh4qeqMpJru9N","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

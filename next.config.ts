@@ -26,11 +26,23 @@ const nextConfig: NextConfig = {
       { source: "/stories/signature-and-drops", destination: "/stories/signature-and-collections", permanent: true },
       // Shorts & Tees became two categories.
       { source: "/:section(shop|men|women)/shorts-tees", destination: "/:section/tees", permanent: false },
+      /** Version A on /versions is this site from its shop homepage (Leo, 2026-10-29). */
+      { source: "/a", destination: "/home", permanent: false },
     ];
   },
-  /** The partners & press page is a static file in public/; serve it at a clean URL. */
+  /**
+   * The partners & press page is a static file in public/; serve it at a clean URL. Versions B, C and D of the site are static
+   * copies in public/b, public/c and public/d, the same way (Leo, 2026-10-29: "like you did for the pitch"): each page is
+   * a .html file there, its scripts and payloads are plain files, so only the page addresses need mapping.
+   */
   async rewrites() {
-    return { afterFiles: [{ source: "/pitch", destination: "/pitch.html" }] };
+    return {
+      afterFiles: [
+        { source: "/pitch", destination: "/pitch.html" },
+        { source: "/:version(b|c|d)", destination: "/:version/index.html" },
+        { source: "/:version(b|c|d)/:path*", destination: "/:version/:path*.html" },
+      ],
+    };
   },
 };
 

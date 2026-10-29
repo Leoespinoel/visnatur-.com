@@ -1,0 +1,11 @@
+:HL["/d/_next/static/media/c214ffb7f5362987-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/d/_next/static/media/da522a9b642f99ae-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/d/_next/static/css/4da9e858e1f7a019.css","style"]
+:HL["/d/_next/static/css/0b4f97fad71f13f2.css","style"]
+:HL["/d/_next/static/media/bb3ef058b751a6ad-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/d/_next/static/css/f8267b497d52ea55.css","style"]
+4:[["children",{"s":"__PAGE__","h":160}]]
+3:[["children",{"s":{"n":"slug","t":"d","k":"tidal-swim-short-hibiscus","s":[]},"h":96,"c":"$Q4"}]]
+2:[["children",{"s":"product","h":64,"c":"$Q3"}]]
+1:[["children",{"s":"v2","h":32,"c":"$Q2"}]]
+0:{"b":"WMyWTPybwy7DSkNJbdH86","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
