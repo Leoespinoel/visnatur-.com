@@ -1,21 +1,21 @@
 3:"$Sreact.fragment"
-4:I[8633,[],""]
-5:I[557,[],""]
-c:"static/chunks/7164-672faa37e38feec1.js"
-d:"static/chunks/1085-bebff9fd3cd45e8e.js"
-e:"static/chunks/9691-29af36b0e829ae24.js"
-f:"static/chunks/8551-aec0607bf1623653.js"
-10:"static/chunks/1349-8d76957d4156a9f7.js"
-11:"static/chunks/app/v2/product/%5Bslug%5D/page-99892ae38313f671.js"
-12:I[7164,["7164","$c","1085","$d","9691","$e","8551","$f","1349","$10","2753","$11"],""]
-13:I[1085,["7164","$c","1085","$d","9691","$e","8551","$f","1349","$10","2753","$11"],"Image"]
-14:I[6266,["7164","$c","1085","$d","9691","$e","8551","$f","1349","$10","2753","$11"],"V2BuyBox"]
+4:I[7768,[],""]
+5:I[9854,[],""]
+c:"static/chunks/6409-faaae39fdd4ce5b3.js"
+d:"static/chunks/1334-22b2dd01dfc6f66e.js"
+e:"static/chunks/5605-c3e7677ab2d93a42.js"
+f:"static/chunks/2118-64d73c698ab9937d.js"
+10:"static/chunks/6710-c0cf013e7fd58c6a.js"
+11:"static/chunks/app/v2/product/%5Bslug%5D/page-289bdeb4e83c61c5.js"
+12:I[6409,["6409","$c","1334","$d","5605","$e","2118","$f","6710","$10","2753","$11"],""]
+13:I[1334,["6409","$c","1334","$d","5605","$e","2118","$f","6710","$10","2753","$11"],"Image"]
+14:I[9176,["6409","$c","1334","$d","5605","$e","2118","$f","6710","$10","2753","$11"],"V2BuyBox"]
 17:"ViewportBoundary"
-18:I[2332,[],"$17"]
+18:I[1349,[],"$17"]
 19:"MetadataBoundary"
-1a:I[2332,[],"$19"]
+1a:I[1349,[],"$19"]
 1b:"$Sreact.suspense"
-1c:I[7469,[],"IconMark"]
+1c:I[6624,[],"IconMark"]
 7:X
 7:C
 8:X
@@ -23,8 +23,8 @@ b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[[["$"
 9:[["children",{"s":{"n":"slug","t":"d","k":"womens-veranda-linen-trouser-navy","s":[]},"h":96,"d":{"r":["$","$3","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@a","v":"$7","s":"$8"},"c":"$Qb"}]]
 2:[["children",{"s":"product","h":64,"d":{"r":["$","$3","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@6","v":"$7","s":"$8"},"c":"$Q9"}]]
 1:[["children",{"s":"v2","h":32,"c":"$Q2"}]]
-0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L18",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1b",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Women’s Veranda Linen Trouser · Navy · No. 257 · Vis Naturæ"}],["$","meta","1",{"name":"description","content":"The Veranda cut for her: high on the waist, wide and straight to the ankle, with soft pleats at the front. A drawcord at the waist and the VN monogram tone on tone at the hip."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","meta","3",{"property":"og:title","content":"Women’s Veranda Linen Trouser · Navy · No. 257 · Vis Naturæ"}],["$","meta","4",{"property":"og:description","content":"The Veranda cut for her: high on the waist, wide and straight to the ankle, with soft pleats at the front. A drawcord at the waist and the VN monogram tone on tone at the hip."}],["$","meta","5",{"property":"og:image","content":"https://xn--visnatur-q0a.com/b/products/womens-veranda-linen-trouser-navy.jpg?v=3"}],["$","meta","6",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","7",{"name":"twitter:title","content":"Women’s Veranda Linen Trouser · Navy · No. 257 · Vis Naturæ"}],["$","meta","8",{"name":"twitter:description","content":"The Veranda cut for her: high on the waist, wide and straight to the ankle, with soft pleats at the front. A drawcord at the waist and the VN monogram tone on tone at the hip."}],["$","meta","9",{"name":"twitter:image","content":"https://xn--visnatur-q0a.com/b/products/womens-veranda-linen-trouser-navy.jpg?v=3"}],["$","link","10",{"rel":"icon","href":"/b/favicon.ico?6273870fb0baceee","type":"image/x-icon","sizes":"16x16"}],["$","link","11",{"rel":"icon","href":"/b/icon.png?18605edf135859f3","type":"image/png","sizes":"512x512"}],["$","link","12",{"rel":"apple-touch-icon","href":"/b/apple-icon.png?c587fe86a4bb8519","type":"image/png","sizes":"180x180"}],["$","$L1c","13",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1d","v":null,"s":"$8"}},"a":"$@1e","u":"$@1f","b":"UJrWaIZUHTlAoptI1cL1s"}
-20:I[2332,[],"OutletBoundary"]
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L18",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1a",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1b",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Women’s Veranda Linen Trouser · Navy · No. 257 · Vis Naturæ"}],["$","meta","1",{"name":"description","content":"The Veranda cut for her: high on the waist, wide and straight to the ankle, with soft pleats at the front. A drawcord at the waist and the VN monogram tone on tone at the hip."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","meta","3",{"property":"og:title","content":"Women’s Veranda Linen Trouser · Navy · No. 257 · Vis Naturæ"}],["$","meta","4",{"property":"og:description","content":"The Veranda cut for her: high on the waist, wide and straight to the ankle, with soft pleats at the front. A drawcord at the waist and the VN monogram tone on tone at the hip."}],["$","meta","5",{"property":"og:image","content":"https://xn--visnatur-q0a.com/b/products/womens-veranda-linen-trouser-navy.jpg?v=3"}],["$","meta","6",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","7",{"name":"twitter:title","content":"Women’s Veranda Linen Trouser · Navy · No. 257 · Vis Naturæ"}],["$","meta","8",{"name":"twitter:description","content":"The Veranda cut for her: high on the waist, wide and straight to the ankle, with soft pleats at the front. A drawcord at the waist and the VN monogram tone on tone at the hip."}],["$","meta","9",{"name":"twitter:image","content":"https://xn--visnatur-q0a.com/b/products/womens-veranda-linen-trouser-navy.jpg?v=3"}],["$","link","10",{"rel":"icon","href":"/b/favicon.ico?6273870fb0baceee","type":"image/x-icon","sizes":"16x16"}],["$","link","11",{"rel":"icon","href":"/b/icon.png?18605edf135859f3","type":"image/png","sizes":"512x512"}],["$","link","12",{"rel":"apple-touch-icon","href":"/b/apple-icon.png?c587fe86a4bb8519","type":"image/png","sizes":"180x180"}],["$","$L1c","13",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1d","v":null,"s":"$8"}},"a":"$@1e","u":"$@1f","b":"0_vrr6IfRakFOuY3TkNr7"}
+20:I[1349,[],"OutletBoundary"]
 15:["$","$L20",null,{"children":["$","$1b",null,{"name":"Next.MetadataOutlet","children":"$@21"}]}]
 1f:true
 8:300

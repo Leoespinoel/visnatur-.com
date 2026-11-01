@@ -1,22 +1,22 @@
 3:"$Sreact.fragment"
-4:I[8633,[],""]
-5:I[557,[],""]
-c:"static/chunks/7164-672faa37e38feec1.js"
-d:"static/chunks/1085-bebff9fd3cd45e8e.js"
-e:"static/chunks/9691-29af36b0e829ae24.js"
-f:"static/chunks/8551-aec0607bf1623653.js"
-10:"static/chunks/1349-8d76957d4156a9f7.js"
-11:"static/chunks/app/v2/shop/%5Bsection%5D/page-838e6fe10e68f56e.js"
-12:I[7164,["7164","$c","1085","$d","9691","$e","8551","$f","1349","$10","6308","$11"],""]
+4:I[7768,[],""]
+5:I[9854,[],""]
+c:"static/chunks/6409-faaae39fdd4ce5b3.js"
+d:"static/chunks/1334-22b2dd01dfc6f66e.js"
+e:"static/chunks/5605-c3e7677ab2d93a42.js"
+f:"static/chunks/2118-64d73c698ab9937d.js"
+10:"static/chunks/6710-c0cf013e7fd58c6a.js"
+11:"static/chunks/app/v2/shop/%5Bsection%5D/page-9609db65a1f6c9fb.js"
+12:I[6409,["6409","$c","1334","$d","5605","$e","2118","$f","6710","$10","6308","$11"],""]
 13:"$Sreact.suspense"
-14:I[6674,["7164","$c","1085","$d","9691","$e","8551","$f","1349","$10","6308","$11"],"V2ShopFallback"]
-15:I[6674,["7164","$c","1085","$d","9691","$e","8551","$f","1349","$10","6308","$11"],"V2Shop"]
-16:I[2332,[],"OutletBoundary"]
+14:I[5671,["6409","$c","1334","$d","5605","$e","2118","$f","6710","$10","6308","$11"],"V2ShopFallback"]
+15:I[5671,["6409","$c","1334","$d","5605","$e","2118","$f","6710","$10","6308","$11"],"V2Shop"]
+16:I[1349,[],"OutletBoundary"]
 19:"ViewportBoundary"
-1a:I[2332,[],"$19"]
+1a:I[1349,[],"$19"]
 1b:"MetadataBoundary"
-1c:I[2332,[],"$1b"]
-1d:I[7469,[],"IconMark"]
+1c:I[1349,[],"$1b"]
+1d:I[6624,[],"IconMark"]
 7:X
 7:C
 8:X
@@ -24,7 +24,7 @@ b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$3","c",{"children":[[["$"
 9:[["children",{"s":{"n":"section","t":"d","k":"shorts","s":[]},"h":96,"d":{"r":["$","$3","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@a","v":"$7","s":"$8"},"c":"$Qb"}]]
 2:[["children",{"s":"shop","h":64,"d":{"r":["$","$3","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@6","v":"$7","s":"$8"},"c":"$Q9"}]]
 1:[["children",{"s":"v2","h":32,"c":"$Q2"}]]
-0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L1a",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1c",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$13",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Shorts · Vis Naturæ"}],["$","meta","1",{"name":"description","content":"Chino and linen."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","meta","3",{"property":"og:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","4",{"property":"og:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","meta","5",{"property":"og:site_name","content":"Vis Naturæ"}],["$","meta","6",{"property":"og:locale","content":"en_IE"}],["$","meta","7",{"property":"og:type","content":"website"}],["$","meta","8",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","9",{"name":"twitter:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","10",{"name":"twitter:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","link","11",{"rel":"icon","href":"/b/favicon.ico?6273870fb0baceee","type":"image/x-icon","sizes":"16x16"}],["$","link","12",{"rel":"icon","href":"/b/icon.png?18605edf135859f3","type":"image/png","sizes":"512x512"}],["$","link","13",{"rel":"apple-touch-icon","href":"/b/apple-icon.png?c587fe86a4bb8519","type":"image/png","sizes":"180x180"}],["$","$L1d","14",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1e","v":null,"s":"$8"}},"a":"$@1f","u":"$@20","b":"UJrWaIZUHTlAoptI1cL1s"}
+0:{"t":{"t":{"s":"","h":80,"c":"$Q1"},"h":{"r":["$","$3","h",{"children":[null,["$","$L1a",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1c",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$13",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Shorts · Vis Naturæ"}],["$","meta","1",{"name":"description","content":"Chino and linen."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","meta","3",{"property":"og:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","4",{"property":"og:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","meta","5",{"property":"og:site_name","content":"Vis Naturæ"}],["$","meta","6",{"property":"og:locale","content":"en_IE"}],["$","meta","7",{"property":"og:type","content":"website"}],["$","meta","8",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","9",{"name":"twitter:title","content":"Vis Naturæ — Signature, always. Limited edition, once."}],["$","meta","10",{"name":"twitter:description","content":"Vis Naturæ is a clothing label for men and women, made by hand in Mauritius: the Signature line, always in stock, Limited edition pieces in small numbers, and any Signature piece made to order with adjustments. 1/5 of profits goes to creating and sustaining the environments we love wearing the pieces in."}],["$","link","11",{"rel":"icon","href":"/b/favicon.ico?6273870fb0baceee","type":"image/x-icon","sizes":"16x16"}],["$","link","12",{"rel":"icon","href":"/b/icon.png?18605edf135859f3","type":"image/png","sizes":"512x512"}],["$","link","13",{"rel":"apple-touch-icon","href":"/b/apple-icon.png?c587fe86a4bb8519","type":"image/png","sizes":"180x180"}],["$","$L1d","14",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1e","v":null,"s":"$8"}},"a":"$@1f","u":"$@20","b":"0_vrr6IfRakFOuY3TkNr7"}
 17:null
 20:true
 8:300
